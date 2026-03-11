@@ -3,24 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Dutchie Competitive Battlecards</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
+            background: #0f1923;
+            color: #e0e6ed;
+            min-height: 100vh;
         }
-        h1 {
-            font-size: 3rem;
+        header {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0f1923 100%);
+            border-bottom: 1px solid #2a3a4a;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo-area h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .logo-area p {
+            color: #7a8a9a;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .search-box {
+            position: relative;
+        }
+        .search-box input {
+            background: #1a2a3a;
+            border: 1px solid #2a3a4a;
+            border-radius: 8px;
+            color: #e0e6ed;
+            padding: 10px 16px 10px 40px;
+            font-size: 0.9rem;
+            width: 280px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box input:focus { border-color: #4a9eff; }
+        .search-box::before {
+            content: "\1F50D";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 32px; }
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .filter-btn {
+            background: #1a2a3a;
+            border: 1px solid #2a3a4a;
+            border-radius: 20px;
+            color: #7a8a9a;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { border-color: #4a9eff; color: #4a9eff; }
+        .filter-btn.active {
+            background: #4a9eff;
+            border-color: #4a9eff;
+            color: #fff;
+        }
+        .category-section { margin-bottom: 40px; }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1a2a3a;
+        }
+        .category-icon {
+            font-size: 1.3rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .category-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #c0cad4;
+        }
+        .category-count {
+            background: #1a2a3a;
+            color: #7a8a9a;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            background: #152232;
+            border: 1px solid #2a3a4a;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card:hover {
+            border-color: #4a9eff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .card-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .card-category-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .card-desc {
+            font-size: 0.8rem;
+            color: #6a7a8a;
+            line-height: 1.4;
+        }
+        .card-arrow {
+            margin-top: 12px;
+            color: #4a9eff;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        /* Category colors */
+        .cat-payments .category-icon { background: #1a2a1a; }
+        .cat-payments .card-category-tag { background: #1a3a1a; color: #4adf7a; }
+        .cat-ecommerce .category-icon { background: #2a1a2a; }
+        .cat-ecommerce .card-category-tag { background: #3a1a3a; color: #cf6aef; }
+        .cat-platform .category-icon { background: #1a1a2a; }
+        .cat-platform .card-category-tag { background: #1a1a3a; color: #6a9aef; }
+        .cat-marketing .category-icon { background: #2a2a1a; }
+        .cat-marketing .card-category-tag { background: #3a3a1a; color: #efcf4a; }
+        .cat-analytics .category-icon { background: #1a2a2a; }
+        .cat-analytics .card-category-tag { background: #1a3a3a; color: #4adedf; }
+        .cat-delivery .category-icon { background: #2a1a1a; }
+        .cat-delivery .card-category-tag { background: #3a1a1a; color: #ef6a4a; }
+        .cat-supply .category-icon { background: #1a2a1a; }
+        .cat-supply .card-category-tag { background: #1a3020; color: #8adf6a; }
+        .cat-seo .category-icon { background: #2a2a2a; }
+        .cat-seo .card-category-tag { background: #3a3030; color: #dfa06a; }
+        .cat-mobile .category-icon { background: #201a2a; }
+        .cat-mobile .card-category-tag { background: #2a1a3a; color: #af8aef; }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #5a6a7a;
+        }
+        .no-results h3 { font-size: 1.2rem; margin-bottom: 8px; color: #7a8a9a; }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: #152232;
+            border: 1px solid #2a3a4a;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 32px;
+        }
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            color: #7a8a9a;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #fff; }
+        .modal h2 { font-size: 1.4rem; color: #fff; margin-bottom: 8px; }
+        .modal .modal-cat { margin-bottom: 16px; }
+        .modal .modal-section { margin-bottom: 16px; }
+        .modal .modal-section h3 {
+            font-size: 0.85rem;
+            color: #7a8a9a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        .modal .modal-section p {
+            font-size: 0.9rem;
+            color: #c0cad4;
+            line-height: 1.5;
+        }
+        .modal .btn-confluence {
+            display: inline-block;
+            background: #4a9eff;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .modal .btn-confluence:hover { background: #3a8eef; }
+
+        @media (max-width: 600px) {
+            header { padding: 16px; }
+            .container { padding: 16px; }
+            .search-box input { width: 100%; }
+            .modal { padding: 20px; margin: 16px; }
         }
     </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+    <header>
+        <div class="logo-area">
+            <h1>Competitive Battlecards</h1>
+            <p>Dutchie Competitive Intelligence</p>
+        </div>
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Search competitors...">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filters" id="filters"></div>
+        <div id="content"></div>
+        <div class="no-results" id="no-results" style="display:none">
+            <h3>No competitors found</h3>
+            <p>Try a different search or filter.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal"></div>
+    </div>
+
+    <script>
+        const competitors = [
+            { name: "Alleaves", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "POS + Compliance platform targeting regulated cannabis markets", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060457/Competitive+Battlecard+Alleaves" },
+            { name: "Alpine IQ (AIQ)", category: "Loyalty/Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis loyalty, marketing, and customer data platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093185/Competitive+Battlecard+Alpine+IQ+AIQ" },
+            { name: "BLAZE", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "Full-stack cannabis platform with POS, ecommerce, and delivery", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929354/Competitive+Battlecard+BLAZE" },
+            { name: "CanPay", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Debit payment solution for cannabis retailers", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962147/Competitive+Battlecard+CanPay" },
+            { name: "Carrot", category: "Loyalty/Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis CRM and loyalty platform for customer engagement", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060481/Competitive+Battlecard+Carrot" },
+            { name: "Dispense (AIQ Ecommerce)", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Alpine IQ's ecommerce product for dispensary online ordering", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929374/Competitive+Battlecard+Dispense+AIQ+Ecommerce" },
+            { name: "DopeApps", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Mobile app and ecommerce solutions for dispensaries", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060485/Competitive+Battlecard+DopeApps" },
+            { name: "GrowFlow", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, compliance, and seed-to-sale tracking platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093206/Competitive+Battlecard+GrowFlow" },
+            { name: "Headset", category: "Analytics/Data", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Cannabis market data, analytics, and business intelligence", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929414/Competitive+Battlecard+Headset" },
+            { name: "Hypur", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Compliant payment and banking solutions for cannabis", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093226/Competitive+Battlecard+Hypur" },
+            { name: "Jane (iHeartJane)", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis ecommerce marketplace and online ordering platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060437/Competitive+Battlecard+Jane+iHeartJane" },
+            { name: "LeafLink", category: "Supply Chain", catClass: "cat-supply", icon: "\uD83D\uDD17", desc: "B2B cannabis wholesale marketplace and supply chain platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929394/Competitive+Battlecard+LeafLink" },
+            { name: "Listo", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Cannabis payment processing and cashless solutions", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093266/Competitive+Battlecard+Listo" },
+            { name: "Onfleet", category: "Delivery", catClass: "cat-delivery", icon: "\uD83D\uDE9A", desc: "Last-mile delivery management and logistics platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093246/Competitive+Battlecard+Onfleet" },
+            { name: "POSaBIT", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Cannabis payments platform expanding into POS solutions", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962127/Competitive+Battlecard+POSaBIT" },
+            { name: "Rank Really High", category: "SEO", catClass: "cat-seo", icon: "\uD83D\uDD0D", desc: "Cannabis-focused SEO and digital marketing agency", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060477/Competitive+Battlecard+Rank+Really+High" },
+            { name: "Surfside", category: "Loyalty/Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis adtech, audience data, and marketing platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093286/Competitive+Battlecard+Surfside" },
+            { name: "Treez", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "Full-stack cannabis platform with POS, ecommerce, and payments", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060417/Competitive+Battlecard+Treez" },
+            { name: "Weedmaps", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis marketplace, listings, and ecommerce platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" }
+        ];
+
+        const categoryOrder = [
+            "Full Platform", "Payments", "Ecommerce", "Loyalty/Marketing",
+            "Analytics/Data", "Delivery", "Supply Chain", "SEO", "Mobile Apps"
+        ];
+
+        let activeFilter = "All";
+        let searchQuery = "";
+
+        function getCategories() {
+            const cats = [...new Set(competitors.map(c => c.category))];
+            return categoryOrder.filter(c => cats.includes(c));
+        }
+
+        function renderFilters() {
+            const cats = getCategories();
+            const el = document.getElementById("filters");
+            el.innerHTML = `<button class="filter-btn ${activeFilter === 'All' ? 'active' : ''}" data-cat="All">All (${competitors.length})</button>` +
+                cats.map(c => {
+                    const count = competitors.filter(x => x.category === c).length;
+                    return `<button class="filter-btn ${activeFilter === c ? 'active' : ''}" data-cat="${c}">${c} (${count})</button>`;
+                }).join("");
+
+            el.querySelectorAll(".filter-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    activeFilter = btn.dataset.cat;
+                    render();
+                });
+            });
+        }
+
+        function render() {
+            renderFilters();
+            const filtered = competitors.filter(c => {
+                const matchCat = activeFilter === "All" || c.category === activeFilter;
+                const matchSearch = !searchQuery || c.name.toLowerCase().includes(searchQuery) || c.category.toLowerCase().includes(searchQuery) || c.desc.toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            const content = document.getElementById("content");
+            const noResults = document.getElementById("no-results");
+
+            if (filtered.length === 0) {
+                content.innerHTML = "";
+                noResults.style.display = "block";
+                return;
+            }
+            noResults.style.display = "none";
+
+            const groups = {};
+            categoryOrder.forEach(cat => {
+                const items = filtered.filter(c => c.category === cat);
+                if (items.length > 0) groups[cat] = items;
+            });
+
+            content.innerHTML = Object.entries(groups).map(([cat, items]) => {
+                const sample = items[0];
+                return `
+                <div class="category-section ${sample.catClass}">
+                    <div class="category-header">
+                        <div class="category-icon">${sample.icon}</div>
+                        <h2>${cat}</h2>
+                        <span class="category-count">${items.length}</span>
+                    </div>
+                    <div class="cards-grid">
+                        ${items.map(c => `
+                            <div class="card" data-name="${c.name}" onclick="openModal('${c.name.replace(/'/g, "\\'")}')">
+                                <div class="card-name">${c.name}</div>
+                                <span class="card-category-tag">${c.category}</span>
+                                <div class="card-desc">${c.desc}</div>
+                                <div class="card-arrow">View Battlecard &rarr;</div>
+                            </div>
+                        `).join("")}
+                    </div>
+                </div>`;
+            }).join("");
+        }
+
+        function openModal(name) {
+            const c = competitors.find(x => x.name === name);
+            if (!c) return;
+            const modal = document.getElementById("modal");
+            modal.innerHTML = `
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2>${c.name}</h2>
+                <div class="modal-cat"><span class="card-category-tag" style="font-size:0.8rem">${c.icon} ${c.category}</span></div>
+                <div class="modal-section">
+                    <h3>Overview</h3>
+                    <p>${c.desc}</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Full Battlecard</h3>
+                    <p>Access the complete competitive analysis including strengths, weaknesses, pricing, objection handling, and win/loss data on Confluence.</p>
+                </div>
+                <a class="btn-confluence" href="${c.url}" target="_blank" rel="noopener">Open in Confluence &rarr;</a>
+            `;
+            document.getElementById("modal-overlay").classList.add("active");
+        }
+
+        function closeModal() {
+            document.getElementById("modal-overlay").classList.remove("active");
+        }
+
+        document.getElementById("modal-overlay").addEventListener("click", function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") closeModal();
+        });
+
+        document.getElementById("search").addEventListener("input", function() {
+            searchQuery = this.value.toLowerCase().trim();
+            render();
+        });
+
+        render();
+    </script>
 </body>
 </html>
