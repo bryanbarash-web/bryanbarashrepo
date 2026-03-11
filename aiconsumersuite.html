@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie Consumer AI — The Cannabis Industry's First Unified AI Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#fff;--bg:#1a3a2a;--bg-light:#224832;--border:rgba(255,255,255,.08);--border-dark:rgba(255,255,255,.12);
+  --text:#f0f4f2;--text-dim:#a8b8af;--text-muted:#7a8f82;--text-light:#5a6e62;
+  --green:#00d4a0;--green-dark:#00b88a;--green-light:rgba(0,212,160,.12);--green-bg:rgba(0,212,160,.06);
+  --blue:#7ab8f5;--blue-dark:#5a9fdf;--blue-light:rgba(122,184,245,.12);--blue-bg:rgba(122,184,245,.06);
+  --red:#f07070;--red-bg:rgba(240,112,112,.08);--red-light:rgba(240,112,112,.12);
+  --purple:#a78bfa;--purple-light:rgba(167,139,250,.08);
+  --orange:#e8944a;--orange-light:rgba(232,148,74,.08);--orange-bg:rgba(232,148,74,.05);
+  --gold:#d4a843;
+  --yellow:#d4a843;--yellow-dark:#b8923a;
+  --navy:#0f2920;--navy-mid:#2d5a46;--navy-light:#4a7a66;
+  --card-bg:rgba(255,255,255,.04);--card-border:rgba(255,255,255,.07);
+  --radius:10px;--radius-sm:8px;--radius-lg:16px;
+  --shadow:0 2px 8px rgba(0,0,0,0.18);
+  --shadow-md:0 4px 20px rgba(0,0,0,0.22);
+  --shadow-lg:0 8px 40px rgba(0,0,0,0.28);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat','Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);font-size:15px;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;background-image:radial-gradient(circle at 20% 50%,rgba(0,212,160,.04) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(0,100,70,.06) 0%,transparent 40%)}
+a{color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s}
+a:hover{color:rgba(255,255,255,.9);text-decoration:none}
+
+/* ===== STICKY NAV ===== */
+.site-header{position:sticky;top:0;z-index:1000;background:rgba(15,41,32,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
+.site-header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.3)}
+.header-inner{max-width:1440px;margin:0 auto;padding:10px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo:hover{text-decoration:none}
+.logo svg{height:24px;width:auto;display:block}
+nav{display:flex;gap:2px;background:rgba(255,255,255,.04);border-radius:12px;padding:3px;border:1px solid rgba(255,255,255,.06)}
+nav a{padding:6px 14px;border-radius:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);transition:all .25s;text-decoration:none;white-space:nowrap}
+nav a:hover{color:rgba(255,255,255,.8);text-decoration:none}
+nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(0,212,160,.25)}
+
+/* ===== CONTAINER ===== */
+.container{max-width:1240px;margin:0 auto;padding:0 32px}
+
+/* ===== HERO ===== */
+.hero{padding:100px 0 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(0,212,160,.08) 0%,transparent 60%);pointer-events:none}
+.hero h1{font-size:clamp(38px,5vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-bottom:20px;color:var(--text)}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#00d4a0 0%,#5eead4 50%,#00d4a0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:17px;color:var(--text-dim);max-width:640px;margin:0 auto 36px;line-height:1.7;font-weight:400}
+.hero-ctas{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;background:var(--green);color:#fff;font-weight:700;font-size:15px;transition:all .3s;box-shadow:0 4px 20px rgba(0,212,160,.25);border:none;cursor:pointer;text-decoration:none}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,160,.35);text-decoration:none;color:#fff;background:var(--green-dark)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:12px;font-size:15px;font-weight:600;color:var(--text-dim);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);transition:all .2s;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px)}
+.btn-outline:hover{border-color:rgba(255,255,255,.25);color:var(--text);text-decoration:none;transform:translateY(-1px);background:rgba(255,255,255,.08)}
+
+/* ===== FADE IN ===== */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-left{opacity:0;transform:translateX(-20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in-left.visible{opacity:1;transform:translateX(0)}
+.fade-in-right{opacity:0;transform:translateX(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in-right.visible{opacity:1;transform:translateX(0)}
+
+/* ===== PRODUCT SECTIONS ===== */
+.product-section{padding:90px 0}
+.product-section:nth-child(odd){border-top:1px solid rgba(255,255,255,.05)}
+.product-section:nth-child(even){border-top:1px solid rgba(255,255,255,.05)}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.product-grid.reverse .product-text{order:2}
+.product-grid.reverse .product-mockup{order:1}
+.product-label{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.label-phone{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-light)}
+.label-ecommerce{background:var(--purple-light);color:var(--purple);border:1px solid rgba(167,139,250,.12)}
+.label-register{background:var(--green-bg);color:var(--green);border:1px solid var(--green-light)}
+.label-sentiment{background:var(--orange-light);color:var(--orange);border:1px solid rgba(232,148,74,.15)}
+.product-text h2{font-size:clamp(28px,3vw,38px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px;color:var(--text)}
+.product-text .tagline{font-size:16px;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:16px;font-style:italic}
+.product-text p{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:20px;font-weight:400}
+.feature-list{list-style:none;padding:0;margin-bottom:24px}
+.feature-list li{padding:6px 0;font-size:14px;color:var(--text-dim);display:flex;align-items:flex-start;gap:10px;line-height:1.5;font-weight:400}
+.feature-list li::before{content:'';display:inline-block;width:20px;height:20px;flex-shrink:0;margin-top:1px;background:rgba(0,212,160,.15);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 8l3 3 5-5' stroke='%2300d4a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:14px;background-repeat:no-repeat;background-position:center}
+.stat-callouts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.stat-callout{padding:8px 16px;border-radius:10px;background:var(--card-bg);border:1px solid var(--card-border);font-size:12px;font-weight:600;color:var(--text);backdrop-filter:blur(8px)}
+.stat-callout span{display:block;font-size:10px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
+/* ===== MOCKUP FRAMES ===== */
+.mockup-frame{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);box-shadow:var(--shadow-lg);backdrop-filter:blur(8px)}
+.mockup-bar{height:34px;background:rgba(0,0,0,.3);display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.mockup-bar .dot{width:10px;height:10px;border-radius:50%}
+.mockup-bar .dot.r{background:rgba(240,112,112,.6)}
+.mockup-bar .dot.y{background:rgba(212,168,67,.6)}
+.mockup-bar .dot.g{background:rgba(0,212,160,.5)}
+.mockup-bar .title{margin-left:12px;font-size:11px;font-weight:600;color:var(--navy-light)}
+.mockup-body{padding:20px;min-height:400px}
+
+/* Phone mockup */
+.phone-mockup{max-width:340px;margin:0 auto;border-radius:36px;background:rgba(0,0,0,.6);padding:12px;box-shadow:var(--shadow-lg),0 0 0 1px rgba(255,255,255,.08)}
+.phone-screen{border-radius:26px;overflow:hidden;background:rgba(255,255,255,.95)}
+.phone-status-bar{background:rgba(0,0,0,.8);padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#fff;font-weight:600}
+.phone-header{background:linear-gradient(135deg,#1a3a2a,#2d5a46);padding:14px 16px;color:#fff}
+.phone-header h4{font-size:14px;font-weight:700;margin-bottom:2px}
+.phone-header p{font-size:11px;opacity:.8}
+.phone-chat{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:320px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.5;color:#333}
+.chat-msg.customer{background:#eef0f2;border:1px solid #ddd;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-msg.ai{background:#f0f2f4;border:1px solid #dcdfe3;color:#333;align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg .sender{font-size:10px;font-weight:700;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.chat-msg.ai .sender{color:#555}
+.sms-link{display:block;margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--green-dark);color:#fff;font-size:11px;font-weight:700;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,212,160,.15)}
+.chat-typing{display:flex;gap:4px;padding:6px 0;align-self:flex-start}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:#888;animation:typing 1.4s infinite}
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+/* Ecommerce chat mockup */
+.ecom-mockup{background:rgba(255,255,255,.03);border-radius:16px;border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow-lg);overflow:hidden;backdrop-filter:blur(8px)}
+.ecom-header{background:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.2));padding:16px 20px;color:#fff;display:flex;align-items:center;gap:12px}
+.ecom-header-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:18px}
+.ecom-header h4{font-size:14px;font-weight:700}
+.ecom-header p{font-size:11px;opacity:.8}
+.ecom-chat{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:300px}
+.ecom-product-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-top:4px}
+.ecom-product-row{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.ecom-product-img{width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:22px}
+.ecom-product-name{font-size:13px;font-weight:700;color:var(--text)}
+.ecom-product-detail{font-size:11px;color:var(--text-muted)}
+.ecom-product-price{font-size:14px;font-weight:800;color:var(--text)}
+.ecom-product-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.ecom-tag{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;background:rgba(255,255,255,.08);color:var(--text);border:1px solid rgba(255,255,255,.12)}
+.ecom-add-btn{margin-top:8px;padding:8px 16px;border-radius:10px;background:var(--green-dark);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;width:100%;text-align:center;box-shadow:0 2px 8px rgba(0,212,160,.15)}
+.ecom-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.15)}
+.ecom-input input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);font-size:13px;font-family:inherit;outline:none;color:var(--text-dim)}
+.ecom-input button{padding:10px 18px;border-radius:10px;background:var(--green-dark);color:#fff;border:none;font-weight:700;font-size:13px;cursor:pointer}
+
+/* Register mockup */
+.register-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);box-shadow:var(--shadow-lg);backdrop-filter:blur(8px)}
+.register-layout{display:grid;grid-template-columns:1fr 280px}
+.register-cart{padding:16px;border-right:1px solid rgba(255,255,255,.06)}
+.register-cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.register-ai{padding:16px;background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,rgba(255,255,255,.01) 100%)}
+.register-ai-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.register-ai-header .icon{width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:14px}
+.register-ai-header h4{font-size:13px;font-weight:700;color:var(--text)}
+.register-ai-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;margin-bottom:10px;transition:all .3s}
+.register-ai-card:hover{box-shadow:0 2px 12px rgba(255,255,255,.06)}
+.register-ai-card .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:4px}
+.register-ai-card .title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.register-ai-card .desc{font-size:11px;color:var(--text-dim);line-height:1.5}
+.register-ai-card .action-btn{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:6px;background:var(--green-dark);color:#fff;font-size:10px;font-weight:700;border:none;cursor:pointer;box-shadow:0 2px 6px rgba(0,212,160,.12)}
+.register-ai-card.upsell{border-left:3px solid var(--blue);background:rgba(122,184,245,.03)}
+.register-ai-card.loyalty{border-left:3px solid var(--gold)}
+.register-ai-card.compliance{border-left:3px solid rgba(0,212,160,.5);background:rgba(0,212,160,.03)}
+.register-script{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;margin-bottom:10px}
+.register-script .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px}
+.register-script p{font-size:11px;color:var(--text);line-height:1.5}
+.register-script em{color:var(--text);font-style:normal;font-weight:700}
+
+/* Sentiment dashboard mockup */
+.sentiment-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);box-shadow:var(--shadow-lg);backdrop-filter:blur(8px)}
+.sentiment-body{padding:20px}
+.sentiment-top-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.sentiment-tab{padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--text-dim);cursor:pointer}
+.sentiment-tab.active{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.2)}
+.sentiment-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.metric-card{padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);text-align:center}
+.metric-card .value{font-size:24px;font-weight:800;color:var(--text)}
+.metric-card .value.up{color:var(--green)}
+.metric-card .value.down{color:var(--red)}
+.metric-card .label{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.metric-card .change{font-size:11px;font-weight:600;margin-top:2px}
+.metric-card .change.positive{color:rgba(0,212,160,.8)}
+.metric-card .change.negative{color:var(--red)}
+.sentiment-chart{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px;margin-bottom:20px;position:relative;height:180px;overflow:hidden}
+.sentiment-chart .chart-title{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.chart-area{position:relative;height:130px;display:flex;align-items:flex-end;gap:3px}
+.chart-bar{flex:1;border-radius:4px 4px 0 0;transition:height .6s ease;position:relative}
+.chart-bar.green{background:linear-gradient(180deg,rgba(0,212,160,.7),rgba(0,212,160,.25))}
+.chart-bar.red{background:linear-gradient(180deg,rgba(240,112,112,.7),rgba(240,112,112,.25))}
+.chart-bar.blue{background:linear-gradient(180deg,rgba(122,184,245,.7),rgba(122,184,245,.25))}
+.chart-line{position:absolute;bottom:0;left:0;right:0;height:100%}
+.chart-line svg{width:100%;height:100%}
+.sentiment-alerts{display:flex;flex-direction:column;gap:10px}
+.alert-card{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);display:flex;gap:12px;align-items:flex-start;transition:all .3s}
+.alert-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-1px);box-shadow:var(--shadow)}
+.alert-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.alert-icon.trending{background:var(--green-bg)}
+.alert-icon.warning{background:var(--orange-light)}
+.alert-icon.insight{background:var(--blue-bg)}
+.alert-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
+.alert-desc{font-size:11px;color:var(--text-dim);line-height:1.5}
+.alert-meta{display:flex;gap:8px;margin-top:6px;font-size:10px;color:var(--text-muted)}
+.alert-source{padding:2px 6px;border-radius:4px;background:var(--bg-light);font-weight:600}
+.brand-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.brand-score-card{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
+.brand-score-card .name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
+.brand-score-card .score{font-size:20px;font-weight:800}
+.brand-score-card .score.high{color:var(--green)}
+.brand-score-card .score.mid{color:var(--orange)}
+.brand-score-card .score.low{color:var(--red)}
+.brand-score-card .bar{height:4px;border-radius:2px;background:var(--border);margin-top:6px;overflow:hidden}
+.brand-score-card .bar-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.brand-score-card .platform{font-size:10px;color:var(--text-muted);margin-top:4px}
+
+/* ===== BOTTOM CTA ===== */
+.bottom-cta{padding:100px 0;text-align:center;position:relative}
+.bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(0,212,160,.06) 0%,transparent 60%);pointer-events:none}
+.bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto}
+.bottom-cta p{font-size:16px;color:var(--text-dim);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
+
+/* ===== AGENT REVIEW SECTION ===== */
+.review-section{padding:60px 0;border-top:1px solid rgba(255,255,255,.05)}
+.review-section .section-title{font-size:26px;font-weight:700;letter-spacing:-.02em;text-align:center;margin-bottom:8px}
+.review-section .section-subtitle{font-size:14px;color:var(--text-dim);text-align:center;margin-bottom:32px;font-weight:400}
+.squad-label{text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:16px}
+.squad-bar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.squad-agent{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:11px;font-weight:600;color:var(--text-dim);transition:all .3s}
+.squad-agent:hover{border-color:rgba(255,255,255,.2);color:var(--text);transform:translateY(-1px)}
+.squad-agent .emoji{font-size:16px}
+.verdicts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.verdict-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;transition:all .3s}
+.verdict-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.verdict-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.verdict-emoji{font-size:20px}
+.verdict-agent{font-size:12px;font-weight:700;color:var(--text)}
+.verdict-badge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.verdict-badge.love{background:var(--green-bg);color:var(--green);border:1px solid var(--green-light)}
+.verdict-badge.like{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-light)}
+.verdict-badge.concern{background:var(--orange-light);color:var(--orange);border:1px solid rgba(232,148,74,.15)}
+.verdict-text{font-size:12px;color:var(--text-dim);line-height:1.6;font-weight:400}
+.verdict-text strong{color:var(--text);font-weight:600}
+
+/* ===== FOOTER ===== */
+.site-footer{padding:28px 0;border-top:1px solid rgba(255,255,255,.05);text-align:center}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:10px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-size:13px;font-weight:500;color:var(--text-muted)}
+.footer-links a:hover{color:var(--text);text-decoration:none}
+.footer-copy{font-size:12px;color:var(--text-light);font-weight:400}
+
+/* ===== RESPONSIVE ===== */
+
+/* --- Tablets (1024px) --- */
+@media(max-width:1024px){
+  .header-inner{padding:8px 20px}
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .product-grid{grid-template-columns:1fr;gap:32px}
+  .product-grid.reverse .product-text{order:1}
+  .product-grid.reverse .product-mockup{order:2}
+  .register-layout{grid-template-columns:1fr}
+  .register-cart{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+  .sentiment-metrics{grid-template-columns:repeat(2,1fr)}
+  .brand-scores{grid-template-columns:1fr 1fr}
+  .verdicts-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .container{padding:0 24px}
+}
+
+/* --- Phones (768px) --- */
+@media(max-width:768px){
+  nav{display:none}
+  .logo svg{height:20px}
+  .header-inner{padding:8px 16px}
+  .hero{padding:60px 0 40px}
+  .hero h1{font-size:32px}
+  .hero p{font-size:15px;margin-bottom:24px}
+  .product-section{padding:40px 0}
+  .product-grid{gap:24px}
+  .product-text h2{font-size:26px}
+  .bottom-cta{padding:50px 0}
+  .bottom-cta h2{font-size:28px}
+  .review-section{padding:40px 0}
+  .review-section .section-title{font-size:22px}
+  .phone-mockup{max-width:280px}
+  .mockup-body{min-height:280px;padding:14px}
+  .phone-chat{min-height:240px;padding:10px}
+  .ecom-chat{min-height:220px;padding:12px}
+  .sentiment-body{padding:14px}
+  .sentiment-metrics{grid-template-columns:1fr}
+  .brand-scores{grid-template-columns:1fr}
+  .feature-list li{font-size:13px}
+  .stat-callouts{flex-direction:column}
+  .footer-inner{gap:8px}
+  .footer-links{gap:12px}
+  .footer-links a{font-size:12px}
+  .verdict-card{padding:12px}
+  .metric-card{padding:10px}
+  .alert-card{padding:10px}
+  .register-ai-card{padding:10px}
+  .btn-primary{width:100%;justify-content:center}
+  .btn-outline{width:100%;justify-content:center}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .container{padding:0 16px}
+  .squad-bar{gap:6px}
+  .squad-agent{padding:5px 10px;font-size:10px}
+  .sentiment-top-bar{gap:8px}
+  .sentiment-tab{padding:5px 12px;font-size:11px}
+}
+
+/* --- Small phones (480px) --- */
+@media(max-width:480px){
+  .hero h1{font-size:26px;margin-bottom:14px}
+  .hero p{font-size:14px;margin-bottom:20px}
+  .hero{padding:40px 0 30px}
+  .product-section{padding:30px 0}
+  .product-text h2{font-size:22px}
+  .product-text p{font-size:13px}
+  .product-text .tagline{font-size:14px}
+  .bottom-cta{padding:40px 0}
+  .bottom-cta h2{font-size:24px}
+  .bottom-cta p{font-size:14px}
+  .review-section{padding:30px 0}
+  .review-section .section-title{font-size:20px}
+  .review-section .section-subtitle{font-size:12px}
+  .container{padding:0 12px}
+  .header-inner{padding:6px 12px}
+  .logo svg{height:18px}
+  .phone-mockup{max-width:260px;padding:8px;border-radius:28px}
+  .phone-screen{border-radius:20px}
+  .mockup-body{min-height:220px;padding:10px}
+  .phone-chat{min-height:200px;padding:8px;gap:8px}
+  .ecom-chat{min-height:180px;padding:10px;gap:8px}
+  .chat-msg{font-size:11px;padding:8px 10px}
+  .ecom-input{padding:8px 12px}
+  .ecom-input input{padding:8px 10px;font-size:12px}
+  .ecom-input button{padding:8px 14px;font-size:12px}
+  .sentiment-body{padding:10px}
+  .sentiment-metrics{grid-template-columns:1fr}
+  .metric-card .value{font-size:20px}
+  .brand-scores{grid-template-columns:1fr}
+  .verdicts-grid{grid-template-columns:1fr}
+  .verdict-card{padding:10px}
+  .squad-bar{gap:4px}
+  .squad-agent{padding:4px 8px;font-size:9px}
+  .squad-agent .emoji{font-size:13px}
+  .stat-callouts{gap:6px}
+  .stat-callout{padding:6px 12px;font-size:11px}
+  .feature-list li{font-size:12px;gap:8px}
+  .feature-list li::before{width:16px;height:16px;background-size:11px}
+  .btn-primary{padding:12px 24px;font-size:14px}
+  .btn-outline{padding:11px 20px;font-size:14px}
+  .register-ai-card{padding:8px}
+  .register-ai-card .title{font-size:11px}
+  .register-ai-card .desc{font-size:10px}
+  .register-script{padding:10px}
+  .register-script p{font-size:10px}
+  .alert-card{padding:8px;gap:8px}
+  .alert-icon{width:28px;height:28px;font-size:14px}
+  .footer-links{gap:10px}
+  .footer-links a{font-size:11px}
+  .footer-copy{font-size:11px}
+  .site-footer{padding:20px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="top-header">
+<div class="header-inner">
+  <a class="logo" href="#">
+    <svg width="270" height="44" viewBox="0 0 270 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M39.6556 30.7439C37.4413 31.9376 35.0355 32.8328 32.7255 33.3618C30.0874 33.9587 27.3809 34.1621 24.6881 33.9587C20.1637 33.5788 15.7759 31.5171 12.7551 28.126C12.386 27.719 12.0853 27.2171 11.5112 27.0815C10.5954 26.878 9.95294 27.502 9.73424 28.3294C7.50619 36.5359 15.0788 44.3625 23.3759 43.6843C30.8391 43.2367 37.7283 38.9097 41.2959 32.3852C41.5146 32.0054 41.501 31.5713 41.2823 31.2051C40.9542 30.6354 40.2297 30.4183 39.6556 30.7439Z" fill="white"/><path d="M20.9843 2.23146C23.1303 3.54721 25.126 5.16137 26.7389 6.88405C28.5842 8.85089 30.1152 11.0755 31.2907 13.4899C33.218 17.5728 33.6008 22.361 32.1655 26.661C31.9878 27.19 31.7008 27.6919 31.8785 28.248C32.1655 29.1297 33.013 29.3738 33.8605 29.1568C42.1439 26.9594 45.1784 16.5555 40.4353 9.75971C36.3072 3.56077 29.09-.183005 21.6131.00689668C21.1757.0204611 20.7929.237495 20.5879.603734C20.2462 1.15987 20.4239 1.90591 20.9843 2.23146Z" fill="white"/><path d="M22.9655 15.5788C21.2843 15.3346 19.5893 15.7416 18.2224 16.7453C17.5116 17.2608 16.9238 17.9119 16.4864 18.6715C15.2152 20.8553 15.3656 23.5818 16.8828 25.6029C17.8943 26.9593 19.3843 27.8546 21.0655 28.0987C22.7468 28.3429 24.4418 27.936 25.8087 26.9322C26.5195 26.4168 27.1072 25.7657 27.5446 25.0061C28.8159 22.8222 28.6655 20.0957 27.1482 18.0746C26.1504 16.7182 24.6605 15.823 22.9655 15.5788Z" fill="white"/><path d="M21.1758 10.7228C21.7225 10.6143 22.3103 10.6007 22.7067 10.1802C23.3355 9.48842 23.1304 8.63386 22.5016 8.02346C16.4463 2.00086 5.83915 4.60523 2.28521 12.0792C-1.05002 18.7258-.721961 26.7966 3.18737 33.1312C3.41974 33.511 3.7888 33.7144 4.22621 33.7144C4.88232 33.7144 5.42908 33.199 5.42908 32.5479C5.49743 30.0521 5.9075 27.5291 6.60462 25.2774C7.39742 22.7137 8.57295 20.2857 10.1039 18.0611C12.7147 14.358 16.706 11.6316 21.1758 10.7228Z" fill="white"/><path d="M56.3321 35.5204C55.8849 35.5204 55.5225 35.1603 55.5225 34.716V18.4756C55.5225 18.0313 55.8849 17.6712 56.3321 17.6712H58.2722C58.7193 17.6712 59.0817 18.0313 59.0817 18.4756V34.716C59.0817 35.1603 58.7193 35.5204 58.2722 35.5204H56.3321Z" fill="white"/><path d="M59.7357 10.6086C59.7357 11.9471 58.6437 13.0322 57.2966 13.0322C55.9495 13.0322 54.8574 11.9471 54.8574 10.6086C54.8574 9.27002 55.9495 8.18492 57.2966 8.18492C58.6437 8.18492 59.7357 9.27002 59.7357 10.6086Z" fill="white"/><path d="M65.7309 35.5205C65.3136 35.5205 64.9753 35.182 64.9753 34.7644V15.3068C64.9753 14.8892 65.3136 14.5507 65.7309 14.5507H67.7789C68.1962 14.5507 68.5345 14.8892 68.5345 15.3068V18.5034C70.0001 16.007 72.5543 14.2179 75.7786 14.2179C80.1752 14.2179 83.3157 17.172 83.3157 21.6239V34.7644C83.3157 35.182 82.9774 35.5205 82.5601 35.5205H80.5121C80.0948 35.5205 79.7565 35.182 79.7565 34.7644V22.2896C79.7565 19.4603 77.956 17.4216 74.983 17.4216C71.0469 17.4216 68.5345 20.7917 68.5345 26.3254V34.7644C68.5345 35.182 68.1962 35.5205 67.7789 35.5205H65.7309Z" fill="white"/><path d="M99.5018 34.7781C99.5281 35.1181 99.3246 35.4373 98.9957 35.5267C98.1082 35.768 97.1733 35.8533 96.2384 35.8533C92.6374 35.8533 89.9994 33.8562 89.9994 29.2379V17.6712H86.8189C86.4016 17.6712 86.0633 17.3327 86.0633 16.9151V15.3068C86.0633 14.8892 86.4016 14.5507 86.8189 14.5507H89.9994V8.94101C89.9994 8.52344 90.3376 8.18492 90.7549 8.18492H92.803C93.2203 8.18492 93.5586 8.52343 93.5586 8.94101V14.5507H98.4558C98.8731 14.5507 99.2114 14.8892 99.2114 15.3068V16.9151C99.2114 17.3327 98.8731 17.6712 98.4558 17.6712H93.5586V29.3627C93.5586 31.5678 94.8147 32.6496 96.6572 32.6496C97.1582 32.6496 97.7042 32.6049 98.2414 32.4799C98.763 32.3586 99.3403 32.6915 99.3816 33.2258L99.5018 34.7781Z" fill="white"/><path d="M101.954 25.0356C101.954 19.0859 105.806 14.2179 112.171 14.2179C118.41 14.2179 122.262 18.6698 122.262 24.0786C122.262 24.3539 122.249 24.7049 122.231 25.0273C122.209 25.4117 121.887 25.7013 121.503 25.7013H105.513C105.764 29.9452 108.444 32.7328 112.255 32.7328C115.171 32.7328 117.265 31.5071 118.103 29.3329C118.253 28.9443 118.654 28.6911 119.059 28.7867L120.926 29.2273C121.338 29.3245 121.593 29.7427 121.453 30.1425C120.188 33.7666 116.811 35.8533 112.255 35.8533C105.932 35.8533 101.954 30.9853 101.954 25.0356ZM105.722 22.7472H118.494C118.159 19.5435 115.897 17.172 112.171 17.172C108.863 17.172 106.434 19.2523 105.722 22.7472Z" fill="white"/><path d="M127.6 35.5205C127.183 35.5205 126.844 35.182 126.844 34.7644V6.81907C126.844 6.4015 127.183 6.06299 127.6 6.06299H129.648C130.065 6.06299 130.404 6.4015 130.404 6.81907V34.7644C130.404 35.182 130.065 35.5205 129.648 35.5205H127.6Z" fill="white"/><path d="M136.923 35.5205C136.506 35.5205 136.168 35.182 136.168 34.7644V6.81907C136.168 6.4015 136.506 6.06299 136.923 6.06299H138.971C139.389 6.06299 139.727 6.4015 139.727 6.81907V34.7644C139.727 35.182 139.389 35.5205 138.971 35.5205H136.923Z" fill="white"/><path d="M146.359 35.5204C145.912 35.5204 145.55 35.1603 145.55 34.716V18.4756C145.55 18.0314 145.912 17.6712 146.359 17.6712H148.299C148.746 17.6712 149.109 18.0314 149.109 18.4756V34.716C149.109 35.1603 148.746 35.5204 148.299 35.5204H146.359Z" fill="white"/><path d="M147.093 6.1999C147.16 6.01848 147.418 6.01848 147.486 6.1999L148.046 7.70465C148.429 8.73135 149.243 9.54084 150.277 9.92076L151.791 10.4776C151.974 10.5447 151.974 10.8013 151.791 10.8684L150.277 11.4252C149.243 11.8052 148.429 12.6146 148.046 13.6413L147.486 15.1461C147.418 15.3275 147.16 15.3275 147.093 15.1461L146.532 13.6413C146.15 12.6146 145.335 11.8052 144.302 11.4252L142.788 10.8684C142.605 10.8013 142.605 10.5447 142.788 10.4776L144.302 9.92076C145.335 9.54084 146.15 8.73135 146.532 7.70465L147.093 6.1999Z" fill="white"/><path d="M163.649 34.9796C157.159 34.9796 153.6 30.5277 153.6 24.6195C153.6 18.6698 157.159 14.2179 163.566 14.2179C166.371 14.2179 169.135 15.5493 170.391 17.38V15.3068C170.391 14.8892 170.729 14.5507 171.147 14.5507H173.153C173.57 14.5507 173.908 14.8892 173.908 15.3068V34.5219C173.908 39.8059 169.888 43.4257 164.068 43.4257C159.493 43.4257 155.867 41.176 154.896 37.7947C154.781 37.3943 155.062 37.0036 155.473 36.934L157.358 36.6141C157.793 36.5404 158.191 36.8583 158.332 37.276C158.971 39.1699 161.227 40.43 164.068 40.43C167.795 40.43 170.391 38.1833 170.391 34.8964V31.9839C169.428 33.773 166.664 34.9796 163.649 34.9796ZM157.243 24.6195C157.243 28.9882 159.881 31.8175 163.984 31.8175C168.046 31.8175 170.684 28.9882 170.684 24.6195C170.684 20.2092 168.046 17.38 163.984 17.38C159.881 17.38 157.243 20.2092 157.243 24.6195Z" fill="white"/><path d="M178.462 25.0356C178.462 19.0859 182.314 14.2179 188.679 14.2179C194.918 14.2179 198.77 18.6698 198.77 24.0786C198.77 24.3539 198.758 24.7049 198.739 25.0273C198.717 25.4117 198.396 25.7013 198.011 25.7013H182.021C182.272 29.9452 184.952 32.7328 188.763 32.7328C191.679 32.7328 193.774 31.5071 194.612 29.3329C194.761 28.9443 195.162 28.6911 195.567 28.7867L197.434 29.2273C197.846 29.3245 198.101 29.7427 197.961 30.1425C196.696 33.7666 193.319 35.8533 188.763 35.8533C182.44 35.8533 178.462 30.9853 178.462 25.0356ZM182.231 22.7472H195.002C194.667 19.5435 192.406 17.172 188.679 17.172C185.371 17.172 182.942 19.2523 182.231 22.7472Z" fill="white"/><path d="M204.108 35.5205C203.691 35.5205 203.352 35.182 203.352 34.7644V15.3068C203.352 14.8892 203.691 14.5507 204.108 14.5507H206.156C206.573 14.5507 206.912 14.8892 206.912 15.3068V18.5034C208.377 16.007 210.931 14.2179 214.156 14.2179C218.552 14.2179 221.693 17.172 221.693 21.6239V34.7644C221.693 35.182 221.355 35.5205 220.937 35.5205H218.889C218.472 35.5205 218.134 35.182 218.134 34.7644V22.2896C218.134 19.4603 216.333 17.4216 213.36 17.4216C209.424 17.4216 206.912 20.7917 206.912 26.3254V34.7644C206.912 35.182 206.573 35.5205 206.156 35.5205H204.108Z" fill="white"/><path d="M236.732 35.8533C230.452 35.8533 226.264 31.5262 226.264 25.0356C226.264 18.545 230.452 14.2179 236.732 14.2179C241.341 14.2179 244.801 16.5745 245.823 20.3178C245.931 20.7152 245.663 21.1064 245.26 21.1875L243.224 21.5969C242.809 21.6803 242.412 21.404 242.277 21.0032C241.553 18.8599 239.489 17.38 236.816 17.38C232.671 17.38 229.991 20.4173 229.991 25.0356C229.991 29.6539 232.671 32.6912 236.816 32.6912C239.521 32.6912 241.568 31.3477 242.356 29.0055C242.489 28.6117 242.881 28.3478 243.288 28.4306L245.281 28.8361C245.693 28.9199 245.96 29.3251 245.841 29.7281C244.692 33.6032 241.306 35.8533 236.732 35.8533Z" fill="white"/><path d="M249.245 25.0356C249.245 19.0859 253.098 14.2179 259.462 14.2179C265.701 14.2179 269.554 18.6698 269.554 24.0786C269.554 24.3539 269.541 24.7049 269.523 25.0273C269.501 25.4117 269.179 25.7013 268.794 25.7013H252.804C253.056 29.9452 255.736 32.7328 259.546 32.7328C262.463 32.7328 264.557 31.5071 265.395 29.3329C265.545 28.9443 265.945 28.6911 266.35 28.7867L268.217 29.2273C268.629 29.3245 268.884 29.7427 268.745 30.1425C267.48 33.7666 264.102 35.8533 259.546 35.8533C253.223 35.8533 249.245 30.9853 249.245 25.0356ZM253.014 22.7472H265.785C265.45 19.5435 263.189 17.172 259.462 17.172C256.154 17.172 253.726 19.2523 253.014 22.7472Z" fill="white"/></svg>
+  </a>
+  <nav id="main-nav">
+    <a href="#hero">Overview</a>
+    <a href="#phone">Phone</a>
+    <a href="#ecommerce">Ecommerce</a>
+    <a href="#register">Register</a>
+    <a href="#sentiment">Sentiment</a>
+    <a href="#reviews">Reviews</a>
+  </nav>
+</div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+<div class="container">
+  <h1 class="fade-in">Meet <span class="gradient-text">Dutchie Consumer AI</span></h1>
+  <p class="fade-in">What if your most knowledgeable, highest-converting budtender could be everywhere at once&mdash;and also had its ear to every corner of the internet?</p>
+  <div class="hero-ctas fade-in">
+    <a href="#" class="btn-primary">
+      Request a Demo
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
+    </a>
+    <a href="video.html" class="btn-outline">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="6,3 13,8 6,13" fill="currentColor"/></svg>
+      Watch Video
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 1: ON THE PHONE                -->
+<!-- ====================================== -->
+<section class="product-section" id="phone">
+<div class="container">
+  <div class="product-grid">
+    <div class="product-text fade-in-left">
+      <div class="product-label label-phone">On the Phone</div>
+      <h2>The 24/7 Voice<br>Receptionist</h2>
+      <div class="tagline">Every call answered instantly. Every caller converted.</div>
+      <p>Dutchie Consumer AI picks up every phone call on the first ring, handles live inventory checks, store hours, daily deals, and compliance FAQs &mdash; then texts a deep link straight to your Dutchie Ecommerce menu. Phone calls become online pickup orders. Floor staff are never interrupted.</p>
+      <ul class="feature-list">
+        <li>Instantly answers every call &mdash; zero hold time, 24/7</li>
+        <li>Live inventory lookups, store hours, and daily deal info</li>
+        <li>Texts deep link to Dutchie menu &mdash; converts call to online order</li>
+        <li>Handles compliance FAQs so budtenders stay on the floor</li>
+        <li>Floor staff never interrupted by routine phone inquiries</li>
+      </ul>
+      <div class="stat-callouts">
+        <div class="stat-callout"><span>Hold Time</span>Zero</div>
+        <div class="stat-callout"><span>Coverage</span>24/7</div>
+        <div class="stat-callout"><span>Conversion</span>Call &rarr; Order</div>
+      </div>
+    </div>
+    <div class="product-mockup fade-in-right">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-status-bar">
+            <span>9:41 AM</span>
+            <span>Dutchie Consumer AI</span>
+            <span>&#x1F50B;</span>
+          </div>
+          <div class="phone-header">
+            <h4>Green Leaf Dispensary</h4>
+            <p>AI Voice Assistant</p>
+          </div>
+          <div class="phone-chat">
+            <div class="chat-msg customer">
+              <div class="sender">Caller</div>
+              Hey, do you guys have any indica edibles in stock? Looking for something around 10mg.
+            </div>
+            <div class="chat-msg ai">
+              <div class="sender">Dutchie Consumer AI</div>
+              Absolutely! We have 12 indica edible options in stock right now. Our top sellers are Wyld Marionberry Gummies (10mg, $32) and CANN Social Tonics (5mg, $18). Would you like more details?
+            </div>
+            <div class="chat-msg customer">
+              <div class="sender">Caller</div>
+              The Wyld gummies sound great. Can I order those?
+            </div>
+            <div class="chat-msg ai">
+              <div class="sender">Dutchie Consumer AI</div>
+              I'll text you a direct link to add them to your cart for pickup. You'll be able to complete the order and choose a pickup time.
+              <a class="sms-link" href="#">&#x1F4F1; Link sent via SMS &rarr; Order for Pickup</a>
+            </div>
+            <div class="chat-typing">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 2: ECOMMERCE & KIOSKS          -->
+<!-- ====================================== -->
+<section class="product-section" id="ecommerce">
+<div class="container">
+  <div class="product-grid reverse">
+    <div class="product-text fade-in-right">
+      <div class="product-label label-ecommerce">On Ecommerce &amp; Kiosks</div>
+      <h2>The Virtual<br>Concierge</h2>
+      <div class="tagline">A digital sommelier for cannabis. On web and in-store kiosks.</div>
+      <p>Customers ask natural questions like "What's your best indica for sleep under $40?" and Dutchie Consumer AI curates products, explains terpene profiles, and suggests smart add-ons. Works seamlessly on your Dutchie Ecommerce site and in-store kiosk displays.</p>
+      <ul class="feature-list">
+        <li>Interactive digital sommelier on web and in-store kiosks</li>
+        <li>Natural conversation &mdash; no menus, just ask</li>
+        <li>Curates products by effect, price, terpene profile, and more</li>
+        <li>Suggests complementary add-ons to boost basket size</li>
+        <li>Learns from purchase patterns to improve recommendations</li>
+      </ul>
+      <div class="stat-callouts">
+        <div class="stat-callout"><span>Impact</span>AOV Boost</div>
+        <div class="stat-callout"><span>Interface</span>Natural Language</div>
+        <div class="stat-callout"><span>Channels</span>Web + Kiosk</div>
+      </div>
+    </div>
+    <div class="product-mockup fade-in-left">
+      <div class="ecom-mockup">
+        <div class="ecom-header">
+          <div class="ecom-header-icon">&#x2728;</div>
+          <div>
+            <h4>Dutchie Consumer AI Concierge</h4>
+            <p>Ask me anything about our products</p>
+          </div>
+        </div>
+        <div class="ecom-chat">
+          <div class="chat-msg customer" style="align-self:flex-end">
+            <div class="sender">You</div>
+            What's your best indica for sleep under $40?
+          </div>
+          <div class="chat-msg ai" style="align-self:flex-start;max-width:90%">
+            <div class="sender">Dutchie Consumer AI</div>
+            Great question! For sleep, I'd recommend these two based on their terpene profiles and customer reviews:
+          </div>
+          <div class="ecom-product-card">
+            <div class="ecom-product-row">
+              <div class="ecom-product-img">&#x1F33F;</div>
+              <div style="flex:1">
+                <div class="ecom-product-name">Granddaddy Purple &mdash; 3.5g</div>
+                <div class="ecom-product-detail">Indica &bull; 24% THC &bull; By: Purple City Genetics</div>
+              </div>
+              <div class="ecom-product-price">$35</div>
+            </div>
+            <div class="ecom-product-tags">
+              <span class="ecom-tag">Myrcene</span>
+              <span class="ecom-tag">Linalool</span>
+              <span class="ecom-tag">Sleep Aid</span>
+              <span class="ecom-tag" style="background:rgba(212,168,67,.15);color:var(--gold);border-color:rgba(212,168,67,.25)">Top Rated</span>
+            </div>
+            <button class="ecom-add-btn">Add to Cart &mdash; $35.00</button>
+          </div>
+          <div class="chat-msg ai" style="align-self:flex-start;max-width:90%">
+            <div class="sender">Dutchie Consumer AI</div>
+            Pair it with our <strong>Midnight CBN Gummies ($18)</strong> for the ultimate sleep stack. The linalool in the flower + CBN creates a powerful entourage effect.
+          </div>
+        </div>
+        <div class="ecom-input">
+          <input type="text" placeholder="Ask about products, effects, deals..." disabled>
+          <button>Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 3: AT THE REGISTER             -->
+<!-- ====================================== -->
+<section class="product-section" id="register">
+<div class="container">
+  <div class="product-grid">
+    <div class="product-text fade-in-left">
+      <div class="product-label label-register">At the Register</div>
+      <h2>The Budtender<br>Co-Pilot</h2>
+      <div class="tagline">Sell smarter without breaking eye contact.</div>
+      <p>Built directly into the Dutchie register, the Co-Pilot provides real-time cart analysis, upsell prompts, loyalty tier nudges, and instant compliance verification. Budtenders see exactly what to say and when &mdash; no training manual required.</p>
+      <ul class="feature-list">
+        <li>Real-time cart analysis with contextual upsell prompts</li>
+        <li>Suggested scripts: "They're buying a premium sativa &frac18;th &mdash; pitch the matching $5 pre-roll promo"</li>
+        <li>Loyalty nudges: "$10 away from VIP rewards tier"</li>
+        <li>Instantly verifies purchase limits for compliance</li>
+        <li>Zero training needed &mdash; AI does the thinking</li>
+      </ul>
+      <div class="stat-callouts">
+        <div class="stat-callout"><span>Upsells</span>Real-Time</div>
+        <div class="stat-callout"><span>Compliance</span>Auto-Check</div>
+        <div class="stat-callout"><span>Training</span>None Needed</div>
+      </div>
+    </div>
+    <div class="product-mockup fade-in-right">
+      <div class="register-mockup">
+        <div class="mockup-bar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="title">Dutchie POS &mdash; Register 03 &nbsp;|&nbsp; AI Co-Pilot</span>
+        </div>
+        <div class="register-layout">
+          <!-- Cart side -->
+          <div class="register-cart">
+            <div class="register-cart-header">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(0,212,160,.6),rgba(45,212,191,.5));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff">MR</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700">Marcus Rivera</div>
+                  <div style="font-size:10px;color:var(--text-muted)">Silver Member &bull; 8 orders</div>
+                </div>
+              </div>
+              <span style="padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(255,255,255,.1);color:var(--text-dim);border:1px solid rgba(255,255,255,.12)">SILVER</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);margin-bottom:8px">
+              <div style="width:40px;height:40px;border-radius:8px;background:var(--bg-light);display:flex;align-items:center;justify-content:center;font-size:18px">&#x1F33F;</div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:600">Blue Dream &mdash; 3.5g</div>
+                <div style="font-size:10px;color:var(--text-muted)">Sativa &bull; 27% THC &bull; Cookies</div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--text)">$48.00</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);margin-bottom:8px">
+              <div style="width:40px;height:40px;border-radius:8px;background:var(--bg-light);display:flex;align-items:center;justify-content:center;font-size:18px">&#x1F36C;</div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:600">Kiva Camino Pineapple</div>
+                <div style="font-size:10px;color:var(--text-muted)">Sativa &bull; 5mg &bull; 20-pack</div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--text)">$22.00</div>
+            </div>
+            <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-bottom:4px"><span>Subtotal</span><span>$70.00</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-bottom:4px"><span>Tax (18.5%)</span><span>$12.95</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:var(--text);margin-top:6px"><span>Total</span><span style="color:var(--text)">$82.95</span></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <button style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.05);font-weight:600;font-size:12px;cursor:pointer;font-family:inherit;color:var(--text-dim)">Hold</button>
+              <button style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--green);color:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Checkout &rarr;</button>
+            </div>
+          </div>
+          <!-- AI Panel side -->
+          <div class="register-ai">
+            <div class="register-ai-header">
+              <div class="icon">&#x1F916;</div>
+              <h4>Co-Pilot</h4>
+            </div>
+            <div class="register-ai-card upsell">
+              <div class="label">&#x2B50; Upsell Opportunity</div>
+              <div class="title">Sativa Pre-Roll 2-Pack &mdash; $5 promo</div>
+              <div class="desc">Pairs perfectly with Blue Dream. This week's promo: buy any sativa flower, add a pre-roll 2-pack for $5.</div>
+              <button class="action-btn">+ Add to Cart</button>
+            </div>
+            <div class="register-script">
+              <div class="label">&#x1F4AC; Suggested Script</div>
+              <p>"Hey Marcus &mdash; since you're grabbing the Blue Dream, we have a <em>$5 sativa pre-roll deal</em> this week. Want me to toss those in?"</p>
+            </div>
+            <div class="register-ai-card loyalty">
+              <div class="label">&#x1F3C6; Loyalty Nudge</div>
+              <div class="title">$10 away from Gold tier!</div>
+              <div class="desc">Marcus needs $10 more spend to unlock Gold member benefits including 10% off every purchase.</div>
+              <div style="margin-top:8px;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:88%;background:linear-gradient(90deg,rgba(212,168,67,.6),rgba(212,168,67,.8));border-radius:3px"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);margin-top:4px"><span>440 pts</span><span>500 pts (Gold)</span></div>
+            </div>
+            <div class="register-ai-card compliance">
+              <div class="label">&#x2705; Compliance Check</div>
+              <div class="title">All clear</div>
+              <div class="desc">Purchase within daily limits. ID verified. All products compliant.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 4: SENTIMENT COMMAND CENTER    -->
+<!-- ====================================== -->
+<section class="product-section" id="sentiment">
+<div class="container">
+  <div class="product-grid reverse">
+    <div class="product-text fade-in-right">
+      <div class="product-label label-sentiment">Across the Internet</div>
+      <h2>Reputation &amp; Sentiment<br>Command Center</h2>
+      <div class="tagline">Know what the internet thinks before it hits your bottom line.</div>
+      <p>Dutchie Consumer AI continuously scans Reddit, Leafly, Weedmaps, and Google Reviews across three levels: your overall brand, individual store locations, and every product you carry. Sentiment trends are mapped over time with actionable alerts.</p>
+      <ul class="feature-list">
+        <li>Scans Reddit, Leafly, Weedmaps, Google Reviews continuously</li>
+        <li>Three tracking levels: brand, store, and product</li>
+        <li>Trends mapped over time with anomaly detection</li>
+        <li>Actionable alerts: "New live rosin brand generating 4.8-star buzz on Leafly and Reddit &mdash; add before competitors"</li>
+        <li>"East Side location sentiment dropped 12% &mdash; traced to 'long wait' mentions on Google"</li>
+        <li>"That flower brand you stock? Reddit sentiment sliding 3 weeks &mdash; reduce next PO"</li>
+      </ul>
+      <div class="stat-callouts">
+        <div class="stat-callout"><span>Monitoring</span>Real-Time</div>
+        <div class="stat-callout"><span>Levels</span>3 Tracking</div>
+        <div class="stat-callout"><span>Alerts</span>Actionable</div>
+      </div>
+    </div>
+    <div class="product-mockup fade-in-left">
+      <div class="sentiment-mockup">
+        <div class="mockup-bar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="title">Dutchie Consumer AI &mdash; Sentiment Command Center</span>
+        </div>
+        <div class="sentiment-body">
+          <!-- Tabs -->
+          <div class="sentiment-top-bar">
+            <div class="sentiment-tab active">Brand Overview</div>
+            <div class="sentiment-tab">By Store</div>
+            <div class="sentiment-tab">By Product</div>
+            <div class="sentiment-tab">Alerts</div>
+          </div>
+          <!-- Metrics -->
+          <div class="sentiment-metrics">
+            <div class="metric-card">
+              <div class="label">Overall Sentiment</div>
+              <div class="value up">4.6</div>
+              <div class="change positive">+0.3 vs last month</div>
+            </div>
+            <div class="metric-card">
+              <div class="label">Mentions (7d)</div>
+              <div class="value">847</div>
+              <div class="change positive">+12% volume</div>
+            </div>
+            <div class="metric-card">
+              <div class="label">Positive Rate</div>
+              <div class="value up">78%</div>
+              <div class="change positive">+5pp</div>
+            </div>
+            <div class="metric-card">
+              <div class="label">Alert Queue</div>
+              <div class="value down">3</div>
+              <div class="change negative">2 require action</div>
+            </div>
+          </div>
+          <!-- Chart -->
+          <div class="sentiment-chart">
+            <div class="chart-title">Sentiment Score &mdash; Last 12 Weeks</div>
+            <div class="chart-area" id="sentimentChart">
+              <!-- Bars injected by JS -->
+            </div>
+          </div>
+          <!-- Brand Scores -->
+          <div class="brand-scores">
+            <div class="brand-score-card">
+              <div class="name">Blue Dream (Cookies)</div>
+              <div class="score high">4.8</div>
+              <div class="bar"><div class="bar-fill" style="width:96%;background:var(--green)"></div></div>
+              <div class="platform">Leafly &bull; Reddit &bull; Weedmaps</div>
+            </div>
+            <div class="brand-score-card">
+              <div class="name">Live Rosin (710 Labs)</div>
+              <div class="score high">4.7</div>
+              <div class="bar"><div class="bar-fill" style="width:94%;background:var(--green)"></div></div>
+              <div class="platform">Reddit &bull; Leafly</div>
+            </div>
+            <div class="brand-score-card">
+              <div class="name">Midnight Vape Cart</div>
+              <div class="score mid">3.2</div>
+              <div class="bar"><div class="bar-fill" style="width:64%;background:var(--orange)"></div></div>
+              <div class="platform">Google &bull; Weedmaps</div>
+            </div>
+          </div>
+          <!-- Alerts -->
+          <div class="sentiment-alerts">
+            <div class="alert-card">
+              <div class="alert-icon trending">&#x1F4C8;</div>
+              <div>
+                <div class="alert-title">New live rosin brand generating 4.8-star buzz</div>
+                <div class="alert-desc">710 Labs Live Rosin trending on Leafly and Reddit with exceptional reviews. Consider adding to inventory before competitors stock it.</div>
+                <div class="alert-meta">
+                  <span class="alert-source">Leafly</span>
+                  <span class="alert-source">Reddit</span>
+                  <span>2 hours ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="alert-card">
+              <div class="alert-icon warning">&#x26A0;&#xFE0F;</div>
+              <div>
+                <div class="alert-title">East Side location sentiment dropped 12%</div>
+                <div class="alert-desc">Traced to "long wait time" mentions on Google Reviews. 8 new reviews in 5 days mention wait times exceeding 20 minutes.</div>
+                <div class="alert-meta">
+                  <span class="alert-source">Google Reviews</span>
+                  <span>5 hours ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="alert-card">
+              <div class="alert-icon insight">&#x1F4CA;</div>
+              <div>
+                <div class="alert-title">Midnight Vape Cart &mdash; Reddit sentiment sliding 3 weeks</div>
+                <div class="alert-desc">Consistent downward trend in r/trees and r/vaporents. Common complaints: taste quality and cartridge leaking. Recommend reducing next PO.</div>
+                <div class="alert-meta">
+                  <span class="alert-source">Reddit</span>
+                  <span class="alert-source">Weedmaps</span>
+                  <span>1 day ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== BOTTOM CTA ===== -->
+<section class="bottom-cta" id="cta">
+<div class="container">
+  <div class="fade-in">
+    <h2>Automate the routine.<br>Maximize the basket.<br><span style="background:linear-gradient(135deg,#00d4a0,#5eead4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Own your reputation.</span></h2>
+    <p>Dutchie Consumer AI works across every touchpoint &mdash; phone, web, kiosk, register, and the open internet &mdash; so you never miss a sale or a signal.</p>
+    <a href="#" class="btn-primary" style="font-size:17px;padding:16px 40px">
+      Request a Demo
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- ===== AGENT REVIEW SECTION ===== -->
+<section class="review-section" id="reviews">
+<div class="container">
+  <div class="fade-in">
+    <div class="squad-label">Review Agent Squad</div>
+    <div class="squad-bar">
+      <div class="squad-agent"><span class="emoji">&#x1F4E3;</span> PMM Agent</div>
+      <div class="squad-agent"><span class="emoji">&#x1F3A8;</span> Design Agent</div>
+      <div class="squad-agent"><span class="emoji">&#x1F454;</span> Executive</div>
+      <div class="squad-agent"><span class="emoji">&#x2699;&#xFE0F;</span> Ops Lead</div>
+      <div class="squad-agent"><span class="emoji">&#x1F6E1;&#xFE0F;</span> Compliance</div>
+    </div>
+    <h3 class="section-title" style="font-size:24px;margin-bottom:6px">Agent Squad Verdict</h3>
+    <p class="section-subtitle">Five AI agents reviewed this marketing page from their unique perspectives.</p>
+  </div>
+  <div class="verdicts-grid fade-in">
+    <div class="verdict-card">
+      <div class="verdict-top">
+        <div class="verdict-emoji">&#x1F4E3;</div>
+        <div>
+          <div class="verdict-agent">PMM Agent</div>
+          <span class="verdict-badge love">Strong</span>
+        </div>
+      </div>
+      <div class="verdict-text">
+        <strong>Positioning is razor-sharp.</strong> "Unified AI suite" differentiates clearly from point solutions. The phone-to-order conversion story is the strongest hook &mdash; lead with it in paid. The four-touchpoint narrative (phone, web, register, internet) creates a moat story no competitor can match. Recommend adding ROI calculator for enterprise buyers.
+      </div>
+    </div>
+    <div class="verdict-card">
+      <div class="verdict-top">
+        <div class="verdict-emoji">&#x1F3A8;</div>
+        <div>
+          <div class="verdict-agent">Design Agent</div>
+          <span class="verdict-badge love">Polished</span>
+        </div>
+      </div>
+      <div class="verdict-text">
+        <strong>Visual hierarchy is excellent.</strong> Alternating layouts maintain scroll engagement. The phone mockup and sentiment dashboard are standout sections &mdash; they feel like real product screenshots. Card-on-gray pattern creates strong depth. The sticky nav provides wayfinding on a long page. Consider adding micro-interactions to the dashboard charts for extra delight.
+      </div>
+    </div>
+    <div class="verdict-card">
+      <div class="verdict-top">
+        <div class="verdict-emoji">&#x1F454;</div>
+        <div>
+          <div class="verdict-agent">Executive</div>
+          <span class="verdict-badge love">Ship It</span>
+        </div>
+      </div>
+      <div class="verdict-text">
+        <strong>This tells a platform story, not a feature story.</strong> Each section answers a real pain point dispensary operators face daily: missed calls, low AOV, undertrained staff, and reputation blind spots. The sentiment command center is the most differentiated &mdash; no competitor offers this. This positions Dutchie as the intelligence layer, not just the POS.
+      </div>
+    </div>
+    <div class="verdict-card">
+      <div class="verdict-top">
+        <div class="verdict-emoji">&#x2699;&#xFE0F;</div>
+        <div>
+          <div class="verdict-agent">Ops Lead</div>
+          <span class="verdict-badge like">Practical</span>
+        </div>
+      </div>
+      <div class="verdict-text">
+        <strong>The "floor staff never interrupted" angle resonates.</strong> Biggest ops cost in dispensaries is labor allocation. Phone AI eliminates the #1 source of floor disruption. Co-Pilot upsells work because they require zero training &mdash; script cards mean any new hire can perform like a veteran budtender on day one. The sentiment alerts turn reactive ops into proactive ones.
+      </div>
+    </div>
+    <div class="verdict-card">
+      <div class="verdict-top">
+        <div class="verdict-emoji">&#x1F6E1;&#xFE0F;</div>
+        <div>
+          <div class="verdict-agent">Compliance</div>
+          <span class="verdict-badge concern">Watch</span>
+        </div>
+      </div>
+      <div class="verdict-text">
+        <strong>Two items to flag.</strong> (1) Phone AI must clearly identify as AI at call start &mdash; several states now require disclosure. Ensure the voice intro includes "AI assistant" language. (2) Ecommerce concierge product recommendations must not make medical claims. "Best for sleep" is borderline &mdash; recommend "popular for evening use" instead. Otherwise, compliance checks at register are a strong selling point.
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+<div class="container">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Design Review Site</a>
+      <a href="#">Dutchie.com</a>
+      <a href="#">Documentation</a>
+      <a href="#">Privacy</a>
+    </div>
+    <div class="footer-copy">Dutchie Consumer AI &mdash; The cannabis industry's first unified AI suite. &copy; 2026 Dutchie.</div>
+  </div>
+</div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// Sticky header shadow
+const header = document.getElementById('top-header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Active nav link tracking
+const navLinks = document.querySelectorAll('#main-nav a');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+
+// Fade-in on scroll
+const fadeEls = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+fadeEls.forEach(el => observer.observe(el));
+
+// Sentiment chart bars
+const chartArea = document.getElementById('sentimentChart');
+if (chartArea) {
+  const data = [72, 68, 74, 71, 76, 80, 78, 82, 79, 85, 83, 88];
+  const max = 100;
+  data.forEach((val, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'chart-bar green';
+    bar.style.height = '0%';
+    bar.title = 'Week ' + (i + 1) + ': ' + val + '%';
+    chartArea.appendChild(bar);
+    setTimeout(() => {
+      bar.style.height = val + '%';
+    }, 200 + i * 80);
+  });
+}
+</script>
+</body>
+</html>
