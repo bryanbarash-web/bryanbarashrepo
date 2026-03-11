@@ -198,9 +198,10 @@
         }
 
         /* Category tag colors — using brand palette */
+        .cat-pos .card-category-tag { background: var(--dark-green-light); color: var(--light-green); }
         .cat-payments .card-category-tag { background: var(--medium-green); color: var(--sand); }
         .cat-ecommerce .card-category-tag { background: var(--purple); color: var(--sand); }
-        .cat-platform .card-category-tag { background: var(--dark-green-light); color: var(--light-green); }
+        .cat-platform .card-category-tag { background: var(--dark-green-light); color: var(--sand); }
         .cat-marketing .card-category-tag { background: rgba(255,192,42,0.2); color: var(--yellow); }
         .cat-analytics .card-category-tag { background: var(--medium-green); color: var(--light-green); }
         .cat-delivery .card-category-tag { background: var(--purple); color: var(--sand); }
@@ -333,30 +334,33 @@
 
     <script>
         const competitors = [
-            { name: "Alleaves", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "POS + Compliance platform targeting regulated cannabis markets", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060457/Competitive+Battlecard+Alleaves" },
-            { name: "Alpine IQ (AIQ)", category: "Loyalty/Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis loyalty, marketing, and customer data platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093185/Competitive+Battlecard+Alpine+IQ+AIQ" },
+            { name: "Alleaves", category: "POS / Seed-to-Sale", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS and compliance platform targeting regulated cannabis markets with seed-to-sale tracking", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060457/Competitive+Battlecard+Alleaves" },
+            { name: "Alpine IQ (AIQ)", category: "Loyalty / Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis loyalty, marketing, and CRM data platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093185/Competitive+Battlecard+Alpine+IQ+AIQ" },
             { name: "BLAZE", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "Full-stack cannabis platform with POS, ecommerce, and delivery", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929354/Competitive+Battlecard+BLAZE" },
             { name: "CanPay", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Debit payment solution for cannabis retailers", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962147/Competitive+Battlecard+CanPay" },
-            { name: "Carrot", category: "Loyalty/Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis CRM and loyalty platform for customer engagement", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060481/Competitive+Battlecard+Carrot" },
+            { name: "Carrot", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Cannabis mobile app platform for dispensary customer engagement", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060481/Competitive+Battlecard+Carrot" },
             { name: "Dispense (AIQ Ecommerce)", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Alpine IQ's ecommerce product for dispensary online ordering", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929374/Competitive+Battlecard+Dispense+AIQ+Ecommerce" },
             { name: "DopeApps", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Mobile app and ecommerce solutions for dispensaries", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060485/Competitive+Battlecard+DopeApps" },
-            { name: "GrowFlow", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, compliance, and seed-to-sale tracking platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093206/Competitive+Battlecard+GrowFlow" },
-            { name: "Headset", category: "Analytics/Data", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Cannabis market data, analytics, and business intelligence", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929414/Competitive+Battlecard+Headset" },
+            { name: "GrowFlow", category: "POS / Seed-to-Sale", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, compliance, and seed-to-sale tracking platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093206/Competitive+Battlecard+GrowFlow" },
+            { name: "Headset", category: "Analytics / Data", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Cannabis market data, analytics, and business intelligence", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929414/Competitive+Battlecard+Headset" },
             { name: "Hypur", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Compliant payment and banking solutions for cannabis", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093226/Competitive+Battlecard+Hypur" },
             { name: "Jane (iHeartJane)", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis ecommerce marketplace and online ordering platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060437/Competitive+Battlecard+Jane+iHeartJane" },
-            { name: "LeafLink", category: "Supply Chain", catClass: "cat-supply", icon: "\uD83D\uDD17", desc: "B2B cannabis wholesale marketplace and supply chain platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929394/Competitive+Battlecard+LeafLink" },
-            { name: "Listo", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Cannabis payment processing and cashless solutions", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093266/Competitive+Battlecard+Listo" },
-            { name: "Onfleet", category: "Delivery", catClass: "cat-delivery", icon: "\uD83D\uDE9A", desc: "Last-mile delivery management and logistics platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093246/Competitive+Battlecard+Onfleet" },
-            { name: "POSaBIT", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Cannabis payments platform expanding into POS solutions", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962127/Competitive+Battlecard+POSaBIT" },
-            { name: "Rank Really High", category: "SEO", catClass: "cat-seo", icon: "\uD83D\uDD0D", desc: "Cannabis-focused SEO and digital marketing agency", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060477/Competitive+Battlecard+Rank+Really+High" },
-            { name: "Surfside", category: "Loyalty/Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis adtech, audience data, and marketing platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093286/Competitive+Battlecard+Surfside" },
-            { name: "Treez", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "Full-stack cannabis platform with POS, ecommerce, and payments", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060417/Competitive+Battlecard+Treez" },
-            { name: "Weedmaps", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis marketplace, listings, and ecommerce platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" }
+            { name: "LeafLink", category: "Wholesale / B2B", catClass: "cat-supply", icon: "\uD83D\uDD17", desc: "B2B cannabis wholesale marketplace and supply chain platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929394/Competitive+Battlecard+LeafLink" },
+            { name: "Listo", category: "POS", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "Cannabis point-of-sale system for dispensary operations", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093266/Competitive+Battlecard+Listo" },
+            { name: "Onfleet", category: "Delivery / Logistics", catClass: "cat-delivery", icon: "\uD83D\uDE9A", desc: "Last-mile delivery management and logistics platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093246/Competitive+Battlecard+Onfleet" },
+            { name: "POSaBIT", category: "POS / Payments", catClass: "cat-pos", icon: "\uD83D\uDCB3", desc: "Cannabis payments platform with expanding POS solutions", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962127/Competitive+Battlecard+POSaBIT" },
+            { name: "Rank Really High", category: "SEO / Digital Marketing", catClass: "cat-seo", icon: "\uD83D\uDD0D", desc: "Cannabis-focused SEO and digital marketing agency", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060477/Competitive+Battlecard+Rank+Really+High" },
+            { name: "Surfside", category: "AdTech / Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis adtech, audience data, and marketing platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093286/Competitive+Battlecard+Surfside" },
+            { name: "Treez", category: "POS / Retail Platform", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "Cannabis retail platform with POS, ecommerce, and payments", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060417/Competitive+Battlecard+Treez" },
+            { name: "Weedmaps", category: "Ecommerce / Marketplace", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis marketplace, listings, and ecommerce platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" }
         ];
 
         const categoryOrder = [
-            "Full Platform", "Payments", "Ecommerce", "Loyalty/Marketing",
-            "Analytics/Data", "Delivery", "Supply Chain", "SEO", "Mobile Apps"
+            "POS / Seed-to-Sale", "POS", "POS / Payments", "POS / Retail Platform",
+            "Full Platform", "Payments", "Ecommerce", "Ecommerce / Marketplace",
+            "Loyalty / Marketing", "AdTech / Marketing",
+            "Analytics / Data", "Delivery / Logistics", "Wholesale / B2B",
+            "SEO / Digital Marketing", "Mobile Apps"
         ];
 
         let activeFilter = "All";
