@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie Consumer AI — Product Video</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#fff;
+  --green:#00c896;
+  --green-dark:#009E74;
+  --yellow:#FFC02A;
+  --navy:#0f2920;
+  --navy-mid:#1a3a2a;
+  --navy-light:#2a5040;
+  --red:#EC0017;
+  --orange:#d97b4a;
+  --gold:#F5C542;
+  --radius:8px;
+  --radius-lg:12px;
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html, body { width:100%; height:100%; overflow:hidden; }
+body {
+  font-family:'Montserrat','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+  user-select:none;
+}
+
+#presentation {
+  position:fixed; inset:0;
+  background:var(--navy);
+  overflow:hidden;
+}
+#presentation::before {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 50% 40%, rgba(0,200,150,.06) 0%, transparent 70%);
+}
+#presentation::after {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(circle at 80% 20%, rgba(0,200,150,.04) 0%, transparent 40%),
+             radial-gradient(circle at 20% 80%, rgba(0,200,150,.03) 0%, transparent 40%);
+}
+
+.close-btn {
+  position:fixed; top:20px; right:24px; z-index:1000;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15);
+  color:var(--white); font-size:18px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .2s; text-decoration:none; line-height:1;
+}
+.close-btn:hover { background:rgba(255,255,255,.2); transform:scale(1.1); }
+
+#play-overlay {
+  position:fixed; inset:0; z-index:900;
+  background:rgba(15,41,32,.95);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  cursor:pointer; transition:opacity .4s;
+}
+#play-overlay.hidden { opacity:0; pointer-events:none; }
+.play-btn-big {
+  width:100px; height:100px; border-radius:50%;
+  background:var(--yellow); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 60px rgba(255,192,42,.4);
+  transition:transform .2s, box-shadow .2s;
+  animation:pulse-play 2s ease-in-out infinite;
+}
+.play-btn-big:hover { transform:scale(1.1); box-shadow:0 0 80px rgba(255,192,42,.6); }
+.play-btn-big svg { width:40px; height:40px; fill:var(--navy); margin-left:4px; }
+.play-label { margin-top:20px; font-size:14px; font-weight:600; color:rgba(255,255,255,.5); letter-spacing:.1em; text-transform:uppercase; }
+
+@keyframes pulse-play {
+  0%, 100% { box-shadow:0 0 60px rgba(255,192,42,.4); }
+  50% { box-shadow:0 0 80px rgba(255,192,42,.6); }
+}
+
+#controls {
+  position:fixed; bottom:0; left:0; right:0; z-index:800;
+  padding:12px 24px 16px;
+  background:linear-gradient(transparent, rgba(15,41,32,.8));
+  display:flex; align-items:center; gap:16px;
+  opacity:0; transition:opacity .3s;
+}
+#presentation:hover #controls,
+#controls.show { opacity:1; }
+
+.ctrl-btn {
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15);
+  color:white; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:background .2s; flex-shrink:0;
+}
+.ctrl-btn:hover { background:rgba(255,255,255,.2); }
+.ctrl-btn svg { width:16px; height:16px; fill:white; }
+
+#progress-wrap {
+  flex:1; height:4px; background:rgba(255,255,255,.15);
+  border-radius:2px; cursor:pointer; position:relative;
+}
+#progress-bar {
+  height:100%; background:var(--yellow); border-radius:2px;
+  width:0; transition:width .1s linear;
+}
+#time-label {
+  font-size:11px; color:rgba(255,255,255,.5); font-weight:500;
+  white-space:nowrap; min-width:40px; text-align:right;
+}
+
+#pause-indicator {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
+  width:80px; height:80px; border-radius:50%;
+  background:rgba(0,0,0,.5); display:flex; align-items:center; justify-content:center;
+  z-index:850; pointer-events:none; transition:transform .15s, opacity .3s;
+  opacity:0;
+}
+#pause-indicator.show { transform:translate(-50%,-50%) scale(1); opacity:1; }
+#pause-indicator svg { width:28px; height:28px; fill:white; }
+
+/* ===== SLIDES ===== */
+.slide {
+  position:absolute; inset:0; z-index:1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  opacity:0; transition:opacity .6s ease;
+  padding:60px 80px;
+  pointer-events:none;
+  transform:scale(1.02);
+}
+.slide.active { opacity:1; pointer-events:auto; transform:scale(1); transition:opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1); }
+
+/* ===== SLIDE 1: LOGO INTRO ===== */
+.s1-logo-svg {
+  opacity:0; transform:scale(.85); position:relative;
+}
+.s1-logo-svg svg {
+  width:auto; height:60px;
+  filter:drop-shadow(0 0 40px rgba(0,200,150,.2));
+}
+.s1-logo-svg::after {
+  content:''; position:absolute; top:-20px; left:-40px; right:-40px; bottom:-20px;
+  background:linear-gradient(90deg, transparent 0%, rgba(0,200,150,.08) 50%, transparent 100%);
+  border-radius:50%; opacity:0;
+}
+.slide.active .s1-logo-svg {
+  animation:s1-icon-in .7s cubic-bezier(.16,1,.3,1) forwards;
+}
+.slide.active .s1-logo-svg::after {
+  animation:logo-glow 2s ease .5s forwards;
+}
+@keyframes s1-icon-in { to { opacity:1; transform:scale(1); } }
+@keyframes logo-glow { 0%{opacity:0;transform:scale(.8)} 50%{opacity:1} 100%{opacity:0;transform:scale(1.4)} }
+
+.s1-subtitle {
+  margin-top:12px; font-size:20px; font-weight:500;
+  color:rgba(255,255,255,.6); opacity:0; transform:translateY(10px);
+  max-width:700px; text-align:center;
+}
+.slide.active .s1-subtitle { animation:fade-up .4s ease .6s forwards; }
+
+@keyframes fade-up { 0%{opacity:0;transform:translateY(10px)} 100%{opacity:1;transform:translateY(0)} }
+
+/* ===== SLIDE 2: PROBLEM ===== */
+.s2-line {
+  font-size:28px; font-weight:600; line-height:1.7;
+  opacity:0; transform:translateX(-20px);
+  color:rgba(255,255,255,.7); position:relative;
+}
+.slide.active .s2-line:nth-child(1) { animation:s2-line-in .4s cubic-bezier(.16,1,.3,1) .2s forwards; }
+.slide.active .s2-line:nth-child(2) { animation:s2-line-in .4s cubic-bezier(.16,1,.3,1) .7s forwards; }
+.slide.active .s2-line:nth-child(3) { animation:s2-line-in .4s cubic-bezier(.16,1,.3,1) 1.2s forwards; }
+.slide.active .s2-line:nth-child(4) { animation:s2-line-in .4s cubic-bezier(.16,1,.3,1) 1.7s forwards; }
+@keyframes s2-line-in { to { opacity:1; transform:translateX(0); } }
+
+/* ===== SLIDE 3: SOLUTION ===== */
+.s3-text {
+  font-size:52px; font-weight:800; letter-spacing:-.02em;
+  background:linear-gradient(135deg, #fff 0%, var(--green) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  opacity:0; transform:scale(.85);
+}
+.slide.active .s3-text { animation:s3-pop .6s cubic-bezier(.16,1,.3,1) .1s forwards; }
+@keyframes s3-pop { to { opacity:1; transform:scale(1); } }
+
+.s3-flash {
+  position:absolute; inset:0;
+  background:radial-gradient(circle at center, var(--green) 0%, transparent 70%); opacity:0;
+}
+.slide.active .s3-flash { animation:s3-flash-anim .5s ease forwards; }
+@keyframes s3-flash-anim { 0%{opacity:.12;transform:scale(.5)} 100%{opacity:0;transform:scale(2)} }
+
+/* ===== PRODUCT SLIDE LAYOUT ===== */
+.product-slide {
+  display:grid; grid-template-columns:1fr 1.2fr;
+  gap:50px; align-items:center; width:100%; max-width:1100px;
+  position:relative;
+}
+.product-info { text-align:left; }
+.product-label {
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.15em;
+  color:var(--green); opacity:0;
+  display:inline-block; padding:4px 12px; border-radius:100px;
+  background:rgba(0,200,150,.12); border:1px solid rgba(0,200,150,.25);
+}
+.slide.active .product-label { animation:fade-up .3s ease .1s forwards; }
+
+.product-title {
+  font-size:36px; font-weight:800; letter-spacing:-.02em;
+  margin-top:10px; opacity:0; color:rgba(255,255,255,.95);
+}
+.slide.active .product-title { animation:fade-up .3s ease .3s forwards; }
+
+.product-desc {
+  font-size:14px; color:rgba(255,255,255,.5); margin-top:8px;
+  font-style:italic; opacity:0;
+}
+.slide.active .product-desc { animation:fade-up .3s ease .4s forwards; }
+
+.product-bullets { list-style:none; margin-top:16px; }
+.product-bullets li {
+  font-size:15px; font-weight:500; color:rgba(255,255,255,.75);
+  padding:5px 0; padding-left:20px; position:relative;
+  opacity:0; transform:translateX(-10px);
+}
+.product-bullets li::before {
+  content:''; position:absolute; left:0; top:12px;
+  width:8px; height:8px; border-radius:50%; background:var(--green);
+}
+.slide.active .product-bullets li:nth-child(1) { animation:fade-right .3s ease .6s forwards; }
+.slide.active .product-bullets li:nth-child(2) { animation:fade-right .3s ease .8s forwards; }
+.slide.active .product-bullets li:nth-child(3) { animation:fade-right .3s ease 1s forwards; }
+@keyframes fade-right { to { opacity:1; transform:translateX(0); } }
+
+.stat-badges {
+  display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;
+}
+.stat-badge {
+  padding:5px 12px; border-radius:20px;
+  background:rgba(0,200,150,.12); border:1px solid rgba(0,200,150,.25);
+  font-size:11px; font-weight:700; color:var(--green);
+  opacity:0; transform:translateY(10px);
+}
+.slide.active .stat-badge:nth-child(1) { animation:fade-up .2s ease 1.3s forwards; }
+.slide.active .stat-badge:nth-child(2) { animation:fade-up .2s ease 1.5s forwards; }
+.slide.active .stat-badge:nth-child(3) { animation:fade-up .2s ease 1.7s forwards; }
+
+/* Subtle dot grid overlay */
+.product-slide::before {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:24px 24px;
+}
+.product-slide > * { position:relative; z-index:1; }
+
+/* ===== RICH MOCKUPS ===== */
+
+/* Phone mockup - full quality */
+.phone-mockup-v {
+  max-width:280px; margin:0 auto;
+  border-radius:32px; background:#111; padding:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4), 0 0 0 1.5px rgba(255,255,255,.08);
+  opacity:0; transform:translateY(20px);
+}
+.slide.active .phone-mockup-v { animation:fade-up .4s ease .3s forwards; }
+.phone-screen-v {
+  border-radius:24px; overflow:hidden; background:var(--white);
+}
+.phone-status-v {
+  background:var(--navy); padding:6px 14px;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; color:#fff; font-weight:600;
+}
+.phone-header-v {
+  background:var(--green-dark); padding:12px 14px; color:#fff;
+}
+.phone-header-v h4 { font-size:13px; font-weight:700; margin-bottom:1px; }
+.phone-header-v p { font-size:10px; opacity:.8; }
+.phone-chat-v {
+  padding:12px; display:flex; flex-direction:column; gap:8px;
+  background:var(--white); min-height:240px;
+}
+.pchat-msg {
+  max-width:85%; padding:8px 12px; border-radius:12px;
+  font-size:11px; line-height:1.4; color:#333;
+  opacity:0; transform:translateY(6px);
+}
+.pchat-msg.customer {
+  background:#f0f0f0; align-self:flex-end;
+  border-bottom-right-radius:3px;
+}
+.pchat-msg.ai-msg {
+  background:#e8f5f1; border:1px solid #c4e5dd;
+  align-self:flex-start; border-bottom-left-radius:3px;
+}
+.pchat-msg .sender {
+  font-size:9px; font-weight:700; color:#999;
+  text-transform:uppercase; letter-spacing:.05em; margin-bottom:2px;
+}
+.pchat-msg.ai-msg .sender { color:var(--green-dark); }
+.sms-link-v {
+  display:block; margin-top:6px; padding:6px 10px;
+  border-radius:6px; background:var(--green-dark); color:#fff;
+  font-size:10px; font-weight:700; text-align:center;
+}
+.slide.active .pchat-msg:nth-child(1) { animation:fade-up .3s ease .8s forwards; }
+.slide.active .pchat-msg:nth-child(2) { animation:fade-up .3s ease 1.3s forwards; }
+.slide.active .pchat-msg:nth-child(3) { animation:fade-up .3s ease 1.8s forwards; }
+.slide.active .pchat-msg:nth-child(4) { animation:fade-up .3s ease 2.3s forwards; }
+
+/* Ecommerce mockup - full quality */
+.ecom-mockup-v {
+  border-radius:16px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  box-shadow:0 20px 80px rgba(0,0,0,.4);
+  opacity:0; transform:translateY(20px);
+}
+.slide.active .ecom-mockup-v { animation:fade-up .4s ease .3s forwards; }
+.ecom-bar-v {
+  height:32px; background:rgba(255,255,255,.06);
+  display:flex; align-items:center; padding:0 12px; gap:6px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.ecom-bar-v .dot { width:8px; height:8px; border-radius:50%; }
+.ecom-bar-v .dot:nth-child(1) { background:#e85650; }
+.ecom-bar-v .dot:nth-child(2) { background:#ffbd2e; }
+.ecom-bar-v .dot:nth-child(3) { background:#28c840; }
+.ecom-bar-v .url {
+  margin-left:12px; font-size:10px; color:rgba(255,255,255,.3);
+  font-weight:500;
+}
+.ecom-header-v {
+  background:linear-gradient(135deg, var(--navy), #1a3a2a);
+  padding:14px 18px; display:flex; align-items:center; gap:10px;
+}
+.ecom-header-icon { font-size:20px; }
+.ecom-header-v h4 { font-size:13px; font-weight:700; }
+.ecom-header-v p { font-size:10px; color:rgba(255,255,255,.6); }
+.ecom-body-v {
+  padding:14px; display:flex; flex-direction:column; gap:10px;
+}
+.echat {
+  max-width:88%; padding:10px 14px; border-radius:12px;
+  font-size:12px; line-height:1.5;
+  opacity:0; transform:translateY(8px);
+}
+.echat.user {
+  background:rgba(255,255,255,.08); margin-left:auto;
+  border-bottom-right-radius:4px;
+}
+.echat.ai {
+  background:rgba(0,200,150,.15); border:1px solid rgba(0,200,150,.25);
+  border-bottom-left-radius:4px;
+}
+.echat .label { font-size:9px; font-weight:700; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.05em; margin-bottom:3px; }
+.echat.ai .label { color:var(--green); }
+.ecom-product-v {
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; padding:10px; margin-top:4px;
+  display:flex; gap:10px; align-items:center;
+  opacity:0; transform:translateY(8px);
+}
+.slide.active .ecom-product-v { animation:fade-up .3s ease 2s forwards; }
+.eprod-img {
+  width:44px; height:44px; border-radius:8px;
+  background:rgba(0,200,150,.15); border:1px solid rgba(0,200,150,.25);
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+}
+.eprod-name { font-size:12px; font-weight:700; }
+.eprod-detail { font-size:10px; color:rgba(255,255,255,.5); }
+.eprod-price { font-size:14px; font-weight:800; color:var(--green); margin-left:auto; }
+.eprod-tags { display:flex; gap:4px; margin-top:6px; flex-wrap:wrap; }
+.eprod-tag {
+  padding:2px 6px; border-radius:4px; font-size:9px; font-weight:600;
+  background:rgba(0,200,150,.12); color:var(--green); border:1px solid rgba(0,200,150,.2);
+}
+.eprod-tag.top { background:rgba(255,192,42,.2); color:var(--yellow); border-color:rgba(255,192,42,.3); }
+.ecom-add-v {
+  margin-top:6px; padding:7px 14px; border-radius:6px;
+  background:var(--green); color:#fff; font-size:11px; font-weight:700;
+  border:none; width:100%; text-align:center;
+  opacity:0; transform:translateY(5px);
+}
+.slide.active .ecom-add-v { animation:fade-up .2s ease 2.4s forwards; }
+.ecom-input-v {
+  display:flex; gap:8px; padding:10px 14px;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+}
+.ecom-input-v .field {
+  flex:1; padding:8px 12px; border-radius:8px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+  font-size:11px; color:rgba(255,255,255,.3);
+}
+.ecom-input-v .send {
+  padding:8px 14px; border-radius:8px; background:var(--navy);
+  color:#fff; font-size:11px; font-weight:700; border:none;
+}
+
+.slide.active .echat:nth-child(1) { animation:fade-up .3s ease .8s forwards; }
+.slide.active .echat:nth-child(2) { animation:fade-up .3s ease 1.3s forwards; }
+.slide.active .echat:nth-child(3) { animation:fade-up .3s ease 2.6s forwards; }
+
+/* Register mockup - full quality */
+.register-mockup-v {
+  position:relative;
+  border-radius:14px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  box-shadow:0 20px 80px rgba(0,0,0,.4);
+  opacity:0; transform:translateY(20px);
+}
+.slide.active .register-mockup-v { animation:fade-up .4s ease .3s forwards; }
+.reg-bar-v {
+  height:32px; background:var(--navy);
+  display:flex; align-items:center; padding:0 12px; gap:6px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.reg-bar-v .dot { width:8px; height:8px; border-radius:50%; }
+.reg-bar-v .dot:nth-child(1) { background:#e85650; }
+.reg-bar-v .dot:nth-child(2) { background:#ffbd2e; }
+.reg-bar-v .dot:nth-child(3) { background:#28c840; }
+.reg-bar-v .title {
+  margin-left:10px; font-size:10px; font-weight:600;
+  color:rgba(255,255,255,.4);
+}
+.reg-layout-v {
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.reg-cart-v {
+  padding:14px; background:rgba(255,255,255,.03);
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.reg-customer-v {
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:12px; padding-bottom:10px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.reg-avatar {
+  width:30px; height:30px; border-radius:50%;
+  background:linear-gradient(135deg, var(--green-dark), var(--green));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:10px; color:#fff;
+}
+.reg-cust-name { font-size:12px; font-weight:700; }
+.reg-cust-meta { font-size:9px; color:rgba(255,255,255,.4); }
+.reg-tier {
+  margin-left:auto; padding:2px 8px; border-radius:4px;
+  font-size:9px; font-weight:700;
+  background:linear-gradient(135deg, var(--gold), #DAA520); color:#fff;
+}
+.reg-item-v {
+  display:flex; align-items:center; gap:8px;
+  padding:8px; border-radius:8px; margin-bottom:6px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);
+}
+.reg-item-icon {
+  width:32px; height:32px; border-radius:6px;
+  background:rgba(255,255,255,.04); display:flex;
+  align-items:center; justify-content:center; font-size:16px;
+}
+.reg-item-name { font-size:11px; font-weight:600; }
+.reg-item-detail { font-size:9px; color:rgba(255,255,255,.4); }
+.reg-item-price { margin-left:auto; font-size:12px; font-weight:700; color:var(--green); }
+.reg-totals-v {
+  margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06);
+  font-size:11px; color:rgba(255,255,255,.5);
+}
+.reg-total-row { display:flex; justify-content:space-between; padding:2px 0; }
+.reg-total-row.total { font-size:14px; font-weight:800; color:#fff; margin-top:4px; }
+.reg-total-row.total span:last-child { color:var(--green); }
+.reg-buttons-v { display:flex; gap:6px; margin-top:10px; }
+.reg-btn-hold {
+  flex:1; padding:8px; border-radius:8px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5); font-size:11px; font-weight:600;
+  text-align:center;
+}
+.reg-btn-checkout {
+  flex:1; padding:8px; border-radius:8px;
+  background:var(--green); color:#fff;
+  font-size:11px; font-weight:700; text-align:center;
+}
+.reg-ai-v {
+  padding:14px;
+  background:linear-gradient(180deg, rgba(0,200,150,.06) 0%, rgba(0,200,150,.02) 100%);
+}
+.reg-ai-header {
+  display:flex; align-items:center; gap:6px;
+  margin-bottom:10px; padding-bottom:8px;
+  border-bottom:1px solid rgba(0,200,150,.15);
+}
+.reg-ai-icon {
+  width:24px; height:24px; border-radius:6px;
+  background:rgba(0,200,150,.15); display:flex;
+  align-items:center; justify-content:center; font-size:12px;
+}
+.reg-ai-header h4 { font-size:12px; font-weight:700; color:var(--green); }
+.reg-ai-card-v {
+  background:rgba(255,255,255,.04); border:1px solid rgba(0,200,150,.2);
+  border-radius:8px; padding:10px; margin-bottom:8px;
+  border-left:3px solid var(--green);
+  opacity:0; transform:translateY(8px);
+}
+.slide.active .reg-ai-card-v:nth-child(2) { animation:fade-up .3s ease 1s forwards; }
+.slide.active .reg-ai-card-v:nth-child(3) { animation:fade-up .3s ease 1.5s forwards; }
+.slide.active .reg-ai-card-v:nth-child(4) { animation:fade-up .3s ease 2s forwards; }
+.slide.active .reg-ai-card-v:nth-child(5) { animation:fade-up .3s ease 2.4s forwards; }
+.rai-label {
+  font-size:9px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--green); margin-bottom:3px;
+}
+.rai-title { font-size:12px; font-weight:700; margin-bottom:2px; }
+.rai-desc { font-size:10px; color:rgba(255,255,255,.5); line-height:1.4; }
+.rai-action {
+  display:inline-block; margin-top:6px; padding:4px 10px;
+  border-radius:5px; background:var(--green); color:#fff;
+  font-size:9px; font-weight:700;
+}
+.rai-script {
+  background:rgba(0,200,150,.08); border:1px solid rgba(0,200,150,.2);
+  border-radius:8px; padding:10px; margin-bottom:8px;
+  opacity:0; transform:translateY(8px);
+}
+.slide.active .rai-script { animation:fade-up .3s ease 1.3s forwards; }
+.rai-script p {
+  font-size:11px; color:rgba(255,255,255,.8); line-height:1.5;
+  font-style:italic;
+}
+.rai-script em { color:var(--green); font-style:normal; font-weight:700; }
+.reg-ai-card-v.loyalty { border-left-color:var(--gold); }
+.reg-ai-card-v.compliance { border-left-color:rgba(255,255,255,.3); }
+
+/* Fake cursor for add-to-cart animation */
+.fake-cursor {
+  position:absolute; z-index:100; pointer-events:none;
+  opacity:0; filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));
+  transition:opacity .3s;
+}
+.fake-cursor.visible { opacity:1; }
+.fake-cursor.moving {
+  transition:left 1s cubic-bezier(.4,0,.2,1), top 1s cubic-bezier(.4,0,.2,1), opacity .3s;
+}
+.fake-cursor.clicking { animation:cursor-click .2s ease; }
+@keyframes cursor-click {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(.85); }
+}
+.rai-action.clicked {
+  background:#fff !important; color:var(--green) !important;
+  transform:scale(.95); transition:all .15s;
+}
+.rai-action.added {
+  background:rgba(0,200,150,.3) !important; color:#fff !important;
+  transform:scale(1); transition:all .3s;
+}
+.reg-item-new.show {
+  opacity:1 !important; max-height:60px !important;
+  padding:8px !important; margin-bottom:6px !important;
+  border-color:rgba(0,200,150,.3) !important;
+  background:rgba(0,200,150,.08) !important;
+}
+.totals-flash { animation:flash-green .6s ease; }
+@keyframes flash-green {
+  0%,100% { color:inherit; }
+  50% { color:var(--green); }
+}
+.rai-progress {
+  margin-top:6px; height:5px; background:rgba(255,255,255,.08);
+  border-radius:3px; overflow:hidden;
+}
+.rai-progress-fill {
+  height:100%; width:88%; border-radius:3px;
+  background:linear-gradient(90deg, var(--gold), #DAA520);
+}
+
+/* Sentiment dashboard - full quality */
+.sentiment-mockup-v {
+  border-radius:14px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  box-shadow:0 20px 80px rgba(0,0,0,.4);
+  opacity:0; transform:translateY(20px);
+}
+.slide.active .sentiment-mockup-v { animation:fade-up .4s ease .3s forwards; }
+.sent-bar-v {
+  height:32px; background:var(--navy);
+  display:flex; align-items:center; padding:0 12px; gap:6px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.sent-bar-v .dot { width:8px; height:8px; border-radius:50%; }
+.sent-bar-v .dot:nth-child(1) { background:#e85650; }
+.sent-bar-v .dot:nth-child(2) { background:#ffbd2e; }
+.sent-bar-v .dot:nth-child(3) { background:#28c840; }
+.sent-bar-v .title { margin-left:10px; font-size:10px; font-weight:600; color:rgba(255,255,255,.4); }
+.sent-body-v { padding:14px; }
+.sent-tabs-v {
+  display:flex; gap:6px; margin-bottom:12px;
+}
+.sent-tab {
+  padding:4px 12px; border-radius:6px; font-size:10px; font-weight:700;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
+  color:rgba(255,255,255,.4);
+}
+.sent-tab.active { background:var(--yellow); color:var(--navy); border-color:var(--yellow); }
+.sent-metrics-v {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-bottom:12px;
+}
+.sent-metric {
+  padding:10px; border-radius:8px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+  text-align:center; opacity:0;
+}
+.slide.active .sent-metric:nth-child(1) { animation:fade-up .2s ease .6s forwards; }
+.slide.active .sent-metric:nth-child(2) { animation:fade-up .2s ease .8s forwards; }
+.slide.active .sent-metric:nth-child(3) { animation:fade-up .2s ease 1s forwards; }
+.slide.active .sent-metric:nth-child(4) { animation:fade-up .2s ease 1.2s forwards; }
+.sent-metric .val { font-size:20px; font-weight:800; }
+.sent-metric .val.up { color:var(--green); }
+.sent-metric .val.down { color:#e85650; }
+.sent-metric .lbl {
+  font-size:9px; font-weight:600; color:rgba(255,255,255,.4);
+  text-transform:uppercase; letter-spacing:.05em; margin-bottom:3px;
+}
+.sent-metric .change { font-size:9px; font-weight:600; }
+.sent-metric .change.pos { color:var(--green); }
+.sent-metric .change.neg { color:#e85650; }
+.sent-chart-v {
+  background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06);
+  border-radius:8px; padding:10px; margin-bottom:12px;
+  height:100px; position:relative; overflow:hidden;
+}
+.sent-chart-title {
+  font-size:9px; font-weight:700; color:rgba(255,255,255,.3);
+  text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;
+}
+.chart-bars-v {
+  display:flex; align-items:flex-end; gap:3px; height:65px;
+}
+.cbar {
+  flex:1; border-radius:3px 3px 0 0;
+  background:linear-gradient(180deg, var(--green), rgba(0,200,150,.3));
+  transition:height .8s ease;
+  height:0;
+}
+.sent-brands-v {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:12px;
+}
+.brand-card {
+  padding:8px; border-radius:8px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+  opacity:0; transform:translateY(6px);
+}
+.slide.active .brand-card:nth-child(1) { animation:fade-up .2s ease 1.4s forwards; }
+.slide.active .brand-card:nth-child(2) { animation:fade-up .2s ease 1.6s forwards; }
+.slide.active .brand-card:nth-child(3) { animation:fade-up .2s ease 1.8s forwards; }
+.brand-name { font-size:10px; font-weight:700; margin-bottom:2px; }
+.brand-score { font-size:18px; font-weight:800; }
+.brand-score.high { color:var(--green); }
+.brand-score.mid { color:var(--orange); }
+.brand-bar { height:3px; border-radius:2px; background:rgba(255,255,255,.08); margin-top:4px; overflow:hidden; }
+.brand-bar-fill { height:100%; border-radius:2px; }
+.brand-platform { font-size:9px; color:rgba(255,255,255,.3); margin-top:3px; }
+.sent-alerts-v { display:flex; flex-direction:column; gap:6px; }
+.salert {
+  display:flex; align-items:center; gap:8px;
+  padding:8px 10px; border-radius:6px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+  font-size:10px; opacity:0; transform:translateX(-10px);
+}
+.slide.active .salert:nth-child(1) { animation:fade-right .2s ease 2s forwards; }
+.slide.active .salert:nth-child(2) { animation:fade-right .2s ease 2.2s forwards; }
+.salert-icon {
+  width:24px; height:24px; border-radius:5px;
+  display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;
+}
+.salert-icon.trending { background:rgba(0,200,150,.15); }
+.salert-icon.warning { background:rgba(255,125,90,.15); }
+.salert-title { font-weight:700; }
+.salert-meta { font-size:9px; color:rgba(255,255,255,.3); margin-top:2px; }
+
+/* ===== SLIDE 8: NUMBERS ===== */
+.s8-stats {
+  display:flex; flex-direction:column; align-items:center; gap:20px;
+}
+.s8-stat {
+  text-align:center; opacity:0; transform:translateY(30px) scale(.9);
+}
+.s8-stat-num {
+  font-size:80px; font-weight:900; letter-spacing:-.03em;
+  background:linear-gradient(135deg, var(--green), #2dd4a8);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(0,200,150,.2));
+}
+.s8-stat-label {
+  font-size:20px; font-weight:600; color:rgba(255,255,255,.6); margin-top:-4px;
+}
+.slide.active .s8-stat:nth-child(1) { animation:stat-pop .5s cubic-bezier(.16,1,.3,1) .2s forwards; }
+.slide.active .s8-stat:nth-child(2) { animation:stat-pop .5s cubic-bezier(.16,1,.3,1) .8s forwards; }
+.slide.active .s8-stat:nth-child(3) { animation:stat-pop .5s cubic-bezier(.16,1,.3,1) 1.4s forwards; }
+@keyframes stat-pop { to { opacity:1; transform:translateY(0) scale(1); } }
+
+/* ===== SLIDE 9: TAGLINES ===== */
+.s9-lines { text-align:center; }
+.s9-line {
+  font-size:34px; font-weight:700; line-height:1.5;
+  opacity:0; transform:translateY(10px);
+  transition:color .5s;
+}
+.slide.active .s9-line:nth-child(1) { animation:fade-up .3s ease .2s forwards; }
+.slide.active .s9-line:nth-child(2) { animation:fade-up .3s ease .6s forwards; }
+.slide.active .s9-line:nth-child(3) { animation:fade-up .3s ease 1s forwards; }
+.slide.active .s9-line:nth-child(4) { animation:fade-up .3s ease 1.4s forwards; }
+.slide.active .s9-line.glow {
+  color:var(--green); text-shadow:0 0 30px rgba(0,200,150,.3);
+  transition:color .8s ease, text-shadow .8s ease;
+}
+
+/* ===== SLIDE 10: CTA ===== */
+.s10-cta { text-align:center; }
+.s10-heading {
+  font-size:48px; font-weight:800; letter-spacing:-.02em;
+  opacity:0; transform:scale(.9); color:rgba(255,255,255,.95);
+}
+.slide.active .s10-heading { animation:s3-pop .4s ease .2s forwards; }
+
+.s10-btn {
+  display:inline-block; margin-top:28px; padding:16px 44px;
+  background:var(--yellow); color:var(--navy); border-radius:10px;
+  font-size:18px; font-weight:700; text-decoration:none;
+  box-shadow:0 0 40px rgba(255,192,42,.3);
+  opacity:0; transform:translateY(10px);
+}
+.slide.active .s10-btn {
+  animation:fade-up .3s ease .6s forwards, btn-pulse 1.5s ease 1s infinite;
+}
+@keyframes btn-pulse {
+  0%, 100% { box-shadow:0 0 0 0 rgba(255,192,42,.4); }
+  50% { box-shadow:0 0 0 8px rgba(255,192,42,0); }
+}
+
+.s10-url {
+  margin-top:14px; font-size:14px; color:rgba(255,255,255,.4);
+  font-weight:500; opacity:0;
+}
+.slide.active .s10-url { animation:fade-up .2s ease .9s forwards; }
+
+.s10-replay {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:20px; padding:10px 24px; border-radius:8px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.6); font-size:13px; font-weight:600;
+  cursor:pointer; transition:all .2s; opacity:0;
+}
+.slide.active .s10-replay { animation:fade-up .2s ease 1.2s forwards; }
+.s10-phone {
+  margin-top:32px; font-size:18px; color:rgba(255,255,255,.55);
+  font-weight:500; opacity:0; letter-spacing:.01em;
+}
+.slide.active .s10-phone { animation:fade-up .3s ease 1.4s forwards; }
+.s10-phone-number {
+  display:inline-block; margin-top:14px; padding:16px 40px;
+  border-radius:12px; background:rgba(0,200,150,.08);
+  border:1.5px solid rgba(0,200,150,.3);
+  color:var(--green); font-size:36px; font-weight:800;
+  letter-spacing:.03em; text-decoration:none;
+  opacity:0; transition:all .2s;
+  box-shadow:0 0 30px rgba(0,200,150,.15), 0 0 60px rgba(0,200,150,.06);
+  text-shadow:none;
+}
+.slide.active .s10-phone-number { animation:fade-up .3s ease 1.6s forwards, phone-glow 2s ease-in-out 2s infinite; }
+.s10-phone-number:hover { background:rgba(0,200,150,.12); border-color:rgba(0,200,150,.5); box-shadow:0 0 40px rgba(0,200,150,.2), 0 0 70px rgba(0,200,150,.08); }
+@keyframes phone-glow {
+  0%, 100% { box-shadow:0 0 30px rgba(0,200,150,.15), 0 0 60px rgba(0,200,150,.06); }
+  50% { box-shadow:0 0 40px rgba(0,200,150,.22), 0 0 70px rgba(0,200,150,.1); }
+}
+.s10-phone-icon {
+  display:inline-block; margin-right:8px; animation:phone-ring 2.5s ease-in-out infinite;
+  font-size:30px; vertical-align:middle;
+}
+@keyframes phone-ring {
+  0%, 100% { transform:rotate(0deg); }
+  10% { transform:rotate(12deg); }
+  20% { transform:rotate(-10deg); }
+  30% { transform:rotate(8deg); }
+  40% { transform:rotate(-6deg); }
+  50% { transform:rotate(0deg); }
+}
+.s10-replay:hover { background:rgba(255,255,255,.15); color:white; }
+
+/* ===== RESPONSIVE: TABLETS (max-width: 1024px) ===== */
+@media (max-width: 1024px) {
+  .slide { padding:40px 40px; }
+  .product-slide {
+    grid-template-columns:1fr;
+    gap:30px;
+    max-width:600px;
+  }
+  .product-title { font-size:28px; }
+  .register-mockup-v .reg-layout-v {
+    grid-template-columns:1fr;
+  }
+  .reg-cart-v { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); }
+  .sentiment-mockup-v .sent-metrics-v {
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+
+/* ===== RESPONSIVE: PHONES (max-width: 768px) ===== */
+@media (max-width: 768px) {
+  .slide { padding:20px 24px; }
+  .s1-logo-svg svg { height:40px; }
+  .s1-subtitle { font-size:14px; }
+  .s2-line { font-size:20px; }
+  .s3-text { font-size:32px; }
+  .product-slide {
+    grid-template-columns:1fr;
+    gap:20px;
+    max-width:100%;
+  }
+  .product-title { font-size:24px; }
+  .product-bullets li { font-size:13px; }
+  .product-info { text-align:left; }
+
+  /* Mockups: full width, reduced padding */
+  .phone-mockup-v {
+    max-width:100%;
+  }
+  .ecom-mockup-v {
+    max-width:100%;
+  }
+  .ecom-body-v { padding:10px; }
+  .ecom-header-v { padding:10px 14px; }
+  .register-mockup-v {
+    max-width:100%;
+  }
+  .reg-layout-v {
+    grid-template-columns:1fr;
+  }
+  .reg-cart-v {
+    padding:10px;
+    border-right:none;
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .reg-ai-v { padding:10px; }
+  .sentiment-mockup-v {
+    max-width:100%;
+  }
+  .sent-body-v { padding:10px; }
+  .sent-metrics-v {
+    grid-template-columns:repeat(2, 1fr);
+  }
+  .sent-brands-v {
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  /* Slide 8 */
+  .s8-stat-num { font-size:48px; }
+  .s8-stat-label { font-size:16px; }
+
+  /* Slide 9 */
+  .s9-line { font-size:22px; }
+
+  /* Slide 10 */
+  .s10-heading { font-size:32px; }
+  .s10-phone-number {
+    font-size:24px;
+    padding:12px 24px;
+  }
+  .s10-phone-icon { font-size:22px; }
+  .s10-btn { padding:12px 32px; font-size:16px; }
+
+  /* Controls always visible on mobile */
+  #controls { opacity:1; }
+  .close-btn { width:32px; height:32px; font-size:14px; top:12px; right:12px; }
+}
+
+/* ===== RESPONSIVE: SMALL PHONES (max-width: 480px) ===== */
+@media (max-width: 480px) {
+  .slide { padding:16px; }
+  .s1-logo-svg svg { height:32px; }
+  .s1-subtitle { font-size:12px; }
+  .s2-line { font-size:16px; }
+  .s3-text { font-size:24px; }
+  .product-slide { gap:12px; }
+  .product-title { font-size:20px; }
+  .product-label { font-size:9px; }
+  .product-desc { font-size:12px; }
+  .product-bullets li { font-size:12px; }
+  .stat-badges { display:none; }
+
+  .phone-mockup-v { border-radius:20px; padding:6px; }
+  .phone-screen-v { border-radius:16px; }
+  .phone-chat-v { min-height:180px; padding:8px; }
+  .pchat-msg { font-size:10px; }
+
+  .ecom-body-v { padding:8px; gap:8px; }
+  .echat { font-size:11px; padding:8px 10px; }
+  .ecom-product-v { padding:8px; }
+  .eprod-name { font-size:11px; }
+  .eprod-price { font-size:12px; }
+
+  .reg-item-v { padding:6px; gap:6px; }
+  .reg-item-icon { width:28px; height:28px; font-size:14px; }
+  .reg-item-name { font-size:10px; }
+  .reg-ai-card-v { padding:8px; }
+  .rai-title { font-size:11px; }
+  .rai-desc { font-size:9px; }
+
+  .sent-metric .val { font-size:16px; }
+  .sent-chart-v { height:70px; }
+  .brand-name { font-size:9px; }
+  .brand-score { font-size:14px; }
+
+  .s8-stat-num { font-size:36px; }
+  .s8-stat-label { font-size:14px; }
+  .s9-line { font-size:18px; }
+  .s10-heading { font-size:24px; }
+  .s10-phone-number { font-size:20px; padding:10px 20px; }
+  .s10-phone-icon { font-size:18px; }
+  .s10-btn { padding:10px 24px; font-size:14px; margin-top:16px; }
+  .s10-url { font-size:12px; }
+  .s10-phone { font-size:14px; }
+  .s10-replay { font-size:11px; padding:8px 16px; }
+  .close-btn { width:28px; height:28px; font-size:12px; top:8px; right:8px; }
+}
+</style>
+</head>
+<body>
+
+<div id="presentation">
+  <a href="dutchie-ai.html" class="close-btn" title="Back to site">&times;</a>
+
+  <!-- Slide 1: Logo Intro (4.5s) -->
+  <div class="slide" data-duration="4174">
+    <div class="s1-logo-svg">
+      <svg width="270" height="44" viewBox="0 0 270 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M39.6556 30.7439C37.4413 31.9376 35.0355 32.8328 32.7255 33.3618C30.0874 33.9587 27.3809 34.1621 24.6881 33.9587C20.1637 33.5788 15.7759 31.5171 12.7551 28.126C12.386 27.719 12.0853 27.2171 11.5112 27.0815C10.5954 26.878 9.95294 27.502 9.73424 28.3294C7.50619 36.5359 15.0788 44.3625 23.3759 43.6843C30.8391 43.2367 37.7283 38.9097 41.2959 32.3852C41.5146 32.0054 41.501 31.5713 41.2823 31.2051C40.9542 30.6354 40.2297 30.4183 39.6556 30.7439Z" fill="white"/>
+        <path d="M20.9843 2.23146C23.1303 3.54721 25.126 5.16137 26.7389 6.88405C28.5842 8.85089 30.1152 11.0755 31.2907 13.4899C33.218 17.5728 33.6008 22.361 32.1655 26.661C31.9878 27.19 31.7008 27.6919 31.8785 28.248C32.1655 29.1297 33.013 29.3738 33.8605 29.1568C42.1439 26.9594 45.1784 16.5555 40.4353 9.75971C36.3072 3.56077 29.09 -0.183005 21.6131 0.00689668C21.1757 0.0204611 20.7929 0.237495 20.5879 0.603734C20.2462 1.15987 20.4239 1.90591 20.9843 2.23146Z" fill="white"/>
+        <path d="M22.9655 15.5788C21.2843 15.3346 19.5893 15.7416 18.2224 16.7453C17.5116 17.2608 16.9238 17.9119 16.4864 18.6715C15.2152 20.8553 15.3656 23.5818 16.8828 25.6029C17.8943 26.9593 19.3843 27.8546 21.0655 28.0987C22.7468 28.3429 24.4418 27.936 25.8087 26.9322C26.5195 26.4168 27.1072 25.7657 27.5446 25.0061C28.8159 22.8222 28.6655 20.0957 27.1482 18.0746C26.1504 16.7182 24.6605 15.823 22.9655 15.5788Z" fill="white"/>
+        <path d="M21.1758 10.7228C21.7225 10.6143 22.3103 10.6007 22.7067 10.1802C23.3355 9.48842 23.1304 8.63386 22.5016 8.02346C16.4463 2.00086 5.83915 4.60523 2.28521 12.0792C-1.05002 18.7258 -0.721961 26.7966 3.18737 33.1312C3.41974 33.511 3.7888 33.7144 4.22621 33.7144C4.88232 33.7144 5.42908 33.199 5.42908 32.5479C5.49743 30.0521 5.9075 27.5291 6.60462 25.2774C7.39742 22.7137 8.57295 20.2857 10.1039 18.0611C12.7147 14.358 16.706 11.6316 21.1758 10.7228Z" fill="white"/>
+        <path d="M65.7309 35.5205C65.3136 35.5205 64.9753 35.182 64.9753 34.7644V15.3068C64.9753 14.8892 65.3136 14.5507 65.7309 14.5507H67.7789C68.1962 14.5507 68.5345 14.8892 68.5345 15.3068V18.5034C70.0001 16.007 72.5543 14.2179 75.7786 14.2179C80.1752 14.2179 83.3157 17.172 83.3157 21.6239V34.7644C83.3157 35.182 82.9774 35.5205 82.5601 35.5205H80.5121C80.0948 35.5205 79.7565 35.182 79.7565 34.7644V22.2896C79.7565 19.4603 77.956 17.4216 74.983 17.4216C71.0469 17.4216 68.5345 20.7917 68.5345 26.3254V34.7644C68.5345 35.182 68.1962 35.5205 67.7789 35.5205H65.7309Z" fill="white"/>
+        <path d="M99.5018 34.7781C99.5281 35.1181 99.3246 35.4373 98.9957 35.5267C98.1082 35.768 97.1733 35.8533 96.2384 35.8533C92.6374 35.8533 89.9994 33.8562 89.9994 29.2379V17.6712H86.8189C86.4016 17.6712 86.0633 17.3327 86.0633 16.9151V15.3068C86.0633 14.8892 86.4016 14.5507 86.8189 14.5507H89.9994V8.94101C89.9994 8.52344 90.3376 8.18492 90.7549 8.18492H92.803C93.2203 8.18492 93.5586 8.52343 93.5586 8.94101V14.5507H98.4558C98.8731 14.5507 99.2114 14.8892 99.2114 15.3068V16.9151C99.2114 17.3327 98.8731 17.6712 98.4558 17.6712H93.5586V29.3627C93.5586 31.5678 94.8147 32.6496 96.6572 32.6496C97.1582 32.6496 97.7042 32.6049 98.2414 32.4799C98.763 32.3586 99.3403 32.6915 99.3816 33.2258L99.5018 34.7781Z" fill="white"/>
+        <path d="M101.954 25.0356C101.954 19.0859 105.806 14.2179 112.171 14.2179C118.41 14.2179 122.262 18.6698 122.262 24.0786C122.262 24.3539 122.249 24.7049 122.231 25.0273C122.209 25.4117 121.887 25.7013 121.503 25.7013H105.513C105.764 29.9452 108.444 32.7328 112.255 32.7328C115.171 32.7328 117.265 31.5071 118.103 29.3329C118.253 28.9443 118.654 28.6911 119.059 28.7867L120.926 29.2273C121.338 29.3245 121.593 29.7427 121.453 30.1425C120.188 33.7666 116.811 35.8533 112.255 35.8533C105.932 35.8533 101.954 30.9853 101.954 25.0356ZM105.722 22.7472H118.494C118.159 19.5435 115.897 17.172 112.171 17.172C108.863 17.172 106.434 19.2523 105.722 22.7472Z" fill="white"/>
+        <path d="M127.6 35.5205C127.183 35.5205 126.844 35.182 126.844 34.7644V6.81907C126.844 6.4015 127.183 6.06299 127.6 6.06299H129.648C130.065 6.06299 130.404 6.4015 130.404 6.81907V34.7644C130.404 35.182 130.065 35.5205 129.648 35.5205H127.6Z" fill="white"/>
+        <path d="M136.923 35.5205C136.506 35.5205 136.168 35.182 136.168 34.7644V6.81907C136.168 6.4015 136.506 6.06299 136.923 6.06299H138.971C139.389 6.06299 139.727 6.4015 139.727 6.81907V34.7644C139.727 35.182 139.389 35.5205 138.971 35.5205H136.923Z" fill="white"/>
+        <path d="M163.649 34.9796C157.159 34.9796 153.6 30.5277 153.6 24.6195C153.6 18.6698 157.159 14.2179 163.566 14.2179C166.371 14.2179 169.135 15.5493 170.391 17.38V15.3068C170.391 14.8892 170.729 14.5507 171.147 14.5507H173.153C173.57 14.5507 173.908 14.8892 173.908 15.3068V34.5219C173.908 39.8059 169.888 43.4257 164.068 43.4257C159.493 43.4257 155.867 41.176 154.896 37.7947C154.781 37.3943 155.062 37.0036 155.473 36.934L157.358 36.6141C157.793 36.5404 158.191 36.8583 158.332 37.276C158.971 39.1699 161.227 40.43 164.068 40.43C167.795 40.43 170.391 38.1833 170.391 34.8964V31.9839C169.428 33.773 166.664 34.9796 163.649 34.9796ZM157.243 24.6195C157.243 28.9882 159.881 31.8175 163.984 31.8175C168.046 31.8175 170.684 28.9882 170.684 24.6195C170.684 20.2092 168.046 17.38 163.984 17.38C159.881 17.38 157.243 20.2092 157.243 24.6195Z" fill="white"/>
+        <path d="M178.462 25.0356C178.462 19.0859 182.314 14.2179 188.679 14.2179C194.918 14.2179 198.77 18.6698 198.77 24.0786C198.77 24.3539 198.758 24.7049 198.739 25.0273C198.717 25.4117 198.396 25.7013 198.011 25.7013H182.021C182.272 29.9452 184.952 32.7328 188.763 32.7328C191.679 32.7328 193.774 31.5071 194.612 29.3329C194.761 28.9443 195.162 28.6911 195.567 28.7867L197.434 29.2273C197.846 29.3245 198.101 29.7427 197.961 30.1425C196.696 33.7666 193.319 35.8533 188.763 35.8533C182.44 35.8533 178.462 30.9853 178.462 25.0356ZM182.231 22.7472H195.002C194.667 19.5435 192.406 17.172 188.679 17.172C185.371 17.172 182.942 19.2523 182.231 22.7472Z" fill="white"/>
+        <path d="M204.108 35.5205C203.691 35.5205 203.352 35.182 203.352 34.7644V15.3068C203.352 14.8892 203.691 14.5507 204.108 14.5507H206.156C206.573 14.5507 206.912 14.8892 206.912 15.3068V18.5034C208.377 16.007 210.931 14.2179 214.156 14.2179C218.552 14.2179 221.693 17.172 221.693 21.6239V34.7644C221.693 35.182 221.355 35.5205 220.937 35.5205H218.889C218.472 35.5205 218.134 35.182 218.134 34.7644V22.2896C218.134 19.4603 216.333 17.4216 213.36 17.4216C209.424 17.4216 206.912 20.7917 206.912 26.3254V34.7644C206.912 35.182 206.573 35.5205 206.156 35.5205H204.108Z" fill="white"/>
+        <path d="M236.732 35.8533C230.452 35.8533 226.264 31.5262 226.264 25.0356C226.264 18.545 230.452 14.2179 236.732 14.2179C241.341 14.2179 244.801 16.5745 245.823 20.3178C245.931 20.7152 245.663 21.1064 245.26 21.1875L243.224 21.5969C242.809 21.6803 242.412 21.404 242.277 21.0032C241.553 18.8599 239.489 17.38 236.816 17.38C232.671 17.38 229.991 20.4173 229.991 25.0356C229.991 29.6539 232.671 32.6912 236.816 32.6912C239.521 32.6912 241.568 31.3477 242.356 29.0055C242.489 28.6117 242.881 28.3478 243.288 28.4306L245.281 28.8361C245.693 28.9199 245.96 29.3251 245.841 29.7281C244.692 33.6032 241.306 35.8533 236.732 35.8533Z" fill="white"/>
+        <path d="M249.245 25.0356C249.245 19.0859 253.098 14.2179 259.462 14.2179C265.701 14.2179 269.554 18.6698 269.554 24.0786C269.554 24.3539 269.541 24.7049 269.523 25.0273C269.501 25.4117 269.179 25.7013 268.794 25.7013H252.804C253.056 29.9452 255.736 32.7328 259.546 32.7328C262.463 32.7328 264.557 31.5071 265.395 29.3329C265.545 28.9443 265.945 28.6911 266.35 28.7867L268.217 29.2273C268.629 29.3245 268.884 29.7427 268.745 30.1425C267.48 33.7666 264.102 35.8533 259.546 35.8533C253.223 35.8533 249.245 30.9853 249.245 25.0356ZM253.014 22.7472H265.785C265.45 19.5435 263.189 17.172 259.462 17.172C256.154 17.172 253.726 19.2523 253.014 22.7472Z" fill="white"/>
+        <path d="M146.359 35.5204C145.912 35.5204 145.55 35.1603 145.55 34.716V18.4756C145.55 18.0314 145.912 17.6712 146.359 17.6712H148.299C148.746 17.6712 149.109 18.0314 149.109 18.4756V34.716C149.109 35.1603 148.746 35.5204 148.299 35.5204H146.359Z" fill="white"/><path d="M147.093 6.1999C147.16 6.01848 147.418 6.01848 147.486 6.1999L148.046 7.70465C148.429 8.73135 149.243 9.54084 150.277 9.92076L151.791 10.4776C151.974 10.5447 151.974 10.8013 151.791 10.8684L150.277 11.4252C149.243 11.8052 148.429 12.6146 148.046 13.6413L147.486 15.1461C147.418 15.3275 147.16 15.3275 147.093 15.1461L146.532 13.6413C146.15 12.6146 145.335 11.8052 144.302 11.4252L142.788 10.8684C142.605 10.8013 142.605 10.5447 142.788 10.4776L144.302 9.92076C145.335 9.54084 146.15 8.73135 146.532 7.70465L147.093 6.1999Z" fill="white"/><path d="M56.3321 35.5204C55.8849 35.5204 55.5225 35.1603 55.5225 34.716V18.4756C55.5225 18.0313 55.8849 17.6712 56.3321 17.6712H58.2722C58.7193 17.6712 59.0817 18.0313 59.0817 18.4756V34.716C59.0817 35.1603 58.7193 35.5204 58.2722 35.5204H56.3321Z" fill="white"/><path d="M59.7357 10.6086C59.7357 11.9471 58.6437 13.0322 57.2966 13.0322C55.9495 13.0322 54.8574 11.9471 54.8574 10.6086C54.8574 9.27002 55.9495 8.18492 57.2966 8.18492C58.6437 8.18492 59.7357 9.27002 59.7357 10.6086Z" fill="white"/>
+        <path d="M147.093 6.1999C147.16 6.01848 147.418 6.01848 147.486 6.1999L148.046 7.70465C148.429 8.73135 149.243 9.54084 150.277 9.92076L151.791 10.4776C151.974 10.5447 151.974 10.8013 151.791 10.8684L150.277 11.4252C149.243 11.8052 148.429 12.6146 148.046 13.6413L147.486 15.1461C147.418 15.3275 147.16 15.3275 147.093 15.1461L146.532 13.6413C146.15 12.6146 145.335 11.8052 144.302 11.4252L142.788 10.8684C142.605 10.8013 142.605 10.5447 142.788 10.4776L144.302 9.92076C145.335 9.54084 146.15 8.73135 146.532 7.70465L147.093 6.1999Z" fill="white"/>
+        <path d="M56.3321 35.5204C55.8849 35.5204 55.5225 35.1603 55.5225 34.716V18.4756C55.5225 18.0313 55.8849 17.6712 56.3321 17.6712H58.2722C58.7193 17.6712 59.0817 18.0313 59.0817 18.4756V34.716C59.0817 35.1603 58.7193 35.5204 58.2722 35.5204H56.3321Z" fill="white"/>
+        <path d="M59.7357 10.6086C59.7357 11.9471 58.6437 13.0322 57.2966 13.0322C55.9495 13.0322 54.8574 11.9471 54.8574 10.6086C54.8574 9.27002 55.9495 8.18492 57.2966 8.18492C58.6437 8.18492 59.7357 9.27002 59.7357 10.6086Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="s1-subtitle">What if your most knowledgeable, highest-converting budtender could be everywhere at once?</div>
+  </div>
+
+  <!-- Slide 2: Problem Statement (3.5s) -->
+  <div class="slide" data-duration="4174">
+    <div class="s2-line">Your phones ring unanswered during rush hour.</div>
+    <div class="s2-line">Your website can't recommend products.</div>
+    <div class="s2-line">Your budtenders wing it at the register.</div>
+    <div class="s2-line">Your reputation lives on sites you never check.</div>
+  </div>
+
+  <!-- Slide 3: Solution Transition (1.75s) -->
+  <div class="slide" data-duration="2087">
+    <div class="s3-flash"></div>
+    <div class="s3-text">What if AI handled all of it?</div>
+  </div>
+
+  <!-- Slide 4: Phone AI (2 bars) -->
+  <div class="slide" data-duration="4174">
+    <div class="product-slide">
+      <div class="product-info">
+        <div class="product-label">On the Phone</div>
+        <div class="product-title">24/7 Voice Receptionist</div>
+        <div class="product-desc">Every call answered instantly. Every caller converted.</div>
+        <ul class="product-bullets">
+          <li>Answers every call on the first ring, 24/7</li>
+          <li>Live inventory lookups &amp; daily deal info</li>
+          <li>Texts deep link &mdash; converts call to online order</li>
+        </ul>
+        <div class="stat-badges">
+          <div class="stat-badge">Zero Hold Time</div>
+          <div class="stat-badge">24/7</div>
+          <div class="stat-badge">Call &rarr; Order</div>
+        </div>
+      </div>
+      <div class="phone-mockup-v">
+        <div class="phone-screen-v">
+          <div class="phone-status-v"><span>9:41 AM</span><span>Dutchie AI</span><span>&#x1F50B;</span></div>
+          <div class="phone-header-v">
+            <h4>Green Leaf Dispensary</h4>
+            <p>AI Voice Assistant</p>
+          </div>
+          <div class="phone-chat-v">
+            <div class="pchat-msg customer"><div class="sender">Caller</div>Hey, do you have any indica edibles in stock? Looking for 10mg.</div>
+            <div class="pchat-msg ai-msg"><div class="sender">Dutchie AI</div>Absolutely! We have 12 indica edibles. Top sellers: Wyld Marionberry Gummies (10mg, $32) and CANN Social Tonics (5mg, $18).</div>
+            <div class="pchat-msg customer"><div class="sender">Caller</div>The Wyld gummies sound great. Can I order those?</div>
+            <div class="pchat-msg ai-msg"><div class="sender">Dutchie AI</div>I'll text you a direct link to order for pickup!<div class="sms-link-v">&#x1F4F1; Link sent via SMS &rarr; Order for Pickup</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Ecommerce AI (2 bars) -->
+  <div class="slide" data-duration="4174">
+    <div class="product-slide">
+      <div class="product-info">
+        <div class="product-label">On Ecommerce &amp; Kiosks</div>
+        <div class="product-title">Virtual Concierge</div>
+        <div class="product-desc">A digital sommelier for cannabis. On web and in-store kiosks.</div>
+        <ul class="product-bullets">
+          <li>Natural language product search &amp; discovery</li>
+          <li>Curates by effect, price, and terpene profile</li>
+          <li>Smart add-ons to boost basket size</li>
+        </ul>
+        <div class="stat-badges">
+          <div class="stat-badge">AOV Boost</div>
+          <div class="stat-badge">Natural Language</div>
+          <div class="stat-badge">Web + Kiosk</div>
+        </div>
+      </div>
+      <div class="ecom-mockup-v">
+        <div class="ecom-bar-v">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <span class="url">shop.greenleaf.com/concierge</span>
+        </div>
+        <div class="ecom-header-v">
+          <div class="ecom-header-icon">&#x2728;</div>
+          <div>
+            <h4>Dutchie AI Concierge</h4>
+            <p>Ask me anything about our products</p>
+          </div>
+        </div>
+        <div class="ecom-body-v">
+          <div class="echat user"><div class="label">You</div>What's your best indica for sleep under $40?</div>
+          <div class="echat ai"><div class="label">Dutchie AI</div>Great question! Based on terpene profiles and customer reviews, I'd recommend:</div>
+          <div class="ecom-product-v">
+            <div class="eprod-img">&#x1F33F;</div>
+            <div>
+              <div class="eprod-name">Granddaddy Purple &mdash; 3.5g</div>
+              <div class="eprod-detail">Indica &bull; 24% THC &bull; Purple City Genetics</div>
+              <div class="eprod-tags">
+                <span class="eprod-tag">Myrcene</span>
+                <span class="eprod-tag">Linalool</span>
+                <span class="eprod-tag top">Top Rated</span>
+              </div>
+            </div>
+            <div class="eprod-price">$35</div>
+          </div>
+          <button class="ecom-add-v">Add to Cart &mdash; $35.00</button>
+          <div class="echat ai"><div class="label">Dutchie AI</div>Pair with <strong>Midnight CBN Gummies ($18)</strong> for the ultimate sleep stack.</div>
+        </div>
+        <div class="ecom-input-v">
+          <div class="field">Ask about products, effects, deals...</div>
+          <div class="send">Send</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Register AI (4 bars) -->
+  <div class="slide" data-duration="8348">
+    <div class="product-slide">
+      <div class="product-info">
+        <div class="product-label">At the Register</div>
+        <div class="product-title">Budtender Co-Pilot</div>
+        <div class="product-desc">Sell smarter without breaking eye contact.</div>
+        <ul class="product-bullets">
+          <li>Real-time upsell suggestions based on cart</li>
+          <li>Suggested scripts &mdash; exact words to say</li>
+          <li>Loyalty nudges &amp; compliance auto-checks</li>
+        </ul>
+        <div class="stat-badges">
+          <div class="stat-badge">Real-time Upsells</div>
+          <div class="stat-badge">Compliance</div>
+          <div class="stat-badge">Zero Training</div>
+        </div>
+      </div>
+      <div class="register-mockup-v">
+        <div class="reg-bar-v">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <span class="title">Dutchie POS &mdash; Register 03 | AI Co-Pilot</span>
+        </div>
+        <div class="reg-layout-v">
+          <div class="reg-cart-v">
+            <div class="reg-customer-v">
+              <div class="reg-avatar">MR</div>
+              <div>
+                <div class="reg-cust-name">Marcus Rivera</div>
+                <div class="reg-cust-meta">Silver Member &bull; 8 orders</div>
+              </div>
+              <div class="reg-tier">SILVER</div>
+            </div>
+            <div class="reg-item-v">
+              <div class="reg-item-icon">&#x1F33F;</div>
+              <div><div class="reg-item-name">Blue Dream &mdash; 3.5g</div><div class="reg-item-detail">Sativa &bull; 27% THC &bull; Cookies</div></div>
+              <div class="reg-item-price">$48.00</div>
+            </div>
+            <div class="reg-item-v">
+              <div class="reg-item-icon">&#x1F36C;</div>
+              <div><div class="reg-item-name">Kiva Camino Pineapple</div><div class="reg-item-detail">Sativa &bull; 5mg &bull; 20-pack</div></div>
+              <div class="reg-item-price">$22.00</div>
+            </div>
+            <div class="reg-item-v reg-item-new" id="newCartItem" style="opacity:0;max-height:0;overflow:hidden;margin-bottom:0;padding:0 8px;border-color:transparent;transition:all .5s ease;">
+              <div class="reg-item-icon">&#x1F4A8;</div>
+              <div><div class="reg-item-name">Sativa Pre-Roll 2-Pack</div><div class="reg-item-detail">Sativa &bull; Promo &bull; $5 deal</div></div>
+              <div class="reg-item-price" style="color:var(--green)">$5.00</div>
+            </div>
+            <div class="reg-totals-v">
+              <div class="reg-total-row"><span>Subtotal</span><span id="regSubtotal">$70.00</span></div>
+              <div class="reg-total-row"><span>Tax (18.5%)</span><span id="regTax">$12.95</span></div>
+              <div class="reg-total-row total"><span>Total</span><span id="regTotal">$82.95</span></div>
+            </div>
+            <div class="reg-buttons-v">
+              <div class="reg-btn-hold">Hold</div>
+              <div class="reg-btn-checkout">Checkout &rarr;</div>
+            </div>
+          </div>
+          <div class="reg-ai-v">
+            <div class="reg-ai-header">
+              <div class="reg-ai-icon">&#x1F916;</div>
+              <h4>Co-Pilot</h4>
+            </div>
+            <div class="reg-ai-card-v">
+              <div class="rai-label">&#x2B50; Upsell Opportunity</div>
+              <div class="rai-title">Sativa Pre-Roll 2-Pack &mdash; $5 promo</div>
+              <div class="rai-desc">Pairs perfectly with Blue Dream. This week's promo.</div>
+              <div class="rai-action" id="raiAddBtn">+ Add to Cart</div>
+            </div>
+            <div class="rai-script">
+              <div class="rai-label">&#x1F4AC; Suggested Script</div>
+              <p>"Hey Marcus &mdash; since you're grabbing the Blue Dream, we have a <em>$5 sativa pre-roll deal</em> this week. Want me to toss those in?"</p>
+            </div>
+            <div class="reg-ai-card-v loyalty">
+              <div class="rai-label">&#x1F3C6; Loyalty Nudge</div>
+              <div class="rai-title">$10 away from Gold tier!</div>
+              <div class="rai-desc">Unlock 10% off every purchase.</div>
+              <div class="rai-progress"><div class="rai-progress-fill"></div></div>
+            </div>
+            <div class="reg-ai-card-v compliance">
+              <div class="rai-label">&#x2705; Compliance</div>
+              <div class="rai-title">All clear</div>
+              <div class="rai-desc">Within limits. ID verified.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Fake cursor -->
+        <div class="fake-cursor" id="fakeCursor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-7 2-4 7-3-18z" fill="#fff" stroke="#000" stroke-width="1.5"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Sentiment AI (2 bars) -->
+  <div class="slide" data-duration="4174">
+    <div class="product-slide">
+      <div class="product-info">
+        <div class="product-label">Across the Internet</div>
+        <div class="product-title">Reputation Command Center</div>
+        <div class="product-desc">Know what the internet thinks before it hits your bottom line.</div>
+        <ul class="product-bullets">
+          <li>Scans Reddit, Leafly, Weedmaps, Google Reviews</li>
+          <li>Brand, store, and product-level tracking</li>
+          <li>Actionable alerts with trend analysis</li>
+        </ul>
+        <div class="stat-badges">
+          <div class="stat-badge">Real-Time</div>
+          <div class="stat-badge">3 Levels</div>
+          <div class="stat-badge">Actionable</div>
+        </div>
+      </div>
+      <div class="sentiment-mockup-v">
+        <div class="sent-bar-v">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <span class="title">Dutchie AI &mdash; Sentiment Command Center</span>
+        </div>
+        <div class="sent-body-v">
+          <div class="sent-tabs-v">
+            <div class="sent-tab active">Brand Overview</div>
+            <div class="sent-tab">By Store</div>
+            <div class="sent-tab">By Product</div>
+            <div class="sent-tab">Alerts</div>
+          </div>
+          <div class="sent-metrics-v">
+            <div class="sent-metric"><div class="lbl">Sentiment</div><div class="val up">4.6</div><div class="change pos">+0.3</div></div>
+            <div class="sent-metric"><div class="lbl">Mentions (7d)</div><div class="val">847</div><div class="change pos">+12%</div></div>
+            <div class="sent-metric"><div class="lbl">Positive</div><div class="val up">78%</div><div class="change pos">+5pp</div></div>
+            <div class="sent-metric"><div class="lbl">Alerts</div><div class="val down">3</div><div class="change neg">2 action</div></div>
+          </div>
+          <div class="sent-chart-v">
+            <div class="sent-chart-title">Sentiment Score &mdash; 12 Weeks</div>
+            <div class="chart-bars-v" id="videoChart"></div>
+          </div>
+          <div class="sent-brands-v">
+            <div class="brand-card"><div class="brand-name">Blue Dream (Cookies)</div><div class="brand-score high">4.8</div><div class="brand-bar"><div class="brand-bar-fill" style="width:96%;background:var(--green)"></div></div><div class="brand-platform">Leafly &bull; Reddit</div></div>
+            <div class="brand-card"><div class="brand-name">710 Labs Live Rosin</div><div class="brand-score high">4.7</div><div class="brand-bar"><div class="brand-bar-fill" style="width:94%;background:var(--green)"></div></div><div class="brand-platform">Reddit &bull; Leafly</div></div>
+            <div class="brand-card"><div class="brand-name">Midnight Vape Cart</div><div class="brand-score mid">3.2</div><div class="brand-bar"><div class="brand-bar-fill" style="width:64%;background:var(--orange)"></div></div><div class="brand-platform">Google &bull; Weedmaps</div></div>
+          </div>
+          <div class="sent-alerts-v">
+            <div class="salert"><div class="salert-icon trending">&#x1F4C8;</div><div><div class="salert-title">710 Labs generating 4.8-star buzz</div><div class="salert-meta">Leafly &bull; Reddit &bull; 2h ago</div></div></div>
+            <div class="salert"><div class="salert-icon warning">&#x26A0;&#xFE0F;</div><div><div class="salert-title">East Side sentiment dropped 12%</div><div class="salert-meta">Google Reviews &bull; "long wait" &bull; 5h ago</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: The Numbers (2 bars) -->
+  <div class="slide" data-duration="4174">
+    <div class="s8-stats">
+      <div class="s8-stat">
+        <div class="s8-stat-num" data-count="4">0</div>
+        <div class="s8-stat-label">AI Products</div>
+      </div>
+      <div class="s8-stat">
+        <div class="s8-stat-num" data-count="1">0</div>
+        <div class="s8-stat-label">Unified Platform</div>
+      </div>
+      <div class="s8-stat">
+        <div class="s8-stat-num">Every</div>
+        <div class="s8-stat-label">Customer Touchpoint</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Taglines (2 bars) -->
+  <div class="slide" data-duration="4174">
+    <div class="s9-lines">
+      <div class="s9-line">Automate the routine.</div>
+      <div class="s9-line">Maximize the basket.</div>
+      <div class="s9-line">Own your reputation.</div>
+      <div class="s9-line">Elevate the experience.</div>
+    </div>
+  </div>
+
+  <!-- Slide 10: CTA -->
+  <div class="slide" data-duration="0">
+    <div class="s10-cta">
+      <div class="s10-heading">Request a Demo</div>
+      <a href="#" class="s10-btn">Get Started</a>
+      <div class="s10-url">dutchie.com/ai</div>
+      <div class="s10-phone">Don't believe us? Call Dutchie Voice AI right now</div>
+      <a href="tel:+13134745868" class="s10-phone-number"><span class="s10-phone-icon">&#x1F4DE;</span>+1 (313) 474-5868</a>
+      <div class="s10-replay" id="replay-btn">&#x21bb; Replay</div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div id="controls">
+    <button class="ctrl-btn" id="play-pause-btn" title="Play/Pause">
+      <svg id="icon-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      <svg id="icon-play" style="display:none" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+    </button>
+    <div id="progress-wrap"><div id="progress-bar"></div></div>
+    <span id="time-label">0:00</span>
+    <button class="ctrl-btn" id="mute-btn" title="Mute/Unmute">
+      <svg id="icon-vol" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="white"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="white"/><path d="M19 12c0 2.87-1.63 5.34-4 6.58v2.13c3.27-1.38 5.61-4.55 5.61-8.26S18.27 5.12 15 3.74v2.13c2.37 1.24 4 3.71 4 6.58z" fill="white" opacity=".6"/></svg>
+      <svg id="icon-muted" style="display:none" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="white"/><line x1="23" y1="9" x2="17" y2="15" stroke="white" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="white" stroke-width="2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Background Music -->
+<audio id="bgm" preload="auto">
+  <source src="funkatronix.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Play Overlay -->
+<div id="play-overlay">
+  <button class="play-btn-big">
+    <svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+  </button>
+  <div class="play-label">Click to Play</div>
+</div>
+
+<!-- Pause Indicator -->
+<div id="pause-indicator">
+  <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const progressBar = document.getElementById('progress-bar');
+  const timeLabel = document.getElementById('time-label');
+  const playOverlay = document.getElementById('play-overlay');
+  const pauseIndicator = document.getElementById('pause-indicator');
+  const playPauseBtn = document.getElementById('play-pause-btn');
+  const iconPause = document.getElementById('icon-pause');
+  const iconPlay = document.getElementById('icon-play');
+  const replayBtn = document.getElementById('replay-btn');
+  const bgm = document.getElementById('bgm');
+  bgm.volume = 0.35;
+  let fadeInterval = null;
+
+  let currentSlide = 0;
+  let isPlaying = false;
+  let slideStartTime = 0;
+  let slideElapsed = 0;
+  let animFrame = null;
+  let slideTimeout = null;
+
+  const durations = Array.from(slides).map(s => parseInt(s.dataset.duration) || 0);
+  const totalDuration = durations.reduce((a, b) => a + b, 0) || 1;
+  const totalRuntime = totalDuration;
+
+  function getElapsedBefore(slideIdx) {
+    let t = 0;
+    for (let i = 0; i < slideIdx; i++) t += durations[i];
+    return t;
+  }
+
+  function formatTime(ms) {
+    const s = Math.floor(ms / 1000);
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  function showSlide(idx) {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    currentSlide = idx;
+    slideElapsed = 0;
+    slideStartTime = performance.now();
+
+    if (idx === 7) animateCounters();
+    if (idx === 8) {
+      setTimeout(() => {
+        document.querySelectorAll('.s9-line').forEach(l => l.classList.add('glow'));
+      }, 1800);
+    }
+    // Animate add-to-cart on register slide
+    if (idx === 5) animateAddToCart();
+    // Animate chart bars on sentiment slide
+    if (idx === 6) animateChart();
+    // Fade out music on CTA slide
+    if (idx === slides.length - 1) fadeOutMusic();
+  }
+
+  function fadeOutMusic() {
+    clearInterval(fadeInterval);
+    // ~5s fade: decrease by 0.01 every 70ms (70 steps)
+    fadeInterval = setInterval(() => {
+      if (bgm.volume > 0.01) { bgm.volume = Math.max(0, bgm.volume - 0.01); }
+      else { bgm.volume = 0; bgm.pause(); clearInterval(fadeInterval); }
+    }, 70);
+  }
+
+  function animateAddToCart() {
+    const cursor = document.getElementById('fakeCursor');
+    const addBtn = document.getElementById('raiAddBtn');
+    const newItem = document.getElementById('newCartItem');
+    const subtotal = document.getElementById('regSubtotal');
+    const tax = document.getElementById('regTax');
+    const total = document.getElementById('regTotal');
+    if (!cursor || !addBtn) return;
+
+    // Reset state
+    cursor.style.left = '70%'; cursor.style.top = '85%';
+    cursor.className = 'fake-cursor';
+    addBtn.className = 'rai-action'; addBtn.textContent = '+ Add to Cart';
+    newItem.style.opacity = '0'; newItem.style.maxHeight = '0';
+    newItem.style.padding = '0 8px'; newItem.style.marginBottom = '0';
+    newItem.style.borderColor = 'transparent'; newItem.style.background = '';
+    newItem.classList.remove('show');
+    subtotal.textContent = '$70.00'; tax.textContent = '$12.95'; total.textContent = '$82.95';
+
+    // Step 1: Show cursor (after cards fade in) at 2.8s
+    setTimeout(() => {
+      cursor.classList.add('visible');
+    }, 2800);
+
+    // Step 2: Move cursor to the add button at 3.2s
+    setTimeout(() => {
+      const mockup = cursor.closest('.register-mockup-v');
+      const btnRect = addBtn.getBoundingClientRect();
+      const mockupRect = mockup.getBoundingClientRect();
+      const targetX = ((btnRect.left + btnRect.width/2 - mockupRect.left) / mockupRect.width * 100);
+      const targetY = ((btnRect.top + btnRect.height/2 - mockupRect.top) / mockupRect.height * 100);
+      cursor.classList.add('moving');
+      cursor.style.left = targetX + '%';
+      cursor.style.top = targetY + '%';
+    }, 3200);
+
+    // Step 3: Click at 4.3s
+    setTimeout(() => {
+      cursor.classList.add('clicking');
+      addBtn.classList.add('clicked');
+    }, 4300);
+
+    // Step 4: Button changes to "Added ✓" at 4.5s
+    setTimeout(() => {
+      addBtn.classList.remove('clicked');
+      addBtn.classList.add('added');
+      addBtn.textContent = '✓ Added';
+    }, 4500);
+
+    // Step 5: New item slides into cart at 4.8s
+    setTimeout(() => {
+      newItem.classList.add('show');
+    }, 4800);
+
+    // Step 6: Update totals at 5.3s
+    setTimeout(() => {
+      subtotal.textContent = '$75.00';
+      tax.textContent = '$13.88';
+      total.textContent = '$88.88';
+      subtotal.classList.add('totals-flash');
+      tax.classList.add('totals-flash');
+      total.classList.add('totals-flash');
+    }, 5300);
+
+    // Step 7: Hide cursor at 5.8s
+    setTimeout(() => {
+      cursor.classList.remove('visible');
+    }, 5800);
+  }
+
+  function animateChart() {
+    const chart = document.getElementById('videoChart');
+    if (!chart || chart.children.length > 0) return;
+    const data = [72, 68, 74, 71, 76, 80, 78, 82, 79, 85, 83, 88];
+    data.forEach((val, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'cbar';
+      bar.style.height = '0%';
+      chart.appendChild(bar);
+      setTimeout(() => { bar.style.height = val + '%'; }, 200 + i * 60);
+    });
+  }
+
+  function animateCounters() {
+    document.querySelectorAll('.s8-stat-num[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count);
+      let current = 0;
+      const step = () => {
+        current++;
+        el.textContent = current;
+        if (current < target) setTimeout(step, 150);
+      };
+      setTimeout(step, 500);
+    });
+  }
+
+  function updateProgress() {
+    const elapsedBefore = getElapsedBefore(currentSlide);
+    const dur = durations[currentSlide];
+    const now = performance.now();
+    const elapsed = slideElapsed + (now - slideStartTime);
+    const totalElapsed = elapsedBefore + Math.min(elapsed, dur || 0);
+    const pct = Math.min((totalElapsed / totalRuntime) * 100, 100);
+    progressBar.style.width = pct + '%';
+    timeLabel.textContent = formatTime(totalElapsed);
+    if (isPlaying) animFrame = requestAnimationFrame(updateProgress);
+  }
+
+  function advanceSlide() {
+    if (currentSlide < slides.length - 1) {
+      showSlide(currentSlide + 1);
+      scheduleNext();
+    } else {
+      pause();
+      progressBar.style.width = '100%';
+    }
+  }
+
+  function scheduleNext() {
+    const dur = durations[currentSlide];
+    if (dur > 0) slideTimeout = setTimeout(advanceSlide, dur);
+  }
+
+  function play() {
+    isPlaying = true;
+    slideStartTime = performance.now();
+    iconPause.style.display = '';
+    iconPlay.style.display = 'none';
+    scheduleNext();
+    animFrame = requestAnimationFrame(updateProgress);
+    clearInterval(fadeInterval);
+    bgm.volume = 0.35;
+    if (bgm.paused) bgm.play().catch(() => {});
+  }
+
+  function pause() {
+    isPlaying = false;
+    slideElapsed += performance.now() - slideStartTime;
+    clearTimeout(slideTimeout);
+    cancelAnimationFrame(animFrame);
+    iconPause.style.display = 'none';
+    iconPlay.style.display = '';
+    bgm.pause();
+  }
+
+  function togglePlayPause() {
+    if (isPlaying) {
+      pause();
+      pauseIndicator.classList.add('show');
+      setTimeout(() => pauseIndicator.classList.remove('show'), 600);
+    } else {
+      play();
+    }
+  }
+
+  function startPresentation() {
+    playOverlay.classList.add('hidden');
+    bgm.currentTime = 0;
+    bgm.volume = 0.35;
+    // User click context — ensures browser allows audio
+    bgm.play().then(() => {
+      console.log('Music started');
+    }).catch(e => {
+      console.warn('Music blocked:', e);
+    });
+    showSlide(0);
+    play();
+  }
+
+  function restart() {
+    pause();
+    slides.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.s9-line').forEach(l => l.classList.remove('glow'));
+    // Reset chart
+    const chart = document.getElementById('videoChart');
+    if (chart) chart.innerHTML = '';
+    progressBar.style.width = '0%';
+    timeLabel.textContent = '0:00';
+    bgm.currentTime = 0;
+    clearInterval(fadeInterval);
+    bgm.volume = 0.35;
+    setTimeout(() => {
+      showSlide(0);
+      play();
+    }, 50);
+  }
+
+  playOverlay.addEventListener('click', startPresentation);
+
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (playOverlay.classList.contains('hidden')) togglePlayPause();
+      else startPresentation();
+    }
+  });
+
+  document.getElementById('presentation').addEventListener('click', e => {
+    if (e.target.closest('#controls') || e.target.closest('.close-btn') || e.target.closest('.s10-btn') || e.target.closest('.s10-replay')) return;
+    if (playOverlay.classList.contains('hidden')) togglePlayPause();
+  });
+
+  playPauseBtn.addEventListener('click', e => { e.stopPropagation(); togglePlayPause(); });
+  replayBtn.addEventListener('click', e => { e.stopPropagation(); restart(); });
+
+  // Mute toggle
+  const muteBtn = document.getElementById('mute-btn');
+  const iconVol = document.getElementById('icon-vol');
+  const iconMuted = document.getElementById('icon-muted');
+  let isMuted = false;
+  muteBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    isMuted = !isMuted;
+    bgm.muted = isMuted;
+    iconVol.style.display = isMuted ? 'none' : '';
+    iconMuted.style.display = isMuted ? '' : 'none';
+  });
+
+  document.getElementById('progress-wrap').addEventListener('click', e => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const targetTime = pct * totalRuntime;
+    // Sync music to seek position
+    bgm.currentTime = targetTime / 1000;
+    clearInterval(fadeInterval);
+    bgm.volume = 0.35;
+    let acc = 0;
+    for (let i = 0; i < slides.length; i++) {
+      if (acc + durations[i] > targetTime || i === slides.length - 1) {
+        clearTimeout(slideTimeout);
+        cancelAnimationFrame(animFrame);
+        showSlide(i);
+        slideElapsed = targetTime - acc;
+        slideStartTime = performance.now();
+        if (isPlaying) {
+          const remaining = durations[i] - slideElapsed;
+          if (remaining > 0) slideTimeout = setTimeout(advanceSlide, remaining);
+          else advanceSlide();
+          animFrame = requestAnimationFrame(updateProgress);
+        } else {
+          const totalElapsed = acc + slideElapsed;
+          progressBar.style.width = ((totalElapsed / totalRuntime) * 100) + '%';
+          timeLabel.textContent = formatTime(totalElapsed);
+        }
+        break;
+      }
+      acc += durations[i];
+    }
+  });
+})();
+</script>
+</body>
+</html>
