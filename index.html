@@ -198,17 +198,33 @@
         }
 
         /* Category tag colors — using brand palette */
-        .cat-pos .card-category-tag { background: var(--dark-green-light); color: var(--light-green); }
-        .cat-payments .card-category-tag { background: var(--medium-green); color: var(--sand); }
-        .cat-ecommerce .card-category-tag { background: var(--purple); color: var(--sand); }
-        .cat-platform .card-category-tag { background: var(--dark-green-light); color: var(--sand); }
-        .cat-marketing .card-category-tag { background: rgba(255,192,42,0.2); color: var(--yellow); }
-        .cat-analytics .card-category-tag { background: var(--medium-green); color: var(--light-green); }
-        .cat-delivery .card-category-tag { background: var(--purple); color: var(--sand); }
-        .cat-supply .card-category-tag { background: rgba(106,180,72,0.15); color: var(--light-green); }
-        .cat-seo .card-category-tag { background: rgba(255,192,42,0.15); color: var(--yellow); }
-        .cat-mobile .card-category-tag { background: var(--purple); color: var(--sand); }
         .cat-self .card-category-tag { background: rgba(255,192,42,0.25); color: var(--yellow); }
+        .cat-pos .card-category-tag { background: var(--dark-green-light); color: var(--light-green); }
+        .cat-ecommerce .card-category-tag { background: var(--purple); color: var(--sand); }
+        .cat-payments .card-category-tag { background: var(--medium-green); color: var(--sand); }
+        .cat-loyalty .card-category-tag { background: rgba(255,192,42,0.2); color: var(--yellow); }
+        .cat-mobile .card-category-tag { background: var(--purple); color: var(--sand); }
+        .cat-delivery .card-category-tag { background: var(--purple); color: var(--sand); }
+        .cat-b2b .card-category-tag { background: rgba(106,180,72,0.15); color: var(--light-green); }
+        .cat-analytics .card-category-tag { background: var(--medium-green); color: var(--light-green); }
+        .cat-adjacent .card-category-tag { background: rgba(255,192,42,0.15); color: var(--yellow); }
+        .card-status {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .status-defunct { background: rgba(239,106,74,0.2); color: #ef6a4a; }
+        .status-absorbed { background: rgba(239,106,74,0.15); color: #ef8a6a; }
+        .card-rooftops {
+            font-size: 0.7rem;
+            color: var(--sand-dim);
+            opacity: 0.7;
+            margin-top: 6px;
+        }
 
         .no-results {
             text-align: center;
@@ -335,35 +351,80 @@
 
     <script>
         const competitors = [
-            { name: "Alleaves", category: "POS / Seed-to-Sale", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS and compliance platform targeting regulated cannabis markets with seed-to-sale tracking", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060457/Competitive+Battlecard+Alleaves" },
-            { name: "Alpine IQ (AIQ)", category: "Loyalty / Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis loyalty, marketing, and CRM data platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093185/Competitive+Battlecard+Alpine+IQ+AIQ" },
-            { name: "BLAZE", category: "Full Platform", catClass: "cat-platform", icon: "\uD83D\uDDA5\uFE0F", desc: "Full-stack cannabis platform with POS, ecommerce, and delivery", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929354/Competitive+Battlecard+BLAZE" },
-            { name: "CanPay", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Debit payment solution for cannabis retailers", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962147/Competitive+Battlecard+CanPay" },
-            { name: "Carrot", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Cannabis mobile app platform for dispensary customer engagement", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060481/Competitive+Battlecard+Carrot" },
-            { name: "Dispense (AIQ Ecommerce)", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Alpine IQ's ecommerce product for dispensary online ordering", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929374/Competitive+Battlecard+Dispense+AIQ+Ecommerce" },
-            { name: "DopeApps", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Mobile app and ecommerce solutions for dispensaries", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060485/Competitive+Battlecard+DopeApps" },
-            { name: "GrowFlow", category: "POS / Seed-to-Sale", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, compliance, and seed-to-sale tracking platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093206/Competitive+Battlecard+GrowFlow" },
-            { name: "Headset", category: "Analytics / Data", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Cannabis market data, analytics, and business intelligence", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929414/Competitive+Battlecard+Headset" },
-            { name: "Hypur", category: "Payments", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Compliant payment and banking solutions for cannabis", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093226/Competitive+Battlecard+Hypur" },
-            { name: "Jane (iHeartJane)", category: "Ecommerce", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis ecommerce marketplace and online ordering platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060437/Competitive+Battlecard+Jane+iHeartJane" },
-            { name: "LeafLink", category: "Wholesale / B2B", catClass: "cat-supply", icon: "\uD83D\uDD17", desc: "B2B cannabis wholesale marketplace and supply chain platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929394/Competitive+Battlecard+LeafLink" },
-            { name: "Listo", category: "POS", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "Cannabis point-of-sale system for dispensary operations", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093266/Competitive+Battlecard+Listo" },
-            { name: "Onfleet", category: "Delivery / Logistics", catClass: "cat-delivery", icon: "\uD83D\uDE9A", desc: "Last-mile delivery management and logistics platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093246/Competitive+Battlecard+Onfleet" },
-            { name: "POSaBIT", category: "POS / Payments", catClass: "cat-pos", icon: "\uD83D\uDCB3", desc: "Cannabis payments platform with expanding POS solutions", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962127/Competitive+Battlecard+POSaBIT" },
-            { name: "Rank Really High", category: "SEO / Digital Marketing", catClass: "cat-seo", icon: "\uD83D\uDD0D", desc: "Cannabis-focused SEO and digital marketing agency", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060477/Competitive+Battlecard+Rank+Really+High" },
-            { name: "Surfside", category: "AdTech / Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis adtech, audience data, and marketing platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093286/Competitive+Battlecard+Surfside" },
-            { name: "Treez", category: "POS / Retail Platform", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "Cannabis retail platform with POS, ecommerce, and payments", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060417/Competitive+Battlecard+Treez" },
-            { name: "Weedmaps", category: "Ecommerce / Marketplace", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis marketplace, listings, and ecommerce platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" },
-            { name: "Dutchie (Self-Assessment)", category: "Self-Assessment", catClass: "cat-self", icon: "\uD83E\uDE9E", desc: "Dutchie from a competitor's perspective — strengths, weaknesses, and positioning as rivals see us", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21966913735" }
+            // Dutchie Self-Assessment
+            { name: "Dutchie (Self-Assessment)", category: "Dutchie Self-Assessment", catClass: "cat-self", icon: "\uD83E\uDE9E", desc: "Dutchie from a competitor's perspective — strengths, weaknesses, and positioning as rivals see us", products: "POS, Ecommerce, Payments, Loyalty, Marketing, Kiosk, Mobile App, B2B/Wholesale (Connect), AI Intelligence", rooftops: "~6,000+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21966913735" },
+
+            // POS & Retail Operations
+            { name: "Treez", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce (TreezComm), Payments (TreezPay), Kiosk, Compliance", products: "POS, Ecommerce, Payments, Kiosk, Compliance", rooftops: "~2,000", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060417/Competitive+Battlecard+Treez" },
+            { name: "Flowhub", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce, Payments, Built-in Loyalty, Marketing", products: "POS, Ecommerce, Payments, Loyalty, Marketing", rooftops: "~1,000+", url: "" },
+            { name: "Cova", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce (Cova Ecommerce), Payments (Cova Pay), Compliance", products: "POS, Ecommerce, Payments, Compliance", rooftops: "~800\u20131,000", url: "" },
+            { name: "BLAZE", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce, Kiosk, Delivery, Mobile App, BLAZEPAY ACH, BLAZE Sites, Herbie AI", products: "POS, Ecommerce, Kiosk, Delivery, Mobile App, Payments, AI", rooftops: "~600\u2013800", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929354/Competitive+Battlecard+BLAZE" },
+            { name: "POSaBIT", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Payments, Ecommerce", products: "POS, Payments, Ecommerce", rooftops: "~500+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962127/Competitive+Battlecard+POSaBIT" },
+            { name: "Sweed", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce, Kiosk, Delivery, Loyalty, Marketing, AI Demand Forecasting", products: "POS, Ecommerce, Kiosk, Delivery, Loyalty, Marketing, AI", rooftops: "~200\u2013400", url: "" },
+            { name: "Alleaves", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Payments, Delivery, Compliance", products: "POS, Payments, Delivery, Compliance", rooftops: "~150\u2013300", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060457/Competitive+Battlecard+Alleaves" },
+            { name: "GrowFlow", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Compliance, Marketplace (B2B), Ecommerce", products: "POS, Compliance, B2B Marketplace, Ecommerce", rooftops: "~100\u2013200", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093206/Competitive+Battlecard+GrowFlow" },
+            { name: "IndicaOnline", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce, Compliance, IndicaPay, RFID Inventory, Delivery, Distribution", products: "POS, Ecommerce, Compliance, Payments, RFID, Delivery, Distribution", rooftops: "~100\u2013200", url: "" },
+            { name: "Meadow", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Ecommerce, Delivery, Compliance", products: "POS, Ecommerce, Delivery, Compliance", rooftops: "~50\u2013150", url: "" },
+            { name: "KORONA POS", category: "POS & Retail Operations", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "POS, Compliance", products: "POS, Compliance", rooftops: "~50\u2013100", url: "" },
+
+            // Ecommerce / Online Ordering
+            { name: "Jane (iHeartJane)", category: "Ecommerce / Online Ordering", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Ecommerce (Marketplace & Embedded), Digital Merchandising (JDM), Jane Gold, Catalog, MyHigh AI, Kiosk, iOS App, Analytics", products: "Ecommerce, Marketplace, Merchandising, AI, Kiosk, Analytics", rooftops: "~2,500+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060437/Competitive+Battlecard+Jane+iHeartJane" },
+            { name: "Rank Really High (RRH)", category: "Ecommerce / Online Ordering", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Ecommerce (Agency), SEO, Web Development", products: "Ecommerce, SEO, Web Development", rooftops: "~400+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060477/Competitive+Battlecard+Rank+Really+High" },
+            { name: "Dispense (AIQ Ecommerce)", category: "Ecommerce / Online Ordering", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Ecommerce, SEO, Kiosk", products: "Ecommerce, SEO, Kiosk", rooftops: "~200\u2013400", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929374/Competitive+Battlecard+Dispense+AIQ+Ecommerce" },
+            { name: "Carrot", category: "Ecommerce / Online Ordering", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Ecommerce, Loyalty", products: "Ecommerce, Loyalty", rooftops: "", status: "DEFUNCT", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060481/Competitive+Battlecard+Carrot" },
+
+            // Payments & Financial Services
+            { name: "CanPay", category: "Payments & Financial Services", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Payments (Debit)", products: "Payments (Debit)", rooftops: "", status: "POSSIBLY ABSORBED", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967962147/Competitive+Battlecard+CanPay" },
+            { name: "Aeropay", category: "Payments & Financial Services", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Payments (Pay-by-Bank Network), Aerosync, AeroPay, AeroPayout, AeroGuard", products: "Payments, Pay-by-Bank, Sync, Payouts, Fraud Guard", rooftops: "~500\u2013800", url: "" },
+            { name: "KindTap", category: "Payments & Financial Services", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Payments (Credit/Line of Credit)", products: "Payments (Credit/Line of Credit)", rooftops: "~200\u2013400", url: "" },
+            { name: "Hypur", category: "Payments & Financial Services", catClass: "cat-payments", icon: "\uD83D\uDCB3", desc: "Payments (Compliant Banking)", products: "Payments (Compliant Banking)", rooftops: "", status: "ABSORBED (into POSaBIT)", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093226/Competitive+Battlecard+Hypur" },
+
+            // Loyalty / CRM / Marketing
+            { name: "Springbig", category: "Loyalty / CRM / Marketing", catClass: "cat-loyalty", icon: "\uD83D\uDCE3", desc: "Loyalty, CRM, Marketing (SMS/Email), Rewards", products: "Loyalty, CRM, Marketing, Rewards", rooftops: "~1,000+", url: "" },
+            { name: "Alpine IQ (AIQ)", category: "Loyalty / CRM / Marketing", catClass: "cat-loyalty", icon: "\uD83D\uDCE3", desc: "Loyalty, Marketing, Segmentation, Ecommerce (Dispense), Flows, Loops, Mobile Apps, Data Ops, Terpli AI", products: "Loyalty, Marketing, Segmentation, Ecommerce, AI, Mobile Apps", rooftops: "~800\u20131,000", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093185/Competitive+Battlecard+Alpine+IQ+AIQ" },
+            { name: "Happy Cabbage", category: "Loyalty / CRM / Marketing", catClass: "cat-loyalty", icon: "\uD83D\uDCE3", desc: "Loyalty, Retention, Analytics", products: "Loyalty, Retention, Analytics", rooftops: "~100\u2013300", url: "" },
+
+            // Mobile Apps / Branded Consumer Experience
+            { name: "Digital Awesome", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Mobile App Development (Agency)", products: "Mobile App Development", rooftops: "", status: "DEFUNCT", url: "" },
+            { name: "DopeApps", category: "Mobile Apps", catClass: "cat-mobile", icon: "\uD83D\uDCF1", desc: "Mobile App Development", products: "Mobile App Development", rooftops: "~25\u201375", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060485/Competitive+Battlecard+DopeApps" },
+
+            // Delivery Operations & Routing
+            { name: "Onfleet", category: "Delivery Operations & Routing", catClass: "cat-delivery", icon: "\uD83D\uDE9A", desc: "Delivery Routing & Fleet Management", products: "Delivery Routing, Fleet Management", rooftops: "~200\u2013500 (cannabis)", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093246/Competitive+Battlecard+Onfleet" },
+            { name: "WebJoint", category: "Delivery Operations & Routing", catClass: "cat-delivery", icon: "\uD83D\uDE9A", desc: "POS, Delivery, Fleet Management", products: "POS, Delivery, Fleet Management", rooftops: "~100\u2013200", url: "" },
+
+            // B2B / Wholesale Commerce
+            { name: "LeafLink", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "B2B Wholesale Marketplace, Ordering, Payments, Banking, Logistics", products: "B2B Marketplace, Ordering, Payments, Banking, Logistics", rooftops: "~12,000+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929394/Competitive+Battlecard+LeafLink" },
+            { name: "Nabis", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "Wholesale Distribution, Marketplace, Payments, Analytics, Fulfillment, Financing", products: "Distribution, Marketplace, Payments, Analytics, Fulfillment", rooftops: "~2,000+", url: "" },
+            { name: "Distru", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "Cannabis ERP, B2B Wholesale, DistruCommerce Marketplace", products: "ERP, B2B Wholesale, Marketplace", rooftops: "~2,600+ retailers", url: "" },
+            { name: "Leaf Trade", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "Wholesale Marketplace", products: "Wholesale Marketplace", rooftops: "", status: "ACQUIRED (by LeafLink Oct 2024)", url: "" },
+            { name: "Apex Trading", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "B2B Wholesale, Brand Storefronts, Logistics", products: "B2B Wholesale, Brand Storefronts, Logistics", rooftops: "~3,000+", url: "" },
+            { name: "OneBonfire", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "Brand Marketplace, CRM, Marketing", products: "Brand Marketplace, CRM, Marketing", rooftops: "~50\u2013150", url: "" },
+            { name: "Listo", category: "B2B / Wholesale Commerce", catClass: "cat-b2b", icon: "\uD83E\uDD1D", desc: "Wholesale Sourcing App", products: "Wholesale Sourcing", rooftops: "", status: "POSSIBLY DEFUNCT", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093266/Competitive+Battlecard+Listo" },
+
+            // Brand Intelligence & Analytics
+            { name: "Headset", category: "Brand Intelligence & Analytics", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Retail & Brand Analytics, Market Intelligence", products: "Retail Analytics, Brand Analytics, Market Intelligence", rooftops: "~3,500+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21967929414/Competitive+Battlecard+Headset" },
+            { name: "Hoodie Analytics", category: "Brand Intelligence & Analytics", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Market Intelligence, Brand Analytics", products: "Market Intelligence, Brand Analytics", rooftops: "10,000+ menus tracked", url: "" },
+            { name: "BDSA", category: "Brand Intelligence & Analytics", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Market Intelligence, Retail Sales Tracking, Hemp & Delta Consumer Insights", products: "Market Intelligence, Retail Sales Tracking, Consumer Insights", rooftops: "N/A (data provider)", url: "" },
+            { name: "Surfside", category: "Brand Intelligence & Analytics", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Commerce Media, Analytics", products: "Commerce Media, Analytics", rooftops: "~500\u20131,000", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093286/Competitive+Battlecard+Surfside" },
+            { name: "New Frontier Data", category: "Brand Intelligence & Analytics", catClass: "cat-analytics", icon: "\uD83D\uDCCA", desc: "Market Intelligence, Consumer Insights", products: "Market Intelligence, Consumer Insights", rooftops: "N/A", url: "" },
+
+            // Adjacent / Marketplace
+            { name: "Weedmaps", category: "Adjacent / Marketplace", catClass: "cat-adjacent", icon: "\uD83C\uDF10", desc: "Consumer Marketplace, Ecommerce, CRM, Advertising", products: "Consumer Marketplace, Ecommerce, CRM, Advertising", rooftops: "~10,000+", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" },
+            { name: "Shopify", category: "Adjacent / Marketplace", catClass: "cat-adjacent", icon: "\uD83C\uDF10", desc: "General Ecommerce Platform (Emerging Signal)", products: "General Ecommerce Platform", rooftops: "N/A", status: "EMERGING", url: "" },
+            { name: "Tymber", category: "Adjacent / Marketplace", catClass: "cat-adjacent", icon: "\uD83C\uDF10", desc: "Ecommerce, SEO", products: "Ecommerce, SEO", rooftops: "Unknown", status: "NEW", url: "" }
         ];
 
         const categoryOrder = [
-            "Self-Assessment",
-            "POS / Seed-to-Sale", "POS", "POS / Payments", "POS / Retail Platform",
-            "Full Platform", "Payments", "Ecommerce", "Ecommerce / Marketplace",
-            "Loyalty / Marketing", "AdTech / Marketing",
-            "Analytics / Data", "Delivery / Logistics", "Wholesale / B2B",
-            "SEO / Digital Marketing", "Mobile Apps"
+            "Dutchie Self-Assessment",
+            "POS & Retail Operations",
+            "Ecommerce / Online Ordering",
+            "Payments & Financial Services",
+            "Loyalty / CRM / Marketing",
+            "Mobile Apps",
+            "Delivery Operations & Routing",
+            "B2B / Wholesale Commerce",
+            "Brand Intelligence & Analytics",
+            "Adjacent / Marketplace"
         ];
 
         let activeFilter = "All";
@@ -427,10 +488,11 @@
                     <div class="cards-grid">
                         ${items.map(c => `
                             <div class="card" data-name="${c.name}" onclick="openModal('${c.name.replace(/'/g, "\\'")}')">
-                                <div class="card-name">${c.name}</div>
+                                <div class="card-name">${c.name}${c.status ? '<span class="card-status ' + (c.status.includes('DEFUNCT') || c.status.includes('ABSORBED') ? 'status-defunct' : 'status-absorbed') + '">' + c.status + '</span>' : ''}</div>
                                 <span class="card-category-tag">${c.category}</span>
                                 <div class="card-desc">${c.desc}</div>
-                                <div class="card-arrow">View Battlecard &rarr;</div>
+                                ${c.rooftops ? '<div class="card-rooftops">Est. Rooftops: ' + c.rooftops + '</div>' : ''}
+                                <div class="card-arrow">${c.url ? 'View Battlecard &rarr;' : 'No Battlecard Yet'}</div>
                             </div>
                         `).join("")}
                     </div>
@@ -444,17 +506,22 @@
             const modal = document.getElementById("modal");
             modal.innerHTML = `
                 <button class="modal-close" onclick="closeModal()">&times;</button>
-                <h2>${c.name}</h2>
+                <h2>${c.name}${c.status ? '<span class="card-status ' + (c.status.includes('DEFUNCT') || c.status.includes('ABSORBED') ? 'status-defunct' : 'status-absorbed') + '" style="margin-left:10px">' + c.status + '</span>' : ''}</h2>
                 <div class="modal-cat"><span class="card-category-tag" style="font-size:0.8rem">${c.icon} ${c.category}</span></div>
                 <div class="modal-section">
                     <h3>Overview</h3>
                     <p>${c.desc}</p>
                 </div>
                 <div class="modal-section">
-                    <h3>Full Battlecard</h3>
-                    <p>Access the complete competitive analysis including strengths, weaknesses, pricing, objection handling, and win/loss data on Confluence.</p>
+                    <h3>Product Categories</h3>
+                    <p>${c.products}</p>
                 </div>
-                <a class="btn-confluence" href="${c.url}" target="_blank" rel="noopener">Open in Confluence &rarr;</a>
+                ${c.rooftops ? '<div class="modal-section"><h3>Estimated Rooftops</h3><p>' + c.rooftops + '</p></div>' : ''}
+                <div class="modal-section">
+                    <h3>Full Battlecard</h3>
+                    <p>${c.url ? 'Access the complete competitive analysis including strengths, weaknesses, pricing, objection handling, and win/loss data on Confluence.' : 'No battlecard has been created for this competitor yet.'}</p>
+                </div>
+                ${c.url ? '<a class="btn-confluence" href="' + c.url + '" target="_blank" rel="noopener">Open in Confluence &rarr;</a>' : ''}
             `;
             document.getElementById("modal-overlay").classList.add("active");
         }
