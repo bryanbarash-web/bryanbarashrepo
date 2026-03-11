@@ -208,6 +208,7 @@
         .cat-supply .card-category-tag { background: rgba(106,180,72,0.15); color: var(--light-green); }
         .cat-seo .card-category-tag { background: rgba(255,192,42,0.15); color: var(--yellow); }
         .cat-mobile .card-category-tag { background: var(--purple); color: var(--sand); }
+        .cat-self .card-category-tag { background: rgba(255,192,42,0.25); color: var(--yellow); }
 
         .no-results {
             text-align: center;
@@ -352,10 +353,12 @@
             { name: "Rank Really High", category: "SEO / Digital Marketing", catClass: "cat-seo", icon: "\uD83D\uDD0D", desc: "Cannabis-focused SEO and digital marketing agency", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060477/Competitive+Battlecard+Rank+Really+High" },
             { name: "Surfside", category: "AdTech / Marketing", catClass: "cat-marketing", icon: "\uD83D\uDCE3", desc: "Cannabis adtech, audience data, and marketing platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968093286/Competitive+Battlecard+Surfside" },
             { name: "Treez", category: "POS / Retail Platform", catClass: "cat-pos", icon: "\uD83D\uDDA5\uFE0F", desc: "Cannabis retail platform with POS, ecommerce, and payments", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968060417/Competitive+Battlecard+Treez" },
-            { name: "Weedmaps", category: "Ecommerce / Marketplace", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis marketplace, listings, and ecommerce platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" }
+            { name: "Weedmaps", category: "Ecommerce / Marketplace", catClass: "cat-ecommerce", icon: "\uD83D\uDED2", desc: "Cannabis marketplace, listings, and ecommerce platform", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21968125953/Competitive+Battlecard+Weedmaps" },
+            { name: "Dutchie (Self-Assessment)", category: "Self-Assessment", catClass: "cat-self", icon: "\uD83E\uDE9E", desc: "Dutchie from a competitor's perspective — strengths, weaknesses, and positioning as rivals see us", url: "https://dutchie.atlassian.net/wiki/spaces/MKG/pages/21966913735" }
         ];
 
         const categoryOrder = [
+            "Self-Assessment",
             "POS / Seed-to-Sale", "POS", "POS / Payments", "POS / Retail Platform",
             "Full Platform", "Payments", "Ecommerce", "Ecommerce / Marketplace",
             "Loyalty / Marketing", "AdTech / Marketing",
