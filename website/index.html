@@ -3,45 +3,1249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Dutchie Cannabis Retail Dispensary POS Ecom Loyalty Software</title>
+    <meta name="description" content="Dutchie technology powers cannabis retailers across North America. With best-in-class POS software, payment processing, and ecommerce solutions, Dutchie can help your cannabis business grow.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --dark-green: #042017;
-            --sand: #F1EBD6;
             --medium-green: #003D29;
             --light-green: #6AB448;
+            --sand: #F1EBD6;
+            --sand-light: #f5f0e0;
+            --yellow: #FFC02A;
+            --purple: #5E324E;
+            --white: #ffffff;
+            --text-dark: #042017;
+            --text-muted: #677882;
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: 'Inter', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sand);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
             background: var(--dark-green);
-            color: var(--sand);
-            min-height: 100vh;
+            padding: 0 40px;
+            height: 64px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .nav-logo img { height: 24px; width: auto; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--sand);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-links a:hover { opacity: 1; }
+        .nav-links .chevron {
+            width: 12px; height: 12px;
+            fill: currentColor;
+            opacity: 0.6;
+        }
+        .nav-cta {
+            background: transparent;
+            border: 1.5px solid var(--yellow);
+            color: var(--yellow);
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .nav-cta:hover {
+            background: var(--yellow);
+            color: var(--dark-green);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: var(--dark-green);
+            padding: 80px 40px 0;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--sand);
+            max-width: 900px;
+            margin: 0 auto 16px;
+            line-height: 1.15;
+        }
+        .hero h1 strong {
+            font-weight: 800;
+            color: var(--sand);
+        }
+        .hero-cta {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--dark-green);
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255,192,42,0.3);
+        }
+        .hero-video {
+            max-width: 1100px;
+            margin: 48px auto 0;
+            border-radius: 16px 16px 0 0;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0,61,41,0.4);
+            aspect-ratio: 16/7;
+            display: flex;
             align-items: center;
             justify-content: center;
         }
-        .logo {
-            margin-bottom: 32px;
+        .hero-video .play-btn {
+            width: 72px;
+            height: 72px;
+            background: var(--yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        h1 {
-            font-size: 3rem;
+        .hero-video .play-btn:hover { transform: scale(1.1); }
+        .hero-video .play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--dark-green);
+            margin-left: 4px;
+        }
+
+        /* ===== PRODUCT CARDS ===== */
+        .products {
+            background: var(--dark-green);
+            padding: 0 40px 80px;
+        }
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            background: var(--medium-green);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-4px); }
+        .product-card h3 {
+            font-size: 1.75rem;
             font-weight: 700;
+            color: var(--sand);
+            margin-bottom: 8px;
+        }
+        .product-card p {
+            font-size: 0.9rem;
+            color: var(--sand);
+            opacity: 0.8;
+            line-height: 1.5;
             margin-bottom: 16px;
         }
-        p {
+        .product-card .card-link {
+            color: var(--sand);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1.5px solid rgba(241,235,214,0.3);
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            width: fit-content;
+        }
+        .product-card .card-link:hover {
+            background: rgba(241,235,214,0.1);
+            border-color: var(--sand);
+        }
+        .product-card.intelligence {
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--dark-green) 100%);
+        }
+
+        /* ===== TRUST BAR ===== */
+        .trust {
+            background: var(--sand);
+            padding: 40px 40px 0;
+        }
+        .trust-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid rgba(4,32,23,0.1);
+            flex-wrap: wrap;
+        }
+        .trust-header span {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+        .trust-logos {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+        .trust-logos .logo-item {
             font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+
+        /* ===== STATS HERO ===== */
+        .stats-hero {
+            background: var(--sand);
+            padding: 60px 40px;
+        }
+        .stats-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .stats-hero h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--dark-green);
+            max-width: 600px;
+            line-height: 1.15;
+            margin-bottom: 40px;
+        }
+        .stats-row {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .stat-item .stat-number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--dark-green);
+        }
+        .stat-item .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== FEATURE TABS ===== */
+        .features {
+            background: var(--sand-light);
+            padding: 80px 40px;
+        }
+        .features-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+            border-bottom: 2px solid rgba(4,32,23,0.1);
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .tab-btn.active {
+            color: var(--dark-green);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--dark-green);
+            border-radius: 2px 2px 0 0;
+        }
+        .tab-btn:hover { color: var(--dark-green); }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+        .tab-text h3 {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 700;
+            color: var(--dark-green);
+            line-height: 1.2;
+            margin-bottom: 32px;
+        }
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .feature-list li {
+            padding-left: 24px;
+            position: relative;
+            cursor: pointer;
+        }
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--light-green);
+        }
+        .feature-list li strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark-green);
+            margin-bottom: 4px;
+        }
+        .feature-list li span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .tab-image {
+            background: var(--dark-green);
+            border-radius: 16px;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .tab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== INTEGRATIONS + TESTIMONIALS ===== */
+        .integrations-testimonials {
+            background: var(--sand);
+            padding: 80px 40px;
+        }
+        .it-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .it-card {
+            border-radius: 16px;
+            padding: 40px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .it-card.integrations {
+            background: var(--dark-green);
+            color: var(--sand);
+            position: relative;
+            overflow: hidden;
+        }
+        .it-card.integrations h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--sand);
+            margin-bottom: 16px;
+            max-width: 300px;
+        }
+        .it-card.integrations a {
+            color: var(--light-green);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .it-card.testimonial {
+            background: var(--dark-green);
+            color: var(--sand);
+        }
+        .it-card.testimonial blockquote {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--sand);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .it-card.testimonial .attribution {
+            color: var(--yellow);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .testimonial-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .testimonial-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(241,235,214,0.3);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .testimonial-dots .dot.active {
+            background: var(--light-green);
+        }
+
+        /* ===== INNOVATION ===== */
+        .innovation {
+            background: var(--sand);
+            padding: 0 40px 80px;
+        }
+        .innovation-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .innovation h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            color: var(--medium-green);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.15;
+        }
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .innovation-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .innovation-card:hover { transform: translateY(-4px); }
+        .innovation-card-img {
+            aspect-ratio: 16/10;
+            background: var(--dark-green);
+            overflow: hidden;
+        }
+        .innovation-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .innovation-card-body {
+            padding: 24px;
+        }
+        .innovation-card-body h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .innovation-card-body p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .innovation-wide {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .innovation-wide-card {
+            background: var(--white);
+            border-radius: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .innovation-wide-card:hover { transform: translateY(-4px); }
+        .innovation-wide-card .iw-text {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .innovation-wide-card .iw-text h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .innovation-wide-card .iw-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .innovation-wide-card .iw-img {
+            background: var(--dark-green);
+            overflow: hidden;
+        }
+        .innovation-wide-card .iw-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== EVERYTHING SECTION ===== */
+        .everything {
+            background: var(--sand-light);
+            padding: 80px 40px;
+        }
+        .everything-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .everything h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            font-weight: 700;
+            color: var(--medium-green);
+            text-align: center;
+            margin-bottom: 48px;
+            font-style: italic;
+            line-height: 1.2;
+        }
+        .accordion-item {
+            border-top: 1px solid rgba(4,32,23,0.15);
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .accordion-item:last-child {
+            border-bottom: 1px solid rgba(4,32,23,0.15);
+        }
+        .accordion-item:hover { opacity: 0.7; }
+        .accordion-num {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            min-width: 32px;
+        }
+        .accordion-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark-green);
+            flex: 1;
+        }
+        .accordion-arrow {
+            width: 24px;
+            height: 24px;
+            fill: var(--dark-green);
+            opacity: 0.4;
+        }
+
+        /* ===== DEMO SECTION ===== */
+        .demo-section {
+            background: var(--dark-green);
+            padding: 80px 40px;
+        }
+        .demo-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .demo-text h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--sand);
+            margin-bottom: 16px;
+        }
+        .demo-text p {
+            font-size: 1rem;
+            color: var(--sand);
             opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .demo-text .demo-btn {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--dark-green);
+            padding: 14px 36px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .demo-text .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255,192,42,0.3);
+        }
+        .demo-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .demo-img-placeholder {
+            background: var(--medium-green);
+            border-radius: 12px;
+            aspect-ratio: 4/3;
+        }
+
+        /* ===== BOTTOM STATS ===== */
+        .bottom-stats {
+            background: var(--dark-green);
+            padding: 0 40px 80px;
+        }
+        .bottom-stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(241,235,214,0.15);
+            padding-top: 48px;
+        }
+        .bottom-stats-inner > h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--sand);
+            margin-bottom: 8px;
+        }
+        .bottom-stats-inner > p {
+            color: var(--sand);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+        .bottom-stats-row {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .bs-item .bs-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sand);
+        }
+        .bs-item .bs-label {
+            font-size: 0.85rem;
+            color: var(--sand);
+            opacity: 0.6;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark-green);
+            border-top: 1px solid rgba(241,235,214,0.1);
+            padding: 60px 40px 32px;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--yellow);
+            text-transform: capitalize;
+            margin-bottom: 16px;
+        }
+        .footer-col a {
+            display: block;
+            color: var(--sand);
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            transition: opacity 0.2s;
+        }
+        .footer-col a:hover { opacity: 1; }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid rgba(241,235,214,0.1);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-bottom-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .footer-bottom-left .fb-logo {
+            display: flex;
+            align-items: center;
+        }
+        .footer-bottom-left .fb-logo img { height: 20px; width: auto; }
+        .footer-bottom-left a {
+            color: var(--sand);
+            opacity: 0.5;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: opacity 0.2s;
+        }
+        .footer-bottom-left a:hover { opacity: 0.8; }
+        .footer-bottom-left span {
+            color: var(--sand);
+            opacity: 0.4;
+            font-size: 0.75rem;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+        }
+        .footer-socials a {
+            color: var(--sand);
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .footer-socials a:hover { opacity: 1; }
+        .footer-socials svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .tab-content.active { grid-template-columns: 1fr; }
+            .it-grid { grid-template-columns: 1fr; }
+            .innovation-grid { grid-template-columns: 1fr; }
+            .innovation-wide { grid-template-columns: 1fr; }
+            .demo-inner { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .hero { padding: 48px 20px 0; }
+            .products { padding: 0 20px 48px; }
+            .trust { padding: 32px 20px 0; }
+            .stats-hero { padding: 40px 20px; }
+            .features { padding: 48px 20px; }
+            .integrations-testimonials { padding: 48px 20px; }
+            .innovation { padding: 0 20px 48px; }
+            .everything { padding: 48px 20px; }
+            .demo-section { padding: 48px 20px; }
+            .footer { padding: 40px 20px 24px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .innovation-wide-card { grid-template-columns: 1fr; }
+            .stats-row { gap: 32px; }
         }
     </style>
 </head>
 <body>
-    <img class="logo" src="images/logo-light.png" alt="dutchie" style="height:40px;width:auto;">
-    <h1>Hello, World!</h1>
-    <p>Welcome to Bryan's page.</p>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+    <div class="nav-left">
+        <a href="#" class="nav-logo">
+            <img src="../images/logo-light.png" alt="dutchie">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Solutions <svg class="chevron" viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></a></li>
+            <li><a href="#">Learn <svg class="chevron" viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></a></li>
+            <li><a href="#">Resources <svg class="chevron" viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></a></li>
+            <li><a href="#">Data &amp; Privacy <svg class="chevron" viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></a></li>
+            <li><a href="#">Company <svg class="chevron" viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></a></li>
+        </ul>
+    </div>
+    <a href="#demo" class="nav-cta">See it in action</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Coming Soon: <strong>Connect</strong> and <strong>Nexus</strong>, Powered by Dutchie Intelligence</h1>
+    <a href="#demo" class="hero-cta">Schedule a Demo</a>
+    <div class="hero-video">
+        <div class="play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCT CARDS -->
+<section class="products">
+    <div class="products-grid">
+        <div class="product-card">
+            <h3>Connect</h3>
+            <p>Retailers &amp; brands, connected. Intelligent and automated.</p>
+            <div style="display:flex;gap:10px">
+                <a href="#" class="card-link">For Retailers</a>
+                <a href="#" class="card-link">For Brands</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <h3>Nexus</h3>
+            <p>See every insight. Take any action. Your AI powered command center.</p>
+            <a href="#" class="card-link">Learn more &rarr;</a>
+        </div>
+        <div class="product-card intelligence">
+            <h3>Intelligence</h3>
+            <p>Smart pricing suggestions, loyalty campaigns, and real-time market data.</p>
+            <a href="#" class="card-link">Learn more &rarr;</a>
+        </div>
+    </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust">
+    <div class="trust-header">
+        <span>Trusted by over 6,500 dispensaries</span>
+        <div class="trust-logos">
+            <span class="logo-item">planet 13</span>
+            <span class="logo-item">AYR</span>
+            <span class="logo-item">JARS</span>
+            <span class="logo-item">Trulieve</span>
+            <span class="logo-item">ASCEND</span>
+            <span class="logo-item">Green Thumb</span>
+        </div>
+    </div>
+</section>
+
+<!-- STATS HERO -->
+<section class="stats-hero">
+    <div class="stats-hero-inner">
+        <h2>Dutchie is the #1 cannabis platform across North America</h2>
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-number">$22B</div>
+                <div class="stat-label">Annual transaction volume</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1M</div>
+                <div class="stat-label">In daily transactions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Millions</div>
+                <div class="stat-label">In social impact donations</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURE TABS -->
+<section class="features">
+    <div class="features-inner">
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="crm">CRM &amp; Personalization</button>
+            <button class="tab-btn" data-tab="loyalty">Loyalty &amp; Marketing</button>
+            <button class="tab-btn" data-tab="backofhouse">Back of House</button>
+            <button class="tab-btn" data-tab="ecommerce">E-Commerce</button>
+            <button class="tab-btn" data-tab="inperson">In Person</button>
+            <button class="tab-btn" data-tab="payments">Payments</button>
+            <button class="tab-btn" data-tab="platform">Platform</button>
+        </div>
+
+        <div class="tab-content active" id="tab-crm">
+            <div class="tab-text">
+                <h3>Customer data, insights, and personalization at your fingertips.</h3>
+                <ul class="feature-list">
+                    <li><strong>Superpower your budtenders</strong><span>At-a-glance customer insights give budtenders the power to personalize every interaction.</span></li>
+                    <li><strong>Customer behavior insights</strong><span>Deeply understand your customers preferences to optimize product offerings and discount strategies.</span></li>
+                    <li><strong>Omnichannel personalization</strong><span>Customer preferences and purchase history flow between online and in-store platforms, enabling highly personalized product recommendations.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-800.png" alt="CRM Dashboard"></div>
+        </div>
+
+        <div class="tab-content" id="tab-loyalty">
+            <div class="tab-text">
+                <h3>Loyalty &amp; Marketing so easy it practically does all the work itself.</h3>
+                <ul class="feature-list">
+                    <li><strong>AI powered email campaigns</strong><span>Generate audience tailored, engaging email campaigns with the push of a button.</span></li>
+                    <li><strong>Boost engagement with loyalty</strong><span>Motivate customers with a convenient view into their loyalty progress and rewards.</span></li>
+                    <li><strong>Native mobile app</strong><span>Engage customers directly on their phone and boost loyalty with a mobile app built for you.</span></li>
+                    <li><strong>Reach the right customer</strong><span>Tailor your marketing and offerings to speak differently to your customer groups.</span></li>
+                    <li><strong>In-store loyalty on the register</strong><span>Seamless process for budtenders to view and use customer loyalty on Dutchie POS.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66f2fad70fdc1b567e559add_campaign-reports-p-1080.png" alt="Loyalty Dashboard"></div>
+        </div>
+
+        <div class="tab-content" id="tab-backofhouse">
+            <div class="tab-text">
+                <h3>Streamlined operations that save time and cut costs.</h3>
+                <ul class="feature-list">
+                    <li><strong>Global, omni-channel discount engine</strong><span>Cross-platform discounting made easy. Configure once, distribute everywhere.</span></li>
+                    <li><strong>Next level data-driven reporting</strong><span>Insightful reporting across all channels &amp; locations, online &amp; in-store.</span></li>
+                    <li><strong>Fully integrated compliance tools</strong><span>Robust two-way integrations with every state traceability system, including METRC and Biotrack.</span></li>
+                    <li><strong>Delivery options that drive sales</strong><span>Meet your customers where they are and power more sales.</span></li>
+                    <li><strong>Streamlined inventory management</strong><span>Smart tools that help you review, move and restock inventory quickly and accurately.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-800.png" alt="Operations Dashboard"></div>
+        </div>
+
+        <div class="tab-content" id="tab-ecommerce">
+            <div class="tab-text">
+                <h3>The industry's best e-commerce platform, just got better.</h3>
+                <ul class="feature-list">
+                    <li><strong>Personalized shopping experience</strong><span>Tailored product recommendations and one-click reordering create a seamless experience.</span></li>
+                    <li><strong>Boost visibility with SEO</strong><span>SEO features help your dispensary stand out in search results, driving more organic traffic.</span></li>
+                    <li><strong>Intuitive discount creation</strong><span>Manage discounts and promotions efficiently by creating them once in your POS.</span></li>
+                    <li><strong>Back in stock notifications</strong><span>Drive loyal customers and search engine traffic to your site with notifications.</span></li>
+                    <li><strong>Social logins to boost engagement</strong><span>Make it easy for customers to login with Google.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66f2fad70fdc1b567e559add_campaign-reports-p-1080.png" alt="E-Commerce"></div>
+        </div>
+
+        <div class="tab-content" id="tab-inperson">
+            <div class="tab-text">
+                <h3>Revenue-boosting in-store experiences.</h3>
+                <ul class="feature-list">
+                    <li><strong>Personalized upsells that boost sales</strong><span>Use customer insights to provide custom recommendations at point of sale.</span></li>
+                    <li><strong>Self service kiosks with personalization</strong><span>Lower overhead costs and increase revenue while enhancing customer experience.</span></li>
+                    <li><strong>Rapid checkout</strong><span>Intuitive design helps streamline transactions.</span></li>
+                    <li><strong>Boost tips and loyalty signups with Hub</strong><span>Collect customer information for loyalty &amp; marketing programs.</span></li>
+                    <li><strong>Pay-by-bank with digital QR</strong><span>Speed up checkout with quick and secure cashless payments.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-800.png" alt="In-Store POS"></div>
+        </div>
+
+        <div class="tab-content" id="tab-payments">
+            <div class="tab-text">
+                <h3>Say hello to your ultimate payments partner for maximum growth.</h3>
+                <ul class="feature-list">
+                    <li><strong>Pay-by-bank with secure ACH transactions</strong><span>The most stable and compliant cashless payment option allows customers to pay directly with their bank account.</span></li>
+                    <li><strong>Fully integrated card-present payments</strong><span>Access to multiple processors provides optionality, redundancy and increased basket sizes.</span></li>
+                    <li><strong>Integrated gift card redemption</strong><span>Ditch the card balance spreadsheets with in-register integrated gift card acceptance.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66f2fad70fdc1b567e559add_campaign-reports-p-1080.png" alt="Payments"></div>
+        </div>
+
+        <div class="tab-content" id="tab-platform">
+            <div class="tab-text">
+                <h3>Secure, simple, and adaptable for any operation size.</h3>
+                <ul class="feature-list">
+                    <li><strong>Unified pricing engine</strong><span>Easily control pricing and stock levels across all your sales channels.</span></li>
+                    <li><strong>Universal customer data</strong><span>Understand your customers deeper with unified data from every interaction.</span></li>
+                    <li><strong>Next generation cloud platform</strong><span>Dutchie 2.0 is purpose built for security, stability, and simplicity.</span></li>
+                    <li><strong>Flexible and extendable</strong><span>Enterprise grade APIs, observability, and integrations.</span></li>
+                    <li><strong>SOC1/SOC2/HIPAA</strong><span>Certified protection for your sensitive data.</span></li>
+                </ul>
+            </div>
+            <div class="tab-image"><img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-800.png" alt="Platform"></div>
+        </div>
+    </div>
+</section>
+
+<!-- INTEGRATIONS + TESTIMONIAL -->
+<section class="integrations-testimonials">
+    <div class="it-grid">
+        <div class="it-card integrations">
+            <h3>Seamlessly integrates with all your essential tools.</h3>
+            <a href="#">See the 100+ full integrations for Dutchie</a>
+        </div>
+        <div class="it-card testimonial" id="testimonial-card">
+            <blockquote id="testimonial-quote">"Dutchie has done a great job of adding stable features while maintaining the core a functional POS system for cannabis."</blockquote>
+            <div class="attribution" id="testimonial-attr">Good Chemistry</div>
+            <div class="testimonial-dots">
+                <span class="dot" data-idx="0"></span>
+                <span class="dot" data-idx="1"></span>
+                <span class="dot" data-idx="2"></span>
+                <span class="dot active" data-idx="3"></span>
+                <span class="dot" data-idx="4"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- INNOVATION -->
+<section class="innovation">
+    <div class="innovation-inner">
+        <h2>Innovation purposefully built for your business.</h2>
+        <div class="innovation-grid">
+            <div class="innovation-card">
+                <div class="innovation-card-img">
+                    <img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-500.png" alt="AI Email Campaigns">
+                </div>
+                <div class="innovation-card-body">
+                    <h4>Simple, impactful AI-powered email campaigns</h4>
+                    <p>Let AI effortlessly create targeted marketing campaigns with pre-built templates or customizable options.</p>
+                </div>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-card-img">
+                    <img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66f2fad70fdc1b567e559add_campaign-reports-p-1080.png" alt="Revenue Attribution">
+                </div>
+                <div class="innovation-card-body">
+                    <h4>Measure performance with direct revenue attribution</h4>
+                    <p>Gain insights on revenue-driving campaigns linked to the customer journey, from clicks to online orders and in-store pickups.</p>
+                </div>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-card-img">
+                    <img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-500.png" alt="Customer Segments">
+                </div>
+                <div class="innovation-card-body">
+                    <h4>Actionable segments for more impactful programs</h4>
+                    <p>Optimize your marketing and discounts with our customer-data platform, using customizable segments for targeted offers.</p>
+                </div>
+            </div>
+        </div>
+        <div class="innovation-wide" style="margin-top:20px">
+            <div class="innovation-wide-card">
+                <div class="iw-text">
+                    <h4>Powerful discount engine</h4>
+                    <p>Run advanced promotions and dynamic discounts that adapt to how customers shop. From limited-time offers to brand-funded promos, Dutchie gives you flexibility to move inventory and protect margins.</p>
+                </div>
+                <div class="iw-img">
+                    <img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66eb08af85c712f02b2bf4a6_create-campaigns-p-500.png" alt="Discount Engine">
+                </div>
+            </div>
+            <div class="innovation-wide-card">
+                <div class="iw-text">
+                    <h4>Personalized recommendations</h4>
+                    <p>Show each customer exactly what they are most likely to buy next. Dutchie's personalization engine uses browsing and purchase history to surface products that increase average order value.</p>
+                </div>
+                <div class="iw-img">
+                    <img src="https://cdn.prod.website-files.com/61930755e474060ca6298871/66f2fad70fdc1b567e559add_campaign-reports-p-1080.png" alt="Recommendations">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EVERYTHING YOU NEED -->
+<section class="everything">
+    <div class="everything-inner">
+        <h2>Everything you need to run your business, all in one place</h2>
+        <div class="accordion-item"><span class="accordion-num">01</span><span class="accordion-title">Register (POS)</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">02</span><span class="accordion-title">Inventory management</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">03</span><span class="accordion-title">Ecommerce</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">04</span><span class="accordion-title">Loyalty &amp; marketing pro</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">05</span><span class="accordion-title">Self service kiosks</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">06</span><span class="accordion-title">Supply chain management</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">07</span><span class="accordion-title">Integrations and partners</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="accordion-item"><span class="accordion-num">08</span><span class="accordion-title">Pay by bank</span><svg class="accordion-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+    </div>
+</section>
+
+<!-- DEMO SECTION -->
+<section class="demo-section" id="demo">
+    <div class="demo-inner">
+        <div class="demo-text">
+            <h2>Book a demo</h2>
+            <p>Get an expert guided tour of Dutchie. See Dutchie in action: get a guided tour. Schedule a demo and our cannabis retail experts will help you find the right tools for your business.</p>
+            <a href="https://business.dutchie.com" class="demo-btn">Book a demo</a>
+        </div>
+        <div class="demo-images">
+            <div class="demo-img-placeholder"></div>
+            <div class="demo-img-placeholder"></div>
+            <div class="demo-img-placeholder"></div>
+            <div class="demo-img-placeholder"></div>
+        </div>
+    </div>
+</section>
+
+<!-- BOTTOM STATS -->
+<section class="bottom-stats">
+    <div class="bottom-stats-inner">
+        <h3>Technology and service that grows with you.</h3>
+        <p>You need cannabis technology that can scale with you. When you launch that new location or add that new product line, you know your technology will be there to support that growth.</p>
+        <div class="bottom-stats-row">
+            <div class="bs-item"><div class="bs-number">40+</div><div class="bs-label">Markets served</div></div>
+            <div class="bs-item"><div class="bs-number">6.5k+</div><div class="bs-label">Retail &amp; Brand partners</div></div>
+            <div class="bs-item"><div class="bs-number">$19B</div><div class="bs-label">Cannabis sales processed annually</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <a href="#">Point of Sale</a>
+                <a href="#">E-commerce</a>
+                <a href="#">Dutchie Hub</a>
+                <a href="#">Loyalty &amp; Marketing</a>
+                <a href="#">Pay By Bank</a>
+            </div>
+            <div class="footer-col">
+                <h4>Learn</h4>
+                <a href="#">Blog</a>
+                <a href="#">Guides &amp; SOPs</a>
+            </div>
+            <div class="footer-col">
+                <h4>Data &amp; Privacy</h4>
+                <a href="#">Data Security</a>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="#">Refer a Dispensary</a>
+                <a href="#">Product Updates</a>
+                <a href="#">Insurance</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About us</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+                <a href="#">Last Prisoner Project</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                <span class="fb-logo">
+                    <img src="../images/logo-light.png" alt="dutchie">
+                </span>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Security</a>
+                <a href="#">Digital Money Management</a>
+                <span>&copy; 2025 Dutchie. All Rights Reserved.</span>
+            </div>
+            <div class="footer-socials">
+                <a href="#" aria-label="X/Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+});
+
+// Testimonial rotation
+const testimonials = [
+    { quote: '\u201cDutchie connects our full digital platform across all applications: POS, kiosk, web, in-store, and mobile app, with loyalty and payments built in. No matter how a customer shops with Ascend, the experience is seamless and streamlined.\u201d', attr: 'Ascend Wellness' },
+    { quote: '\u201cSwitching to Dutchie E-Commerce Pro gave us greater platform stability, an intuitive user experience, enhanced customer satisfaction, and customizable features that set our business apart.\u201d', attr: 'Planet 13' },
+    { quote: '\u201cThe team\u2019s ability to innovate and move quickly to add key functionality\u2026 It feels like every couple of weeks something new comes out that we\u2019re excited to try.\u201d', attr: 'Cana Craft' },
+    { quote: '\u201cDutchie has done a great job of adding stable features while maintaining the core a functional POS system for cannabis.\u201d', attr: 'Good Chemistry' },
+    { quote: '\u201cIf you want peace of mind, having everything in one ecosystem is the way to go. The cannabis industry is so new, and having Dutchie as our all-in-one system has made a huge difference.\u201d', attr: 'Strain Stars' }
+];
+let currentTestimonial = 3;
+const quoteEl = document.getElementById('testimonial-quote');
+const attrEl = document.getElementById('testimonial-attr');
+const dots = document.querySelectorAll('.testimonial-dots .dot');
+
+function showTestimonial(idx) {
+    currentTestimonial = idx;
+    quoteEl.textContent = testimonials[idx].quote;
+    attrEl.textContent = testimonials[idx].attr;
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
+dots.forEach(dot => {
+    dot.addEventListener('click', () => showTestimonial(parseInt(dot.dataset.idx)));
+});
+
+setInterval(() => {
+    showTestimonial((currentTestimonial + 1) % testimonials.length);
+}, 5000);
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+</script>
+
 </body>
 </html>
