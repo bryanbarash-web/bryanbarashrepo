@@ -1476,19 +1476,56 @@ body {
   const VOICE_DURATION = 18000; // 18s voice clip
   const CROSSFADE_START = 13000; // start crossfade at 13s (5s crossfade into title text)
 
+  let voiceCrossfadeTimeout = null;
+
   function startVoiceCrossfade() {
     clearInterval(voiceCrossfadeInterval);
-    bgm.volume = 0;
+    // Start music immediately at low volume so there's no gap
+    bgm.volume = 0.05;
     bgm.play().catch(() => {});
     voiceCrossfadeInterval = setInterval(() => {
-      // Fade voice out
-      if (voiceIntro.volume > 0.02) voiceIntro.volume = Math.max(0, voiceIntro.volume - 0.025);
+      // Fade voice out faster
+      if (voiceIntro.volume > 0.02) voiceIntro.volume = Math.max(0, voiceIntro.volume - 0.04);
       else { voiceIntro.volume = 0; voiceIntro.pause(); }
-      // Fade music in
-      if (bgm.volume < 0.35) bgm.volume = Math.min(0.35, bgm.volume + 0.009);
-      // Done when music is at target and voice is silent
+      // Fade music in simultaneously
+      if (bgm.volume < 0.35) bgm.volume = Math.min(0.35, bgm.volume + 0.015);
       if (bgm.volume >= 0.34 && voiceIntro.volume <= 0) clearInterval(voiceCrossfadeInterval);
     }, 50);
+  }
+
+  // Sync audio to a given presentation time (ms)
+  function syncAudioToTime(timeMs) {
+    clearInterval(voiceCrossfadeInterval);
+    clearTimeout(voiceCrossfadeTimeout);
+    if (timeMs < CROSSFADE_START) {
+      // In voice region — play voice, silence music
+      voiceIntro.currentTime = timeMs / 1000;
+      voiceIntro.volume = 1.0;
+      if (isPlaying) voiceIntro.play().catch(() => {});
+      bgm.volume = 0;
+      bgm.currentTime = 0;
+      // Schedule crossfade from current position
+      voiceCrossfadeTimeout = setTimeout(startVoiceCrossfade, CROSSFADE_START - timeMs);
+    } else if (timeMs < VOICE_DURATION) {
+      // In crossfade region — start crossfade immediately
+      const progress = (timeMs - CROSSFADE_START) / (VOICE_DURATION - CROSSFADE_START);
+      voiceIntro.currentTime = timeMs / 1000;
+      voiceIntro.volume = Math.max(0, 1.0 - progress);
+      if (voiceIntro.volume > 0 && isPlaying) voiceIntro.play().catch(() => {});
+      else voiceIntro.pause();
+      bgm.currentTime = Math.max(0, (timeMs - CROSSFADE_START) / 1000);
+      bgm.volume = Math.min(0.35, 0.35 * progress);
+      if (isPlaying) bgm.play().catch(() => {});
+      startVoiceCrossfade();
+    } else {
+      // Past voice — music only
+      voiceIntro.pause();
+      voiceIntro.volume = 0;
+      bgm.currentTime = (timeMs - CROSSFADE_START) / 1000;
+      bgm.volume = 0.35;
+      clearInterval(fadeInterval);
+      if (isPlaying) bgm.play().catch(() => {});
+    }
   }
 
   let currentSlide = 0;
@@ -1662,7 +1699,7 @@ body {
     bgm.currentTime = 0;
     bgm.volume = 0;
     // Schedule crossfade: voice fades out, music fades in
-    setTimeout(startVoiceCrossfade, CROSSFADE_START);
+    voiceCrossfadeTimeout = setTimeout(startVoiceCrossfade, CROSSFADE_START);
     showSlide(0);
     play();
   }
@@ -1670,6 +1707,7 @@ body {
   function restart() {
     pause();
     clearInterval(voiceCrossfadeInterval);
+    clearTimeout(voiceCrossfadeTimeout);
     slides.forEach(s => s.classList.remove('active'));
     const chart = document.getElementById('videoChart');
     if (chart) chart.innerHTML = '';
@@ -1683,7 +1721,7 @@ body {
     bgm.volume = 0;
     setTimeout(() => {
       voiceIntro.play().catch(() => {});
-      setTimeout(startVoiceCrossfade, CROSSFADE_START);
+      voiceCrossfadeTimeout = setTimeout(startVoiceCrossfade, CROSSFADE_START);
       showSlide(0);
       play();
     }, 50);
@@ -1701,15 +1739,17 @@ body {
     showSlide(idx);
     slideElapsed = 0;
     slideStartTime = performance.now();
+    // Sync audio to slide position
+    const slideTimeMs = getElapsedBefore(idx);
+    syncAudioToTime(slideTimeMs);
     if (isPlaying) {
       const remaining = durations[idx];
       if (remaining > 0) slideTimeout = setTimeout(advanceSlide, remaining);
       else if (idx === slides.length - 1) { pause(); progressBar.style.width = '100%'; }
       animFrame = requestAnimationFrame(updateProgress);
     } else {
-      const totalElapsed = getElapsedBefore(idx);
-      progressBar.style.width = ((totalElapsed / totalDuration) * 100) + '%';
-      timeLabel.textContent = formatTime(totalElapsed);
+      progressBar.style.width = ((slideTimeMs / totalDuration) * 100) + '%';
+      timeLabel.textContent = formatTime(slideTimeMs);
     }
   }
 
@@ -1762,9 +1802,7 @@ body {
     const rect = e.currentTarget.getBoundingClientRect();
     const pct = (e.clientX - rect.left) / rect.width;
     const targetTime = pct * totalDuration;
-    bgm.currentTime = targetTime / 1000;
-    clearInterval(fadeInterval);
-    bgm.volume = 0.35;
+    syncAudioToTime(targetTime);
     let acc = 0;
     for (let i = 0; i < slides.length; i++) {
       if (acc + durations[i] > targetTime || i === slides.length - 1) {
