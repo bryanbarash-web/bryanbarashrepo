@@ -127,13 +127,13 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .phone-header{background:linear-gradient(135deg,#042017,#003D29);padding:14px 16px;color:#fff}
 .phone-header h4{font-size:14px;font-weight:700;margin-bottom:2px}
 .phone-header p{font-size:11px;opacity:.8}
-.phone-chat{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:320px}
+.phone-chat{padding:14px;display:flex;flex-direction:column;gap:10px}
 .chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.5;color:#333}
 .chat-msg.customer{background:#F1EBD6;border:1px solid #ddd;align-self:flex-end;border-bottom-right-radius:4px}
 .chat-msg.ai{background:#e8e2cc;border:1px solid #dcdfe3;color:#333;align-self:flex-start;border-bottom-left-radius:4px}
 .chat-msg .sender{font-size:10px;font-weight:700;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
 .chat-msg.ai .sender{color:#555}
-.sms-link{display:block;margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--green-dark);color:#fff;font-size:11px;font-weight:700;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(106,180,72,.15)}
+.sms-link{display:block;margin-top:6px;padding:6px 10px;border-radius:6px;background:#003D29;color:#F1EBD6;font-size:10px;font-weight:700;text-align:center}
 .chat-typing{display:flex;gap:4px;padding:6px 0;align-self:flex-start}
 .chat-typing span{width:6px;height:6px;border-radius:50%;background:#888;animation:typing 1.4s infinite}
 .chat-typing span:nth-child(2){animation-delay:.2s}
@@ -299,7 +299,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .bottom-cta h2{font-size:28px}
   .phone-mockup{max-width:280px}
   .mockup-body{min-height:280px;padding:14px}
-  .phone-chat{min-height:240px;padding:10px}
+  .phone-chat{padding:10px}
   .ecom-chat{min-height:220px;padding:12px}
   .sentiment-body{padding:14px}
   .sentiment-metrics{grid-template-columns:1fr}
@@ -340,7 +340,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .phone-mockup{max-width:260px;padding:8px;border-radius:28px}
   .phone-screen{border-radius:20px}
   .mockup-body{min-height:220px;padding:10px}
-  .phone-chat{min-height:200px;padding:8px;gap:8px}
+  .phone-chat{padding:8px;gap:8px}
   .ecom-chat{min-height:180px;padding:10px;gap:8px}
   .chat-msg{font-size:11px;padding:8px 10px}
   .ecom-input{padding:8px 12px}
@@ -482,11 +482,11 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
           <div class="phone-chat">
             <div class="chat-msg customer">
               <div class="sender">Caller</div>
-              Hey, do you guys have any indica edibles in stock? Looking for something around 10mg.
+              Hey, do you have any indica edibles? Looking for 10mg.
             </div>
             <div class="chat-msg ai">
               <div class="sender">Voice Receptionist</div>
-              Absolutely! We have 12 indica edible options in stock right now. Our top sellers are Wyld Marionberry Gummies (10mg, $32) and CANN Social Tonics (5mg, $18). Would you like more details?
+              Absolutely! We have 12 indica edibles. Top sellers: Wyld Marionberry Gummies (10mg, $32) and CANN Social Tonics (5mg, $18).
             </div>
             <div class="chat-msg customer">
               <div class="sender">Caller</div>
@@ -494,15 +494,8 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
             </div>
             <div class="chat-msg ai">
               <div class="sender">Voice Receptionist</div>
-              I can place that order for you right now! I'll add the Wyld Marionberry Gummies to your cart. What time would you like to pick them up today?
-            </div>
-            <div class="chat-msg customer">
-              <div class="sender">Caller</div>
-              Around 5pm works for me.
-            </div>
-            <div class="chat-msg ai">
-              <div class="sender">Voice Receptionist</div>
-              You're all set! Your order for Wyld Marionberry Gummies ($32) is confirmed for pickup at 5:00 PM. You'll receive a text confirmation shortly. Anything else I can help with?
+              Done! I've placed your order for Wyld Marionberry Gummies ($32) for pickup today. You'll get a text confirmation now.
+              <span class="sms-link">&#x2705; Order Confirmed &rarr; View Order</span>
             </div>
           </div>
         </div>
