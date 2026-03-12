@@ -5,41 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dutchie Consumer AI - The AI Operating System for Cannabis Retail</title>
 <meta name="description" content="Dutchie Consumer AI is the cannabis industry's first AI Operating System for retail. Voice Receptionist, Virtual Concierge, Budtender Co-Pilot, and Reputation &amp; Sentiment Command Center: unified AI across every customer touchpoint.">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Medium');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter SemiBold');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Bold');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root{
-  --white:#fff;--bg:#042017;--bg-light:#003D29;--border:rgba(255,255,255,.08);--border-dark:rgba(255,255,255,.12);
-  --text:#F1EBD6;--text-dim:rgba(241,235,214,.75);--text-muted:rgba(241,235,214,.5);--text-light:rgba(241,235,214,.35);
+  --white:#fff;--bg:#F1EBD6;--bg-dark:#042017;--bg-mid:#003D29;
+  --border:rgba(4,32,23,.08);--border-dark:rgba(4,32,23,.12);
+  --text:#042017;--text-dim:rgba(4,32,23,.7);--text-muted:rgba(4,32,23,.5);--text-light:rgba(4,32,23,.35);
   --green:#6AB448;--green-dark:#5a9e3c;--green-light:rgba(106,180,72,.12);--green-bg:rgba(106,180,72,.06);
-  --blue:#7ab8f5;--blue-dark:#5a9fdf;--blue-light:rgba(122,184,245,.12);--blue-bg:rgba(122,184,245,.06);
-  --red:#f07070;--red-bg:rgba(240,112,112,.08);--red-light:rgba(240,112,112,.12);
-  --purple:#5E324E;--purple-light:rgba(94,50,78,.15);
-  --orange:#e8944a;--orange-light:rgba(232,148,74,.08);--orange-bg:rgba(232,148,74,.05);
-  --gold:#FFC02A;
+  --blue:#2a7ab8;--blue-dark:#1e6aa0;--blue-light:rgba(42,122,184,.12);--blue-bg:rgba(42,122,184,.06);
+  --red:#c0392b;--red-bg:rgba(192,57,43,.08);--red-light:rgba(192,57,43,.12);
+  --purple:#5E324E;--purple-light:rgba(94,50,78,.1);
+  --orange:#c67a30;--orange-light:rgba(198,122,48,.08);--orange-bg:rgba(198,122,48,.05);
+  --gold:#b08a1a;
   --yellow:#FFC02A;--yellow-dark:#e6ad25;
   --navy:#042017;--navy-mid:#003D29;--navy-light:#1a5a3a;
-  --card-bg:rgba(255,255,255,.04);--card-border:rgba(255,255,255,.07);
+  --card-bg:rgba(4,32,23,.03);--card-border:rgba(4,32,23,.08);
   --radius:10px;--radius-sm:8px;--radius-lg:16px;
-  --shadow:0 2px 8px rgba(0,0,0,0.18);
-  --shadow-md:0 4px 20px rgba(0,0,0,0.22);
-  --shadow-lg:0 8px 40px rgba(0,0,0,0.28);
+  --shadow:0 2px 8px rgba(4,32,23,.08);
+  --shadow-md:0 4px 20px rgba(4,32,23,.1);
+  --shadow-lg:0 8px 40px rgba(4,32,23,.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Montserrat','Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);font-size:15px;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;background-image:radial-gradient(circle at 20% 50%,rgba(106,180,72,.04) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(0,61,41,.06) 0%,transparent 40%)}
-a{color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s}
-a:hover{color:rgba(255,255,255,.9);text-decoration:none}
+body{font-family:'Matter','Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);font-size:15px;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+a{color:rgba(4,32,23,.7);text-decoration:none;transition:color .2s}
+a:hover{color:rgba(4,32,23,.9);text-decoration:none}
 
 /* ===== STICKY NAV ===== */
-.site-header{position:sticky;top:0;z-index:1000;background:rgba(4,32,23,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
-.site-header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.3)}
+.site-header{position:sticky;top:0;z-index:1000;background:rgba(4,32,23,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
+.site-header.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.15)}
 .header-inner{max-width:1440px;margin:0 auto;padding:10px 32px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo:hover{text-decoration:none}
 .logo svg{height:24px;width:auto;display:block}
-nav{display:flex;gap:2px;background:rgba(255,255,255,.04);border-radius:12px;padding:3px;border:1px solid rgba(255,255,255,.06)}
-nav a{padding:6px 14px;border-radius:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);transition:all .25s;text-decoration:none;white-space:nowrap}
-nav a:hover{color:rgba(255,255,255,.8);text-decoration:none}
+nav{display:flex;gap:2px;background:rgba(255,255,255,.06);border-radius:12px;padding:3px;border:1px solid rgba(255,255,255,.08)}
+nav a{padding:6px 14px;border-radius:9px;font-size:12px;font-weight:600;color:rgba(241,235,214,.45);transition:all .25s;text-decoration:none;white-space:nowrap}
+nav a:hover{color:rgba(241,235,214,.8);text-decoration:none}
 nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,180,72,.25)}
 
 /* ===== CONTAINER ===== */
@@ -47,15 +73,15 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 
 /* ===== HERO ===== */
 .hero{padding:100px 0 80px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(106,180,72,.08) 0%,transparent 60%);pointer-events:none}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(106,180,72,.06) 0%,transparent 60%);pointer-events:none}
 .hero h1{font-size:clamp(38px,5vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-bottom:20px;color:var(--text)}
 .hero h1 .gradient-text{background:linear-gradient(135deg,#6AB448 0%,#8fd46a 50%,#6AB448 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{font-size:17px;color:var(--text-dim);max-width:640px;margin:0 auto 36px;line-height:1.7;font-weight:400}
 .hero-ctas{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;background:var(--green);color:#fff;font-weight:700;font-size:15px;transition:all .3s;box-shadow:0 4px 20px rgba(106,180,72,.25);border:none;cursor:pointer;text-decoration:none}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(106,180,72,.35);text-decoration:none;color:#fff;background:var(--green-dark)}
-.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:12px;font-size:15px;font-weight:600;color:var(--text-dim);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);transition:all .2s;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px)}
-.btn-outline:hover{border-color:rgba(255,255,255,.25);color:var(--text);text-decoration:none;transform:translateY(-1px);background:rgba(255,255,255,.08)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;background:var(--bg-dark);color:#F1EBD6;font-weight:700;font-size:15px;transition:all .3s;box-shadow:0 4px 20px rgba(4,32,23,.15);border:none;cursor:pointer;text-decoration:none}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(4,32,23,.2);text-decoration:none;color:#F1EBD6;background:var(--bg-mid)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:12px;font-size:15px;font-weight:600;color:var(--text-dim);background:rgba(4,32,23,.04);border:1px solid rgba(4,32,23,.12);transition:all .2s;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px)}
+.btn-outline:hover{border-color:rgba(4,32,23,.25);color:var(--text);text-decoration:none;transform:translateY(-1px);background:rgba(4,32,23,.08)}
 
 /* ===== FADE IN ===== */
 .fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
@@ -66,128 +92,162 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .fade-in-right.visible{opacity:1;transform:translateX(0)}
 
 /* ===== PILLARS SECTION ===== */
-.pillars-section{padding:60px 0 80px;border-top:1px solid rgba(255,255,255,.05)}
+.pillars-section{padding:60px 0 80px;border-top:1px solid var(--border)}
 .pillars-section .section-header{text-align:center;margin-bottom:48px}
 .pillars-section .section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
 .pillars-section .section-header p{font-size:16px;color:var(--text-dim);max-width:600px;margin:0 auto;font-weight:400}
 .pillars-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.pillar-card{padding:24px 20px;border-radius:14px;background:var(--card-bg);border:1px solid var(--card-border);text-align:center;transition:all .3s;backdrop-filter:blur(8px)}
-.pillar-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.pillar-icon{font-size:28px;margin-bottom:12px}
+.pillar-card{padding:24px 20px;border-radius:14px;background:rgba(4,32,23,.03);border:1px solid var(--card-border);text-align:center;transition:all .3s}
+.pillar-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.pillar-icon{width:48px;height:48px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(4,32,23,.06)}
+.pillar-icon svg{width:24px;height:24px}
 .pillar-card h3{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);letter-spacing:-.01em}
 .pillar-card p{font-size:12px;color:var(--text-muted);line-height:1.6;font-weight:400}
 
+/* ===== WHAT IF CALLOUT ===== */
+.whatif-callout{padding:60px 0 70px;position:relative}
+.whatif-inner{max-width:800px;margin:0 auto;text-align:center;padding:40px 48px;border-radius:20px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);position:relative}
+.whatif-inner::before{content:'\201C';position:absolute;top:12px;left:28px;font-size:72px;color:rgba(106,180,72,.15);font-family:Georgia,serif;line-height:1}
+.whatif-inner::after{content:'\201D';position:absolute;bottom:-10px;right:28px;font-size:72px;color:rgba(106,180,72,.15);font-family:Georgia,serif;line-height:1}
+.whatif-inner p{font-size:clamp(18px,2.2vw,24px);font-style:italic;color:var(--text-dim);line-height:1.7;font-weight:500}
+
 /* ===== CLOSED LOOP SECTION ===== */
-.closed-loop-section{padding:80px 0;border-top:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
-.closed-loop-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:600px;background:radial-gradient(circle,rgba(0,61,41,.08) 0%,transparent 60%);pointer-events:none}
+.closed-loop-section{padding:80px 0;border-top:1px solid var(--border);position:relative;overflow:hidden}
 .closed-loop-inner{max-width:860px;margin:0 auto;text-align:center}
 .closed-loop-inner h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
 .closed-loop-inner .subtitle{font-size:17px;color:var(--text-dim);margin-bottom:32px;font-weight:400;line-height:1.7}
-.closed-loop-narrative{text-align:left;padding:32px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);line-height:1.8;font-size:15px;color:var(--text-dim);font-weight:400;position:relative}
-.closed-loop-narrative::before{content:'"';position:absolute;top:12px;left:20px;font-size:60px;color:rgba(106,180,72,.2);font-family:Georgia,serif;line-height:1}
+.closed-loop-narrative{text-align:left;padding:32px;border-radius:16px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);line-height:1.8;font-size:15px;color:var(--text-dim);font-weight:400;position:relative}
+.closed-loop-narrative::before{content:'\201C';position:absolute;top:12px;left:20px;font-size:60px;color:rgba(106,180,72,.15);font-family:Georgia,serif;line-height:1}
 .closed-loop-narrative strong{color:var(--text);font-weight:600}
 .closed-loop-label{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;background:var(--green-bg);color:var(--green);border:1px solid var(--green-light)}
 
 /* ===== PRODUCT SECTIONS ===== */
 .product-section{padding:90px 0;background:var(--bg);color:var(--text)}
-.product-section:nth-child(odd){border-top:1px solid rgba(255,255,255,.05)}
-.product-section:nth-child(even){border-top:1px solid rgba(255,255,255,.05)}
+.product-section:nth-child(odd){border-top:1px solid var(--border)}
+.product-section:nth-child(even){border-top:1px solid var(--border)}
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
 .product-grid.reverse .product-text{order:2}
 .product-grid.reverse .product-mockup{order:1}
 .product-label{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
 .label-phone{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-light)}
 .label-ecommerce{background:var(--purple-light);color:var(--purple);border:1px solid rgba(94,50,78,.2)}
-.label-register{background:var(--green-bg);color:var(--green);border:1px solid var(--green-light)}
-.label-sentiment{background:var(--orange-light);color:var(--orange);border:1px solid rgba(232,148,74,.15)}
+.label-register{background:var(--green-bg);color:var(--green-dark);border:1px solid var(--green-light)}
+.label-sentiment{background:var(--orange-light);color:var(--orange);border:1px solid rgba(198,122,48,.15)}
 .product-text h2{font-size:clamp(28px,3vw,38px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px;color:var(--text)}
-.product-text .tagline{font-size:16px;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:16px;font-style:italic}
+.product-text .tagline{font-size:16px;color:rgba(4,32,23,.5);font-weight:600;margin-bottom:16px;font-style:italic}
 .product-text p{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:20px;font-weight:400}
 .feature-list{list-style:none;padding:0;margin-bottom:24px}
 .feature-list li{padding:6px 0;font-size:14px;color:var(--text-dim);display:flex;align-items:flex-start;gap:10px;line-height:1.5;font-weight:400}
 .feature-list li::before{content:'';display:inline-block;width:20px;height:20px;flex-shrink:0;margin-top:1px;background:rgba(106,180,72,.15);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 8l3 3 5-5' stroke='%236AB448' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:14px;background-repeat:no-repeat;background-position:center}
 .stat-callouts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.stat-callout{padding:8px 16px;border-radius:10px;background:var(--card-bg);border:1px solid var(--card-border);font-size:12px;font-weight:600;color:var(--text);backdrop-filter:blur(8px)}
+.stat-callout{padding:8px 16px;border-radius:10px;background:rgba(4,32,23,.03);border:1px solid var(--card-border);font-size:12px;font-weight:600;color:var(--text)}
 .stat-callout span{display:block;font-size:10px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
 
 /* ===== MOCKUP FRAMES ===== */
-.mockup-frame{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.12);background:#F1EBD6;box-shadow:0 8px 40px rgba(4,32,23,.15)}
-.mockup-bar{height:34px;background:#042017;display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid rgba(4,32,23,.1)}
+.mockup-frame{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.1);background:#fff;box-shadow:var(--shadow-lg)}
+.mockup-bar{height:34px;background:rgba(4,32,23,.06);display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid rgba(4,32,23,.08)}
 .mockup-bar .dot{width:10px;height:10px;border-radius:50%}
-.mockup-bar .dot.r{background:rgba(240,112,112,.7)}
-.mockup-bar .dot.y{background:rgba(212,168,67,.7)}
-.mockup-bar .dot.g{background:rgba(106,180,72,.6)}
-.mockup-bar .title{margin-left:12px;font-size:11px;font-weight:600;color:rgba(241,235,214,.6)}
+.mockup-bar .dot.r{background:rgba(240,112,112,.5)}
+.mockup-bar .dot.y{background:rgba(212,168,67,.5)}
+.mockup-bar .dot.g{background:rgba(106,180,72,.4)}
+.mockup-bar .title{margin-left:12px;font-size:11px;font-weight:600;color:rgba(4,32,23,.5)}
 .mockup-body{padding:20px;min-height:400px}
 
 /* Phone mockup */
-.phone-mockup{max-width:340px;margin:0 auto;border-radius:36px;background:rgba(0,0,0,.85);padding:12px;box-shadow:0 8px 40px rgba(4,32,23,.2),0 0 0 1px rgba(4,32,23,.15)}
-.phone-screen{border-radius:26px;overflow:hidden;background:#F1EBD6}
-.phone-status-bar{background:rgba(0,0,0,.8);padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#fff;font-weight:600}
-.phone-header{background:linear-gradient(135deg,#042017,#003D29);padding:14px 16px;color:#fff}
+.phone-mockup{max-width:340px;margin:0 auto;border-radius:36px;background:rgba(4,32,23,.9);padding:12px;box-shadow:var(--shadow-lg),0 0 0 1px rgba(4,32,23,.1)}
+.phone-screen{border-radius:26px;overflow:hidden;background:#fff}
+.phone-status-bar{background:rgba(4,32,23,.9);padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#F1EBD6;font-weight:600}
+.phone-header{background:linear-gradient(135deg,#042017,#003D29);padding:14px 16px;color:#F1EBD6}
 .phone-header h4{font-size:14px;font-weight:700;margin-bottom:2px}
 .phone-header p{font-size:11px;opacity:.8}
-.phone-chat{padding:14px;display:flex;flex-direction:column;gap:10px}
-.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.5;color:#333}
-.chat-msg.customer{background:#F1EBD6;border:1px solid #ddd;align-self:flex-end;border-bottom-right-radius:4px}
-.chat-msg.ai{background:#e8e2cc;border:1px solid #dcdfe3;color:#333;align-self:flex-start;border-bottom-left-radius:4px}
-.chat-msg .sender{font-size:10px;font-weight:700;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
-.chat-msg.ai .sender{color:#555}
+
+/* Waveform animation for voice */
+.waveform-container{display:flex;align-items:center;justify-content:center;gap:3px;padding:12px 16px;background:rgba(106,180,72,.08)}
+.waveform-bar{width:3px;border-radius:2px;background:var(--green);animation:waveform 1.2s ease-in-out infinite}
+.waveform-bar:nth-child(1){height:8px;animation-delay:0s}
+.waveform-bar:nth-child(2){height:16px;animation-delay:.1s}
+.waveform-bar:nth-child(3){height:24px;animation-delay:.2s}
+.waveform-bar:nth-child(4){height:18px;animation-delay:.3s}
+.waveform-bar:nth-child(5){height:28px;animation-delay:.15s}
+.waveform-bar:nth-child(6){height:14px;animation-delay:.25s}
+.waveform-bar:nth-child(7){height:22px;animation-delay:.05s}
+.waveform-bar:nth-child(8){height:10px;animation-delay:.35s}
+.waveform-bar:nth-child(9){height:20px;animation-delay:.2s}
+.waveform-bar:nth-child(10){height:12px;animation-delay:.1s}
+@keyframes waveform{
+  0%,100%{transform:scaleY(.4);opacity:.5}
+  50%{transform:scaleY(1);opacity:1}
+}
+.call-status{display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 16px;background:rgba(106,180,72,.05);font-size:11px;color:var(--green-dark);font-weight:600}
+.call-status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+
+.phone-chat{padding:14px;display:flex;flex-direction:column;gap:10px;background:#fff}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.5;color:#042017}
+.chat-msg.customer{background:#F1EBD6;border:1px solid rgba(4,32,23,.1);align-self:flex-end;border-bottom-right-radius:4px}
+.chat-msg.ai{background:rgba(4,32,23,.05);border:1px solid rgba(4,32,23,.08);color:#042017;align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg .sender{font-size:10px;font-weight:700;color:rgba(4,32,23,.4);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.chat-msg.ai .sender{color:rgba(4,32,23,.5)}
 .sms-link{display:block;margin-top:6px;padding:6px 10px;border-radius:6px;background:#003D29;color:#F1EBD6;font-size:10px;font-weight:700;text-align:center}
 .chat-typing{display:flex;gap:4px;padding:6px 0;align-self:flex-start}
-.chat-typing span{width:6px;height:6px;border-radius:50%;background:#888;animation:typing 1.4s infinite}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:rgba(4,32,23,.3);animation:typing 1.4s infinite}
 .chat-typing span:nth-child(2){animation-delay:.2s}
 .chat-typing span:nth-child(3){animation-delay:.4s}
 @keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
 
 /* Ecommerce chat mockup */
-.ecom-mockup{background:#F1EBD6;border-radius:16px;border:1px solid rgba(4,32,23,.12);box-shadow:0 8px 40px rgba(4,32,23,.15);overflow:hidden;color:#042017}
+.ecom-mockup{background:#fff;border-radius:16px;border:1px solid rgba(4,32,23,.1);box-shadow:var(--shadow-lg);overflow:hidden;color:#042017}
 .ecom-header{background:#042017;padding:16px 20px;color:#F1EBD6;display:flex;align-items:center;gap:12px}
-.ecom-header-icon{width:36px;height:36px;border-radius:10px;background:rgba(241,235,214,.12);display:flex;align-items:center;justify-content:center;font-size:18px}
+.ecom-header-icon{width:36px;height:36px;border-radius:10px;background:rgba(241,235,214,.12);display:flex;align-items:center;justify-content:center}
+.ecom-header-icon svg{width:20px;height:20px}
 .ecom-header h4{font-size:14px;font-weight:700}
 .ecom-header p{font-size:11px;opacity:.8}
-.ecom-chat{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:300px}
-.ecom-product-card{background:rgba(4,32,23,.04);border:1px solid rgba(4,32,23,.1);border-radius:12px;padding:12px;margin-top:4px}
+.ecom-chat{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:300px;background:#fff}
+.ecom-product-card{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);border-radius:12px;padding:12px;margin-top:4px}
 .ecom-product-row{display:flex;gap:10px;align-items:center;margin-bottom:6px}
-.ecom-product-img{width:48px;height:48px;border-radius:8px;background:rgba(4,32,23,.06);border:1px solid rgba(4,32,23,.1);display:flex;align-items:center;justify-content:center;font-size:22px}
+.ecom-product-img{width:48px;height:48px;border-radius:8px;background:rgba(106,180,72,.1);border:1px solid rgba(4,32,23,.08);display:flex;align-items:center;justify-content:center}
+.ecom-product-img svg{width:24px;height:24px}
 .ecom-product-name{font-size:13px;font-weight:700;color:#042017}
 .ecom-product-detail{font-size:11px;color:rgba(4,32,23,.5)}
 .ecom-product-price{font-size:14px;font-weight:800;color:#042017}
 .ecom-product-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
-.ecom-tag{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;background:rgba(4,32,23,.06);color:#042017;border:1px solid rgba(4,32,23,.1)}
-.ecom-add-btn{margin-top:8px;padding:8px 16px;border-radius:10px;background:#003D29;color:#F1EBD6;font-size:12px;font-weight:700;border:none;cursor:pointer;width:100%;text-align:center;box-shadow:0 2px 8px rgba(4,32,23,.15)}
-.ecom-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.04)}
+.ecom-tag{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;background:rgba(4,32,23,.05);color:#042017;border:1px solid rgba(4,32,23,.08)}
+.ecom-add-btn{margin-top:8px;padding:8px 16px;border-radius:10px;background:#003D29;color:#F1EBD6;font-size:12px;font-weight:700;border:none;cursor:pointer;width:100%;text-align:center;box-shadow:0 2px 8px rgba(4,32,23,.12)}
+.ecom-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.02)}
 .ecom-input input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid rgba(4,32,23,.12);background:#fff;font-size:13px;font-family:inherit;outline:none;color:#042017}
 .ecom-input button{padding:10px 18px;border-radius:10px;background:#003D29;color:#F1EBD6;border:none;font-weight:700;font-size:13px;cursor:pointer}
 
 /* Register mockup */
-.register-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.12);background:#F1EBD6;box-shadow:0 8px 40px rgba(4,32,23,.15);color:#042017}
+.register-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.1);background:#fff;box-shadow:var(--shadow-lg);color:#042017}
 .register-layout{display:grid;grid-template-columns:1fr 280px}
 .register-cart{padding:16px;border-right:1px solid rgba(4,32,23,.08)}
 .register-cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(4,32,23,.08)}
-.register-ai{padding:16px;background:linear-gradient(180deg,rgba(4,32,23,.03) 0%,rgba(4,32,23,.01) 100%)}
-.register-ai-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(4,32,23,.1)}
-.register-ai-header .icon{width:28px;height:28px;border-radius:7px;background:rgba(4,32,23,.06);display:flex;align-items:center;justify-content:center;font-size:14px}
+.register-ai{padding:16px;background:rgba(4,32,23,.02)}
+.register-ai-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(4,32,23,.08)}
+.register-ai-header .icon{width:28px;height:28px;border-radius:7px;background:rgba(4,32,23,.06);display:flex;align-items:center;justify-content:center}
+.register-ai-header .icon svg{width:16px;height:16px}
 .register-ai-header h4{font-size:13px;font-weight:700;color:#042017}
 .register-ai-card{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);border-radius:10px;padding:12px;margin-bottom:10px;transition:all .3s}
 .register-ai-card:hover{box-shadow:0 2px 12px rgba(4,32,23,.08)}
-.register-ai-card .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(4,32,23,.5);margin-bottom:4px}
+.register-ai-card .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(4,32,23,.5);margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.register-ai-card .label svg{width:12px;height:12px}
 .register-ai-card .title{font-size:12px;font-weight:700;color:#042017;margin-bottom:3px}
 .register-ai-card .desc{font-size:11px;color:rgba(4,32,23,.75);line-height:1.5}
 .register-ai-card .action-btn{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:6px;background:#003D29;color:#F1EBD6;font-size:10px;font-weight:700;border:none;cursor:pointer;box-shadow:0 2px 6px rgba(4,32,23,.12)}
-.register-ai-card.upsell{border-left:3px solid #003D29;background:rgba(0,61,41,.04)}
+.register-ai-card.upsell{border-left:3px solid #003D29;background:rgba(0,61,41,.03)}
 .register-ai-card.loyalty{border-left:3px solid #FFC02A}
-.register-ai-card.compliance{border-left:3px solid #6AB448;background:rgba(106,180,72,.06)}
+.register-ai-card.compliance{border-left:3px solid #6AB448;background:rgba(106,180,72,.04)}
 .register-script{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);border-radius:10px;padding:12px;margin-bottom:10px}
-.register-script .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(4,32,23,.5);margin-bottom:4px}
+.register-script .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(4,32,23,.5);margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.register-script .label svg{width:12px;height:12px}
 .register-script p{font-size:11px;color:#042017;line-height:1.5}
 .register-script em{color:#042017;font-style:normal;font-weight:700}
 
 /* Sentiment dashboard mockup */
-.sentiment-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.12);background:#F1EBD6;box-shadow:0 8px 40px rgba(4,32,23,.15);color:#042017}
+.sentiment-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.1);background:#fff;box-shadow:var(--shadow-lg);color:#042017}
 .sentiment-body{padding:20px}
 .sentiment-top-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.sentiment-tab{padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(4,32,23,.1);background:rgba(4,32,23,.03);color:rgba(4,32,23,.6);cursor:pointer}
+.sentiment-tab{padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03);color:rgba(4,32,23,.6);cursor:pointer}
 .sentiment-tab.active{background:#042017;color:#F1EBD6;border-color:#042017}
 .sentiment-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .metric-card{padding:14px;border-radius:10px;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03);text-align:center}
@@ -209,10 +269,11 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .chart-line svg{width:100%;height:100%}
 .sentiment-alerts{display:flex;flex-direction:column;gap:10px}
 .alert-card{padding:12px;border-radius:10px;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03);display:flex;gap:12px;align-items:flex-start;transition:all .3s}
-.alert-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-1px);box-shadow:0 2px 8px rgba(4,32,23,.1)}
-.alert-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.alert-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-1px);box-shadow:0 2px 8px rgba(4,32,23,.06)}
+.alert-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.alert-icon svg{width:18px;height:18px}
 .alert-icon.trending{background:rgba(0,61,41,.08)}
-.alert-icon.warning{background:rgba(232,148,74,.1)}
+.alert-icon.warning{background:rgba(198,122,48,.1)}
 .alert-icon.insight{background:rgba(0,80,140,.08)}
 .alert-title{font-size:12px;font-weight:600;color:#042017;margin-bottom:3px}
 .alert-desc{font-size:11px;color:rgba(4,32,23,.75);line-height:1.5}
@@ -230,40 +291,23 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .brand-score-card .platform{font-size:10px;color:rgba(4,32,23,.5);margin-top:4px}
 
 /* ===== PERSONA SECTION ===== */
-.persona-section{padding:80px 0;border-top:1px solid rgba(255,255,255,.05)}
+.persona-section{padding:80px 0;border-top:1px solid var(--border)}
 .persona-section .section-header{text-align:center;margin-bottom:48px}
 .persona-section .section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
 .persona-section .section-header p{font-size:16px;color:var(--text-dim);max-width:560px;margin:0 auto;font-weight:400}
 .persona-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.persona-card{padding:28px 22px;border-radius:14px;background:var(--card-bg);border:1px solid var(--card-border);transition:all .3s;backdrop-filter:blur(8px)}
-.persona-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.persona-card .role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:10px}
+.persona-card{padding:28px 22px;border-radius:14px;background:rgba(4,32,23,.03);border:1px solid var(--card-border);transition:all .3s}
+.persona-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.persona-card .role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green-dark);margin-bottom:10px}
 .persona-card h3{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--text);line-height:1.35}
 .persona-card p{font-size:13px;color:var(--text-muted);line-height:1.6;font-weight:400}
 
-/* ===== EXPERT REVIEW SECTION ===== */
-.expert-review-section{padding:80px 0;border-top:1px solid rgba(255,255,255,.05)}
-.expert-review-section .section-header{text-align:center;margin-bottom:48px}
-.expert-review-section .section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
-.expert-review-section .section-header p{font-size:16px;color:var(--text-dim);max-width:560px;margin:0 auto;font-weight:400}
-.expert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.expert-card{padding:32px 24px;border-radius:16px;background:var(--card-bg);border:1px solid var(--card-border);transition:all .3s;backdrop-filter:blur(8px);position:relative}
-.expert-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-3px);box-shadow:0 4px 24px rgba(0,0,0,.2)}
-.expert-card::before{content:'"';position:absolute;top:16px;right:24px;font-size:48px;color:rgba(106,180,72,.12);font-family:Georgia,serif;line-height:1}
-.expert-avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;color:#fff}
-.expert-avatar.sam{background:linear-gradient(135deg,#003D29,#042017)}
-.expert-avatar.maya{background:linear-gradient(135deg,#5E324E,#3a1e30)}
-.expert-avatar.jordan{background:linear-gradient(135deg,#6AB448,#4a8a2e)}
-.expert-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px}
-.expert-title{font-size:12px;font-weight:600;color:var(--green);margin-bottom:14px}
-.expert-review{font-size:14px;color:var(--text-dim);line-height:1.7;font-weight:400}
-
 /* ===== BOTTOM CTA ===== */
 .bottom-cta{padding:100px 0;text-align:center;position:relative}
-.bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(106,180,72,.06) 0%,transparent 60%);pointer-events:none}
+.bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(106,180,72,.05) 0%,transparent 60%);pointer-events:none}
 .bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto}
 .bottom-cta p{font-size:16px;color:var(--text-dim);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
-.launch-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:24px;background:rgba(255,192,42,.08);color:var(--yellow);border:1px solid rgba(255,192,42,.2)}
+.launch-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:24px;background:rgba(255,192,42,.1);color:var(--gold);border:1px solid rgba(255,192,42,.25)}
 
 /* ===== RESPONSIVE ===== */
 
@@ -275,13 +319,12 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .product-grid.reverse .product-text{order:1}
   .product-grid.reverse .product-mockup{order:2}
   .register-layout{grid-template-columns:1fr}
-  .register-cart{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+  .register-cart{border-right:none;border-bottom:1px solid rgba(4,32,23,.08)}
   .sentiment-metrics{grid-template-columns:repeat(2,1fr)}
   .brand-scores{grid-template-columns:1fr 1fr}
   .container{padding:0 24px}
   .pillars-grid{grid-template-columns:repeat(3,1fr)}
   .persona-grid{grid-template-columns:repeat(2,1fr)}
-  .expert-grid{grid-template-columns:1fr}
 }
 
 /* --- Phones (768px) --- */
@@ -317,9 +360,10 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .sentiment-tab{padding:5px 12px;font-size:11px}
   .pillars-grid{grid-template-columns:1fr 1fr}
   .persona-grid{grid-template-columns:1fr}
-  .expert-grid{grid-template-columns:1fr}
   .closed-loop-narrative{padding:24px;font-size:14px}
-  .pillars-section,.closed-loop-section,.persona-section,.expert-review-section{padding:50px 0}
+  .pillars-section,.closed-loop-section,.persona-section,.whatif-callout{padding:50px 0}
+  .whatif-inner{padding:28px 24px}
+  .whatif-inner p{font-size:16px}
 }
 
 /* --- Small phones (480px) --- */
@@ -362,10 +406,13 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .register-script{padding:10px}
   .register-script p{font-size:10px}
   .alert-card{padding:8px;gap:8px}
-  .alert-icon{width:28px;height:28px;font-size:14px}
+  .alert-icon{width:28px;height:28px}
+  .alert-icon svg{width:14px;height:14px}
   .pillars-grid{grid-template-columns:1fr}
   .closed-loop-narrative{padding:20px;font-size:13px}
-  .pillars-section,.closed-loop-section,.persona-section,.expert-review-section{padding:36px 0}
+  .pillars-section,.closed-loop-section,.persona-section,.whatif-callout{padding:36px 0}
+  .whatif-inner{padding:20px 16px}
+  .whatif-inner p{font-size:15px}
 }
 </style>
 </head>
@@ -375,14 +422,14 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 <header class="site-header" id="top-header">
 <div class="header-inner">
   <a class="logo" href="#">
-    <svg width="270" height="44" viewBox="0 0 270 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M39.6556 30.7439C37.4413 31.9376 35.0355 32.8328 32.7255 33.3618C30.0874 33.9587 27.3809 34.1621 24.6881 33.9587C20.1637 33.5788 15.7759 31.5171 12.7551 28.126C12.386 27.719 12.0853 27.2171 11.5112 27.0815C10.5954 26.878 9.95294 27.502 9.73424 28.3294C7.50619 36.5359 15.0788 44.3625 23.3759 43.6843C30.8391 43.2367 37.7283 38.9097 41.2959 32.3852C41.5146 32.0054 41.501 31.5713 41.2823 31.2051C40.9542 30.6354 40.2297 30.4183 39.6556 30.7439Z" fill="white"/><path d="M20.9843 2.23146C23.1303 3.54721 25.126 5.16137 26.7389 6.88405C28.5842 8.85089 30.1152 11.0755 31.2907 13.4899C33.218 17.5728 33.6008 22.361 32.1655 26.661C31.9878 27.19 31.7008 27.6919 31.8785 28.248C32.1655 29.1297 33.013 29.3738 33.8605 29.1568C42.1439 26.9594 45.1784 16.5555 40.4353 9.75971C36.3072 3.56077 29.09-.183005 21.6131.00689668C21.1757.0204611 20.7929.237495 20.5879.603734C20.2462 1.15987 20.4239 1.90591 20.9843 2.23146Z" fill="white"/><path d="M22.9655 15.5788C21.2843 15.3346 19.5893 15.7416 18.2224 16.7453C17.5116 17.2608 16.9238 17.9119 16.4864 18.6715C15.2152 20.8553 15.3656 23.5818 16.8828 25.6029C17.8943 26.9593 19.3843 27.8546 21.0655 28.0987C22.7468 28.3429 24.4418 27.936 25.8087 26.9322C26.5195 26.4168 27.1072 25.7657 27.5446 25.0061C28.8159 22.8222 28.6655 20.0957 27.1482 18.0746C26.1504 16.7182 24.6605 15.823 22.9655 15.5788Z" fill="white"/><path d="M21.1758 10.7228C21.7225 10.6143 22.3103 10.6007 22.7067 10.1802C23.3355 9.48842 23.1304 8.63386 22.5016 8.02346C16.4463 2.00086 5.83915 4.60523 2.28521 12.0792C-1.05002 18.7258-.721961 26.7966 3.18737 33.1312C3.41974 33.511 3.7888 33.7144 4.22621 33.7144C4.88232 33.7144 5.42908 33.199 5.42908 32.5479C5.49743 30.0521 5.9075 27.5291 6.60462 25.2774C7.39742 22.7137 8.57295 20.2857 10.1039 18.0611C12.7147 14.358 16.706 11.6316 21.1758 10.7228Z" fill="white"/><path d="M56.3321 35.5204C55.8849 35.5204 55.5225 35.1603 55.5225 34.716V18.4756C55.5225 18.0313 55.8849 17.6712 56.3321 17.6712H58.2722C58.7193 17.6712 59.0817 18.0313 59.0817 18.4756V34.716C59.0817 35.1603 58.7193 35.5204 58.2722 35.5204H56.3321Z" fill="white"/><path d="M59.7357 10.6086C59.7357 11.9471 58.6437 13.0322 57.2966 13.0322C55.9495 13.0322 54.8574 11.9471 54.8574 10.6086C54.8574 9.27002 55.9495 8.18492 57.2966 8.18492C58.6437 8.18492 59.7357 9.27002 59.7357 10.6086Z" fill="white"/><path d="M65.7309 35.5205C65.3136 35.5205 64.9753 35.182 64.9753 34.7644V15.3068C64.9753 14.8892 65.3136 14.5507 65.7309 14.5507H67.7789C68.1962 14.5507 68.5345 14.8892 68.5345 15.3068V18.5034C70.0001 16.007 72.5543 14.2179 75.7786 14.2179C80.1752 14.2179 83.3157 17.172 83.3157 21.6239V34.7644C83.3157 35.182 82.9774 35.5205 82.5601 35.5205H80.5121C80.0948 35.5205 79.7565 35.182 79.7565 34.7644V22.2896C79.7565 19.4603 77.956 17.4216 74.983 17.4216C71.0469 17.4216 68.5345 20.7917 68.5345 26.3254V34.7644C68.5345 35.182 68.1962 35.5205 67.7789 35.5205H65.7309Z" fill="white"/><path d="M99.5018 34.7781C99.5281 35.1181 99.3246 35.4373 98.9957 35.5267C98.1082 35.768 97.1733 35.8533 96.2384 35.8533C92.6374 35.8533 89.9994 33.8562 89.9994 29.2379V17.6712H86.8189C86.4016 17.6712 86.0633 17.3327 86.0633 16.9151V15.3068C86.0633 14.8892 86.4016 14.5507 86.8189 14.5507H89.9994V8.94101C89.9994 8.52344 90.3376 8.18492 90.7549 8.18492H92.803C93.2203 8.18492 93.5586 8.52343 93.5586 8.94101V14.5507H98.4558C98.8731 14.5507 99.2114 14.8892 99.2114 15.3068V16.9151C99.2114 17.3327 98.8731 17.6712 98.4558 17.6712H93.5586V29.3627C93.5586 31.5678 94.8147 32.6496 96.6572 32.6496C97.1582 32.6496 97.7042 32.6049 98.2414 32.4799C98.763 32.3586 99.3403 32.6915 99.3816 33.2258L99.5018 34.7781Z" fill="white"/><path d="M101.954 25.0356C101.954 19.0859 105.806 14.2179 112.171 14.2179C118.41 14.2179 122.262 18.6698 122.262 24.0786C122.262 24.3539 122.249 24.7049 122.231 25.0273C122.209 25.4117 121.887 25.7013 121.503 25.7013H105.513C105.764 29.9452 108.444 32.7328 112.255 32.7328C115.171 32.7328 117.265 31.5071 118.103 29.3329C118.253 28.9443 118.654 28.6911 119.059 28.7867L120.926 29.2273C121.338 29.3245 121.593 29.7427 121.453 30.1425C120.188 33.7666 116.811 35.8533 112.255 35.8533C105.932 35.8533 101.954 30.9853 101.954 25.0356ZM105.722 22.7472H118.494C118.159 19.5435 115.897 17.172 112.171 17.172C108.863 17.172 106.434 19.2523 105.722 22.7472Z" fill="white"/><path d="M127.6 35.5205C127.183 35.5205 126.844 35.182 126.844 34.7644V6.81907C126.844 6.4015 127.183 6.06299 127.6 6.06299H129.648C130.065 6.06299 130.404 6.4015 130.404 6.81907V34.7644C130.404 35.182 130.065 35.5205 129.648 35.5205H127.6Z" fill="white"/><path d="M136.923 35.5205C136.506 35.5205 136.168 35.182 136.168 34.7644V6.81907C136.168 6.4015 136.506 6.06299 136.923 6.06299H138.971C139.389 6.06299 139.727 6.4015 139.727 6.81907V34.7644C139.727 35.182 139.389 35.5205 138.971 35.5205H136.923Z" fill="white"/><path d="M146.359 35.5204C145.912 35.5204 145.55 35.1603 145.55 34.716V18.4756C145.55 18.0314 145.912 17.6712 146.359 17.6712H148.299C148.746 17.6712 149.109 18.0314 149.109 18.4756V34.716C149.109 35.1603 148.746 35.5204 148.299 35.5204H146.359Z" fill="white"/><path d="M147.093 6.1999C147.16 6.01848 147.418 6.01848 147.486 6.1999L148.046 7.70465C148.429 8.73135 149.243 9.54084 150.277 9.92076L151.791 10.4776C151.974 10.5447 151.974 10.8013 151.791 10.8684L150.277 11.4252C149.243 11.8052 148.429 12.6146 148.046 13.6413L147.486 15.1461C147.418 15.3275 147.16 15.3275 147.093 15.1461L146.532 13.6413C146.15 12.6146 145.335 11.8052 144.302 11.4252L142.788 10.8684C142.605 10.8013 142.605 10.5447 142.788 10.4776L144.302 9.92076C145.335 9.54084 146.15 8.73135 146.532 7.70465L147.093 6.1999Z" fill="white"/><path d="M163.649 34.9796C157.159 34.9796 153.6 30.5277 153.6 24.6195C153.6 18.6698 157.159 14.2179 163.566 14.2179C166.371 14.2179 169.135 15.5493 170.391 17.38V15.3068C170.391 14.8892 170.729 14.5507 171.147 14.5507H173.153C173.57 14.5507 173.908 14.8892 173.908 15.3068V34.5219C173.908 39.8059 169.888 43.4257 164.068 43.4257C159.493 43.4257 155.867 41.176 154.896 37.7947C154.781 37.3943 155.062 37.0036 155.473 36.934L157.358 36.6141C157.793 36.5404 158.191 36.8583 158.332 37.276C158.971 39.1699 161.227 40.43 164.068 40.43C167.795 40.43 170.391 38.1833 170.391 34.8964V31.9839C169.428 33.773 166.664 34.9796 163.649 34.9796ZM157.243 24.6195C157.243 28.9882 159.881 31.8175 163.984 31.8175C168.046 31.8175 170.684 28.9882 170.684 24.6195C170.684 20.2092 168.046 17.38 163.984 17.38C159.881 17.38 157.243 20.2092 157.243 24.6195Z" fill="white"/><path d="M178.462 25.0356C178.462 19.0859 182.314 14.2179 188.679 14.2179C194.918 14.2179 198.77 18.6698 198.77 24.0786C198.77 24.3539 198.758 24.7049 198.739 25.0273C198.717 25.4117 198.396 25.7013 198.011 25.7013H182.021C182.272 29.9452 184.952 32.7328 188.763 32.7328C191.679 32.7328 193.774 31.5071 194.612 29.3329C194.761 28.9443 195.162 28.6911 195.567 28.7867L197.434 29.2273C197.846 29.3245 198.101 29.7427 197.961 30.1425C196.696 33.7666 193.319 35.8533 188.763 35.8533C182.44 35.8533 178.462 30.9853 178.462 25.0356ZM182.231 22.7472H195.002C194.667 19.5435 192.406 17.172 188.679 17.172C185.371 17.172 182.942 19.2523 182.231 22.7472Z" fill="white"/><path d="M204.108 35.5205C203.691 35.5205 203.352 35.182 203.352 34.7644V15.3068C203.352 14.8892 203.691 14.5507 204.108 14.5507H206.156C206.573 14.5507 206.912 14.8892 206.912 15.3068V18.5034C208.377 16.007 210.931 14.2179 214.156 14.2179C218.552 14.2179 221.693 17.172 221.693 21.6239V34.7644C221.693 35.182 221.355 35.5205 220.937 35.5205H218.889C218.472 35.5205 218.134 35.182 218.134 34.7644V22.2896C218.134 19.4603 216.333 17.4216 213.36 17.4216C209.424 17.4216 206.912 20.7917 206.912 26.3254V34.7644C206.912 35.182 206.573 35.5205 206.156 35.5205H204.108Z" fill="white"/><path d="M236.732 35.8533C230.452 35.8533 226.264 31.5262 226.264 25.0356C226.264 18.545 230.452 14.2179 236.732 14.2179C241.341 14.2179 244.801 16.5745 245.823 20.3178C245.931 20.7152 245.663 21.1064 245.26 21.1875L243.224 21.5969C242.809 21.6803 242.412 21.404 242.277 21.0032C241.553 18.8599 239.489 17.38 236.816 17.38C232.671 17.38 229.991 20.4173 229.991 25.0356C229.991 29.6539 232.671 32.6912 236.816 32.6912C239.521 32.6912 241.568 31.3477 242.356 29.0055C242.489 28.6117 242.881 28.3478 243.288 28.4306L245.281 28.8361C245.693 28.9199 245.96 29.3251 245.841 29.7281C244.692 33.6032 241.306 35.8533 236.732 35.8533Z" fill="white"/><path d="M249.245 25.0356C249.245 19.0859 253.098 14.2179 259.462 14.2179C265.701 14.2179 269.554 18.6698 269.554 24.0786C269.554 24.3539 269.541 24.7049 269.523 25.0273C269.501 25.4117 269.179 25.7013 268.794 25.7013H252.804C253.056 29.9452 255.736 32.7328 259.546 32.7328C262.463 32.7328 264.557 31.5071 265.395 29.3329C265.545 28.9443 265.945 28.6911 266.35 28.7867L268.217 29.2273C268.629 29.3245 268.884 29.7427 268.745 30.1425C267.48 33.7666 264.102 35.8533 259.546 35.8533C253.223 35.8533 249.245 30.9853 249.245 25.0356ZM253.014 22.7472H265.785C265.45 19.5435 263.189 17.172 259.462 17.172C256.154 17.172 253.726 19.2523 253.014 22.7472Z" fill="white"/></svg>
+    <svg width="270" height="44" viewBox="0 0 270 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M39.6556 30.7439C37.4413 31.9376 35.0355 32.8328 32.7255 33.3618C30.0874 33.9587 27.3809 34.1621 24.6881 33.9587C20.1637 33.5788 15.7759 31.5171 12.7551 28.126C12.386 27.719 12.0853 27.2171 11.5112 27.0815C10.5954 26.878 9.95294 27.502 9.73424 28.3294C7.50619 36.5359 15.0788 44.3625 23.3759 43.6843C30.8391 43.2367 37.7283 38.9097 41.2959 32.3852C41.5146 32.0054 41.501 31.5713 41.2823 31.2051C40.9542 30.6354 40.2297 30.4183 39.6556 30.7439Z" fill="#F1EBD6"/><path d="M20.9843 2.23146C23.1303 3.54721 25.126 5.16137 26.7389 6.88405C28.5842 8.85089 30.1152 11.0755 31.2907 13.4899C33.218 17.5728 33.6008 22.361 32.1655 26.661C31.9878 27.19 31.7008 27.6919 31.8785 28.248C32.1655 29.1297 33.013 29.3738 33.8605 29.1568C42.1439 26.9594 45.1784 16.5555 40.4353 9.75971C36.3072 3.56077 29.09-.183005 21.6131.00689668C21.1757.0204611 20.7929.237495 20.5879.603734C20.2462 1.15987 20.4239 1.90591 20.9843 2.23146Z" fill="#F1EBD6"/><path d="M22.9655 15.5788C21.2843 15.3346 19.5893 15.7416 18.2224 16.7453C17.5116 17.2608 16.9238 17.9119 16.4864 18.6715C15.2152 20.8553 15.3656 23.5818 16.8828 25.6029C17.8943 26.9593 19.3843 27.8546 21.0655 28.0987C22.7468 28.3429 24.4418 27.936 25.8087 26.9322C26.5195 26.4168 27.1072 25.7657 27.5446 25.0061C28.8159 22.8222 28.6655 20.0957 27.1482 18.0746C26.1504 16.7182 24.6605 15.823 22.9655 15.5788Z" fill="#F1EBD6"/><path d="M21.1758 10.7228C21.7225 10.6143 22.3103 10.6007 22.7067 10.1802C23.3355 9.48842 23.1304 8.63386 22.5016 8.02346C16.4463 2.00086 5.83915 4.60523 2.28521 12.0792C-1.05002 18.7258-.721961 26.7966 3.18737 33.1312C3.41974 33.511 3.7888 33.7144 4.22621 33.7144C4.88232 33.7144 5.42908 33.199 5.42908 32.5479C5.49743 30.0521 5.9075 27.5291 6.60462 25.2774C7.39742 22.7137 8.57295 20.2857 10.1039 18.0611C12.7147 14.358 16.706 11.6316 21.1758 10.7228Z" fill="#F1EBD6"/><path d="M56.3321 35.5204C55.8849 35.5204 55.5225 35.1603 55.5225 34.716V18.4756C55.5225 18.0313 55.8849 17.6712 56.3321 17.6712H58.2722C58.7193 17.6712 59.0817 18.0313 59.0817 18.4756V34.716C59.0817 35.1603 58.7193 35.5204 58.2722 35.5204H56.3321Z" fill="#F1EBD6"/><path d="M59.7357 10.6086C59.7357 11.9471 58.6437 13.0322 57.2966 13.0322C55.9495 13.0322 54.8574 11.9471 54.8574 10.6086C54.8574 9.27002 55.9495 8.18492 57.2966 8.18492C58.6437 8.18492 59.7357 9.27002 59.7357 10.6086Z" fill="#F1EBD6"/><path d="M65.7309 35.5205C65.3136 35.5205 64.9753 35.182 64.9753 34.7644V15.3068C64.9753 14.8892 65.3136 14.5507 65.7309 14.5507H67.7789C68.1962 14.5507 68.5345 14.8892 68.5345 15.3068V18.5034C70.0001 16.007 72.5543 14.2179 75.7786 14.2179C80.1752 14.2179 83.3157 17.172 83.3157 21.6239V34.7644C83.3157 35.182 82.9774 35.5205 82.5601 35.5205H80.5121C80.0948 35.5205 79.7565 35.182 79.7565 34.7644V22.2896C79.7565 19.4603 77.956 17.4216 74.983 17.4216C71.0469 17.4216 68.5345 20.7917 68.5345 26.3254V34.7644C68.5345 35.182 68.1962 35.5205 67.7789 35.5205H65.7309Z" fill="#F1EBD6"/><path d="M99.5018 34.7781C99.5281 35.1181 99.3246 35.4373 98.9957 35.5267C98.1082 35.768 97.1733 35.8533 96.2384 35.8533C92.6374 35.8533 89.9994 33.8562 89.9994 29.2379V17.6712H86.8189C86.4016 17.6712 86.0633 17.3327 86.0633 16.9151V15.3068C86.0633 14.8892 86.4016 14.5507 86.8189 14.5507H89.9994V8.94101C89.9994 8.52344 90.3376 8.18492 90.7549 8.18492H92.803C93.2203 8.18492 93.5586 8.52343 93.5586 8.94101V14.5507H98.4558C98.8731 14.5507 99.2114 14.8892 99.2114 15.3068V16.9151C99.2114 17.3327 98.8731 17.6712 98.4558 17.6712H93.5586V29.3627C93.5586 31.5678 94.8147 32.6496 96.6572 32.6496C97.1582 32.6496 97.7042 32.6049 98.2414 32.4799C98.763 32.3586 99.3403 32.6915 99.3816 33.2258L99.5018 34.7781Z" fill="#F1EBD6"/><path d="M101.954 25.0356C101.954 19.0859 105.806 14.2179 112.171 14.2179C118.41 14.2179 122.262 18.6698 122.262 24.0786C122.262 24.3539 122.249 24.7049 122.231 25.0273C122.209 25.4117 121.887 25.7013 121.503 25.7013H105.513C105.764 29.9452 108.444 32.7328 112.255 32.7328C115.171 32.7328 117.265 31.5071 118.103 29.3329C118.253 28.9443 118.654 28.6911 119.059 28.7867L120.926 29.2273C121.338 29.3245 121.593 29.7427 121.453 30.1425C120.188 33.7666 116.811 35.8533 112.255 35.8533C105.932 35.8533 101.954 30.9853 101.954 25.0356ZM105.722 22.7472H118.494C118.159 19.5435 115.897 17.172 112.171 17.172C108.863 17.172 106.434 19.2523 105.722 22.7472Z" fill="#F1EBD6"/><path d="M127.6 35.5205C127.183 35.5205 126.844 35.182 126.844 34.7644V6.81907C126.844 6.4015 127.183 6.06299 127.6 6.06299H129.648C130.065 6.06299 130.404 6.4015 130.404 6.81907V34.7644C130.404 35.182 130.065 35.5205 129.648 35.5205H127.6Z" fill="#F1EBD6"/><path d="M136.923 35.5205C136.506 35.5205 136.168 35.182 136.168 34.7644V6.81907C136.168 6.4015 136.506 6.06299 136.923 6.06299H138.971C139.389 6.06299 139.727 6.4015 139.727 6.81907V34.7644C139.727 35.182 139.389 35.5205 138.971 35.5205H136.923Z" fill="#F1EBD6"/><path d="M146.359 35.5204C145.912 35.5204 145.55 35.1603 145.55 34.716V18.4756C145.55 18.0314 145.912 17.6712 146.359 17.6712H148.299C148.746 17.6712 149.109 18.0314 149.109 18.4756V34.716C149.109 35.1603 148.746 35.5204 148.299 35.5204H146.359Z" fill="#F1EBD6"/><path d="M147.093 6.1999C147.16 6.01848 147.418 6.01848 147.486 6.1999L148.046 7.70465C148.429 8.73135 149.243 9.54084 150.277 9.92076L151.791 10.4776C151.974 10.5447 151.974 10.8013 151.791 10.8684L150.277 11.4252C149.243 11.8052 148.429 12.6146 148.046 13.6413L147.486 15.1461C147.418 15.3275 147.16 15.3275 147.093 15.1461L146.532 13.6413C146.15 12.6146 145.335 11.8052 144.302 11.4252L142.788 10.8684C142.605 10.8013 142.605 10.5447 142.788 10.4776L144.302 9.92076C145.335 9.54084 146.15 8.73135 146.532 7.70465L147.093 6.1999Z" fill="#F1EBD6"/><path d="M163.649 34.9796C157.159 34.9796 153.6 30.5277 153.6 24.6195C153.6 18.6698 157.159 14.2179 163.566 14.2179C166.371 14.2179 169.135 15.5493 170.391 17.38V15.3068C170.391 14.8892 170.729 14.5507 171.147 14.5507H173.153C173.57 14.5507 173.908 14.8892 173.908 15.3068V34.5219C173.908 39.8059 169.888 43.4257 164.068 43.4257C159.493 43.4257 155.867 41.176 154.896 37.7947C154.781 37.3943 155.062 37.0036 155.473 36.934L157.358 36.6141C157.793 36.5404 158.191 36.8583 158.332 37.276C158.971 39.1699 161.227 40.43 164.068 40.43C167.795 40.43 170.391 38.1833 170.391 34.8964V31.9839C169.428 33.773 166.664 34.9796 163.649 34.9796ZM157.243 24.6195C157.243 28.9882 159.881 31.8175 163.984 31.8175C168.046 31.8175 170.684 28.9882 170.684 24.6195C170.684 20.2092 168.046 17.38 163.984 17.38C159.881 17.38 157.243 20.2092 157.243 24.6195Z" fill="#F1EBD6"/><path d="M178.462 25.0356C178.462 19.0859 182.314 14.2179 188.679 14.2179C194.918 14.2179 198.77 18.6698 198.77 24.0786C198.77 24.3539 198.758 24.7049 198.739 25.0273C198.717 25.4117 198.396 25.7013 198.011 25.7013H182.021C182.272 29.9452 184.952 32.7328 188.763 32.7328C191.679 32.7328 193.774 31.5071 194.612 29.3329C194.761 28.9443 195.162 28.6911 195.567 28.7867L197.434 29.2273C197.846 29.3245 198.101 29.7427 197.961 30.1425C196.696 33.7666 193.319 35.8533 188.763 35.8533C182.44 35.8533 178.462 30.9853 178.462 25.0356ZM182.231 22.7472H195.002C194.667 19.5435 192.406 17.172 188.679 17.172C185.371 17.172 182.942 19.2523 182.231 22.7472Z" fill="#F1EBD6"/><path d="M204.108 35.5205C203.691 35.5205 203.352 35.182 203.352 34.7644V15.3068C203.352 14.8892 203.691 14.5507 204.108 14.5507H206.156C206.573 14.5507 206.912 14.8892 206.912 15.3068V18.5034C208.377 16.007 210.931 14.2179 214.156 14.2179C218.552 14.2179 221.693 17.172 221.693 21.6239V34.7644C221.693 35.182 221.355 35.5205 220.937 35.5205H218.889C218.472 35.5205 218.134 35.182 218.134 34.7644V22.2896C218.134 19.4603 216.333 17.4216 213.36 17.4216C209.424 17.4216 206.912 20.7917 206.912 26.3254V34.7644C206.912 35.182 206.573 35.5205 206.156 35.5205H204.108Z" fill="#F1EBD6"/><path d="M236.732 35.8533C230.452 35.8533 226.264 31.5262 226.264 25.0356C226.264 18.545 230.452 14.2179 236.732 14.2179C241.341 14.2179 244.801 16.5745 245.823 20.3178C245.931 20.7152 245.663 21.1064 245.26 21.1875L243.224 21.5969C242.809 21.6803 242.412 21.404 242.277 21.0032C241.553 18.8599 239.489 17.38 236.816 17.38C232.671 17.38 229.991 20.4173 229.991 25.0356C229.991 29.6539 232.671 32.6912 236.816 32.6912C239.521 32.6912 241.568 31.3477 242.356 29.0055C242.489 28.6117 242.881 28.3478 243.288 28.4306L245.281 28.8361C245.693 28.9199 245.96 29.3251 245.841 29.7281C244.692 33.6032 241.306 35.8533 236.732 35.8533Z" fill="#F1EBD6"/><path d="M249.245 25.0356C249.245 19.0859 253.098 14.2179 259.462 14.2179C265.701 14.2179 269.554 18.6698 269.554 24.0786C269.554 24.3539 269.541 24.7049 269.523 25.0273C269.501 25.4117 269.179 25.7013 268.794 25.7013H252.804C253.056 29.9452 255.736 32.7328 259.546 32.7328C262.463 32.7328 264.557 31.5071 265.395 29.3329C265.545 28.9443 265.945 28.6911 266.35 28.7867L268.217 29.2273C268.629 29.3245 268.884 29.7427 268.745 30.1425C267.48 33.7666 264.102 35.8533 259.546 35.8533C253.223 35.8533 249.245 30.9853 249.245 25.0356ZM253.014 22.7472H265.785C265.45 19.5435 263.189 17.172 259.462 17.172C256.154 17.172 253.726 19.2523 253.014 22.7472Z" fill="#F1EBD6"/></svg>
   </a>
   <nav id="main-nav">
     <a href="#hero">Overview</a>
-    <a href="#voice-receptionist">24/7 Voice Receptionist</a>
-    <a href="#virtual-concierge">Virtual Concierge</a>
-    <a href="#budtender-copilot">Budtender Co-Pilot</a>
-    <a href="#reputation-center">Reputation Center</a>
+    <a href="#voice-receptionist">Phone</a>
+    <a href="#virtual-concierge">Ecommerce</a>
+    <a href="#budtender-copilot">Register</a>
+    <a href="#reputation-center">Sentiment</a>
   </nav>
 </div>
 </header>
@@ -392,7 +439,6 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 <div class="container">
   <div class="launch-badge fade-in">Alpha Launch - March 31, 2026</div>
   <h1 class="fade-in">The AI Operating System<br>for <span class="gradient-text">Cannabis Retail</span></h1>
-  <p class="fade-in" style="font-size:19px;font-style:italic;color:rgba(241,235,214,.65);max-width:720px;margin:0 auto 16px;font-weight:500">What if your most knowledgeable, highest-converting budtender could be everywhere at once, and also had its ear to every corner of the internet?</p>
   <p class="fade-in">Dutchie Consumer AI works across every touchpoint, from phone and web to kiosk, register, and the open internet, so you never miss a sale or a signal.</p>
   <div class="hero-ctas fade-in">
     <a href="#" class="btn-primary">
@@ -407,7 +453,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 </div>
 </section>
 
-<!-- ===== WHY DUTCHIE AI — 5 PILLARS ===== -->
+<!-- ===== WHY DUTCHIE AI - 5 PILLARS ===== -->
 <section class="pillars-section" id="pillars">
 <div class="container">
   <div class="section-header fade-in">
@@ -416,30 +462,49 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   </div>
   <div class="pillars-grid">
     <div class="pillar-card fade-in">
-      <div class="pillar-icon">&#x1F310;</div>
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
       <h3>Omnichannel Coverage</h3>
       <p>Phone, web, kiosk, and register. No other cannabis tech company covers all four touchpoints with unified AI.</p>
     </div>
     <div class="pillar-card fade-in">
-      <div class="pillar-icon">&#x1F3E8;</div>
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
       <h3>Hospitality, Not Automation</h3>
       <p>A digital hospitality team that guides customers with expertise and warmth, not an IVR tree or a chatbot.</p>
     </div>
     <div class="pillar-card fade-in">
-      <div class="pillar-icon">&#x1F91D;</div>
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
       <h3>Staff Augmentation</h3>
       <p>Makes every budtender perform like your best budtender. AI as a wingman, not a replacement.</p>
     </div>
     <div class="pillar-card fade-in">
-      <div class="pillar-icon">&#x1F9EC;</div>
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
       <h3>AI-Native Architecture</h3>
       <p>Deeply integrated with real-time POS and inventory data. Live context on stock, pricing, and compliance.</p>
     </div>
     <div class="pillar-card fade-in">
-      <div class="pillar-icon">&#x1F504;</div>
+      <div class="pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+      </div>
       <h3>Unified Intelligence</h3>
       <p>One AI layer across phone, web, kiosk, and register. Every touchpoint shares context and learns together.</p>
     </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== WHAT IF CALLOUT ===== -->
+<section class="whatif-callout">
+<div class="container">
+  <div class="whatif-inner fade-in">
+    <p>What if your most knowledgeable, highest-converting budtender could be everywhere at once, and also had its ear to every corner of the internet?</p>
   </div>
 </div>
 </section>
@@ -473,12 +538,28 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
         <div class="phone-screen">
           <div class="phone-status-bar">
             <span>9:41 AM</span>
-            <span>Voice Receptionist</span>
-            <span>&#x1F50B;</span>
+            <span>Active Call</span>
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><rect x="0" y="3" width="3" height="7" rx="1" fill="#F1EBD6" opacity=".5"/><rect x="4.5" y="1.5" width="3" height="8.5" rx="1" fill="#F1EBD6" opacity=".7"/><rect x="9" y="0" width="3" height="10" rx="1" fill="#F1EBD6"/><rect x="13" y="2" width="3" height="8" rx="1" fill="#6AB448"/></svg>
           </div>
           <div class="phone-header">
             <h4>Green Leaf Dispensary</h4>
             <p>AI Voice Receptionist</p>
+          </div>
+          <div class="waveform-container">
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+          </div>
+          <div class="call-status">
+            <span class="call-status-dot"></span>
+            Active Call - AI Voice Receptionist
           </div>
           <div class="phone-chat">
             <div class="chat-msg customer">
@@ -496,7 +577,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
             <div class="chat-msg ai">
               <div class="sender">Voice Receptionist</div>
               Done! I've placed your order for Wyld Marionberry Gummies ($32) for pickup today. You'll get a text confirmation now.
-              <span class="sms-link">&#x2705; Order Confirmed &rarr; View Order</span>
+              <span class="sms-link"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="vertical-align:-2px;margin-right:4px"><path d="M4 8l3 3 5-5" stroke="#F1EBD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Order Confirmed &rarr; View Order</span>
             </div>
           </div>
         </div>
@@ -533,7 +614,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
     <div class="product-mockup fade-in-left">
       <div class="ecom-mockup">
         <div class="ecom-header">
-          <div class="ecom-header-icon">&#x2728;</div>
+          <div class="ecom-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F1EBD6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+          </div>
           <div>
             <h4>Virtual Concierge</h4>
             <p>Ask me anything about our products</p>
@@ -550,7 +633,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
           </div>
           <div class="ecom-product-card">
             <div class="ecom-product-row">
-              <div class="ecom-product-img">&#x1F33F;</div>
+              <div class="ecom-product-img">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21c3-3 4-8 4-12 0-2 2-4 5-4 0 3 .5 6-1 9s-4 6-8 7z"/><path d="M10 9c3-1 6 0 8 3"/></svg>
+              </div>
               <div style="flex:1">
                 <div class="ecom-product-name">Granddaddy Purple - 3.5g</div>
                 <div class="ecom-product-detail">Indica &bull; 24% THC &bull; By: Purple City Genetics</div>
@@ -561,7 +646,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
               <span class="ecom-tag">Myrcene</span>
               <span class="ecom-tag">Linalool</span>
               <span class="ecom-tag">Sleep Aid</span>
-              <span class="ecom-tag" style="background:rgba(212,168,67,.15);color:#8a6510;border-color:rgba(212,168,67,.3)">Top Rated</span>
+              <span class="ecom-tag" style="background:rgba(212,168,67,.12);color:#8a6510;border-color:rgba(212,168,67,.25)">Top Rated</span>
             </div>
             <button class="ecom-add-btn">Add to Cart - $35.00</button>
           </div>
@@ -615,65 +700,71 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
           <div class="register-cart">
             <div class="register-cart-header">
               <div style="display:flex;align-items:center;gap:10px">
-                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(106,180,72,.6),rgba(106,180,72,.5));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff">MR</div>
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(106,180,72,.5),rgba(106,180,72,.4));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff">MR</div>
                 <div>
-                  <div style="font-size:13px;font-weight:700">Marcus Rivera</div>
-                  <div style="font-size:10px;color:var(--text-muted)">Silver Member &bull; 8 orders</div>
+                  <div style="font-size:13px;font-weight:700;color:#042017">Marcus Rivera</div>
+                  <div style="font-size:10px;color:rgba(4,32,23,.5)">Silver Member &bull; 8 orders</div>
                 </div>
               </div>
-              <span style="padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(4,32,23,.06);color:var(--text-dim);border:1px solid rgba(4,32,23,.1)">SILVER</span>
+              <span style="padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(4,32,23,.05);color:rgba(4,32,23,.6);border:1px solid rgba(4,32,23,.1)">SILVER</span>
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);margin-bottom:8px">
-              <div style="width:40px;height:40px;border-radius:8px;background:rgba(4,32,23,.06);display:flex;align-items:center;justify-content:center;font-size:18px">&#x1F33F;</div>
-              <div style="flex:1">
-                <div style="font-size:12px;font-weight:600">Blue Dream - 3.5g</div>
-                <div style="font-size:10px;color:var(--text-muted)">Sativa &bull; 27% THC &bull; Cookies</div>
+              <div style="width:40px;height:40px;border-radius:8px;background:rgba(106,180,72,.1);display:flex;align-items:center;justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21c3-3 4-8 4-12 0-2 2-4 5-4 0 3 .5 6-1 9s-4 6-8 7z"/><path d="M10 9c3-1 6 0 8 3"/></svg>
               </div>
-              <div style="font-size:13px;font-weight:700;color:var(--text)">$48.00</div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:600;color:#042017">Blue Dream - 3.5g</div>
+                <div style="font-size:10px;color:rgba(4,32,23,.5)">Sativa &bull; 27% THC &bull; Cookies</div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#042017">$48.00</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);margin-bottom:8px">
-              <div style="width:40px;height:40px;border-radius:8px;background:rgba(4,32,23,.06);display:flex;align-items:center;justify-content:center;font-size:18px">&#x1F36C;</div>
-              <div style="flex:1">
-                <div style="font-size:12px;font-weight:600">Kiva Camino Pineapple</div>
-                <div style="font-size:10px;color:var(--text-muted)">Sativa &bull; 5mg &bull; 20-pack</div>
+              <div style="width:40px;height:40px;border-radius:8px;background:rgba(94,50,78,.08);display:flex;align-items:center;justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
               </div>
-              <div style="font-size:13px;font-weight:700;color:var(--text)">$22.00</div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:600;color:#042017">Kiva Camino Pineapple</div>
+                <div style="font-size:10px;color:rgba(4,32,23,.5)">Sativa &bull; 5mg &bull; 20-pack</div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#042017">$22.00</div>
             </div>
-            <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border)">
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-bottom:4px"><span>Subtotal</span><span>$70.00</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);margin-bottom:4px"><span>Tax (18.5%)</span><span>$12.95</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:var(--text);margin-top:6px"><span>Total</span><span style="color:var(--text)">$82.95</span></div>
+            <div style="margin-top:14px;padding-top:10px;border-top:1px solid rgba(4,32,23,.08)">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(4,32,23,.6);margin-bottom:4px"><span>Subtotal</span><span>$70.00</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(4,32,23,.6);margin-bottom:4px"><span>Tax (18.5%)</span><span>$12.95</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:#042017;margin-top:6px"><span>Total</span><span>$82.95</span></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:14px">
-              <button style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(4,32,23,.12);background:rgba(4,32,23,.04);font-weight:600;font-size:12px;cursor:pointer;font-family:inherit;color:var(--text-dim)">Hold</button>
+              <button style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(4,32,23,.12);background:rgba(4,32,23,.03);font-weight:600;font-size:12px;cursor:pointer;font-family:inherit;color:rgba(4,32,23,.6)">Hold</button>
               <button style="flex:1;padding:10px;border-radius:8px;border:none;background:#003D29;color:#F1EBD6;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Checkout &rarr;</button>
             </div>
           </div>
           <!-- AI Panel side -->
           <div class="register-ai">
             <div class="register-ai-header">
-              <div class="icon">&#x1F916;</div>
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="3"/><path d="M8 16h.01"/><path d="M16 16h.01"/></svg>
+              </div>
               <h4>Sales Assistant</h4>
             </div>
             <div class="register-ai-card upsell">
-              <div class="label">&#x2B50; Upsell Opportunity</div>
+              <div class="label"><svg viewBox="0 0 16 16" fill="none"><polygon points="8,1 10,6 15,6.5 11,10 12.5,15 8,12 3.5,15 5,10 1,6.5 6,6" fill="#FFC02A"/></svg> Upsell Opportunity</div>
               <div class="title">Sativa Pre-Roll 2-Pack - $5 promo</div>
               <div class="desc">Pairs perfectly with Blue Dream. This week's promo: buy any sativa flower, add a pre-roll 2-pack for $5.</div>
               <button class="action-btn">+ Add to Cart</button>
             </div>
             <div class="register-script">
-              <div class="label">&#x1F4AC; Suggested Script</div>
+              <div class="label"><svg viewBox="0 0 16 16" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12v8H4l-2 2V4z"/></svg> Suggested Script</div>
               <p>"Hey Marcus, since you're grabbing the Blue Dream, we have a <em>$5 sativa pre-roll deal</em> this week. Want me to toss those in?"</p>
             </div>
             <div class="register-ai-card loyalty">
-              <div class="label">&#x1F3C6; Loyalty Nudge</div>
+              <div class="label"><svg viewBox="0 0 16 16" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="6" r="4"/><path d="M5 14l3-2 3 2"/><path d="M4 10l-2 4"/><path d="M12 10l2 4"/></svg> Loyalty Nudge</div>
               <div class="title">$10 away from Gold tier!</div>
               <div class="desc">Marcus needs $10 more spend to unlock Gold member benefits including 10% off every purchase.</div>
-              <div style="margin-top:8px;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:88%;background:linear-gradient(90deg,rgba(212,168,67,.6),rgba(212,168,67,.8));border-radius:3px"></div></div>
-              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);margin-top:4px"><span>440 pts</span><span>500 pts (Gold)</span></div>
+              <div style="margin-top:8px;height:6px;background:rgba(4,32,23,.08);border-radius:3px;overflow:hidden"><div style="height:100%;width:88%;background:linear-gradient(90deg,rgba(212,168,67,.6),rgba(212,168,67,.8));border-radius:3px"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(4,32,23,.5);margin-top:4px"><span>440 pts</span><span>500 pts (Gold)</span></div>
             </div>
             <div class="register-ai-card compliance">
-              <div class="label">&#x2705; Compliance Check</div>
+              <div class="label"><svg viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Compliance Check</div>
               <div class="title">All clear</div>
               <div class="desc">Purchase within daily limits. ID verified. All products compliant.</div>
             </div>
@@ -778,7 +869,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
           <!-- Alerts -->
           <div class="sentiment-alerts">
             <div class="alert-card">
-              <div class="alert-icon trending">&#x1F4C8;</div>
+              <div class="alert-icon trending">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#003D29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
               <div>
                 <div class="alert-title">New live rosin brand generating 4.8-star buzz</div>
                 <div class="alert-desc">710 Labs Live Rosin trending on Leafly and Reddit with exceptional reviews. Consider adding to inventory before competitors stock it.</div>
@@ -790,7 +883,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
               </div>
             </div>
             <div class="alert-card">
-              <div class="alert-icon warning">&#x26A0;&#xFE0F;</div>
+              <div class="alert-icon warning">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c67a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
               <div>
                 <div class="alert-title">East Side location sentiment dropped 12%</div>
                 <div class="alert-desc">Traced to "long wait time" mentions on Google Reviews. 8 new reviews in 5 days mention wait times exceeding 20 minutes.</div>
@@ -801,7 +896,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
               </div>
             </div>
             <div class="alert-card">
-              <div class="alert-icon insight">&#x1F4CA;</div>
+              <div class="alert-icon insight">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1a5a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
               <div>
                 <div class="alert-title">Midnight Vape Cart: Reddit sentiment sliding 3 weeks</div>
                 <div class="alert-desc">Consistent downward trend in r/trees and r/vaporents. Common complaints: taste quality and cartridge leaking. Recommend reducing next PO.</div>
