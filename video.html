@@ -134,6 +134,23 @@ body {
 }
 .slide.active { opacity:1; pointer-events:auto; transform:scale(1); transition:opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1); }
 
+/* ===== SLIDE 0: VOICEOVER INTRO ===== */
+.s0-voiceover {
+  background: var(--navy);
+}
+.s0-glow {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 40% 40% at 50% 50%, rgba(106,180,72,.03) 0%, transparent 70%);
+  opacity:0; transition:opacity 3s ease;
+}
+.s0-voiceover.active .s0-glow {
+  animation: s0-breathe 8s ease-in-out infinite;
+}
+@keyframes s0-breathe {
+  0%, 100% { opacity:0; }
+  50% { opacity:1; }
+}
+
 /* ===== SLIDE 1: LOGO INTRO ===== */
 .s1-logo-svg {
   opacity:0; transform:scale(.85); position:relative;
@@ -938,6 +955,11 @@ body {
 <div id="presentation">
   <a href="aiconsumersuite.html" class="close-btn" title="Back to site">&times;</a>
 
+  <!-- Slide 0: Voiceover Intro — blank suspense (15s) -->
+  <div class="slide s0-voiceover" data-duration="15000">
+    <div class="s0-glow"></div>
+  </div>
+
   <!-- Slide 1: Logo Intro (4.5s) -->
   <div class="slide" data-duration="4174">
     <div class="s1-logo-svg">
@@ -1338,16 +1360,16 @@ body {
     slideElapsed = 0;
     slideStartTime = performance.now();
 
-    if (idx === 7) animateCounters();
-    if (idx === 8) {
+    if (idx === 8) animateCounters();
+    if (idx === 9) {
       setTimeout(() => {
         document.querySelectorAll('.s9-line').forEach(l => l.classList.add('glow'));
       }, 1800);
     }
     // Animate add-to-cart on register slide
-    if (idx === 5) animateAddToCart();
+    if (idx === 6) animateAddToCart();
     // Animate chart bars on sentiment slide
-    if (idx === 6) animateChart();
+    if (idx === 7) animateChart();
     // Fade out music on CTA slide
     if (idx === slides.length - 1) fadeOutMusic();
   }
@@ -1492,8 +1514,11 @@ body {
     scheduleNext();
     animFrame = requestAnimationFrame(updateProgress);
     clearInterval(fadeInterval);
-    bgm.volume = 0.35;
-    if (bgm.paused) bgm.play().catch(() => {});
+    // Only play music if we're past the voiceover slide (slide 0)
+    if (currentSlide > 0) {
+      bgm.volume = 0.35;
+      if (bgm.paused) bgm.play().catch(() => {});
+    }
   }
 
   function pause() {
@@ -1516,22 +1541,37 @@ body {
     }
   }
 
+  let musicDelayTimer = null;
+
   function startPresentation() {
     playOverlay.classList.add('hidden');
     bgm.currentTime = 0;
-    bgm.volume = 0.35;
-    // User click context — ensures browser allows audio
-    bgm.play().then(() => {
-      console.log('Music started');
-    }).catch(e => {
-      console.warn('Music blocked:', e);
-    });
+    bgm.volume = 0;
+    // Delay music by 15s (voiceover slide duration) — fade in when logo appears
+    musicDelayTimer = setTimeout(() => {
+      bgm.volume = 0;
+      bgm.play().then(() => {
+        // Fade music in over 1.5s
+        let vol = 0;
+        const fadeIn = setInterval(() => {
+          vol += 0.025;
+          if (vol >= 0.35) { bgm.volume = 0.35; clearInterval(fadeIn); }
+          else { bgm.volume = vol; }
+        }, 100);
+        console.log('Music started after voiceover');
+      }).catch(e => {
+        console.warn('Music blocked:', e);
+      });
+    }, 15000);
+    // Pre-warm audio context with silent play on user click
+    bgm.play().then(() => { bgm.pause(); bgm.currentTime = 0; }).catch(() => {});
     showSlide(0);
     play();
   }
 
   function restart() {
     pause();
+    if (musicDelayTimer) { clearTimeout(musicDelayTimer); musicDelayTimer = null; }
     slides.forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.s9-line').forEach(l => l.classList.remove('glow'));
     // Reset chart
@@ -1540,8 +1580,21 @@ body {
     progressBar.style.width = '0%';
     timeLabel.textContent = '0:00';
     bgm.currentTime = 0;
+    bgm.pause();
     clearInterval(fadeInterval);
-    bgm.volume = 0.35;
+    bgm.volume = 0;
+    // Restart with music delay
+    musicDelayTimer = setTimeout(() => {
+      bgm.volume = 0;
+      bgm.play().then(() => {
+        let vol = 0;
+        const fadeIn = setInterval(() => {
+          vol += 0.025;
+          if (vol >= 0.35) { bgm.volume = 0.35; clearInterval(fadeIn); }
+          else { bgm.volume = vol; }
+        }, 100);
+      }).catch(() => {});
+    }, 15000);
     setTimeout(() => {
       showSlide(0);
       play();
