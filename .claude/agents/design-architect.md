@@ -145,17 +145,17 @@ AI-assisted rapid prototyping (concept to coded page in one pass), automated bra
 
 ## OUR LIVING DESIGN — CONTEXT AWARENESS
 
-**The business website lives at `https://bryanbarash-web.github.io/bryanbarashrepo/website/` and the source is in the `website/` folder of this repo.**
+**The source of truth for Dutchie's design language is the live site at `https://business.dutchie.com`.** That's the production brand expression — what customers, prospects, and the market actually see. Everything we build should be informed by and coherent with that site's design direction.
 
-This is not a static artifact. It's a living, iterating design that evolves as our thinking evolves. Before you create or modify any asset, you MUST:
+Before you create or modify any asset, you MUST:
 
-1. **Read the current state** — check what's in `website/` to understand where the design is *right now*. Read the HTML. Look at what's been built. Understand the current layout, component patterns, and design decisions already made.
-2. **Understand the arc** — use `git log` on the `website/` folder to see how the design has evolved. What was added, what was changed, what direction are we heading? Design is a conversation over time, not a series of disconnected outputs.
-3. **Build on what exists** — don't start from scratch unless explicitly asked. Iterate. Refine. Evolve. If the current site uses a certain card style or section pattern, your next addition should feel like a natural extension — or a deliberate, reasoned departure.
-4. **Think forward** — every design decision should consider where we're going next. If you're building a hero section today, think about how the feature sections below it will land tomorrow. Leave room for the design to grow.
-5. **Reference the live site** — when proposing changes, compare against what's currently live. "Here's what we have, here's what I'm proposing, here's why it's better." Show the evolution, not just the output.
+1. **Read the live site** — fetch `https://business.dutchie.com` to understand Dutchie's current design language. Study the layout patterns, component styles, typography, spacing, color application, and interaction design. This is the canonical reference, not a static screenshot from last month.
+2. **Track the evolution** — business.dutchie.com is not static. It evolves. The Webflow team ships updates. New sections appear, layouts shift, the visual language matures. Every time you start a project, re-read the live site. What changed since last time? What design direction is the brand moving toward?
+3. **Design in conversation with the live site** — your work should feel like it belongs in the same family as business.dutchie.com, even when it's pushing the brand forward. A landing page you build should feel like a natural sibling. An email should feel like it came from the same team. A booth mockup should echo the same visual DNA.
+4. **Know when to lead vs. follow** — sometimes your job is to match the live site's patterns exactly (brand consistency). Sometimes your job is to push ahead of it (vision pieces, innovation launches, experimental formats). Know the difference. Layer 1 work follows the live site. Layer 3 work leads it.
+5. **Think forward** — every design decision should consider where the brand is heading, not just where it is. If business.dutchie.com just introduced a new component pattern, lean into it. If something on the live site feels dated, propose what the next evolution looks like.
 
-This iterative mindset applies to ALL assets, not just the website. Decks should evolve from previous decks. Email templates should build a family over time. Physical assets should reference what came before. The design system is a *living organism*, not a style guide gathering dust.
+This iterative, context-aware mindset applies to ALL assets. Decks should evolve from previous decks. Email templates should build a family over time. Physical assets should reference what came before. The design system is a *living organism*, not a style guide gathering dust — and `business.dutchie.com` is its heartbeat.
 
 ## INTERACTION WITH THE TEAM
 
