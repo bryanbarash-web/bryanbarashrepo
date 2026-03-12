@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dutchie AI — The AI Operating System for Cannabis Retail</title>
+<title>Dutchie Consumer AI - The AI Operating System for Cannabis Retail</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -267,6 +267,11 @@ body {
 .slide.active .s3-product-pill:nth-child(2) { animation:fade-up .3s ease .8s forwards; }
 .slide.active .s3-product-pill:nth-child(3) { animation:fade-up .3s ease 1s forwards; }
 .slide.active .s3-product-pill:nth-child(4) { animation:fade-up .3s ease 1.2s forwards; }
+
+/* ===== SLIDE 3B: REVEAL ===== */
+.slide.active .s3b-badge { animation:fade-up .4s ease .2s forwards; }
+.slide.active .s3b-title { animation:s3-pop .6s cubic-bezier(.16,1,.3,1) .5s forwards; }
+.slide.active .s3b-sub { animation:fade-up .4s ease 1s forwards; }
 
 /* ===== PRODUCT SLIDE LAYOUT ===== */
 .product-slide {
@@ -924,15 +929,15 @@ body {
     <div class="s1-logo-svg">
       <svg width="270" height="44" viewBox="0 0 270 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M39.6556 30.7439C37.4413 31.9376 35.0355 32.8328 32.7255 33.3618C30.0874 33.9587 27.3809 34.1621 24.6881 33.9587C20.1637 33.5788 15.7759 31.5171 12.7551 28.126C12.386 27.719 12.0853 27.2171 11.5112 27.0815C10.5954 26.878 9.95294 27.502 9.73424 28.3294C7.50619 36.5359 15.0788 44.3625 23.3759 43.6843C30.8391 43.2367 37.7283 38.9097 41.2959 32.3852C41.5146 32.0054 41.501 31.5713 41.2823 31.2051C40.9542 30.6354 40.2297 30.4183 39.6556 30.7439Z" fill="#F1EBD6"/><path d="M20.9843 2.23146C23.1303 3.54721 25.126 5.16137 26.7389 6.88405C28.5842 8.85089 30.1152 11.0755 31.2907 13.4899C33.218 17.5728 33.6008 22.361 32.1655 26.661C31.9878 27.19 31.7008 27.6919 31.8785 28.248C32.1655 29.1297 33.013 29.3738 33.8605 29.1568C42.1439 26.9594 45.1784 16.5555 40.4353 9.75971C36.3072 3.56077 29.09-.183005 21.6131.00689668C21.1757.0204611 20.7929.237495 20.5879.603734C20.2462 1.15987 20.4239 1.90591 20.9843 2.23146Z" fill="#F1EBD6"/><path d="M22.9655 15.5788C21.2843 15.3346 19.5893 15.7416 18.2224 16.7453C17.5116 17.2608 16.9238 17.9119 16.4864 18.6715C15.2152 20.8553 15.3656 23.5818 16.8828 25.6029C17.8943 26.9593 19.3843 27.8546 21.0655 28.0987C22.7468 28.3429 24.4418 27.936 25.8087 26.9322C26.5195 26.4168 27.1072 25.7657 27.5446 25.0061C28.8159 22.8222 28.6655 20.0957 27.1482 18.0746C26.1504 16.7182 24.6605 15.823 22.9655 15.5788Z" fill="#F1EBD6"/><path d="M21.1758 10.7228C21.7225 10.6143 22.3103 10.6007 22.7067 10.1802C23.3355 9.48842 23.1304 8.63386 22.5016 8.02346C16.4463 2.00086 5.83915 4.60523 2.28521 12.0792C-1.05002 18.7258-.721961 26.7966 3.18737 33.1312C3.41974 33.511 3.7888 33.7144 4.22621 33.7144C4.88232 33.7144 5.42908 33.199 5.42908 32.5479C5.49743 30.0521 5.9075 27.5291 6.60462 25.2774C7.39742 22.7137 8.57295 20.2857 10.1039 18.0611C12.7147 14.358 16.706 11.6316 21.1758 10.7228Z" fill="#F1EBD6"/><path d="M56.3321 35.5204C55.8849 35.5204 55.5225 35.1603 55.5225 34.716V18.4756C55.5225 18.0313 55.8849 17.6712 56.3321 17.6712H58.2722C58.7193 17.6712 59.0817 18.0313 59.0817 18.4756V34.716C59.0817 35.1603 58.7193 35.5204 58.2722 35.5204H56.3321Z" fill="#F1EBD6"/><path d="M59.7357 10.6086C59.7357 11.9471 58.6437 13.0322 57.2966 13.0322C55.9495 13.0322 54.8574 11.9471 54.8574 10.6086C54.8574 9.27002 55.9495 8.18492 57.2966 8.18492C58.6437 8.18492 59.7357 9.27002 59.7357 10.6086Z" fill="#F1EBD6"/><path d="M65.7309 35.5205C65.3136 35.5205 64.9753 35.182 64.9753 34.7644V15.3068C64.9753 14.8892 65.3136 14.5507 65.7309 14.5507H67.7789C68.1962 14.5507 68.5345 14.8892 68.5345 15.3068V18.5034C70.0001 16.007 72.5543 14.2179 75.7786 14.2179C80.1752 14.2179 83.3157 17.172 83.3157 21.6239V34.7644C83.3157 35.182 82.9774 35.5205 82.5601 35.5205H80.5121C80.0948 35.5205 79.7565 35.182 79.7565 34.7644V22.2896C79.7565 19.4603 77.956 17.4216 74.983 17.4216C71.0469 17.4216 68.5345 20.7917 68.5345 26.3254V34.7644C68.5345 35.182 68.1962 35.5205 67.7789 35.5205H65.7309Z" fill="#F1EBD6"/><path d="M99.5018 34.7781C99.5281 35.1181 99.3246 35.4373 98.9957 35.5267C98.1082 35.768 97.1733 35.8533 96.2384 35.8533C92.6374 35.8533 89.9994 33.8562 89.9994 29.2379V17.6712H86.8189C86.4016 17.6712 86.0633 17.3327 86.0633 16.9151V15.3068C86.0633 14.8892 86.4016 14.5507 86.8189 14.5507H89.9994V8.94101C89.9994 8.52344 90.3376 8.18492 90.7549 8.18492H92.803C93.2203 8.18492 93.5586 8.52343 93.5586 8.94101V14.5507H98.4558C98.8731 14.5507 99.2114 14.8892 99.2114 15.3068V16.9151C99.2114 17.3327 98.8731 17.6712 98.4558 17.6712H93.5586V29.3627C93.5586 31.5678 94.8147 32.6496 96.6572 32.6496C97.1582 32.6496 97.7042 32.6049 98.2414 32.4799C98.763 32.3586 99.3403 32.6915 99.3816 33.2258L99.5018 34.7781Z" fill="#F1EBD6"/><path d="M101.954 25.0356C101.954 19.0859 105.806 14.2179 112.171 14.2179C118.41 14.2179 122.262 18.6698 122.262 24.0786C122.262 24.3539 122.249 24.7049 122.231 25.0273C122.209 25.4117 121.887 25.7013 121.503 25.7013H105.513C105.764 29.9452 108.444 32.7328 112.255 32.7328C115.171 32.7328 117.265 31.5071 118.103 29.3329C118.253 28.9443 118.654 28.6911 119.059 28.7867L120.926 29.2273C121.338 29.3245 121.593 29.7427 121.453 30.1425C120.188 33.7666 116.811 35.8533 112.255 35.8533C105.932 35.8533 101.954 30.9853 101.954 25.0356ZM105.722 22.7472H118.494C118.159 19.5435 115.897 17.172 112.171 17.172C108.863 17.172 106.434 19.2523 105.722 22.7472Z" fill="#F1EBD6"/><path d="M127.6 35.5205C127.183 35.5205 126.844 35.182 126.844 34.7644V6.81907C126.844 6.4015 127.183 6.06299 127.6 6.06299H129.648C130.065 6.06299 130.404 6.4015 130.404 6.81907V34.7644C130.404 35.182 130.065 35.5205 129.648 35.5205H127.6Z" fill="#F1EBD6"/><path d="M136.923 35.5205C136.506 35.5205 136.168 35.182 136.168 34.7644V6.81907C136.168 6.4015 136.506 6.06299 136.923 6.06299H138.971C139.389 6.06299 139.727 6.4015 139.727 6.81907V34.7644C139.727 35.182 139.389 35.5205 138.971 35.5205H136.923Z" fill="#F1EBD6"/><path d="M146.359 35.5204C145.912 35.5204 145.55 35.1603 145.55 34.716V18.4756C145.55 18.0314 145.912 17.6712 146.359 17.6712H148.299C148.746 17.6712 149.109 18.0314 149.109 18.4756V34.716C149.109 35.1603 148.746 35.5204 148.299 35.5204H146.359Z" fill="#F1EBD6"/><path d="M147.093 6.1999C147.16 6.01848 147.418 6.01848 147.486 6.1999L148.046 7.70465C148.429 8.73135 149.243 9.54084 150.277 9.92076L151.791 10.4776C151.974 10.5447 151.974 10.8013 151.791 10.8684L150.277 11.4252C149.243 11.8052 148.429 12.6146 148.046 13.6413L147.486 15.1461C147.418 15.3275 147.16 15.3275 147.093 15.1461L146.532 13.6413C146.15 12.6146 145.335 11.8052 144.302 11.4252L142.788 10.8684C142.605 10.8013 142.605 10.5447 142.788 10.4776L144.302 9.92076C145.335 9.54084 146.15 8.73135 146.532 7.70465L147.093 6.1999Z" fill="#F1EBD6"/><path d="M163.649 34.9796C157.159 34.9796 153.6 30.5277 153.6 24.6195C153.6 18.6698 157.159 14.2179 163.566 14.2179C166.371 14.2179 169.135 15.5493 170.391 17.38V15.3068C170.391 14.8892 170.729 14.5507 171.147 14.5507H173.153C173.57 14.5507 173.908 14.8892 173.908 15.3068V34.5219C173.908 39.8059 169.888 43.4257 164.068 43.4257C159.493 43.4257 155.867 41.176 154.896 37.7947C154.781 37.3943 155.062 37.0036 155.473 36.934L157.358 36.6141C157.793 36.5404 158.191 36.8583 158.332 37.276C158.971 39.1699 161.227 40.43 164.068 40.43C167.795 40.43 170.391 38.1833 170.391 34.8964V31.9839C169.428 33.773 166.664 34.9796 163.649 34.9796ZM157.243 24.6195C157.243 28.9882 159.881 31.8175 163.984 31.8175C168.046 31.8175 170.684 28.9882 170.684 24.6195C170.684 20.2092 168.046 17.38 163.984 17.38C159.881 17.38 157.243 20.2092 157.243 24.6195Z" fill="#F1EBD6"/><path d="M178.462 25.0356C178.462 19.0859 182.314 14.2179 188.679 14.2179C194.918 14.2179 198.77 18.6698 198.77 24.0786C198.77 24.3539 198.758 24.7049 198.739 25.0273C198.717 25.4117 198.396 25.7013 198.011 25.7013H182.021C182.272 29.9452 184.952 32.7328 188.763 32.7328C191.679 32.7328 193.774 31.5071 194.612 29.3329C194.761 28.9443 195.162 28.6911 195.567 28.7867L197.434 29.2273C197.846 29.3245 198.101 29.7427 197.961 30.1425C196.696 33.7666 193.319 35.8533 188.763 35.8533C182.44 35.8533 178.462 30.9853 178.462 25.0356ZM182.231 22.7472H195.002C194.667 19.5435 192.406 17.172 188.679 17.172C185.371 17.172 182.942 19.2523 182.231 22.7472Z" fill="#F1EBD6"/><path d="M204.108 35.5205C203.691 35.5205 203.352 35.182 203.352 34.7644V15.3068C203.352 14.8892 203.691 14.5507 204.108 14.5507H206.156C206.573 14.5507 206.912 14.8892 206.912 15.3068V18.5034C208.377 16.007 210.931 14.2179 214.156 14.2179C218.552 14.2179 221.693 17.172 221.693 21.6239V34.7644C221.693 35.182 221.355 35.5205 220.937 35.5205H218.889C218.472 35.5205 218.134 35.182 218.134 34.7644V22.2896C218.134 19.4603 216.333 17.4216 213.36 17.4216C209.424 17.4216 206.912 20.7917 206.912 26.3254V34.7644C206.912 35.182 206.573 35.5205 206.156 35.5205H204.108Z" fill="#F1EBD6"/><path d="M236.732 35.8533C230.452 35.8533 226.264 31.5262 226.264 25.0356C226.264 18.545 230.452 14.2179 236.732 14.2179C241.341 14.2179 244.801 16.5745 245.823 20.3178C245.931 20.7152 245.663 21.1064 245.26 21.1875L243.224 21.5969C242.809 21.6803 242.412 21.404 242.277 21.0032C241.553 18.8599 239.489 17.38 236.816 17.38C232.671 17.38 229.991 20.4173 229.991 25.0356C229.991 29.6539 232.671 32.6912 236.816 32.6912C239.521 32.6912 241.568 31.3477 242.356 29.0055C242.489 28.6117 242.881 28.3478 243.288 28.4306L245.281 28.8361C245.693 28.9199 245.96 29.3251 245.841 29.7281C244.692 33.6032 241.306 35.8533 236.732 35.8533Z" fill="#F1EBD6"/><path d="M249.245 25.0356C249.245 19.0859 253.098 14.2179 259.462 14.2179C265.701 14.2179 269.554 18.6698 269.554 24.0786C269.554 24.3539 269.541 24.7049 269.523 25.0273C269.501 25.4117 269.179 25.7013 268.794 25.7013H252.804C253.056 29.9452 255.736 32.7328 259.546 32.7328C262.463 32.7328 264.557 31.5071 265.395 29.3329C265.545 28.9443 265.945 28.6911 266.35 28.7867L268.217 29.2273C268.629 29.3245 268.884 29.7427 268.745 30.1425C267.48 33.7666 264.102 35.8533 259.546 35.8533C253.223 35.8533 249.245 30.9853 249.245 25.0356ZM253.014 22.7472H265.785C265.45 19.5435 263.189 17.172 259.462 17.172C256.154 17.172 253.726 19.2523 253.014 22.7472Z" fill="#F1EBD6"/></svg>
     </div>
-    <div class="s1-title">Dutchie AI</div>
+    <div class="s1-title">Dutchie Consumer AI</div>
     <div class="s1-subtitle">The AI Operating System for Cannabis Retail</div>
   </div>
 
   <!-- Slide 2: Problem/Hook -->
   <div class="slide" data-duration="4500">
     <div class="s2-line">Every <span class="highlight">missed call</span> is a missed sale.</div>
-    <div class="s2-line">Every <span class="highlight">undertrained budtender</span> is a missed upsell.</div>
-    <div class="s2-line">Every <span class="highlight">unread review</span> is a blind spot.</div>
+    <div class="s2-line">Every <span class="highlight">budtender is on their own</span> at the register.</div>
+    <div class="s2-line">Your <span class="highlight">reputation</span> lives across dozens of sites you can't monitor manually.</div>
   </div>
 
   <!-- Slide 3: Vision -->
@@ -943,7 +948,21 @@ body {
       <div class="s3-product-pill"><span class="icon">&#x1F4DE;</span> Voice Receptionist</div>
       <div class="s3-product-pill"><span class="icon">&#x2728;</span> Virtual Concierge</div>
       <div class="s3-product-pill"><span class="icon">&#x1F916;</span> Budtender Co-Pilot</div>
-      <div class="s3-product-pill"><span class="icon">&#x1F4CA;</span> Reputation Command Center</div>
+      <div class="s3-product-pill"><span class="icon">&#x1F4CA;</span> Reputation &amp; Sentiment Command Center</div>
+    </div>
+  </div>
+
+  <!-- Slide 3b: Introducing Dutchie Consumer AI (reveal) -->
+  <div class="slide" data-duration="3500">
+    <div class="s3-flash"></div>
+    <div style="opacity:0;transform:translateY(10px)" class="s3b-badge">
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:rgba(106,180,72,.1);color:var(--light-green);border:1px solid rgba(106,180,72,.2)">The Future of Cannabis Retail</span>
+    </div>
+    <div style="margin-top:24px;font-size:52px;font-weight:800;letter-spacing:-.03em;text-align:center;line-height:1.1;opacity:0;background:linear-gradient(135deg, var(--sand) 0%, var(--light-green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" class="s3b-title">
+      Introducing<br>Dutchie Consumer AI
+    </div>
+    <div style="margin-top:16px;font-size:18px;font-weight:500;color:rgba(241,235,214,.45);opacity:0;transform:translateY(10px);text-align:center" class="s3b-sub">
+      One intelligence layer. Every touchpoint. Total coverage.
     </div>
   </div>
 
@@ -957,7 +976,7 @@ body {
         <ul class="product-bullets">
           <li>Answers every call on the first ring, 24/7/365</li>
           <li>Live inventory lookups, daily deals &amp; compliance FAQs</li>
-          <li>Places orders directly on the call &mdash; deep-linked to ecommerce</li>
+          <li>Places and completes orders directly on the call</li>
         </ul>
         <div class="stat-badges">
           <div class="stat-badge">Zero Hold Time</div>
@@ -987,18 +1006,18 @@ body {
   <div class="slide" data-duration="5000">
     <div class="product-slide">
       <div class="product-info">
-        <div class="product-label">Ecommerce &amp; Kiosk</div>
+        <div class="product-label">E-Commerce &amp; Kiosk Pro</div>
         <div class="product-title">Virtual Concierge</div>
         <div class="product-desc">Your smartest budtender, online 24/7.</div>
         <ul class="product-bullets">
-          <li>Natural language shopping &mdash; terpene-aware, preference-learning</li>
+          <li>Natural language shopping, terpene-aware and preference-learning</li>
           <li>Curates by effect, price, strain lineage &amp; customer history</li>
           <li>Smart entourage pairings to boost basket size</li>
         </ul>
         <div class="stat-badges">
           <div class="stat-badge">AOV Boost</div>
           <div class="stat-badge">Natural Language</div>
-          <div class="stat-badge">Web + Kiosk</div>
+          <div class="stat-badge">Web + Kiosk Pro</div>
         </div>
       </div>
       <div class="ecom-mockup-v">
@@ -1019,7 +1038,7 @@ body {
           <div class="ecom-product-v">
             <div class="eprod-img">&#x1F33F;</div>
             <div>
-              <div class="eprod-name">Granddaddy Purple &mdash; 3.5g</div>
+              <div class="eprod-name">Granddaddy Purple - 3.5g</div>
               <div class="eprod-detail">Indica &bull; 24% THC &bull; Purple City Genetics</div>
               <div class="eprod-tags">
                 <span class="eprod-tag">Myrcene</span>
@@ -1029,7 +1048,7 @@ body {
             </div>
             <div class="eprod-price">$35</div>
           </div>
-          <button class="ecom-add-v">Add to Cart &mdash; $35.00</button>
+          <button class="ecom-add-v">Add to Cart - $35.00</button>
           <div class="echat ai"><div class="label">Virtual Concierge</div>Pair with <strong>Midnight CBN Gummies ($18)</strong> for the ultimate sleep stack. Linalool + CBN = powerful entourage effect.</div>
         </div>
         <div class="ecom-input-v">
@@ -1049,19 +1068,19 @@ body {
         <div class="product-desc">Your AI wingman at the register.</div>
         <ul class="product-bullets">
           <li>Real-time upsell suggestions based on cart analysis</li>
-          <li>Suggested scripts &mdash; exact words to say</li>
+          <li>Suggested scripts with the exact words to say</li>
           <li>Loyalty nudges &amp; instant compliance verification</li>
         </ul>
         <div class="stat-badges">
           <div class="stat-badge">Real-time Upsells</div>
           <div class="stat-badge">Compliance</div>
-          <div class="stat-badge">Zero Training</div>
+          <div class="stat-badge">Works Day One</div>
         </div>
       </div>
       <div class="register-mockup-v">
         <div class="reg-bar-v">
           <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          <span class="title">Dutchie POS &mdash; Register 03 | Budtender Co-Pilot</span>
+          <span class="title">Dutchie POS - Register 03 | Sales Assistant</span>
         </div>
         <div class="reg-layout-v">
           <div class="reg-cart-v">
@@ -1075,7 +1094,7 @@ body {
             </div>
             <div class="reg-item-v">
               <div class="reg-item-icon">&#x1F33F;</div>
-              <div><div class="reg-item-name">Blue Dream &mdash; 3.5g</div><div class="reg-item-detail">Sativa &bull; 27% THC &bull; Cookies</div></div>
+              <div><div class="reg-item-name">Blue Dream - 3.5g</div><div class="reg-item-detail">Sativa &bull; 27% THC &bull; Cookies</div></div>
               <div class="reg-item-price">$48.00</div>
             </div>
             <div class="reg-item-v">
@@ -1101,17 +1120,17 @@ body {
           <div class="reg-ai-v">
             <div class="reg-ai-header">
               <div class="reg-ai-icon">&#x1F916;</div>
-              <h4>Budtender Co-Pilot</h4>
+              <h4>Sales Assistant</h4>
             </div>
             <div class="reg-ai-card-v">
               <div class="rai-label">&#x2B50; Upsell Opportunity</div>
-              <div class="rai-title">Sativa Pre-Roll 2-Pack &mdash; $5 promo</div>
+              <div class="rai-title">Sativa Pre-Roll 2-Pack - $5 promo</div>
               <div class="rai-desc">Pairs perfectly with Blue Dream. This week's promo.</div>
               <div class="rai-action" id="raiAddBtn">+ Add to Cart</div>
             </div>
             <div class="rai-script">
               <div class="rai-label">&#x1F4AC; Suggested Script</div>
-              <p>"Hey Marcus &mdash; since you're grabbing the Blue Dream, we have a <em>$5 sativa pre-roll deal</em> this week. Want me to toss those in?"</p>
+              <p>"Hey Marcus, since you're grabbing the Blue Dream, we have a <em>$5 sativa pre-roll deal</em> this week. Want me to toss those in?"</p>
             </div>
             <div class="reg-ai-card-v loyalty">
               <div class="rai-label">&#x1F3C6; Loyalty Nudge</div>
@@ -1154,7 +1173,7 @@ body {
       <div class="sentiment-mockup-v">
         <div class="sent-bar-v">
           <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          <span class="title">Dutchie AI &mdash; Reputation &amp; Sentiment Command Center</span>
+          <span class="title">Dutchie Consumer AI - Reputation &amp; Sentiment Command Center</span>
         </div>
         <div class="sent-body-v">
           <div class="sent-tabs-v">
@@ -1170,7 +1189,7 @@ body {
             <div class="sent-metric"><div class="lbl">Alerts</div><div class="val down">3</div><div class="change neg">2 action</div></div>
           </div>
           <div class="sent-chart-v">
-            <div class="sent-chart-title">Sentiment Score &mdash; 12 Weeks</div>
+            <div class="sent-chart-title">Sentiment Score - 12 Weeks</div>
             <div class="chart-bars-v" id="videoChart"></div>
           </div>
           <div class="sent-brands-v">
@@ -1194,18 +1213,18 @@ body {
       <div class="persona-grid">
         <div class="persona-card">
           <div class="role">Owner / GM / VP Ops</div>
-          <h3>Capture revenue you're currently missing &mdash; without adding headcount.</h3>
+          <h3>Capture revenue you're currently missing, without adding headcount.</h3>
           <p>Full-suite AI coverage across phone, web, kiosk, and register. One system, every channel.</p>
         </div>
         <div class="persona-card">
           <div class="role">Budtender / Cashier</div>
-          <h3>Your AI wingman at the register &mdash; prompts, compliance, knowledge on demand.</h3>
+          <h3>Your AI wingman at the register with prompts, compliance, and knowledge on demand.</h3>
           <p>Every transaction smarter without slowing you down or replacing your expertise.</p>
         </div>
         <div class="persona-card">
-          <div class="role">Marketing / Ecommerce Lead</div>
+          <div class="role">Marketing / E-Commerce Lead</div>
           <h3>Turn online browsers into buyers. Monitor reputation everywhere.</h3>
-          <p>Virtual Concierge drives ecom conversion while Reputation Command Center tracks what matters.</p>
+          <p>Virtual Concierge drives E-Commerce conversion while Reputation &amp; Sentiment Command Center tracks what matters.</p>
         </div>
         <div class="persona-card">
           <div class="role">Operations / Multi-Location</div>
@@ -1219,11 +1238,11 @@ body {
   <!-- Slide 10: CTA -->
   <div class="slide" data-duration="0">
     <div class="s10-cta">
-      <div class="s10-badge">Alpha Launch &mdash; March 31, 2026</div>
+      <div class="s10-badge">Alpha Launch - March 31, 2026</div>
       <div class="s10-heading">Join the Alpha</div>
       <div class="s10-sub">The future of cannabis retail starts now.</div>
       <a href="aiconsumersuite-v2.html" class="s10-btn">Get Early Access</a>
-      <div class="s10-phone">Don't believe us? Call Dutchie Voice AI right now</div>
+      <div class="s10-phone">Don't believe us? Call Dutchie Consumer AI right now</div>
       <a href="tel:+13134745868" class="s10-phone-number"><span class="s10-phone-icon">&#x1F4DE;</span>+1 (313) 474-5868</a>
       <div class="s10-url">dutchie.com/ai</div>
       <div class="s10-replay" id="replay-btn">&#x21bb; Replay</div>
@@ -1237,7 +1256,7 @@ body {
       <svg id="icon-play" style="display:none" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
     </button>
     <div id="progress-wrap"><div id="progress-bar"></div></div>
-    <span id="slide-counter">1 / 9</span>
+    <span id="slide-counter">1 / 10</span>
     <span id="time-label">0:00</span>
     <button class="ctrl-btn" id="mute-btn" title="Mute/Unmute">
       <svg id="icon-vol" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="currentColor"/><path d="M19 12c0 2.87-1.63 5.34-4 6.58v2.13c3.27-1.38 5.61-4.55 5.61-8.26S18.27 5.12 15 3.74v2.13c2.37 1.24 4 3.71 4 6.58z" fill="currentColor" opacity=".6"/></svg>
@@ -1263,7 +1282,7 @@ body {
     <svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
   </button>
   <div class="play-label">Click to Play</div>
-  <div class="play-sublabel">Dutchie AI &mdash; Product Presentation</div>
+  <div class="play-sublabel">Dutchie Consumer AI - Product Presentation</div>
 </div>
 
 <!-- Pause Indicator -->
@@ -1367,8 +1386,8 @@ body {
     slideCounter.textContent = (idx + 1) + ' / ' + slides.length;
 
     // Trigger slide-specific animations
-    if (idx === 5) animateAddToCart();
-    if (idx === 6) animateChart();
+    if (idx === 6) animateAddToCart();
+    if (idx === 7) animateChart();
     if (idx === slides.length - 1) fadeOutMusic();
   }
 
@@ -1518,7 +1537,7 @@ body {
     clearTimeout(slideTimeout);
     cancelAnimationFrame(animFrame);
     // Reset chart if going backwards past it
-    if (idx <= 6) {
+    if (idx <= 7) {
       const chart = document.getElementById('videoChart');
       if (chart) chart.innerHTML = '';
     }
