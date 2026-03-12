@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dutchie Consumer AI — The Cannabis Industry's First Unified AI Suite</title>
+<title>Dutchie AI — The Cannabis Industry's First Unified AI Operating System</title>
+<meta name="description" content="Dutchie AI is the cannabis industry's first AI Operating System for retail. Voice Receptionist, Virtual Concierge, Budtender Co-Pilot, and Reputation Command Center — unified AI across every customer touchpoint.">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -63,6 +64,29 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .fade-in-left.visible{opacity:1;transform:translateX(0)}
 .fade-in-right{opacity:0;transform:translateX(20px);transition:opacity .5s ease,transform .5s ease}
 .fade-in-right.visible{opacity:1;transform:translateX(0)}
+
+/* ===== PILLARS SECTION ===== */
+.pillars-section{padding:60px 0 80px;border-top:1px solid rgba(255,255,255,.05)}
+.pillars-section .section-header{text-align:center;margin-bottom:48px}
+.pillars-section .section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.pillars-section .section-header p{font-size:16px;color:var(--text-dim);max-width:600px;margin:0 auto;font-weight:400}
+.pillars-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.pillar-card{padding:24px 20px;border-radius:14px;background:var(--card-bg);border:1px solid var(--card-border);text-align:center;transition:all .3s;backdrop-filter:blur(8px)}
+.pillar-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.pillar-icon{font-size:28px;margin-bottom:12px}
+.pillar-card h3{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);letter-spacing:-.01em}
+.pillar-card p{font-size:12px;color:var(--text-muted);line-height:1.6;font-weight:400}
+
+/* ===== CLOSED LOOP SECTION ===== */
+.closed-loop-section{padding:80px 0;border-top:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
+.closed-loop-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:600px;background:radial-gradient(circle,rgba(0,61,41,.08) 0%,transparent 60%);pointer-events:none}
+.closed-loop-inner{max-width:860px;margin:0 auto;text-align:center}
+.closed-loop-inner h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
+.closed-loop-inner .subtitle{font-size:17px;color:var(--text-dim);margin-bottom:32px;font-weight:400;line-height:1.7}
+.closed-loop-narrative{text-align:left;padding:32px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);line-height:1.8;font-size:15px;color:var(--text-dim);font-weight:400;position:relative}
+.closed-loop-narrative::before{content:'"';position:absolute;top:12px;left:20px;font-size:60px;color:rgba(106,180,72,.2);font-family:Georgia,serif;line-height:1}
+.closed-loop-narrative strong{color:var(--text);font-weight:600}
+.closed-loop-label{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;background:var(--green-bg);color:var(--green);border:1px solid var(--green-light)}
 
 /* ===== PRODUCT SECTIONS ===== */
 .product-section{padding:90px 0;background:var(--bg);color:var(--text)}
@@ -205,11 +229,41 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .brand-score-card .bar-fill{height:100%;border-radius:2px;transition:width 1s ease}
 .brand-score-card .platform{font-size:10px;color:rgba(4,32,23,.5);margin-top:4px}
 
+/* ===== PERSONA SECTION ===== */
+.persona-section{padding:80px 0;border-top:1px solid rgba(255,255,255,.05)}
+.persona-section .section-header{text-align:center;margin-bottom:48px}
+.persona-section .section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.persona-section .section-header p{font-size:16px;color:var(--text-dim);max-width:560px;margin:0 auto;font-weight:400}
+.persona-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.persona-card{padding:28px 22px;border-radius:14px;background:var(--card-bg);border:1px solid var(--card-border);transition:all .3s;backdrop-filter:blur(8px)}
+.persona-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.persona-card .role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:10px}
+.persona-card h3{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--text);line-height:1.35}
+.persona-card p{font-size:13px;color:var(--text-muted);line-height:1.6;font-weight:400}
+
+/* ===== EXPERT REVIEW SECTION ===== */
+.expert-review-section{padding:80px 0;border-top:1px solid rgba(255,255,255,.05)}
+.expert-review-section .section-header{text-align:center;margin-bottom:48px}
+.expert-review-section .section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.expert-review-section .section-header p{font-size:16px;color:var(--text-dim);max-width:560px;margin:0 auto;font-weight:400}
+.expert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.expert-card{padding:32px 24px;border-radius:16px;background:var(--card-bg);border:1px solid var(--card-border);transition:all .3s;backdrop-filter:blur(8px);position:relative}
+.expert-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-3px);box-shadow:0 4px 24px rgba(0,0,0,.2)}
+.expert-card::before{content:'"';position:absolute;top:16px;right:24px;font-size:48px;color:rgba(106,180,72,.12);font-family:Georgia,serif;line-height:1}
+.expert-avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;color:#fff}
+.expert-avatar.sam{background:linear-gradient(135deg,#003D29,#042017)}
+.expert-avatar.maya{background:linear-gradient(135deg,#5E324E,#3a1e30)}
+.expert-avatar.jordan{background:linear-gradient(135deg,#6AB448,#4a8a2e)}
+.expert-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px}
+.expert-title{font-size:12px;font-weight:600;color:var(--green);margin-bottom:14px}
+.expert-review{font-size:14px;color:var(--text-dim);line-height:1.7;font-weight:400}
+
 /* ===== BOTTOM CTA ===== */
 .bottom-cta{padding:100px 0;text-align:center;position:relative}
 .bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(106,180,72,.06) 0%,transparent 60%);pointer-events:none}
 .bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto}
 .bottom-cta p{font-size:16px;color:var(--text-dim);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
+.launch-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:24px;background:rgba(255,192,42,.08);color:var(--yellow);border:1px solid rgba(255,192,42,.2)}
 
 /* ===== RESPONSIVE ===== */
 
@@ -225,6 +279,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .sentiment-metrics{grid-template-columns:repeat(2,1fr)}
   .brand-scores{grid-template-columns:1fr 1fr}
   .container{padding:0 24px}
+  .pillars-grid{grid-template-columns:repeat(3,1fr)}
+  .persona-grid{grid-template-columns:repeat(2,1fr)}
+  .expert-grid{grid-template-columns:1fr}
 }
 
 /* --- Phones (768px) --- */
@@ -258,6 +315,11 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .container{padding:0 16px}
   .sentiment-top-bar{gap:8px}
   .sentiment-tab{padding:5px 12px;font-size:11px}
+  .pillars-grid{grid-template-columns:1fr 1fr}
+  .persona-grid{grid-template-columns:1fr}
+  .expert-grid{grid-template-columns:1fr}
+  .closed-loop-narrative{padding:24px;font-size:14px}
+  .pillars-section,.closed-loop-section,.persona-section,.expert-review-section{padding:50px 0}
 }
 
 /* --- Small phones (480px) --- */
@@ -301,6 +363,9 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .register-script p{font-size:10px}
   .alert-card{padding:8px;gap:8px}
   .alert-icon{width:28px;height:28px;font-size:14px}
+  .pillars-grid{grid-template-columns:1fr}
+  .closed-loop-narrative{padding:20px;font-size:13px}
+  .pillars-section,.closed-loop-section,.persona-section,.expert-review-section{padding:36px 0}
 }
 </style>
 </head>
@@ -314,10 +379,10 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   </a>
   <nav id="main-nav">
     <a href="#hero">Overview</a>
-    <a href="#phone">Phone</a>
-    <a href="#ecommerce">Ecommerce</a>
-    <a href="#register">Register</a>
-    <a href="#sentiment">Sentiment</a>
+    <a href="#voice-receptionist">Voice Receptionist</a>
+    <a href="#virtual-concierge">Virtual Concierge</a>
+    <a href="#budtender-copilot">Budtender Co-Pilot</a>
+    <a href="#reputation-center">Reputation Center</a>
   </nav>
 </div>
 </header>
@@ -325,38 +390,76 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
 <div class="container">
-  <h1 class="fade-in">Meet <span class="gradient-text">Dutchie Consumer AI</span></h1>
-  <p class="fade-in">What if your most knowledgeable, highest-converting budtender could be everywhere at once&mdash;and also had its ear to every corner of the internet?</p>
+  <div class="launch-badge fade-in">Alpha Launch &mdash; March 31, 2026</div>
+  <h1 class="fade-in">The AI Operating System<br>for <span class="gradient-text">Cannabis Retail</span></h1>
+  <p class="fade-in">Capture revenue you're currently missing at every customer touchpoint &mdash; phone, web, kiosk, and register &mdash; without adding headcount. Dutchie AI is the industry's first unified intelligence layer for dispensaries.</p>
   <div class="hero-ctas fade-in">
     <a href="#" class="btn-primary">
-      Request a Demo
+      Join the Alpha
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
     </a>
     <a href="video.html" class="btn-outline">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="6,3 13,8 6,13" fill="currentColor"/></svg>
-      Watch Video
+      Watch the Demo
     </a>
   </div>
 </div>
 </section>
 
+<!-- ===== WHY DUTCHIE AI — 5 PILLARS ===== -->
+<section class="pillars-section" id="pillars">
+<div class="container">
+  <div class="section-header fade-in">
+    <h2>Why <span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Dutchie AI</span></h2>
+    <p>Not another bolted-on chatbot. A complete AI system purpose-built for cannabis retail.</p>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">&#x1F310;</div>
+      <h3>Omnichannel Coverage</h3>
+      <p>Phone, web, kiosk, and register. No other cannabis tech company covers all four touchpoints with unified AI.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">&#x1F3E8;</div>
+      <h3>Hospitality, Not Automation</h3>
+      <p>A digital hospitality team that guides customers with expertise and warmth &mdash; not an IVR tree or a chatbot.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">&#x1F91D;</div>
+      <h3>Staff Augmentation</h3>
+      <p>Makes every budtender perform like your best budtender. AI as a wingman, not a replacement.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">&#x1F9EC;</div>
+      <h3>AI-Native Architecture</h3>
+      <p>Deeply integrated with real-time POS and inventory data. Live context on stock, pricing, and compliance.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">&#x1F504;</div>
+      <h3>The Closed Loop</h3>
+      <p>When Dutchie Nexus makes a pricing decision, it automatically cascades to every engagement touchpoint.</p>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- ====================================== -->
-<!-- PRODUCT 1: ON THE PHONE                -->
+<!-- PRODUCT 1: VOICE RECEPTIONIST          -->
 <!-- ====================================== -->
-<section class="product-section" id="phone">
+<section class="product-section" id="voice-receptionist">
 <div class="container">
   <div class="product-grid">
     <div class="product-text fade-in-left">
-      <div class="product-label label-phone">On the Phone</div>
-      <h2>The 24/7 Voice<br>Receptionist</h2>
-      <div class="tagline">Every call answered instantly. Every caller converted.</div>
-      <p>Dutchie Consumer AI picks up every phone call on the first ring, handles live inventory checks, store hours, daily deals, and compliance FAQs &mdash; and can place orders for callers right on the spot. Phone calls become confirmed pickup orders. Floor staff are never interrupted.</p>
+      <div class="product-label label-phone">Phone / IVR</div>
+      <h2>Voice<br>Receptionist</h2>
+      <div class="tagline">Every call answered. Every caller converted.</div>
+      <p>Your 24/7 AI phone receptionist that answers every call on the first ring, recommends products from live inventory, and places orders directly on the call &mdash; the caller never has to hang up. Phone calls become confirmed pickup orders. Floor staff stay on the floor.</p>
       <ul class="feature-list">
-        <li>Instantly answers every call &mdash; zero hold time, 24/7</li>
-        <li>Live inventory lookups, store hours, and daily deal info</li>
-        <li>Places orders directly on the call &mdash; caller never has to hang up</li>
-        <li>Handles compliance FAQs so budtenders stay on the floor</li>
-        <li>Floor staff never interrupted by routine phone inquiries</li>
+        <li>Instantly answers every call &mdash; zero hold time, 24/7/365</li>
+        <li>Live inventory lookups, store hours, daily deals, and compliance FAQs</li>
+        <li>Places orders directly on the call &mdash; deep-linked to your ecommerce</li>
+        <li>Replaces missed calls, hold times, and untrained front-desk staff</li>
+        <li>Frees budtenders from routine phone inquiries to sell on the floor</li>
       </ul>
       <div class="stat-callouts">
         <div class="stat-callout"><span>Hold Time</span>Zero</div>
@@ -369,12 +472,12 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
         <div class="phone-screen">
           <div class="phone-status-bar">
             <span>9:41 AM</span>
-            <span>Dutchie Consumer AI</span>
+            <span>Voice Receptionist</span>
             <span>&#x1F50B;</span>
           </div>
           <div class="phone-header">
             <h4>Green Leaf Dispensary</h4>
-            <p>AI Voice Assistant</p>
+            <p>AI Voice Receptionist</p>
           </div>
           <div class="phone-chat">
             <div class="chat-msg customer">
@@ -382,7 +485,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
               Hey, do you guys have any indica edibles in stock? Looking for something around 10mg.
             </div>
             <div class="chat-msg ai">
-              <div class="sender">Dutchie Consumer AI</div>
+              <div class="sender">Voice Receptionist</div>
               Absolutely! We have 12 indica edible options in stock right now. Our top sellers are Wyld Marionberry Gummies (10mg, $32) and CANN Social Tonics (5mg, $18). Would you like more details?
             </div>
             <div class="chat-msg customer">
@@ -390,7 +493,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
               The Wyld gummies sound great. Can I order those?
             </div>
             <div class="chat-msg ai">
-              <div class="sender">Dutchie Consumer AI</div>
+              <div class="sender">Voice Receptionist</div>
               I can place that order for you right now! I'll add the Wyld Marionberry Gummies to your cart. What time would you like to pick them up today?
             </div>
             <div class="chat-msg customer">
@@ -398,7 +501,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
               Around 5pm works for me.
             </div>
             <div class="chat-msg ai">
-              <div class="sender">Dutchie Consumer AI</div>
+              <div class="sender">Voice Receptionist</div>
               You're all set! Your order for Wyld Marionberry Gummies ($32) is confirmed for pickup at 5:00 PM. You'll receive a text confirmation shortly. Anything else I can help with?
             </div>
           </div>
@@ -410,22 +513,22 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 </section>
 
 <!-- ====================================== -->
-<!-- PRODUCT 2: ECOMMERCE & KIOSKS          -->
+<!-- PRODUCT 2: VIRTUAL CONCIERGE           -->
 <!-- ====================================== -->
-<section class="product-section" id="ecommerce">
+<section class="product-section" id="virtual-concierge">
 <div class="container">
   <div class="product-grid reverse">
     <div class="product-text fade-in-right">
-      <div class="product-label label-ecommerce">On Ecommerce &amp; Kiosks</div>
-      <h2>The Virtual<br>Concierge</h2>
-      <div class="tagline">A digital sommelier for cannabis. On web and in-store kiosks.</div>
-      <p>Customers ask natural questions like "What's your best indica for sleep under $40?" and Dutchie Consumer AI curates products, explains terpene profiles, and suggests smart add-ons. Works seamlessly on your Dutchie Ecommerce site and in-store kiosk displays.</p>
+      <div class="product-label label-ecommerce">Ecommerce &amp; Kiosk</div>
+      <h2>Virtual<br>Concierge</h2>
+      <div class="tagline">Your smartest budtender, online 24/7.</div>
+      <p>A natural language shopping assistant that actually understands cannabis &mdash; effects, terpenes, strain lineage &mdash; not just search filters. Customers ask real questions and get guided, conversational recommendations on your ecommerce site and in-store kiosks. Turn browsers into buyers.</p>
       <ul class="feature-list">
-        <li>Interactive digital sommelier on web and in-store kiosks</li>
-        <li>Natural conversation &mdash; no menus, just ask</li>
-        <li>Curates products by effect, price, terpene profile, and more</li>
-        <li>Suggests complementary add-ons to boost basket size</li>
-        <li>Learns from purchase patterns to improve recommendations</li>
+        <li>Conversational product discovery &mdash; no menus, just ask</li>
+        <li>Terpene-aware, inventory-aware, and preference-learning</li>
+        <li>Curates by effect, price, strain lineage, and customer history</li>
+        <li>Suggests smart add-ons to boost basket size with entourage pairings</li>
+        <li>Works seamlessly on Dutchie ecommerce and in-store kiosk displays</li>
       </ul>
       <div class="stat-callouts">
         <div class="stat-callout"><span>Impact</span>AOV Boost</div>
@@ -438,7 +541,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
         <div class="ecom-header">
           <div class="ecom-header-icon">&#x2728;</div>
           <div>
-            <h4>Dutchie Consumer AI Concierge</h4>
+            <h4>Virtual Concierge</h4>
             <p>Ask me anything about our products</p>
           </div>
         </div>
@@ -448,7 +551,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
             What's your best indica for sleep under $40?
           </div>
           <div class="chat-msg ai" style="align-self:flex-start;max-width:90%">
-            <div class="sender">Dutchie Consumer AI</div>
+            <div class="sender">Virtual Concierge</div>
             Great question! For sleep, I'd recommend these two based on their terpene profiles and customer reviews:
           </div>
           <div class="ecom-product-card">
@@ -469,7 +572,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
             <button class="ecom-add-btn">Add to Cart &mdash; $35.00</button>
           </div>
           <div class="chat-msg ai" style="align-self:flex-start;max-width:90%">
-            <div class="sender">Dutchie Consumer AI</div>
+            <div class="sender">Virtual Concierge</div>
             Pair it with our <strong>Midnight CBN Gummies ($18)</strong> for the ultimate sleep stack. The linalool in the flower + CBN creates a powerful entourage effect.
           </div>
         </div>
@@ -484,22 +587,22 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 </section>
 
 <!-- ====================================== -->
-<!-- PRODUCT 3: AT THE REGISTER             -->
+<!-- PRODUCT 3: BUDTENDER CO-PILOT          -->
 <!-- ====================================== -->
-<section class="product-section" id="register">
+<section class="product-section" id="budtender-copilot">
 <div class="container">
   <div class="product-grid">
     <div class="product-text fade-in-left">
-      <div class="product-label label-register">At the Register</div>
-      <h2>The Budtender<br>Co-Pilot</h2>
-      <div class="tagline">Sell smarter without breaking eye contact.</div>
-      <p>Built directly into the Dutchie register, the Co-Pilot provides real-time cart analysis, upsell prompts, loyalty tier nudges, and instant compliance verification. Budtenders see exactly what to say and when &mdash; no training manual required.</p>
+      <div class="product-label label-register">Register / POS</div>
+      <h2>Budtender<br>Co-Pilot</h2>
+      <div class="tagline">Your AI wingman at the register.</div>
+      <p>Built directly into the Dutchie POS, the Budtender Co-Pilot provides real-time cart analysis, upsell prompts, loyalty tier nudges, product knowledge on demand, and instant compliance verification. Every budtender performs like your best budtender &mdash; no training manual required.</p>
       <ul class="feature-list">
         <li>Real-time cart analysis with contextual upsell prompts</li>
         <li>Suggested scripts: "They're buying a premium sativa &frac18;th &mdash; pitch the matching $5 pre-roll promo"</li>
         <li>Loyalty nudges: "$10 away from VIP rewards tier"</li>
         <li>Instantly verifies purchase limits for compliance</li>
-        <li>Zero training needed &mdash; AI does the thinking</li>
+        <li>Product knowledge on demand &mdash; effects, terpenes, pairings at a glance</li>
       </ul>
       <div class="stat-callouts">
         <div class="stat-callout"><span>Upsells</span>Real-Time</div>
@@ -511,7 +614,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
       <div class="register-mockup">
         <div class="mockup-bar">
           <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-          <span class="title">Dutchie POS &mdash; Register 03 &nbsp;|&nbsp; AI Co-Pilot</span>
+          <span class="title">Dutchie POS &mdash; Register 03 &nbsp;|&nbsp; Budtender Co-Pilot</span>
         </div>
         <div class="register-layout">
           <!-- Cart side -->
@@ -556,7 +659,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
           <div class="register-ai">
             <div class="register-ai-header">
               <div class="icon">&#x1F916;</div>
-              <h4>Co-Pilot</h4>
+              <h4>Budtender Co-Pilot</h4>
             </div>
             <div class="register-ai-card upsell">
               <div class="label">&#x2B50; Upsell Opportunity</div>
@@ -589,27 +692,27 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 </section>
 
 <!-- ====================================== -->
-<!-- PRODUCT 4: SENTIMENT COMMAND CENTER    -->
+<!-- PRODUCT 4: REPUTATION & SENTIMENT      -->
 <!-- ====================================== -->
-<section class="product-section" id="sentiment">
+<section class="product-section" id="reputation-center">
 <div class="container">
   <div class="product-grid reverse">
     <div class="product-text fade-in-right">
-      <div class="product-label label-sentiment">Across the Internet</div>
+      <div class="product-label label-sentiment">Multi-Channel</div>
       <h2>Reputation &amp; Sentiment<br>Command Center</h2>
-      <div class="tagline">Know what the internet thinks before it hits your bottom line.</div>
-      <p>Dutchie Consumer AI continuously scans Reddit, Leafly, Weedmaps, and Google Reviews across three levels: your overall brand, individual store locations, and every product you carry. Sentiment trends are mapped over time with actionable alerts.</p>
+      <div class="tagline">Know what they're saying. Before it trends.</div>
+      <p>Monitor your reputation across every review site with AI-powered sentiment analysis. Aggregates reviews from Google, Weedmaps, Leafly, and Yelp with trend detection, competitive benchmarking against nearby dispensaries, and actionable alerts &mdash; so you act on signal, not noise.</p>
       <ul class="feature-list">
-        <li>Scans Reddit, Leafly, Weedmaps, Google Reviews continuously</li>
-        <li>Three tracking levels: brand, store, and product</li>
-        <li>Trends mapped over time with anomaly detection</li>
-        <li>Actionable alerts: "New live rosin brand generating 4.8-star buzz on Leafly and Reddit &mdash; add before competitors"</li>
-        <li>"East Side location sentiment dropped 12% &mdash; traced to 'long wait' mentions on Google"</li>
-        <li>"That flower brand you stock? Reddit sentiment sliding 3 weeks &mdash; reduce next PO"</li>
+        <li>Aggregates reviews from Google, Weedmaps, Leafly, Yelp, and Reddit</li>
+        <li>AI-powered sentiment analysis with trend detection and anomaly alerts</li>
+        <li>Competitive benchmarking against nearby dispensaries</li>
+        <li>Three tracking levels: brand, store location, and individual product</li>
+        <li>Actionable alerts: "East Side location sentiment dropped 12% &mdash; traced to long wait mentions"</li>
+        <li>Turn insights into action: "New live rosin brand generating 4.8-star buzz &mdash; add before competitors"</li>
       </ul>
       <div class="stat-callouts">
         <div class="stat-callout"><span>Monitoring</span>Real-Time</div>
-        <div class="stat-callout"><span>Levels</span>3 Tracking</div>
+        <div class="stat-callout"><span>Platforms</span>5+ Sources</div>
         <div class="stat-callout"><span>Alerts</span>Actionable</div>
       </div>
     </div>
@@ -617,7 +720,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
       <div class="sentiment-mockup">
         <div class="mockup-bar">
           <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-          <span class="title">Dutchie Consumer AI &mdash; Sentiment Command Center</span>
+          <span class="title">Dutchie AI &mdash; Reputation &amp; Sentiment Command Center</span>
         </div>
         <div class="sentiment-body">
           <!-- Tabs -->
@@ -723,14 +826,91 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 </div>
 </section>
 
+<!-- ===== THE CLOSED-LOOP STORY ===== -->
+<section class="closed-loop-section" id="closed-loop">
+<div class="container">
+  <div class="closed-loop-inner fade-in">
+    <div class="closed-loop-label">The Closed-Loop Revenue System</div>
+    <h2>It thinks in the back office.<br><span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">It executes on the sales floor.</span></h2>
+    <p class="subtitle">Most AI tools give you a dashboard and make you do the work. Dutchie AI is the industry's first true closed-loop revenue system &mdash; connecting Dutchie Nexus (System of Action) to the System of Engagement automatically.</p>
+    <div class="closed-loop-narrative">
+      <strong>Imagine this:</strong> On a Tuesday morning, Nexus Benchmarks notices your Sativa gummies are sitting on the shelf too long. The LLM Summary instantly alerts you to the bottleneck. Without you lifting a finger, the Pricing Agent automatically drops the price by 10% to clear the inventory, while the Marketing Agent texts a promo to your VIP loyalty members. But it doesn't stop in the back office. The system instantly updates your front-of-house AI. Your <strong>Voice Receptionist</strong> starts pitching the Sativa gummy deal to everyone who calls the store, your <strong>Virtual Concierge</strong> highlights the deal on ecom and kiosks, and your <strong>Budtender Co-Pilot</strong> prompts your human cashiers to upsell those exact gummies at the register. It thinks in the back office, and it executes on the sales floor.
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== PERSONA MESSAGING ===== -->
+<section class="persona-section" id="personas">
+<div class="container">
+  <div class="section-header fade-in">
+    <h2>Built for Every Role in Your Dispensary</h2>
+    <p>From the owner's office to the sales floor, Dutchie AI speaks your language.</p>
+  </div>
+  <div class="persona-grid">
+    <div class="persona-card fade-in">
+      <div class="role">Owner / GM / VP Ops</div>
+      <h3>Capture revenue you're currently missing at every touchpoint &mdash; without adding headcount.</h3>
+      <p>Full-suite AI coverage across phone, web, kiosk, and register. One system, every channel, zero new hires.</p>
+    </div>
+    <div class="persona-card fade-in">
+      <div class="role">Budtender / Cashier</div>
+      <h3>Your AI wingman at the register &mdash; real-time prompts, compliance checks, product knowledge on demand.</h3>
+      <p>The Budtender Co-Pilot makes every transaction smarter without slowing you down or replacing your expertise.</p>
+    </div>
+    <div class="persona-card fade-in">
+      <div class="role">Marketing / Ecommerce Lead</div>
+      <h3>Monitor your reputation across every review site &mdash; and turn online browsers into buyers with guided AI.</h3>
+      <p>The Virtual Concierge drives conversion on ecom while the Reputation Command Center tracks what matters.</p>
+    </div>
+    <div class="persona-card fade-in">
+      <div class="role">Operations / Multi-Location</div>
+      <h3>Standardize the customer experience across every location &mdash; AI that levels up every register and every phone line.</h3>
+      <p>Consistent, high-quality service at every touchpoint, every store, every shift. No more location lottery.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== EXPERT REVIEW SECTION ===== -->
+<section class="expert-review-section" id="expert-reviews">
+<div class="container">
+  <div class="section-header fade-in">
+    <h2>What Our Strategy Team Says</h2>
+    <p>Three specialist perspectives on how Dutchie AI redefines cannabis retail technology.</p>
+  </div>
+  <div class="expert-grid">
+    <div class="expert-card fade-in">
+      <div class="expert-avatar sam">S</div>
+      <div class="expert-name">Sam</div>
+      <div class="expert-title">PMM Architect</div>
+      <div class="expert-review">The naming framework here is pitch-perfect: hospitality-rooted names like Voice Receptionist and Virtual Concierge signal premium experiences, while Budtender Co-Pilot uses the sacred language of cannabis to build credibility and trust. The closed-loop narrative ties everything together beautifully &mdash; it is the single most powerful differentiator in this market, and it is front and center where it belongs.</div>
+    </div>
+    <div class="expert-card fade-in">
+      <div class="expert-avatar maya">M</div>
+      <div class="expert-name">Maya</div>
+      <div class="expert-title">Growth Architect</div>
+      <div class="expert-review">The Alpha launch badge and "Join the Alpha" CTA create real urgency &mdash; far stronger than a generic demo request. The persona messaging section is a conversion multiplier: every visitor, whether an owner, a budtender, or a marketing lead, finds their own pain point reflected back at them in the first scan. The five positioning pillars above the fold build instant credibility before anyone scrolls to a product.</div>
+    </div>
+    <div class="expert-card fade-in">
+      <div class="expert-avatar jordan">J</div>
+      <div class="expert-name">Jordan</div>
+      <div class="expert-title">Content Architect</div>
+      <div class="expert-review">Every headline now leads with a benefit, not a feature. "Every call answered. Every caller converted." tells you exactly what you get in seven words. The page flows from positioning pillars to products to the closed-loop story to personas &mdash; a natural narrative arc that keeps readers scanning. The copy is tight, jargon-free where it needs to be, and cannabis-native where it matters.</div>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- ===== BOTTOM CTA ===== -->
 <section class="bottom-cta" id="cta">
 <div class="container">
   <div class="fade-in">
-    <h2>Automate the routine.<br>Maximize the basket.<br><span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Own your reputation.</span></h2>
-    <p>Dutchie Consumer AI works across every touchpoint &mdash; phone, web, kiosk, register, and the open internet &mdash; so you never miss a sale or a signal.</p>
+    <div class="launch-badge">Alpha Opens March 31, 2026</div>
+    <h2>Stop missing revenue at the<br>touchpoints that matter most.<br><span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Start the closed loop.</span></h2>
+    <p>Dutchie AI covers phone, web, kiosk, register, and reputation &mdash; unified intelligence across every customer interaction.</p>
     <a href="#" class="btn-primary" style="font-size:17px;padding:16px 40px">
-      Request a Demo
+      Get Early Access
       <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
     </a>
   </div>
