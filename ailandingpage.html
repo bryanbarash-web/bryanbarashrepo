@@ -1,0 +1,990 @@
+<style>
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Medium');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter SemiBold');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Bold');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ===== SCOPED STYLES ===== */
+.dcai-wrap{font-family:'Matter','Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#F1EBD6;color:#042017;font-size:15px;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+.dcai-wrap a{color:rgba(4,32,23,.7);text-decoration:none;transition:color .2s}
+.dcai-wrap a:hover{color:rgba(4,32,23,.9);text-decoration:none}
+
+/* ===== CONTAINER ===== */
+.dcai-wrap .dcai-container{max-width:1240px;margin:0 auto;padding:0 32px}
+
+/* ===== HERO ===== */
+.dcai-wrap .dcai-hero{padding:100px 0 80px;text-align:center;position:relative;overflow:hidden}
+.dcai-wrap .dcai-hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(106,180,72,.06) 0%,transparent 60%);pointer-events:none}
+.dcai-wrap .dcai-hero h1{font-size:clamp(38px,5vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-bottom:20px;color:#042017}
+.dcai-wrap .dcai-hero h1 .dcai-gradient-text{background:linear-gradient(135deg,#6AB448 0%,#8fd46a 50%,#6AB448 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.dcai-wrap .dcai-hero p{font-size:17px;color:rgba(4,32,23,.7);max-width:640px;margin:0 auto 36px;line-height:1.7;font-weight:400}
+.dcai-wrap .dcai-hero-ctas{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
+.dcai-wrap .dcai-btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;background:#042017;color:#F1EBD6;font-weight:700;font-size:15px;transition:all .3s;box-shadow:0 4px 20px rgba(4,32,23,.15);border:none;cursor:pointer;text-decoration:none}
+.dcai-wrap .dcai-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(4,32,23,.2);text-decoration:none;color:#F1EBD6;background:#003D29}
+.dcai-wrap .dcai-btn-outline{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:12px;font-size:15px;font-weight:600;color:rgba(4,32,23,.7);background:rgba(4,32,23,.04);border:1px solid rgba(4,32,23,.12);transition:all .2s;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px)}
+.dcai-wrap .dcai-btn-outline:hover{border-color:rgba(4,32,23,.25);color:#042017;text-decoration:none;transform:translateY(-1px);background:rgba(4,32,23,.08)}
+
+/* ===== FADE IN ===== */
+.dcai-wrap .dcai-fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.dcai-wrap .dcai-fade-in.dcai-visible{opacity:1;transform:translateY(0)}
+.dcai-wrap .dcai-fade-in-left{opacity:0;transform:translateX(-20px);transition:opacity .5s ease,transform .5s ease}
+.dcai-wrap .dcai-fade-in-left.dcai-visible{opacity:1;transform:translateX(0)}
+.dcai-wrap .dcai-fade-in-right{opacity:0;transform:translateX(20px);transition:opacity .5s ease,transform .5s ease}
+.dcai-wrap .dcai-fade-in-right.dcai-visible{opacity:1;transform:translateX(0)}
+
+/* ===== PILLARS SECTION ===== */
+.dcai-wrap .dcai-pillars-section{padding:60px 0 80px;border-top:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-pillars-section .dcai-section-header{text-align:center;margin-bottom:48px}
+.dcai-wrap .dcai-pillars-section .dcai-section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.dcai-wrap .dcai-pillars-section .dcai-section-header p{font-size:16px;color:rgba(4,32,23,.7);max-width:600px;margin:0 auto;font-weight:400}
+.dcai-wrap .dcai-pillars-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.dcai-wrap .dcai-pillar-card{padding:24px 20px;border-radius:14px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);text-align:center;transition:all .3s}
+.dcai-wrap .dcai-pillar-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-3px);box-shadow:0 4px 20px rgba(4,32,23,.1)}
+.dcai-wrap .dcai-pillar-icon{width:48px;height:48px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(4,32,23,.06)}
+.dcai-wrap .dcai-pillar-icon svg{width:24px;height:24px}
+.dcai-wrap .dcai-pillar-card h3{font-size:14px;font-weight:700;margin-bottom:8px;color:#042017;letter-spacing:-.01em}
+.dcai-wrap .dcai-pillar-card p{font-size:12px;color:rgba(4,32,23,.5);line-height:1.6;font-weight:400}
+
+/* ===== WHAT IF CALLOUT ===== */
+.dcai-wrap .dcai-whatif-callout{padding:0;position:relative}
+.dcai-wrap .dcai-whatif-bg{background:#042017;padding:clamp(72px,10vw,120px) clamp(24px,8vw,120px);display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.dcai-wrap .dcai-whatif-bg::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(241,235,214,.012) 2px,rgba(241,235,214,.012) 4px);pointer-events:none}
+.dcai-wrap .dcai-whatif-bg::after{content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse at center,rgba(106,180,72,.08) 0%,transparent 70%);pointer-events:none}
+.dcai-wrap .dcai-whatif-eyebrow{font-family:'Matter','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#6AB448;margin-bottom:40px;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.dcai-wrap .dcai-whatif-text{font-family:'Matter','Inter',sans-serif;font-size:clamp(28px,4.5vw,58px);font-weight:700;line-height:1.25;letter-spacing:-.02em;color:#F1EBD6;max-width:900px;margin:0 auto;font-style:normal}
+.dcai-wrap .dcai-ww{display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .4s ease,transform .4s ease}
+.dcai-wrap .dcai-ww.dcai-wi-accent{color:#6AB448}
+.dcai-wrap .dcai-whatif-followup{font-family:'Matter','Inter',sans-serif;font-size:15px;font-weight:500;letter-spacing:.04em;color:rgba(241,235,214,.5);margin-top:48px;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.dcai-wrap .dcai-whatif-rule{width:40px;height:2px;background:#6AB448;margin-top:32px;opacity:0;transform:scaleX(0);transform-origin:center;transition:opacity .5s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-whatif-eyebrow{opacity:1;transform:translateY(0);transition-delay:.1s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww{opacity:1;transform:translateY(0)}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(1){transition-delay:.35s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(2){transition-delay:.41s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(3){transition-delay:.47s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(4){transition-delay:.53s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(5){transition-delay:.59s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(6){transition-delay:.65s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(7){transition-delay:.71s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(8){transition-delay:.77s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(9){transition-delay:.83s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(10){transition-delay:.89s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(11){transition-delay:.95s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(12){transition-delay:1.01s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(13){transition-delay:1.07s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(14){transition-delay:1.13s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(15){transition-delay:1.19s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(16){transition-delay:1.25s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(17){transition-delay:1.31s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(18){transition-delay:1.37s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(19){transition-delay:1.43s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(20){transition-delay:1.49s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(21){transition-delay:1.55s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(22){transition-delay:1.61s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-ww:nth-child(23){transition-delay:1.67s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-whatif-followup{opacity:1;transform:translateY(0);transition-delay:1.85s}
+.dcai-wrap .dcai-whatif-callout.dcai-is-visible .dcai-whatif-rule{opacity:1;transform:scaleX(1);transition-delay:2.0s}
+@media(prefers-reduced-motion:reduce){.dcai-wrap .dcai-ww,.dcai-wrap .dcai-whatif-eyebrow,.dcai-wrap .dcai-whatif-rule,.dcai-wrap .dcai-whatif-followup{transition:opacity .3s ease!important;transform:none!important}}
+@media(max-width:600px){.dcai-wrap .dcai-whatif-bg{text-align:left;align-items:flex-start}.dcai-wrap .dcai-whatif-text{letter-spacing:-.01em;line-height:1.3}.dcai-wrap .dcai-whatif-rule{transform-origin:left center}}
+
+/* ===== CLOSED LOOP SECTION ===== */
+.dcai-wrap .dcai-closed-loop-section{padding:80px 0;border-top:1px solid rgba(4,32,23,.08);position:relative;overflow:hidden}
+.dcai-wrap .dcai-closed-loop-inner{max-width:860px;margin:0 auto;text-align:center}
+.dcai-wrap .dcai-closed-loop-inner h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
+.dcai-wrap .dcai-closed-loop-inner .dcai-subtitle{font-size:17px;color:rgba(4,32,23,.7);margin-bottom:32px;font-weight:400;line-height:1.7}
+.dcai-wrap .dcai-closed-loop-narrative{text-align:left;padding:32px;border-radius:16px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);line-height:1.8;font-size:15px;color:rgba(4,32,23,.7);font-weight:400;position:relative}
+.dcai-wrap .dcai-closed-loop-narrative::before{content:'\201C';position:absolute;top:12px;left:20px;font-size:60px;color:rgba(106,180,72,.15);font-family:Georgia,serif;line-height:1}
+.dcai-wrap .dcai-closed-loop-narrative strong{color:#042017;font-weight:600}
+.dcai-wrap .dcai-closed-loop-label{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;background:rgba(106,180,72,.06);color:#6AB448;border:1px solid rgba(106,180,72,.12)}
+
+/* ===== PRODUCT SECTIONS ===== */
+.dcai-wrap .dcai-product-section{padding:90px 0;background:#F1EBD6;color:#042017}
+.dcai-wrap .dcai-product-section:nth-child(odd){border-top:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-product-section:nth-child(even){border-top:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-product-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.dcai-wrap .dcai-product-grid.dcai-reverse .dcai-product-text{order:2}
+.dcai-wrap .dcai-product-grid.dcai-reverse .dcai-product-mockup{order:1}
+.dcai-wrap .dcai-product-label{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.dcai-wrap .dcai-label-phone{background:rgba(42,122,184,.06);color:#2a7ab8;border:1px solid rgba(42,122,184,.12)}
+.dcai-wrap .dcai-label-ecommerce{background:rgba(94,50,78,.1);color:#5E324E;border:1px solid rgba(94,50,78,.2)}
+.dcai-wrap .dcai-label-register{background:rgba(106,180,72,.06);color:#5a9e3c;border:1px solid rgba(106,180,72,.12)}
+.dcai-wrap .dcai-label-sentiment{background:rgba(198,122,48,.08);color:#c67a30;border:1px solid rgba(198,122,48,.15)}
+.dcai-wrap .dcai-product-text h2{font-size:clamp(28px,3vw,38px);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px;color:#042017}
+.dcai-wrap .dcai-product-text .dcai-tagline{font-size:16px;color:rgba(4,32,23,.5);font-weight:600;margin-bottom:16px;font-style:italic}
+.dcai-wrap .dcai-product-text p{font-size:15px;color:rgba(4,32,23,.7);line-height:1.7;margin-bottom:20px;font-weight:400}
+.dcai-wrap .dcai-feature-list{list-style:none;padding:0;margin-bottom:24px}
+.dcai-wrap .dcai-feature-list li{padding:6px 0;font-size:14px;color:rgba(4,32,23,.7);display:flex;align-items:flex-start;gap:10px;line-height:1.5;font-weight:400}
+.dcai-wrap .dcai-feature-list li::before{content:'';display:inline-block;width:20px;height:20px;flex-shrink:0;margin-top:1px;background:rgba(106,180,72,.15);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 8l3 3 5-5' stroke='%236AB448' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:14px;background-repeat:no-repeat;background-position:center}
+.dcai-wrap .dcai-stat-callouts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.dcai-wrap .dcai-stat-callout{padding:8px 16px;border-radius:10px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);font-size:12px;font-weight:600;color:#042017}
+.dcai-wrap .dcai-stat-callout span{display:block;font-size:10px;font-weight:500;color:rgba(4,32,23,.5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
+/* ===== MOCKUP FRAMES ===== */
+.dcai-wrap .dcai-mockup-frame{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.1);background:#fff;box-shadow:0 8px 40px rgba(4,32,23,.12)}
+.dcai-wrap .dcai-mockup-bar{height:34px;background:rgba(4,32,23,.06);display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-mockup-bar .dcai-dot{width:10px;height:10px;border-radius:50%}
+.dcai-wrap .dcai-mockup-bar .dcai-dot.dcai-r{background:rgba(240,112,112,.5)}
+.dcai-wrap .dcai-mockup-bar .dcai-dot.dcai-y{background:rgba(212,168,67,.5)}
+.dcai-wrap .dcai-mockup-bar .dcai-dot.dcai-g{background:rgba(106,180,72,.4)}
+.dcai-wrap .dcai-mockup-bar .dcai-title{margin-left:12px;font-size:11px;font-weight:600;color:rgba(4,32,23,.5)}
+.dcai-wrap .dcai-mockup-body{padding:20px;min-height:400px}
+
+/* Phone mockup */
+.dcai-wrap .dcai-phone-mockup{max-width:340px;margin:0 auto;border-radius:36px;background:#111;padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.35),0 0 0 1px rgba(4,32,23,.15)}
+.dcai-wrap .dcai-phone-screen{border-radius:26px;overflow:hidden;background:#042017;position:relative}
+.dcai-wrap .dcai-phone-greeting{padding:28px 20px 0;text-align:center;color:#F1EBD6;font-family:'Matter','Inter',sans-serif}
+.dcai-wrap .dcai-phone-greeting h4{font-size:18px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+
+/* Voice orb */
+.dcai-wrap .dcai-voice-orb-wrap{display:flex;flex-direction:column;align-items:center;padding:24px 0 16px;position:relative}
+.dcai-wrap .dcai-voice-orb{width:130px;height:130px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center}
+.dcai-wrap .dcai-voice-orb::before{content:'';position:absolute;inset:0;border-radius:50%;border:4px solid rgba(106,180,72,.6);box-shadow:0 0 30px rgba(106,180,72,.3),0 0 60px rgba(106,180,72,.15),inset 0 0 30px rgba(106,180,72,.2);animation:dcai-orb-ring-pulse 3s ease-in-out infinite}
+.dcai-wrap .dcai-voice-orb::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,transparent 10%,rgba(106,180,72,.7) 30%,rgba(106,180,72,.9) 50%,rgba(106,180,72,.7) 70%,transparent 90%);animation:dcai-orb-spin 3s linear infinite;filter:blur(6px)}
+.dcai-wrap .dcai-voice-orb-inner{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 45% 40%,rgba(106,180,72,.12),rgba(4,32,23,.95) 70%);position:relative;z-index:1;box-shadow:0 0 50px rgba(106,180,72,.25)}
+@keyframes dcai-orb-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes dcai-orb-ring-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:1}}
+
+/* Soundwave below orb */
+.dcai-wrap .dcai-voice-wave{display:flex;align-items:center;justify-content:center;gap:2px;padding:0 0 8px}
+.dcai-wrap .dcai-voice-wave-bar{width:2.5px;border-radius:2px;background:#6AB448;animation:dcai-vwave 1.2s ease-in-out infinite}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(1){height:6px;animation-delay:0s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(2){height:12px;animation-delay:.1s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(3){height:18px;animation-delay:.15s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(4){height:14px;animation-delay:.25s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(5){height:22px;animation-delay:.1s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(6){height:16px;animation-delay:.2s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(7){height:20px;animation-delay:.05s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(8){height:10px;animation-delay:.3s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(9){height:16px;animation-delay:.15s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(10){height:8px;animation-delay:.2s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(11){height:14px;animation-delay:.1s}
+.dcai-wrap .dcai-voice-wave-bar:nth-child(12){height:6px;animation-delay:.25s}
+@keyframes dcai-vwave{0%,100%{transform:scaleY(.35);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+/* Voice transcript bubbles */
+.dcai-wrap .dcai-voice-bubbles{padding:12px 14px 20px;display:flex;flex-direction:column;gap:8px}
+.dcai-wrap .dcai-vbubble{max-width:82%;padding:10px 12px;border-radius:14px;font-size:11px;line-height:1.45;color:#F1EBD6;display:flex;gap:8px;align-items:flex-start;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.dcai-wrap .dcai-vbubble.dcai-caller{background:rgba(241,235,214,.08);border:1px solid rgba(241,235,214,.1);align-self:flex-end;border-bottom-right-radius:4px}
+.dcai-wrap .dcai-vbubble.dcai-ai-voice{background:rgba(106,180,72,.12);border:1px solid rgba(106,180,72,.18);align-self:flex-start;border-bottom-left-radius:4px}
+.dcai-wrap .dcai-vbubble-icon{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.dcai-wrap .dcai-vbubble.dcai-caller .dcai-vbubble-icon{background:rgba(241,235,214,.12)}
+.dcai-wrap .dcai-vbubble.dcai-ai-voice .dcai-vbubble-icon{background:rgba(106,180,72,.2)}
+.dcai-wrap .dcai-vbubble-icon svg{width:10px;height:10px}
+.dcai-wrap .dcai-vbubble-text{flex:1}
+.dcai-wrap .dcai-vbubble-cta{display:block;margin-top:6px;padding:6px 10px;border-radius:6px;background:rgba(106,180,72,.2);border:1px solid rgba(106,180,72,.3);color:#6AB448;font-size:10px;font-weight:700;text-align:center}
+
+/* E-Commerce chat mockup */
+.dcai-wrap .dcai-ecom-mockup{background:#fff;border-radius:16px;border:1px solid rgba(4,32,23,.1);box-shadow:0 8px 40px rgba(4,32,23,.12);overflow:hidden;color:#042017}
+.dcai-wrap .dcai-ecom-header{background:#042017;padding:16px 20px;color:#F1EBD6;display:flex;align-items:center;gap:12px}
+.dcai-wrap .dcai-ecom-header-icon{width:36px;height:36px;border-radius:10px;background:rgba(241,235,214,.12);display:flex;align-items:center;justify-content:center}
+.dcai-wrap .dcai-ecom-header-icon svg{width:20px;height:20px}
+.dcai-wrap .dcai-ecom-header h4{font-size:14px;font-weight:700}
+.dcai-wrap .dcai-ecom-header p{font-size:11px;opacity:.8}
+.dcai-wrap .dcai-ecom-chat{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:300px;background:#fff}
+.dcai-wrap .dcai-ecom-product-card{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);border-radius:12px;padding:12px;margin-top:4px}
+.dcai-wrap .dcai-ecom-product-row{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.dcai-wrap .dcai-ecom-product-img{width:48px;height:48px;border-radius:8px;background:rgba(106,180,72,.1);border:1px solid rgba(4,32,23,.08);display:flex;align-items:center;justify-content:center}
+.dcai-wrap .dcai-ecom-product-img svg{width:24px;height:24px}
+.dcai-wrap .dcai-ecom-product-name{font-size:13px;font-weight:700;color:#042017}
+.dcai-wrap .dcai-ecom-product-detail{font-size:11px;color:rgba(4,32,23,.5)}
+.dcai-wrap .dcai-ecom-product-price{font-size:14px;font-weight:800;color:#042017}
+.dcai-wrap .dcai-ecom-product-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.dcai-wrap .dcai-ecom-tag{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;background:rgba(4,32,23,.05);color:#042017;border:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-ecom-add-btn{margin-top:8px;padding:8px 16px;border-radius:10px;background:#003D29;color:#F1EBD6;font-size:12px;font-weight:700;border:none;cursor:pointer;width:100%;text-align:center;box-shadow:0 2px 8px rgba(4,32,23,.12)}
+.dcai-wrap .dcai-ecom-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.02)}
+.dcai-wrap .dcai-ecom-input input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid rgba(4,32,23,.12);background:#fff;font-size:13px;font-family:inherit;outline:none;color:#042017}
+.dcai-wrap .dcai-ecom-input button{padding:10px 18px;border-radius:10px;background:#003D29;color:#F1EBD6;border:none;font-weight:700;font-size:13px;cursor:pointer}
+
+/* Register mockup */
+.dcai-wrap .dcai-register-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.1);background:#fff;box-shadow:0 8px 40px rgba(4,32,23,.12);color:#042017}
+.dcai-wrap .dcai-register-layout{display:grid;grid-template-columns:1fr 280px}
+.dcai-wrap .dcai-register-cart{padding:16px;border-right:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-register-cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-register-ai{padding:16px;background:rgba(4,32,23,.02)}
+.dcai-wrap .dcai-register-ai-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-register-ai-header .dcai-icon{width:28px;height:28px;border-radius:7px;background:rgba(4,32,23,.06);display:flex;align-items:center;justify-content:center}
+.dcai-wrap .dcai-register-ai-header .dcai-icon svg{width:16px;height:16px}
+.dcai-wrap .dcai-register-ai-header h4{font-size:13px;font-weight:700;color:#042017}
+.dcai-wrap .dcai-register-ai-card{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);border-radius:10px;padding:12px;margin-bottom:10px;transition:all .3s}
+.dcai-wrap .dcai-register-ai-card:hover{box-shadow:0 2px 12px rgba(4,32,23,.08)}
+.dcai-wrap .dcai-register-ai-card .dcai-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(4,32,23,.5);margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.dcai-wrap .dcai-register-ai-card .dcai-label svg{width:12px;height:12px}
+.dcai-wrap .dcai-register-ai-card .dcai-title{font-size:12px;font-weight:700;color:#042017;margin-bottom:3px}
+.dcai-wrap .dcai-register-ai-card .dcai-desc{font-size:11px;color:rgba(4,32,23,.75);line-height:1.5}
+.dcai-wrap .dcai-register-ai-card .dcai-action-btn{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:6px;background:#003D29;color:#F1EBD6;font-size:10px;font-weight:700;border:none;cursor:pointer;box-shadow:0 2px 6px rgba(4,32,23,.12)}
+.dcai-wrap .dcai-register-ai-card.dcai-upsell{border-left:3px solid #003D29;background:rgba(0,61,41,.03)}
+.dcai-wrap .dcai-register-ai-card.dcai-loyalty{border-left:3px solid #FFC02A}
+.dcai-wrap .dcai-register-ai-card.dcai-compliance{border-left:3px solid #6AB448;background:rgba(106,180,72,.04)}
+.dcai-wrap .dcai-register-script{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);border-radius:10px;padding:12px;margin-bottom:10px}
+.dcai-wrap .dcai-register-script .dcai-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(4,32,23,.5);margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.dcai-wrap .dcai-register-script .dcai-label svg{width:12px;height:12px}
+.dcai-wrap .dcai-register-script p{font-size:11px;color:#042017;line-height:1.5}
+.dcai-wrap .dcai-register-script em{color:#042017;font-style:normal;font-weight:700}
+
+/* Sentiment dashboard mockup */
+.dcai-wrap .dcai-sentiment-mockup{border-radius:16px;overflow:hidden;border:1px solid rgba(4,32,23,.1);background:#fff;box-shadow:0 8px 40px rgba(4,32,23,.12);color:#042017}
+.dcai-wrap .dcai-sentiment-body{padding:20px}
+.dcai-wrap .dcai-sentiment-top-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.dcai-wrap .dcai-sentiment-tab{padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03);color:rgba(4,32,23,.6);cursor:pointer}
+.dcai-wrap .dcai-sentiment-tab.dcai-active{background:#042017;color:#F1EBD6;border-color:#042017}
+.dcai-wrap .dcai-sentiment-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.dcai-wrap .dcai-metric-card{padding:14px;border-radius:10px;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03);text-align:center}
+.dcai-wrap .dcai-metric-card .dcai-value{font-size:24px;font-weight:800;color:#042017}
+.dcai-wrap .dcai-metric-card .dcai-value.dcai-up{color:#003D29}
+.dcai-wrap .dcai-metric-card .dcai-value.dcai-down{color:#c0392b}
+.dcai-wrap .dcai-metric-card .dcai-label{font-size:10px;font-weight:600;color:rgba(4,32,23,.5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.dcai-wrap .dcai-metric-card .dcai-change{font-size:11px;font-weight:600;margin-top:2px}
+.dcai-wrap .dcai-metric-card .dcai-change.dcai-positive{color:#003D29}
+.dcai-wrap .dcai-metric-card .dcai-change.dcai-negative{color:#c0392b}
+.dcai-wrap .dcai-sentiment-chart{background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.06);border-radius:12px;padding:16px;margin-bottom:20px;position:relative;height:180px;overflow:hidden}
+.dcai-wrap .dcai-sentiment-chart .dcai-chart-title{font-size:11px;font-weight:600;color:rgba(4,32,23,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.dcai-wrap .dcai-chart-area{position:relative;height:130px;display:flex;align-items:flex-end;gap:3px}
+.dcai-wrap .dcai-chart-bar{flex:1;border-radius:4px 4px 0 0;transition:height .6s ease;position:relative}
+.dcai-wrap .dcai-chart-bar.dcai-green{background:linear-gradient(180deg,rgba(0,61,41,.7),rgba(0,61,41,.25))}
+.dcai-wrap .dcai-chart-bar.dcai-red{background:linear-gradient(180deg,rgba(192,57,43,.7),rgba(192,57,43,.25))}
+.dcai-wrap .dcai-chart-bar.dcai-blue{background:linear-gradient(180deg,rgba(0,80,140,.7),rgba(0,80,140,.25))}
+.dcai-wrap .dcai-chart-line{position:absolute;bottom:0;left:0;right:0;height:100%}
+.dcai-wrap .dcai-chart-line svg{width:100%;height:100%}
+.dcai-wrap .dcai-sentiment-alerts{display:flex;flex-direction:column;gap:10px}
+.dcai-wrap .dcai-alert-card{padding:12px;border-radius:10px;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03);display:flex;gap:12px;align-items:flex-start;transition:all .3s}
+.dcai-wrap .dcai-alert-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-1px);box-shadow:0 2px 8px rgba(4,32,23,.06)}
+.dcai-wrap .dcai-alert-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dcai-wrap .dcai-alert-icon svg{width:18px;height:18px}
+.dcai-wrap .dcai-alert-icon.dcai-trending{background:rgba(0,61,41,.08)}
+.dcai-wrap .dcai-alert-icon.dcai-warning{background:rgba(198,122,48,.1)}
+.dcai-wrap .dcai-alert-icon.dcai-insight{background:rgba(0,80,140,.08)}
+.dcai-wrap .dcai-alert-title{font-size:12px;font-weight:600;color:#042017;margin-bottom:3px}
+.dcai-wrap .dcai-alert-desc{font-size:11px;color:rgba(4,32,23,.75);line-height:1.5}
+.dcai-wrap .dcai-alert-meta{display:flex;gap:8px;margin-top:6px;font-size:10px;color:rgba(4,32,23,.5)}
+.dcai-wrap .dcai-alert-source{padding:2px 6px;border-radius:4px;background:rgba(4,32,23,.06);font-weight:600}
+.dcai-wrap .dcai-brand-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.dcai-wrap .dcai-brand-score-card{padding:12px;border-radius:10px;border:1px solid rgba(4,32,23,.08);background:rgba(4,32,23,.03)}
+.dcai-wrap .dcai-brand-score-card .dcai-name{font-size:12px;font-weight:600;color:#042017;margin-bottom:4px}
+.dcai-wrap .dcai-brand-score-card .dcai-score{font-size:20px;font-weight:800}
+.dcai-wrap .dcai-brand-score-card .dcai-score.dcai-high{color:#003D29}
+.dcai-wrap .dcai-brand-score-card .dcai-score.dcai-mid{color:#b06a20}
+.dcai-wrap .dcai-brand-score-card .dcai-score.dcai-low{color:#c0392b}
+.dcai-wrap .dcai-brand-score-card .dcai-bar{height:4px;border-radius:2px;background:rgba(4,32,23,.1);margin-top:6px;overflow:hidden}
+.dcai-wrap .dcai-brand-score-card .dcai-bar-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.dcai-wrap .dcai-brand-score-card .dcai-platform{font-size:10px;color:rgba(4,32,23,.5);margin-top:4px}
+
+/* ===== PERSONA SECTION ===== */
+.dcai-wrap .dcai-persona-section{padding:80px 0;border-top:1px solid rgba(4,32,23,.08)}
+.dcai-wrap .dcai-persona-section .dcai-section-header{text-align:center;margin-bottom:48px}
+.dcai-wrap .dcai-persona-section .dcai-section-header h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.dcai-wrap .dcai-persona-section .dcai-section-header p{font-size:16px;color:rgba(4,32,23,.7);max-width:560px;margin:0 auto;font-weight:400}
+.dcai-wrap .dcai-persona-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.dcai-wrap .dcai-persona-card{padding:28px 22px;border-radius:14px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);transition:all .3s}
+.dcai-wrap .dcai-persona-card:hover{border-color:rgba(4,32,23,.15);transform:translateY(-3px);box-shadow:0 4px 20px rgba(4,32,23,.1)}
+.dcai-wrap .dcai-persona-card .dcai-role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5a9e3c;margin-bottom:10px}
+.dcai-wrap .dcai-persona-card h3{font-size:15px;font-weight:700;margin-bottom:10px;color:#042017;line-height:1.35}
+.dcai-wrap .dcai-persona-card p{font-size:13px;color:rgba(4,32,23,.5);line-height:1.6;font-weight:400}
+
+/* ===== BOTTOM CTA ===== */
+.dcai-wrap .dcai-bottom-cta{padding:100px 0;text-align:center;position:relative}
+.dcai-wrap .dcai-bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(106,180,72,.05) 0%,transparent 60%);pointer-events:none}
+.dcai-wrap .dcai-bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto}
+.dcai-wrap .dcai-bottom-cta p{font-size:16px;color:rgba(4,32,23,.7);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
+.dcai-wrap .dcai-launch-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:24px;background:rgba(255,192,42,.1);color:#b08a1a;border:1px solid rgba(255,192,42,.25)}
+
+/* ===== RESPONSIVE ===== */
+
+/* --- Tablets (1024px) --- */
+@media(max-width:1024px){
+  .dcai-wrap .dcai-product-grid{grid-template-columns:1fr;gap:32px}
+  .dcai-wrap .dcai-product-grid.dcai-reverse .dcai-product-text{order:1}
+  .dcai-wrap .dcai-product-grid.dcai-reverse .dcai-product-mockup{order:2}
+  .dcai-wrap .dcai-register-layout{grid-template-columns:1fr}
+  .dcai-wrap .dcai-register-cart{border-right:none;border-bottom:1px solid rgba(4,32,23,.08)}
+  .dcai-wrap .dcai-sentiment-metrics{grid-template-columns:repeat(2,1fr)}
+  .dcai-wrap .dcai-brand-scores{grid-template-columns:1fr 1fr}
+  .dcai-wrap .dcai-container{padding:0 24px}
+  .dcai-wrap .dcai-pillars-grid{grid-template-columns:repeat(3,1fr)}
+  .dcai-wrap .dcai-persona-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* --- Phones (768px) --- */
+@media(max-width:768px){
+  .dcai-wrap .dcai-hero{padding:60px 0 40px}
+  .dcai-wrap .dcai-hero h1{font-size:32px}
+  .dcai-wrap .dcai-hero p{font-size:15px;margin-bottom:24px}
+  .dcai-wrap .dcai-product-section{padding:40px 0}
+  .dcai-wrap .dcai-product-grid{gap:24px}
+  .dcai-wrap .dcai-product-text h2{font-size:26px}
+  .dcai-wrap .dcai-bottom-cta{padding:50px 0}
+  .dcai-wrap .dcai-bottom-cta h2{font-size:28px}
+  .dcai-wrap .dcai-phone-mockup{max-width:280px}
+  .dcai-wrap .dcai-mockup-body{min-height:280px;padding:14px}
+  .dcai-wrap .dcai-phone-greeting h4{font-size:15px}
+  .dcai-wrap .dcai-voice-orb{width:90px;height:90px}
+  .dcai-wrap .dcai-voice-orb-inner{width:60px;height:60px}
+  .dcai-wrap .dcai-vbubble{font-size:10px;padding:8px 10px}
+  .dcai-wrap .dcai-ecom-chat{min-height:220px;padding:12px}
+  .dcai-wrap .dcai-sentiment-body{padding:14px}
+  .dcai-wrap .dcai-sentiment-metrics{grid-template-columns:1fr}
+  .dcai-wrap .dcai-brand-scores{grid-template-columns:1fr}
+  .dcai-wrap .dcai-feature-list li{font-size:13px}
+  .dcai-wrap .dcai-stat-callouts{flex-direction:column}
+  .dcai-wrap .dcai-metric-card{padding:10px}
+  .dcai-wrap .dcai-alert-card{padding:10px}
+  .dcai-wrap .dcai-register-ai-card{padding:10px}
+  .dcai-wrap .dcai-btn-primary{width:100%;justify-content:center}
+  .dcai-wrap .dcai-btn-outline{width:100%;justify-content:center}
+  .dcai-wrap .dcai-hero-ctas{flex-direction:column;align-items:stretch}
+  .dcai-wrap .dcai-container{padding:0 16px}
+  .dcai-wrap .dcai-sentiment-top-bar{gap:8px}
+  .dcai-wrap .dcai-sentiment-tab{padding:5px 12px;font-size:11px}
+  .dcai-wrap .dcai-pillars-grid{grid-template-columns:1fr 1fr}
+  .dcai-wrap .dcai-persona-grid{grid-template-columns:1fr}
+  .dcai-wrap .dcai-closed-loop-narrative{padding:24px;font-size:14px}
+  .dcai-wrap .dcai-pillars-section,.dcai-wrap .dcai-closed-loop-section,.dcai-wrap .dcai-persona-section{padding:50px 0}
+  .dcai-wrap .dcai-whatif-inner p{font-size:16px}
+}
+
+/* --- Small phones (480px) --- */
+@media(max-width:480px){
+  .dcai-wrap .dcai-hero h1{font-size:26px;margin-bottom:14px}
+  .dcai-wrap .dcai-hero p{font-size:14px;margin-bottom:20px}
+  .dcai-wrap .dcai-hero{padding:40px 0 30px}
+  .dcai-wrap .dcai-product-section{padding:30px 0}
+  .dcai-wrap .dcai-product-text h2{font-size:22px}
+  .dcai-wrap .dcai-product-text p{font-size:13px}
+  .dcai-wrap .dcai-product-text .dcai-tagline{font-size:14px}
+  .dcai-wrap .dcai-bottom-cta{padding:40px 0}
+  .dcai-wrap .dcai-bottom-cta h2{font-size:24px}
+  .dcai-wrap .dcai-bottom-cta p{font-size:14px}
+  .dcai-wrap .dcai-container{padding:0 12px}
+  .dcai-wrap .dcai-phone-mockup{max-width:260px;padding:8px;border-radius:28px}
+  .dcai-wrap .dcai-phone-screen{border-radius:20px}
+  .dcai-wrap .dcai-mockup-body{min-height:220px;padding:10px}
+  .dcai-wrap .dcai-phone-greeting h4{font-size:14px;padding:20px 14px 0}
+  .dcai-wrap .dcai-voice-orb{width:70px;height:70px}
+  .dcai-wrap .dcai-voice-orb-inner{width:48px;height:48px}
+  .dcai-wrap .dcai-voice-bubbles{padding:8px 10px 14px;gap:6px}
+  .dcai-wrap .dcai-vbubble{font-size:10px;padding:7px 9px;gap:6px}
+  .dcai-wrap .dcai-vbubble-icon{width:16px;height:16px}
+  .dcai-wrap .dcai-vbubble-icon svg{width:8px;height:8px}
+  .dcai-wrap .dcai-ecom-chat{min-height:180px;padding:10px;gap:8px}
+  .dcai-wrap .dcai-chat-msg{font-size:11px;padding:8px 10px}
+  .dcai-wrap .dcai-ecom-input{padding:8px 12px}
+  .dcai-wrap .dcai-ecom-input input{padding:8px 10px;font-size:12px}
+  .dcai-wrap .dcai-ecom-input button{padding:8px 14px;font-size:12px}
+  .dcai-wrap .dcai-sentiment-body{padding:10px}
+  .dcai-wrap .dcai-sentiment-metrics{grid-template-columns:1fr}
+  .dcai-wrap .dcai-metric-card .dcai-value{font-size:20px}
+  .dcai-wrap .dcai-brand-scores{grid-template-columns:1fr}
+  .dcai-wrap .dcai-stat-callouts{gap:6px}
+  .dcai-wrap .dcai-stat-callout{padding:6px 12px;font-size:11px}
+  .dcai-wrap .dcai-feature-list li{font-size:12px;gap:8px}
+  .dcai-wrap .dcai-feature-list li::before{width:16px;height:16px;background-size:11px}
+  .dcai-wrap .dcai-btn-primary{padding:12px 24px;font-size:14px}
+  .dcai-wrap .dcai-btn-outline{padding:11px 20px;font-size:14px}
+  .dcai-wrap .dcai-register-ai-card{padding:8px}
+  .dcai-wrap .dcai-register-ai-card .dcai-title{font-size:11px}
+  .dcai-wrap .dcai-register-ai-card .dcai-desc{font-size:10px}
+  .dcai-wrap .dcai-register-script{padding:10px}
+  .dcai-wrap .dcai-register-script p{font-size:10px}
+  .dcai-wrap .dcai-alert-card{padding:8px;gap:8px}
+  .dcai-wrap .dcai-alert-icon{width:28px;height:28px}
+  .dcai-wrap .dcai-alert-icon svg{width:14px;height:14px}
+  .dcai-wrap .dcai-pillars-grid{grid-template-columns:1fr}
+  .dcai-wrap .dcai-closed-loop-narrative{padding:20px;font-size:13px}
+  .dcai-wrap .dcai-pillars-section,.dcai-wrap .dcai-closed-loop-section,.dcai-wrap .dcai-persona-section{padding:36px 0}
+  .dcai-wrap .dcai-whatif-inner p{font-size:15px}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<div class="dcai-wrap">
+
+<!-- ===== HERO ===== -->
+<section class="dcai-hero" id="hero">
+<div class="dcai-container">
+  <div class="dcai-launch-badge dcai-fade-in">Alpha Launch - March 31, 2026</div>
+  <h1 class="dcai-fade-in">The AI Operating System<br>for <span class="dcai-gradient-text">Cannabis Retail</span></h1>
+  <p class="dcai-fade-in">Dutchie Consumer AI works across every touchpoint, from phone and web to kiosk, register, and the open internet, so you never miss a sale or a signal.</p>
+  <div class="dcai-hero-ctas dcai-fade-in">
+    <a href="#" class="dcai-btn-primary">
+      Join the Alpha
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
+    </a>
+    <a href="video2.html" class="dcai-btn-outline">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="6,3 13,8 6,13" fill="currentColor"/></svg>
+      Watch the Demo
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- ===== WHY DUTCHIE AI - 5 PILLARS ===== -->
+<section class="dcai-pillars-section" id="pillars">
+<div class="dcai-container">
+  <div class="dcai-section-header dcai-fade-in">
+    <h2>Why <span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Dutchie Consumer AI</span></h2>
+    <p>Not another bolted-on chatbot. A complete AI system purpose-built for cannabis retail.</p>
+  </div>
+  <div class="dcai-pillars-grid">
+    <div class="dcai-pillar-card dcai-fade-in">
+      <div class="dcai-pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3>Every Touchpoint Covered</h3>
+      <p>Phone, web, kiosk, and register. No other cannabis tech company covers all four touchpoints with unified AI.</p>
+    </div>
+    <div class="dcai-pillar-card dcai-fade-in">
+      <div class="dcai-pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Hospitality, Not Automation</h3>
+      <p>A digital hospitality team that guides customers with expertise and warmth, not a phone tree or a chatbot.</p>
+    </div>
+    <div class="dcai-pillar-card dcai-fade-in">
+      <div class="dcai-pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h3>Staff Augmentation</h3>
+      <p>Makes every budtender perform like your best budtender. AI as a wingman, not a replacement.</p>
+    </div>
+    <div class="dcai-pillar-card dcai-fade-in">
+      <div class="dcai-pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>AI-Native Architecture</h3>
+      <p>Deeply integrated with real-time POS and inventory data. Live context on stock, pricing, and compliance.</p>
+    </div>
+    <div class="dcai-pillar-card dcai-fade-in">
+      <div class="dcai-pillar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+      </div>
+      <h3>Unified Intelligence</h3>
+      <p>One AI layer across phone, web, kiosk, and register. Every touchpoint shares context and learns together.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== WHAT IF CALLOUT ===== -->
+<section class="dcai-whatif-callout" aria-label="Vision statement">
+  <div class="dcai-whatif-bg">
+    <div class="dcai-whatif-eyebrow">The Question That Started It All</div>
+    <p class="dcai-whatif-text">
+      <span class="dcai-ww">What</span> <span class="dcai-ww">if</span> <span class="dcai-ww">your</span> <span class="dcai-ww">most</span> <span class="dcai-ww">knowledgeable,</span> <span class="dcai-ww">highest-converting</span> <span class="dcai-ww">budtender</span> <span class="dcai-ww">could</span> <span class="dcai-ww">be</span> <span class="dcai-ww dcai-wi-accent">everywhere</span> <span class="dcai-ww">at</span> <span class="dcai-ww">once,</span> <span class="dcai-ww">and</span> <span class="dcai-ww">also</span> <span class="dcai-ww">had</span> <span class="dcai-ww">its</span> <span class="dcai-ww">ear</span> <span class="dcai-ww">to</span> <span class="dcai-ww">every</span> <span class="dcai-ww">corner</span> <span class="dcai-ww">of</span> <span class="dcai-ww">the</span> <span class="dcai-ww dcai-wi-accent">internet?</span>
+    </p>
+    <div class="dcai-whatif-followup"></div>
+    <div class="dcai-whatif-rule"></div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 1: VOICE RECEPTIONIST          -->
+<!-- ====================================== -->
+<section class="dcai-product-section" id="voice-receptionist">
+<div class="dcai-container">
+  <div class="dcai-product-grid">
+    <div class="dcai-product-text dcai-fade-in-left">
+      <div class="dcai-product-label dcai-label-phone">On the Phone</div>
+      <h2>24/7 Voice<br>Receptionist</h2>
+      <div class="dcai-tagline">Every call answered instantly. Every caller converted.</div>
+      <p>Your 24/7 AI phone receptionist that picks up every phone call on the first ring, handles live inventory checks, store hours, daily deals, and compliance FAQs, and completes orders right over the phone. Callers hang up with their order placed and ready for pickup. Floor staff are never interrupted.</p>
+      <ul class="dcai-feature-list">
+        <li>Instantly answers every call with zero hold time, 24/7</li>
+        <li>Live inventory lookups, store hours, daily deals, and compliance FAQs</li>
+        <li>Completes orders right over the phone — callers hang up with their order placed and ready for pickup</li>
+        <li>Handles compliance FAQs so budtenders stay on the floor</li>
+        <li>Floor staff never interrupted by routine phone inquiries</li>
+      </ul>
+      <div class="dcai-stat-callouts">
+        <div class="dcai-stat-callout"><span>Hold Time</span>Zero</div>
+        <div class="dcai-stat-callout"><span>Coverage</span>24/7</div>
+        <div class="dcai-stat-callout"><span>Conversion</span>Call &rarr; Order Placed</div>
+      </div>
+    </div>
+    <div class="dcai-product-mockup dcai-fade-in-right">
+      <div class="dcai-phone-mockup">
+        <div class="dcai-phone-screen">
+          <div class="dcai-phone-greeting">
+            <h4>Thanks for calling<br>North Cannabis Co.<br>How can I help?</h4>
+          </div>
+          <div class="dcai-voice-orb-wrap">
+            <div class="dcai-voice-orb"><div class="dcai-voice-orb-inner"></div></div>
+            <div class="dcai-voice-wave">
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+              <div class="dcai-voice-wave-bar"></div>
+            </div>
+          </div>
+          <div class="dcai-voice-bubbles">
+            <div class="dcai-vbubble dcai-caller">
+              <div class="dcai-vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F1EBD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
+              <div class="dcai-vbubble-text">What indica edibles do you recommend? I don't want anything super potent</div>
+            </div>
+            <div class="dcai-vbubble dcai-ai-voice">
+              <div class="dcai-vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
+              <div class="dcai-vbubble-text">Great question! I think you would enjoy the Wyld Marionberry Gummies. They're 10mg for $32. Not super potent, but will still give you a relaxing feel</div>
+            </div>
+            <div class="dcai-vbubble dcai-caller">
+              <div class="dcai-vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F1EBD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
+              <div class="dcai-vbubble-text">Sounds great, let's place an order of those.</div>
+            </div>
+            <div class="dcai-vbubble dcai-ai-voice">
+              <div class="dcai-vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
+              <div class="dcai-vbubble-text">Perfect, I've placed your order! One Wyld Marionberry Gummies for pickup. You're all set
+              <span class="dcai-vbubble-cta"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M4 8l3 3 5-5" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Order Placed &rarr; Ready for Pickup</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 2: VIRTUAL CONCIERGE           -->
+<!-- ====================================== -->
+<section class="dcai-product-section" id="virtual-concierge">
+<div class="dcai-container">
+  <div class="dcai-product-grid dcai-reverse">
+    <div class="dcai-product-text dcai-fade-in-right">
+      <div class="dcai-product-label dcai-label-ecommerce">On E-Commerce &amp; Kiosk</div>
+      <h2>Virtual<br>Concierge</h2>
+      <div class="dcai-tagline">A digital sommelier for cannabis. On web and in-store kiosks.</div>
+      <p>Customers ask natural questions like "What's your best indica for sleep under $40?" and Dutchie Consumer AI curates products, explains terpene profiles, and suggests smart add-ons on your E-Commerce site and in-store kiosk displays. Turn browsers into buyers.</p>
+      <ul class="dcai-feature-list">
+        <li>Customers ask natural questions</li>
+        <li>Curates products by effect, price, terpene profile, and more</li>
+        <li>Suggests complementary add-ons to boost basket size</li>
+        <li>Natural conversation — no menus, just ask</li>
+        <li>Works seamlessly on Dutchie E-Commerce and in-store kiosk displays</li>
+      </ul>
+      <div class="dcai-stat-callouts">
+        <div class="dcai-stat-callout"><span>Impact</span>AOV Boost</div>
+        <div class="dcai-stat-callout"><span>Interface</span>Natural Language</div>
+        <div class="dcai-stat-callout"><span>Channels</span>Web + Kiosk</div>
+      </div>
+    </div>
+    <div class="dcai-product-mockup dcai-fade-in-left">
+      <div class="dcai-ecom-mockup">
+        <div class="dcai-ecom-header">
+          <div class="dcai-ecom-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F1EBD6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+          </div>
+          <div>
+            <h4>Virtual Concierge</h4>
+            <p>Ask me anything about our products</p>
+          </div>
+        </div>
+        <div class="dcai-ecom-chat">
+          <div class="dcai-chat-msg dcai-customer" style="align-self:flex-end">
+            <div class="dcai-sender">You</div>
+            What's your best indica for sleep under $40?
+          </div>
+          <div class="dcai-chat-msg dcai-ai" style="align-self:flex-start;max-width:90%">
+            <div class="dcai-sender">Virtual Concierge</div>
+            Great question! For sleep, I'd recommend these two based on their terpene profiles and customer reviews:
+          </div>
+          <div class="dcai-ecom-product-card">
+            <div class="dcai-ecom-product-row">
+              <div class="dcai-ecom-product-img">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21c3-3 4-8 4-12 0-2 2-4 5-4 0 3 .5 6-1 9s-4 6-8 7z"/><path d="M10 9c3-1 6 0 8 3"/></svg>
+              </div>
+              <div style="flex:1">
+                <div class="dcai-ecom-product-name">Granddaddy Purple - 3.5g</div>
+                <div class="dcai-ecom-product-detail">Indica &bull; 24% THC &bull; By: Purple City Genetics</div>
+              </div>
+              <div class="dcai-ecom-product-price">$35</div>
+            </div>
+            <div class="dcai-ecom-product-tags">
+              <span class="dcai-ecom-tag">Myrcene</span>
+              <span class="dcai-ecom-tag">Linalool</span>
+              <span class="dcai-ecom-tag">Sleep Aid</span>
+              <span class="dcai-ecom-tag" style="background:rgba(212,168,67,.12);color:#8a6510;border-color:rgba(212,168,67,.25)">Top Rated</span>
+            </div>
+            <button class="dcai-ecom-add-btn">Add to Cart - $35.00</button>
+          </div>
+          <div class="dcai-chat-msg dcai-ai" style="align-self:flex-start;max-width:90%">
+            <div class="dcai-sender">Virtual Concierge</div>
+            Pair it with our <strong>Midnight CBN Gummies ($18)</strong> for the ultimate sleep stack. The linalool in the flower + CBN creates a powerful entourage effect.
+          </div>
+        </div>
+        <div class="dcai-ecom-input">
+          <input type="text" placeholder="Ask about products, effects, deals..." disabled>
+          <button>Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 3: BUDTENDER CO-PILOT          -->
+<!-- ====================================== -->
+<section class="dcai-product-section" id="budtender-copilot">
+<div class="dcai-container">
+  <div class="dcai-product-grid">
+    <div class="dcai-product-text dcai-fade-in-left">
+      <div class="dcai-product-label dcai-label-register">At the Register</div>
+      <h2>Budtender<br>Co-Pilot</h2>
+      <div class="dcai-tagline">Sell smarter without breaking eye contact.</div>
+      <p>Built directly into the Dutchie register, the Budtender Co-Pilot provides real-time cart analysis, upsell prompts, loyalty tier nudges, and instant compliance verification. Every budtender performs like your best budtender with no training manual required.</p>
+      <ul class="dcai-feature-list">
+        <li>Real-time cart analysis with contextual upsell prompts</li>
+        <li>Suggested scripts: "They're buying a premium sativa &frac18;th, pitch the matching $5 pre-roll promo"</li>
+        <li>Loyalty nudges: "$10 away from VIP rewards tier"</li>
+        <li>Instantly verifies purchase limits for compliance</li>
+      </ul>
+      <div class="dcai-stat-callouts">
+        <div class="dcai-stat-callout"><span>Upsells</span>Real-Time</div>
+        <div class="dcai-stat-callout"><span>Compliance</span>Auto-Check</div>
+        <div class="dcai-stat-callout"><span>Onboarding</span>Works Day One</div>
+      </div>
+    </div>
+    <div class="dcai-product-mockup dcai-fade-in-right">
+      <div class="dcai-register-mockup">
+        <div class="dcai-mockup-bar">
+          <span class="dcai-dot dcai-r"></span><span class="dcai-dot dcai-y"></span><span class="dcai-dot dcai-g"></span>
+          <span class="dcai-title">Dutchie Register - Register 03 &nbsp;|&nbsp; Budtender Co-Pilot</span>
+        </div>
+        <div class="dcai-register-layout">
+          <!-- Cart side -->
+          <div class="dcai-register-cart">
+            <div class="dcai-register-cart-header">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(106,180,72,.5),rgba(106,180,72,.4));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff">MR</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:#042017">Marcus Rivera</div>
+                  <div style="font-size:10px;color:rgba(4,32,23,.5)">Silver Member &bull; 8 orders</div>
+                </div>
+              </div>
+              <span style="padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(4,32,23,.05);color:rgba(4,32,23,.6);border:1px solid rgba(4,32,23,.1)">SILVER</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);margin-bottom:8px">
+              <div style="width:40px;height:40px;border-radius:8px;background:rgba(106,180,72,.1);display:flex;align-items:center;justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21c3-3 4-8 4-12 0-2 2-4 5-4 0 3 .5 6-1 9s-4 6-8 7z"/><path d="M10 9c3-1 6 0 8 3"/></svg>
+              </div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:600;color:#042017">Blue Dream - 3.5g</div>
+                <div style="font-size:10px;color:rgba(4,32,23,.5)">Sativa &bull; 27% THC &bull; Cookies</div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#042017">$48.00</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);margin-bottom:8px">
+              <div style="width:40px;height:40px;border-radius:8px;background:rgba(94,50,78,.08);display:flex;align-items:center;justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+              </div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:600;color:#042017">Kiva Camino Pineapple</div>
+                <div style="font-size:10px;color:rgba(4,32,23,.5)">Sativa &bull; 5mg &bull; 20-pack</div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#042017">$22.00</div>
+            </div>
+            <div style="margin-top:14px;padding-top:10px;border-top:1px solid rgba(4,32,23,.08)">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(4,32,23,.6);margin-bottom:4px"><span>Subtotal</span><span>$70.00</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(4,32,23,.6);margin-bottom:4px"><span>Tax (18.5%)</span><span>$12.95</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800;color:#042017;margin-top:6px"><span>Total</span><span>$82.95</span></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <button style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(4,32,23,.12);background:rgba(4,32,23,.03);font-weight:600;font-size:12px;cursor:pointer;font-family:inherit;color:rgba(4,32,23,.6)">Hold</button>
+              <button style="flex:1;padding:10px;border-radius:8px;border:none;background:#003D29;color:#F1EBD6;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">Checkout &rarr;</button>
+            </div>
+          </div>
+          <!-- AI Panel side -->
+          <div class="dcai-register-ai">
+            <div class="dcai-register-ai-header">
+              <div class="dcai-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="3"/><path d="M8 16h.01"/><path d="M16 16h.01"/></svg>
+              </div>
+              <h4>Budtender Co-Pilot</h4>
+            </div>
+            <div class="dcai-register-ai-card dcai-upsell">
+              <div class="dcai-label"><svg viewBox="0 0 16 16" fill="none"><polygon points="8,1 10,6 15,6.5 11,10 12.5,15 8,12 3.5,15 5,10 1,6.5 6,6" fill="#FFC02A"/></svg> Upsell Opportunity</div>
+              <div class="dcai-title">Sativa Pre-Roll 2-Pack - $5 promo</div>
+              <div class="dcai-desc">Pairs perfectly with Blue Dream. This week's promo: buy any sativa flower, add a pre-roll 2-pack for $5.</div>
+              <button class="dcai-action-btn">+ Add to Cart</button>
+            </div>
+            <div class="dcai-register-script">
+              <div class="dcai-label"><svg viewBox="0 0 16 16" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12v8H4l-2 2V4z"/></svg> Suggested Script</div>
+              <p>"Hey Marcus, since you're grabbing the Blue Dream, we have a <em>$5 sativa pre-roll deal</em> this week. Want me to toss those in?"</p>
+            </div>
+            <div class="dcai-register-ai-card dcai-loyalty">
+              <div class="dcai-label"><svg viewBox="0 0 16 16" fill="none" stroke="#042017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="6" r="4"/><path d="M5 14l3-2 3 2"/><path d="M4 10l-2 4"/><path d="M12 10l2 4"/></svg> Loyalty Nudge</div>
+              <div class="dcai-title">$10 away from Gold tier!</div>
+              <div class="dcai-desc">Marcus needs $10 more spend to unlock Gold member benefits including 10% off every purchase.</div>
+              <div style="margin-top:8px;height:6px;background:rgba(4,32,23,.08);border-radius:3px;overflow:hidden"><div style="height:100%;width:88%;background:linear-gradient(90deg,rgba(212,168,67,.6),rgba(212,168,67,.8));border-radius:3px"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:rgba(4,32,23,.5);margin-top:4px"><span>440 pts</span><span>500 pts (Gold)</span></div>
+            </div>
+            <div class="dcai-register-ai-card dcai-compliance">
+              <div class="dcai-label"><svg viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Compliance Check</div>
+              <div class="dcai-title">All clear</div>
+              <div class="dcai-desc">Purchase within daily limits. ID verified. All products compliant.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================== -->
+<!-- PRODUCT 4: REPUTATION & SENTIMENT      -->
+<!-- ====================================== -->
+<section class="dcai-product-section" id="reputation-center">
+<div class="dcai-container">
+  <div class="dcai-product-grid dcai-reverse">
+    <div class="dcai-product-text dcai-fade-in-right">
+      <div class="dcai-product-label dcai-label-sentiment">Across the Internet</div>
+      <h2>Reputation &amp; Sentiment<br>Command Center</h2>
+      <div class="dcai-tagline">Know what the internet thinks before it hits your bottom line.</div>
+      <p>Dutchie Consumer AI continuously scans Reddit, Leafly, Weedmaps, and Google Reviews with AI-powered sentiment analysis, trend detection, and actionable alerts so you act on signal, not noise.</p>
+      <ul class="dcai-feature-list">
+        <li>Continuously scans Reddit, Leafly, Weedmaps, and Google Reviews</li>
+        <li>AI-powered sentiment analysis with trend detection and anomaly alerts</li>
+        <li>Three tracking levels: brand, store location, and individual product</li>
+        <li>Actionable alerts: "East Side location sentiment dropped 12%, traced to long wait mentions"</li>
+      </ul>
+      <div class="dcai-stat-callouts">
+        <div class="dcai-stat-callout"><span>Monitoring</span>Real-Time</div>
+        <div class="dcai-stat-callout"><span>Platforms</span>5+ Sources</div>
+        <div class="dcai-stat-callout"><span>Alerts</span>Actionable</div>
+      </div>
+    </div>
+    <div class="dcai-product-mockup dcai-fade-in-left">
+      <div class="dcai-sentiment-mockup">
+        <div class="dcai-mockup-bar">
+          <span class="dcai-dot dcai-r"></span><span class="dcai-dot dcai-y"></span><span class="dcai-dot dcai-g"></span>
+          <span class="dcai-title">Dutchie Consumer AI - Reputation &amp; Sentiment Command Center</span>
+        </div>
+        <div class="dcai-sentiment-body">
+          <!-- Tabs -->
+          <div class="dcai-sentiment-top-bar">
+            <div class="dcai-sentiment-tab dcai-active">Brand Overview</div>
+            <div class="dcai-sentiment-tab">By Store</div>
+            <div class="dcai-sentiment-tab">By Product</div>
+            <div class="dcai-sentiment-tab">Alerts</div>
+          </div>
+          <!-- Metrics -->
+          <div class="dcai-sentiment-metrics">
+            <div class="dcai-metric-card">
+              <div class="dcai-label">Overall Sentiment</div>
+              <div class="dcai-value dcai-up">4.6</div>
+              <div class="dcai-change dcai-positive">+0.3 vs last month</div>
+            </div>
+            <div class="dcai-metric-card">
+              <div class="dcai-label">Mentions (7d)</div>
+              <div class="dcai-value">847</div>
+              <div class="dcai-change dcai-positive">+12% volume</div>
+            </div>
+            <div class="dcai-metric-card">
+              <div class="dcai-label">Positive Rate</div>
+              <div class="dcai-value dcai-up">78%</div>
+              <div class="dcai-change dcai-positive">+5pp</div>
+            </div>
+            <div class="dcai-metric-card">
+              <div class="dcai-label">Alert Queue</div>
+              <div class="dcai-value dcai-down">3</div>
+              <div class="dcai-change dcai-negative">2 require action</div>
+            </div>
+          </div>
+          <!-- Chart -->
+          <div class="dcai-sentiment-chart">
+            <div class="dcai-chart-title">Sentiment Score - Last 12 Weeks</div>
+            <div class="dcai-chart-area" id="dcai-sentimentChart">
+              <!-- Bars injected by JS -->
+            </div>
+          </div>
+          <!-- Brand Scores -->
+          <div class="dcai-brand-scores">
+            <div class="dcai-brand-score-card">
+              <div class="dcai-name">Blue Dream (Cookies)</div>
+              <div class="dcai-score dcai-high">4.8</div>
+              <div class="dcai-bar"><div class="dcai-bar-fill" style="width:96%;background:#6AB448"></div></div>
+              <div class="dcai-platform">Leafly &bull; Reddit &bull; Weedmaps</div>
+            </div>
+            <div class="dcai-brand-score-card">
+              <div class="dcai-name">Live Rosin (710 Labs)</div>
+              <div class="dcai-score dcai-high">4.7</div>
+              <div class="dcai-bar"><div class="dcai-bar-fill" style="width:94%;background:#6AB448"></div></div>
+              <div class="dcai-platform">Reddit &bull; Leafly</div>
+            </div>
+            <div class="dcai-brand-score-card">
+              <div class="dcai-name">Midnight Vape Cart</div>
+              <div class="dcai-score dcai-mid">3.2</div>
+              <div class="dcai-bar"><div class="dcai-bar-fill" style="width:64%;background:#c67a30"></div></div>
+              <div class="dcai-platform">Google &bull; Weedmaps</div>
+            </div>
+          </div>
+          <!-- Alerts -->
+          <div class="dcai-sentiment-alerts">
+            <div class="dcai-alert-card">
+              <div class="dcai-alert-icon dcai-trending">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#003D29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div>
+                <div class="dcai-alert-title">New live rosin brand generating 4.8-star buzz</div>
+                <div class="dcai-alert-desc">710 Labs Live Rosin trending on Leafly and Reddit with exceptional reviews. Consider adding to inventory before competitors stock it.</div>
+                <div class="dcai-alert-meta">
+                  <span class="dcai-alert-source">Leafly</span>
+                  <span class="dcai-alert-source">Reddit</span>
+                  <span>2 hours ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="dcai-alert-card">
+              <div class="dcai-alert-icon dcai-warning">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c67a30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <div>
+                <div class="dcai-alert-title">East Side location sentiment dropped 12%</div>
+                <div class="dcai-alert-desc">Traced to "long wait time" mentions on Google Reviews. 8 new reviews in 5 days mention wait times exceeding 20 minutes.</div>
+                <div class="dcai-alert-meta">
+                  <span class="dcai-alert-source">Google Reviews</span>
+                  <span>5 hours ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="dcai-alert-card">
+              <div class="dcai-alert-icon dcai-insight">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1a5a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div>
+                <div class="dcai-alert-title">Midnight Vape Cart: Reddit sentiment sliding 3 weeks</div>
+                <div class="dcai-alert-desc">Consistent downward trend in r/trees and r/vaporents. Common complaints: taste quality and cartridge leaking. Recommend reducing next PO.</div>
+                <div class="dcai-alert-meta">
+                  <span class="dcai-alert-source">Reddit</span>
+                  <span class="dcai-alert-source">Weedmaps</span>
+                  <span>1 day ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== PERSONA MESSAGING ===== -->
+<section class="dcai-persona-section" id="personas">
+<div class="dcai-container">
+  <div class="dcai-section-header dcai-fade-in">
+    <h2>Built for Every Role in Your Dispensary</h2>
+    <p>From the owner's office to the sales floor, Dutchie Consumer AI speaks your language.</p>
+  </div>
+  <div class="dcai-persona-grid">
+    <div class="dcai-persona-card dcai-fade-in">
+      <div class="dcai-role">Owner / GM / VP Ops</div>
+      <h3>Capture revenue you're currently missing at every touchpoint, without adding headcount.</h3>
+      <p>Full-suite AI coverage across phone, web, kiosk, and register. One system, every channel, zero new hires.</p>
+    </div>
+    <div class="dcai-persona-card dcai-fade-in">
+      <div class="dcai-role">Budtender / Cashier</div>
+      <h3>Sell smarter at the register with real-time prompts, compliance checks, and product knowledge on demand.</h3>
+      <p>The Budtender Co-Pilot makes every transaction smarter without slowing you down or replacing your expertise.</p>
+    </div>
+    <div class="dcai-persona-card dcai-fade-in">
+      <div class="dcai-role">Marketing / E-Commerce Lead</div>
+      <h3>Monitor your reputation across every review site and turn online browsers into buyers with guided AI.</h3>
+      <p>The Virtual Concierge drives conversion on E-Commerce while the Reputation &amp; Sentiment Command Center tracks what matters.</p>
+    </div>
+    <div class="dcai-persona-card dcai-fade-in">
+      <div class="dcai-role">Operations / Multi-Location</div>
+      <h3>Standardize the customer experience across every location. AI that levels up every register and every phone line.</h3>
+      <p>Consistent, high-quality service at every touchpoint, every store, every shift. No more location lottery.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== BOTTOM CTA ===== -->
+<section class="dcai-bottom-cta" id="cta">
+<div class="dcai-container">
+  <div class="dcai-fade-in">
+    <div class="dcai-launch-badge">Alpha Launch - March 31, 2026</div>
+    <h2>Stop missing revenue at the<br>touchpoints that matter most.<br><span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Start with Dutchie Consumer AI.</span></h2>
+    <p>Dutchie Consumer AI works across every touchpoint: phone, web, kiosk, register, and the open internet, so you never miss a sale or a signal.</p>
+    <p style="font-size:14px;font-style:italic;color:rgba(4,32,23,.5);max-width:540px;margin:-16px auto 32px;">Automate the routine. Maximize the basket size. Own your reputation. Elevate the experience.</p>
+    <a href="#" class="dcai-btn-primary" style="font-size:17px;padding:16px 40px">
+      Get Early Access
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
+    </a>
+  </div>
+</div>
+</section>
+
+</div>
+<script>(function(){
+  var wrap = document.querySelector('.dcai-wrap');
+  if (!wrap) return;
+
+  // Fade-in on scroll
+  var fadeEls = wrap.querySelectorAll('.dcai-fade-in, .dcai-fade-in-left, .dcai-fade-in-right');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('dcai-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
+  // What-if callout word reveal
+  var callout = wrap.querySelector('.dcai-whatif-callout');
+  if (callout) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('dcai-is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(callout);
+  }
+
+  // Sentiment chart bars
+  var chartArea = wrap.querySelector('#dcai-sentimentChart');
+  if (chartArea) {
+    var data = [72, 68, 74, 71, 76, 80, 78, 82, 79, 85, 83, 88];
+    data.forEach(function(val, i) {
+      var bar = document.createElement('div');
+      bar.className = 'dcai-chart-bar dcai-green';
+      bar.style.height = '0%';
+      bar.title = 'Week ' + (i + 1) + ': ' + val + '%';
+      chartArea.appendChild(bar);
+      setTimeout(function() {
+        bar.style.height = val + '%';
+      }, 200 + i * 80);
+    });
+  }
+})();</script>
