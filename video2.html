@@ -719,68 +719,7 @@ body {
 .salert-title { font-weight:700; color:#042017; }
 .salert-meta { font-size:9px; color:rgba(4,32,23,.4); margin-top:2px; }
 
-/* ===== SLIDE 8: CLOSED LOOP (CLIMAX) ===== */
-.closed-loop-wrap {
-  max-width:900px; text-align:center; width:100%;
-}
-.cl-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  padding:5px 16px; border-radius:100px;
-  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em;
-  background:rgba(106,180,72,.08); color:var(--light-green);
-  border:1px solid rgba(106,180,72,.2);
-  opacity:0; transform:translateY(10px);
-}
-.slide.active .cl-badge { animation:fade-up .3s ease .1s forwards; }
-
-.cl-title {
-  font-size:38px; font-weight:800; letter-spacing:-.02em;
-  margin-top:16px; line-height:1.15; opacity:0; transform:scale(.9);
-}
-.slide.active .cl-title { animation:s3-pop .5s ease .3s forwards; }
-.cl-title .green-text {
-  background:linear-gradient(135deg, var(--light-green), #8fd46a);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-
-.cl-flow {
-  display:flex; flex-direction:column; gap:0; margin-top:32px; text-align:left;
-  position:relative;
-}
-.cl-flow::before {
-  content:''; position:absolute; left:20px; top:24px; bottom:24px;
-  width:2px; background:linear-gradient(180deg, var(--light-green), var(--yellow), var(--light-green));
-  opacity:.3;
-}
-.cl-step {
-  display:flex; align-items:center; gap:16px; padding:10px 0;
-  opacity:0; transform:translateX(-20px);
-}
-.cl-step-dot {
-  width:42px; height:42px; border-radius:50%; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size:18px; position:relative; z-index:1;
-  background:rgba(106,180,72,.1); border:2px solid rgba(106,180,72,.3);
-}
-.cl-step-text {
-  font-size:14px; color:rgba(241,235,214,.7); line-height:1.5;
-}
-.cl-step-text strong { color:var(--sand); font-weight:700; }
-.slide.active .cl-step:nth-child(1) { animation:fade-right .4s ease .6s forwards; }
-.slide.active .cl-step:nth-child(2) { animation:fade-right .4s ease 1s forwards; }
-.slide.active .cl-step:nth-child(3) { animation:fade-right .4s ease 1.4s forwards; }
-.slide.active .cl-step:nth-child(4) { animation:fade-right .4s ease 1.8s forwards; }
-.slide.active .cl-step:nth-child(5) { animation:fade-right .4s ease 2.2s forwards; }
-.slide.active .cl-step:nth-child(6) { animation:fade-right .4s ease 2.6s forwards; }
-
-.cl-punchline {
-  margin-top:28px; font-size:20px; font-weight:700;
-  color:var(--sand); opacity:0; transform:translateY(10px);
-  font-style:italic;
-}
-.slide.active .cl-punchline { animation:fade-up .4s ease 3.2s forwards; }
-
-/* ===== SLIDE 9: PERSONAS ===== */
+/* ===== SLIDE 8: PERSONAS ===== */
 .persona-wrap { max-width:1000px; width:100%; }
 .persona-heading {
   text-align:center; font-size:32px; font-weight:800;
@@ -850,11 +789,43 @@ body {
   50% { box-shadow:0 0 0 8px rgba(255,192,42,0); }
 }
 
+.s10-phone {
+  margin-top:32px; font-size:18px; color:rgba(255,255,255,.55);
+  font-weight:500; opacity:0; letter-spacing:.01em;
+}
+.slide.active .s10-phone { animation:fade-up .3s ease 1s forwards; }
+.s10-phone-number {
+  display:inline-block; margin-top:14px; padding:16px 40px;
+  border-radius:12px; background:rgba(106,180,72,.08);
+  border:1.5px solid rgba(106,180,72,.3);
+  color:var(--light-green); font-size:36px; font-weight:800;
+  letter-spacing:.03em; text-decoration:none;
+  opacity:0; transition:all .2s;
+  box-shadow:0 0 30px rgba(106,180,72,.15), 0 0 60px rgba(106,180,72,.06);
+}
+.slide.active .s10-phone-number { animation:fade-up .3s ease 1.2s forwards, phone-glow 2s ease-in-out 2s infinite; }
+.s10-phone-number:hover { background:rgba(106,180,72,.12); border-color:rgba(106,180,72,.5); box-shadow:0 0 40px rgba(106,180,72,.2), 0 0 70px rgba(106,180,72,.08); }
+@keyframes phone-glow {
+  0%, 100% { box-shadow:0 0 30px rgba(106,180,72,.15), 0 0 60px rgba(106,180,72,.06); }
+  50% { box-shadow:0 0 40px rgba(106,180,72,.22), 0 0 70px rgba(106,180,72,.1); }
+}
+.s10-phone-icon {
+  display:inline-block; margin-right:8px; animation:phone-ring 2.5s ease-in-out infinite;
+  font-size:30px; vertical-align:middle;
+}
+@keyframes phone-ring {
+  0%, 100% { transform:rotate(0deg); }
+  10% { transform:rotate(12deg); }
+  20% { transform:rotate(-10deg); }
+  30% { transform:rotate(8deg); }
+  40% { transform:rotate(0deg); }
+}
+
 .s10-url {
   margin-top:14px; font-size:14px; color:rgba(241,235,214,.35);
   font-weight:500; opacity:0;
 }
-.slide.active .s10-url { animation:fade-up .2s ease 1s forwards; }
+.slide.active .s10-url { animation:fade-up .2s ease 1.6s forwards; }
 
 .s10-replay {
   display:inline-flex; align-items:center; gap:8px;
@@ -875,8 +846,8 @@ body {
   .reg-cart-v { border-right:none; border-bottom:1px solid rgba(4,32,23,.06); }
   .sentiment-mockup-v .sent-metrics-v { grid-template-columns:repeat(2, 1fr); }
   .persona-grid { grid-template-columns:1fr; }
-  .cl-title { font-size:30px; }
-  .closed-loop-wrap { padding:0 20px; }
+  .s10-phone-number { font-size:28px; padding:12px 28px; }
+  .s10-phone-icon { font-size:22px; }
 }
 
 @media (max-width: 768px) {
@@ -899,8 +870,9 @@ body {
   .sent-body-v { padding:10px; }
   .sent-metrics-v { grid-template-columns:repeat(2, 1fr); }
   .sent-brands-v { grid-template-columns:repeat(2, 1fr); }
-  .cl-title { font-size:24px; }
-  .cl-step-text { font-size:12px; }
+  .s10-phone-number { font-size:24px; padding:10px 24px; }
+  .s10-phone-icon { font-size:20px; }
+  .s10-phone { font-size:15px; }
   .persona-heading { font-size:24px; }
   .s10-heading { font-size:32px; }
   .s10-btn { padding:12px 32px; font-size:16px; }
@@ -925,10 +897,9 @@ body {
   .stat-badges { display:none; }
   .phone-mockup-v { border-radius:20px; padding:6px; }
   .phone-screen-v { border-radius:16px; }
-  .cl-title { font-size:20px; }
-  .cl-step-dot { width:32px; height:32px; font-size:14px; }
-  .cl-step-text { font-size:11px; }
-  .cl-punchline { font-size:15px; }
+  .s10-phone-number { font-size:20px; padding:10px 20px; }
+  .s10-phone-icon { font-size:18px; }
+  .s10-phone { font-size:14px; }
   .persona-heading { font-size:20px; }
   .persona-card h3 { font-size:13px; }
   .persona-card p { font-size:11px; }
@@ -1216,42 +1187,7 @@ body {
     </div>
   </div>
 
-  <!-- Slide 8: The Closed Loop (CLIMAX) -->
-  <div class="slide" data-duration="8000">
-    <div class="closed-loop-wrap">
-      <div class="cl-badge">The Closed-Loop Revenue System</div>
-      <div class="cl-title">It thinks in the back office.<br><span class="green-text">It executes on the sales floor.</span></div>
-      <div class="cl-flow">
-        <div class="cl-step">
-          <div class="cl-step-dot">&#x1F4CA;</div>
-          <div class="cl-step-text"><strong>Nexus Benchmarks</strong> notices sativa gummies sitting too long on the shelf.</div>
-        </div>
-        <div class="cl-step">
-          <div class="cl-step-dot">&#x1F4B0;</div>
-          <div class="cl-step-text"><strong>Pricing Agent</strong> automatically drops the price 10% to clear inventory.</div>
-        </div>
-        <div class="cl-step">
-          <div class="cl-step-dot">&#x1F4E3;</div>
-          <div class="cl-step-text"><strong>Marketing Agent</strong> texts a promo to VIP loyalty members.</div>
-        </div>
-        <div class="cl-step">
-          <div class="cl-step-dot">&#x1F4DE;</div>
-          <div class="cl-step-text"><strong>Voice Receptionist</strong> pitches the gummy deal to every caller.</div>
-        </div>
-        <div class="cl-step">
-          <div class="cl-step-dot">&#x2728;</div>
-          <div class="cl-step-text"><strong>Virtual Concierge</strong> highlights the deal on ecom and kiosks.</div>
-        </div>
-        <div class="cl-step">
-          <div class="cl-step-dot">&#x1F916;</div>
-          <div class="cl-step-text"><strong>Budtender Co-Pilot</strong> prompts upsell of those exact gummies at the register.</div>
-        </div>
-      </div>
-      <div class="cl-punchline">"One decision in the back office. Six execution points on the sales floor."</div>
-    </div>
-  </div>
-
-  <!-- Slide 9: Persona Messages -->
+  <!-- Slide 8: Persona Messages -->
   <div class="slide" data-duration="4500">
     <div class="persona-wrap">
       <div class="persona-heading">Built for Every Role in Your Dispensary</div>
@@ -1287,6 +1223,8 @@ body {
       <div class="s10-heading">Join the Alpha</div>
       <div class="s10-sub">The future of cannabis retail starts now.</div>
       <a href="aiconsumersuite-v2.html" class="s10-btn">Get Early Access</a>
+      <div class="s10-phone">Don't believe us? Call Dutchie Voice AI right now</div>
+      <a href="tel:+13134745868" class="s10-phone-number"><span class="s10-phone-icon">&#x1F4DE;</span>+1 (313) 474-5868</a>
       <div class="s10-url">dutchie.com/ai</div>
       <div class="s10-replay" id="replay-btn">&#x21bb; Replay</div>
     </div>
@@ -1299,7 +1237,7 @@ body {
       <svg id="icon-play" style="display:none" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
     </button>
     <div id="progress-wrap"><div id="progress-bar"></div></div>
-    <span id="slide-counter">1 / 10</span>
+    <span id="slide-counter">1 / 9</span>
     <span id="time-label">0:00</span>
     <button class="ctrl-btn" id="mute-btn" title="Mute/Unmute">
       <svg id="icon-vol" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="currentColor"/><path d="M19 12c0 2.87-1.63 5.34-4 6.58v2.13c3.27-1.38 5.61-4.55 5.61-8.26S18.27 5.12 15 3.74v2.13c2.37 1.24 4 3.71 4 6.58z" fill="currentColor" opacity=".6"/></svg>
