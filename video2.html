@@ -1324,6 +1324,10 @@ body {
   </div>
 </div>
 
+<!-- Voice Intro -->
+<audio id="voice-intro" preload="auto">
+  <source src="voice-intro.mp3" type="audio/mpeg">
+</audio>
 <!-- Background Music -->
 <audio id="bgm" preload="auto">
   <source src="funkatronix.mp3" type="audio/mpeg">
@@ -1405,8 +1409,28 @@ body {
   const iconPlay = document.getElementById('icon-play');
   const replayBtn = document.getElementById('replay-btn');
   const bgm = document.getElementById('bgm');
-  bgm.volume = 0.35;
+  const voiceIntro = document.getElementById('voice-intro');
+  bgm.volume = 0;
+  voiceIntro.volume = 1.0;
   let fadeInterval = null;
+  let voiceCrossfadeInterval = null;
+  const VOICE_DURATION = 18000; // 18s voice clip
+  const CROSSFADE_START = 14000; // start crossfade at 14s (4s crossfade)
+
+  function startVoiceCrossfade() {
+    clearInterval(voiceCrossfadeInterval);
+    bgm.volume = 0;
+    bgm.play().catch(() => {});
+    voiceCrossfadeInterval = setInterval(() => {
+      // Fade voice out
+      if (voiceIntro.volume > 0.02) voiceIntro.volume = Math.max(0, voiceIntro.volume - 0.025);
+      else { voiceIntro.volume = 0; voiceIntro.pause(); }
+      // Fade music in
+      if (bgm.volume < 0.35) bgm.volume = Math.min(0.35, bgm.volume + 0.009);
+      // Done when music is at target and voice is silent
+      if (bgm.volume >= 0.34 && voiceIntro.volume <= 0) clearInterval(voiceCrossfadeInterval);
+    }, 50);
+  }
 
   let currentSlide = 0;
   let isPlaying = false;
@@ -1539,8 +1563,14 @@ body {
     scheduleNext();
     animFrame = requestAnimationFrame(updateProgress);
     clearInterval(fadeInterval);
-    bgm.volume = 0.35;
-    if (bgm.paused) bgm.play().catch(() => {});
+    if (!voiceIntro.paused) {
+      // Voice still playing, keep music where it is
+      voiceIntro.play().catch(() => {});
+      if (bgm.volume > 0) bgm.play().catch(() => {});
+    } else {
+      bgm.volume = 0.35;
+      if (bgm.paused) bgm.play().catch(() => {});
+    }
   }
 
   function pause() {
@@ -1551,6 +1581,7 @@ body {
     iconPause.style.display = 'none';
     iconPlay.style.display = '';
     bgm.pause();
+    voiceIntro.pause();
   }
 
   function togglePlayPause() {
@@ -1565,24 +1596,38 @@ body {
 
   function startPresentation() {
     playOverlay.classList.add('hidden');
+    // Start with voice intro, music comes in via crossfade
+    voiceIntro.currentTime = 0;
+    voiceIntro.volume = 1.0;
+    voiceIntro.play().catch(() => {});
     bgm.currentTime = 0;
-    bgm.volume = 0.35;
-    bgm.play().then(() => {}).catch(() => {});
+    bgm.volume = 0;
+    // Schedule crossfade: voice fades out, music fades in
+    setTimeout(startVoiceCrossfade, CROSSFADE_START);
     showSlide(0);
     play();
   }
 
   function restart() {
     pause();
+    clearInterval(voiceCrossfadeInterval);
     slides.forEach(s => s.classList.remove('active'));
     const chart = document.getElementById('videoChart');
     if (chart) chart.innerHTML = '';
     progressBar.style.width = '0%';
     timeLabel.textContent = '0:00';
+    // Reset both audio tracks
+    voiceIntro.currentTime = 0;
+    voiceIntro.volume = 1.0;
     bgm.currentTime = 0;
     clearInterval(fadeInterval);
-    bgm.volume = 0.35;
-    setTimeout(() => { showSlide(0); play(); }, 50);
+    bgm.volume = 0;
+    setTimeout(() => {
+      voiceIntro.play().catch(() => {});
+      setTimeout(startVoiceCrossfade, CROSSFADE_START);
+      showSlide(0);
+      play();
+    }, 50);
   }
 
   function goToSlide(idx) {
@@ -1647,6 +1692,7 @@ body {
     e.stopPropagation();
     isMuted = !isMuted;
     bgm.muted = isMuted;
+    voiceIntro.muted = isMuted;
     iconVol.style.display = isMuted ? 'none' : '';
     iconMuted.style.display = isMuted ? '' : 'none';
   });
