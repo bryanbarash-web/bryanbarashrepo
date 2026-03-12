@@ -1006,7 +1006,7 @@ body {
   <a href="aiconsumersuite-v2.html" class="close-btn" title="Back to site">&times;</a>
 
   <!-- Slide 0: Voice-only intro (dark screen + orb) -->
-  <div class="slide" data-duration="10000">
+  <div class="slide" data-duration="13000">
     <div class="voice-intro-slide">
       <div class="voice-intro-orb"><div class="voice-intro-orb-inner"></div></div>
       <div class="voice-intro-wave">
@@ -1474,22 +1474,30 @@ body {
   let fadeInterval = null;
   let voiceCrossfadeInterval = null;
   const VOICE_DURATION = 18000; // 18s voice clip
-  const CROSSFADE_START = 13000; // start crossfade at 13s (5s crossfade into title text)
+  const CROSSFADE_START = 15000; // start crossfade at 15s
+  const CROSSFADE_LEN = 3000; // 3s crossfade
+  const BGM_OFFSET = 2; // skip first 2s of music silence
 
   let voiceCrossfadeTimeout = null;
 
   function startVoiceCrossfade() {
     clearInterval(voiceCrossfadeInterval);
-    // Start music immediately at low volume so there's no gap
-    bgm.volume = 0.05;
+    // Start music at its 2s mark to skip silence, begin at audible volume
+    bgm.currentTime = BGM_OFFSET;
+    bgm.volume = 0.10;
     bgm.play().catch(() => {});
     voiceCrossfadeInterval = setInterval(() => {
-      // Fade voice out faster
-      if (voiceIntro.volume > 0.02) voiceIntro.volume = Math.max(0, voiceIntro.volume - 0.04);
+      // Fade voice out over 3s (60 ticks at 50ms)
+      if (voiceIntro.volume > 0.01) voiceIntro.volume = Math.max(0, voiceIntro.volume - 0.017);
       else { voiceIntro.volume = 0; voiceIntro.pause(); }
-      // Fade music in simultaneously
-      if (bgm.volume < 0.35) bgm.volume = Math.min(0.35, bgm.volume + 0.015);
-      if (bgm.volume >= 0.34 && voiceIntro.volume <= 0) clearInterval(voiceCrossfadeInterval);
+      // Fade music in over same 3s
+      if (bgm.volume < 0.35) bgm.volume = Math.min(0.35, bgm.volume + 0.005);
+      if (bgm.volume >= 0.34 && voiceIntro.volume <= 0.01) {
+        bgm.volume = 0.35;
+        voiceIntro.volume = 0;
+        voiceIntro.pause();
+        clearInterval(voiceCrossfadeInterval);
+      }
     }, 50);
   }
 
@@ -1503,25 +1511,25 @@ body {
       voiceIntro.volume = 1.0;
       if (isPlaying) voiceIntro.play().catch(() => {});
       bgm.volume = 0;
-      bgm.currentTime = 0;
+      bgm.currentTime = BGM_OFFSET;
       // Schedule crossfade from current position
       voiceCrossfadeTimeout = setTimeout(startVoiceCrossfade, CROSSFADE_START - timeMs);
-    } else if (timeMs < VOICE_DURATION) {
-      // In crossfade region — start crossfade immediately
-      const progress = (timeMs - CROSSFADE_START) / (VOICE_DURATION - CROSSFADE_START);
+    } else if (timeMs < CROSSFADE_START + CROSSFADE_LEN) {
+      // In crossfade region
+      const progress = (timeMs - CROSSFADE_START) / CROSSFADE_LEN;
       voiceIntro.currentTime = timeMs / 1000;
       voiceIntro.volume = Math.max(0, 1.0 - progress);
       if (voiceIntro.volume > 0 && isPlaying) voiceIntro.play().catch(() => {});
       else voiceIntro.pause();
-      bgm.currentTime = Math.max(0, (timeMs - CROSSFADE_START) / 1000);
-      bgm.volume = Math.min(0.35, 0.35 * progress);
+      bgm.currentTime = BGM_OFFSET + (timeMs - CROSSFADE_START) / 1000;
+      bgm.volume = Math.min(0.35, 0.10 + 0.25 * progress);
       if (isPlaying) bgm.play().catch(() => {});
       startVoiceCrossfade();
     } else {
       // Past voice — music only
       voiceIntro.pause();
       voiceIntro.volume = 0;
-      bgm.currentTime = (timeMs - CROSSFADE_START) / 1000;
+      bgm.currentTime = BGM_OFFSET + (timeMs - CROSSFADE_START) / 1000;
       bgm.volume = 0.35;
       clearInterval(fadeInterval);
       if (isPlaying) bgm.play().catch(() => {});
@@ -1696,7 +1704,7 @@ body {
     voiceIntro.currentTime = 0;
     voiceIntro.volume = 1.0;
     voiceIntro.play().catch(() => {});
-    bgm.currentTime = 0;
+    bgm.currentTime = BGM_OFFSET;
     bgm.volume = 0;
     // Schedule crossfade: voice fades out, music fades in
     voiceCrossfadeTimeout = setTimeout(startVoiceCrossfade, CROSSFADE_START);
@@ -1716,7 +1724,7 @@ body {
     // Reset both audio tracks
     voiceIntro.currentTime = 0;
     voiceIntro.volume = 1.0;
-    bgm.currentTime = 0;
+    bgm.currentTime = BGM_OFFSET;
     clearInterval(fadeInterval);
     bgm.volume = 0;
     setTimeout(() => {
