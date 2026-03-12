@@ -1385,11 +1385,11 @@ body {
 
 <!-- Voice Intro -->
 <audio id="voice-intro" preload="auto">
-  <source src="voice-intro.mp3" type="audio/mpeg">
+  <source src="audio/voice-intro.mp3" type="audio/mpeg">
 </audio>
 <!-- Background Music -->
 <audio id="bgm" preload="auto">
-  <source src="funkatronix.mp3" type="audio/mpeg">
+  <source src="audio/funkatronix.mp3" type="audio/mpeg">
 </audio>
 
 <!-- Play Overlay -->
@@ -1473,8 +1473,8 @@ body {
   voiceIntro.volume = 1.0;
   let fadeInterval = null;
   let voiceCrossfadeInterval = null;
-  const VOICE_DURATION = 18000; // 18s voice clip
-  const CROSSFADE_START = 15000; // start crossfade at 15s
+  const VOICE_DURATION = 62000; // 62s voice clip
+  const CROSSFADE_START = 18000; // start crossfade at 18s
   const CROSSFADE_LEN = 3000; // 3s crossfade
   const BGM_OFFSET = 2; // skip first 2s of music silence
 
