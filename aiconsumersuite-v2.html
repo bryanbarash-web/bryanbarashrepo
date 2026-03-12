@@ -105,11 +105,45 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .pillar-card p{font-size:12px;color:var(--text-muted);line-height:1.6;font-weight:400}
 
 /* ===== WHAT IF CALLOUT ===== */
-.whatif-callout{padding:60px 0 70px;position:relative}
-.whatif-inner{max-width:800px;margin:0 auto;text-align:center;padding:40px 48px;border-radius:20px;background:rgba(4,32,23,.03);border:1px solid rgba(4,32,23,.08);position:relative}
-.whatif-inner::before{content:'\201C';position:absolute;top:12px;left:28px;font-size:72px;color:rgba(106,180,72,.15);font-family:Georgia,serif;line-height:1}
-.whatif-inner::after{content:'\201D';position:absolute;bottom:-10px;right:28px;font-size:72px;color:rgba(106,180,72,.15);font-family:Georgia,serif;line-height:1}
-.whatif-inner p{font-size:clamp(18px,2.2vw,24px);font-style:italic;color:var(--text-dim);line-height:1.7;font-weight:500}
+.whatif-callout{padding:0;position:relative}
+.whatif-bg{background:#042017;padding:clamp(72px,10vw,120px) clamp(24px,8vw,120px);display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.whatif-bg::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(241,235,214,.012) 2px,rgba(241,235,214,.012) 4px);pointer-events:none}
+.whatif-bg::after{content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse at center,rgba(106,180,72,.08) 0%,transparent 70%);pointer-events:none}
+.whatif-eyebrow{font-family:'Matter','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#6AB448;margin-bottom:40px;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.whatif-text{font-family:'Matter','Inter',sans-serif;font-size:clamp(28px,4.5vw,58px);font-weight:700;line-height:1.25;letter-spacing:-.02em;color:#F1EBD6;max-width:900px;margin:0 auto;font-style:normal}
+.ww{display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .4s ease,transform .4s ease}
+.ww.wi-accent{color:#6AB448}
+.whatif-followup{font-family:'Matter','Inter',sans-serif;font-size:15px;font-weight:500;letter-spacing:.04em;color:rgba(241,235,214,.5);margin-top:48px;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.whatif-rule{width:40px;height:2px;background:#6AB448;margin-top:32px;opacity:0;transform:scaleX(0);transform-origin:center;transition:opacity .5s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+.whatif-callout.is-visible .whatif-eyebrow{opacity:1;transform:translateY(0);transition-delay:.1s}
+.whatif-callout.is-visible .ww{opacity:1;transform:translateY(0)}
+.whatif-callout.is-visible .ww:nth-child(1){transition-delay:.35s}
+.whatif-callout.is-visible .ww:nth-child(2){transition-delay:.41s}
+.whatif-callout.is-visible .ww:nth-child(3){transition-delay:.47s}
+.whatif-callout.is-visible .ww:nth-child(4){transition-delay:.53s}
+.whatif-callout.is-visible .ww:nth-child(5){transition-delay:.59s}
+.whatif-callout.is-visible .ww:nth-child(6){transition-delay:.65s}
+.whatif-callout.is-visible .ww:nth-child(7){transition-delay:.71s}
+.whatif-callout.is-visible .ww:nth-child(8){transition-delay:.77s}
+.whatif-callout.is-visible .ww:nth-child(9){transition-delay:.83s}
+.whatif-callout.is-visible .ww:nth-child(10){transition-delay:.89s}
+.whatif-callout.is-visible .ww:nth-child(11){transition-delay:.95s}
+.whatif-callout.is-visible .ww:nth-child(12){transition-delay:1.01s}
+.whatif-callout.is-visible .ww:nth-child(13){transition-delay:1.07s}
+.whatif-callout.is-visible .ww:nth-child(14){transition-delay:1.13s}
+.whatif-callout.is-visible .ww:nth-child(15){transition-delay:1.19s}
+.whatif-callout.is-visible .ww:nth-child(16){transition-delay:1.25s}
+.whatif-callout.is-visible .ww:nth-child(17){transition-delay:1.31s}
+.whatif-callout.is-visible .ww:nth-child(18){transition-delay:1.37s}
+.whatif-callout.is-visible .ww:nth-child(19){transition-delay:1.43s}
+.whatif-callout.is-visible .ww:nth-child(20){transition-delay:1.49s}
+.whatif-callout.is-visible .ww:nth-child(21){transition-delay:1.55s}
+.whatif-callout.is-visible .ww:nth-child(22){transition-delay:1.61s}
+.whatif-callout.is-visible .ww:nth-child(23){transition-delay:1.67s}
+.whatif-callout.is-visible .whatif-followup{opacity:1;transform:translateY(0);transition-delay:1.85s}
+.whatif-callout.is-visible .whatif-rule{opacity:1;transform:scaleX(1);transition-delay:2.0s}
+@media(prefers-reduced-motion:reduce){.ww,.whatif-eyebrow,.whatif-rule,.whatif-followup{transition:opacity .3s ease!important;transform:none!important}}
+@media(max-width:600px){.whatif-bg{text-align:left;align-items:flex-start}.whatif-text{letter-spacing:-.01em;line-height:1.3}.whatif-rule{transform-origin:left center}}
 
 /* ===== CLOSED LOOP SECTION ===== */
 .closed-loop-section{padding:80px 0;border-top:1px solid var(--border);position:relative;overflow:hidden}
@@ -154,46 +188,48 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 .mockup-body{padding:20px;min-height:400px}
 
 /* Phone mockup */
-.phone-mockup{max-width:340px;margin:0 auto;border-radius:36px;background:rgba(4,32,23,.9);padding:12px;box-shadow:var(--shadow-lg),0 0 0 1px rgba(4,32,23,.1)}
-.phone-screen{border-radius:26px;overflow:hidden;background:#fff}
-.phone-status-bar{background:rgba(4,32,23,.9);padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#F1EBD6;font-weight:600}
-.phone-header{background:linear-gradient(135deg,#042017,#003D29);padding:14px 16px;color:#F1EBD6}
-.phone-header h4{font-size:14px;font-weight:700;margin-bottom:2px}
-.phone-header p{font-size:11px;opacity:.8}
+.phone-mockup{max-width:340px;margin:0 auto;border-radius:36px;background:#111;padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.35),0 0 0 1px rgba(4,32,23,.15)}
+.phone-screen{border-radius:26px;overflow:hidden;background:#042017;position:relative}
+.phone-greeting{padding:28px 20px 0;text-align:center;color:#F1EBD6;font-family:'Matter','Inter',sans-serif}
+.phone-greeting h4{font-size:18px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
 
-/* Waveform animation for voice */
-.waveform-container{display:flex;align-items:center;justify-content:center;gap:3px;padding:12px 16px;background:rgba(106,180,72,.08)}
-.waveform-bar{width:3px;border-radius:2px;background:var(--green);animation:waveform 1.2s ease-in-out infinite}
-.waveform-bar:nth-child(1){height:8px;animation-delay:0s}
-.waveform-bar:nth-child(2){height:16px;animation-delay:.1s}
-.waveform-bar:nth-child(3){height:24px;animation-delay:.2s}
-.waveform-bar:nth-child(4){height:18px;animation-delay:.3s}
-.waveform-bar:nth-child(5){height:28px;animation-delay:.15s}
-.waveform-bar:nth-child(6){height:14px;animation-delay:.25s}
-.waveform-bar:nth-child(7){height:22px;animation-delay:.05s}
-.waveform-bar:nth-child(8){height:10px;animation-delay:.35s}
-.waveform-bar:nth-child(9){height:20px;animation-delay:.2s}
-.waveform-bar:nth-child(10){height:12px;animation-delay:.1s}
-@keyframes waveform{
-  0%,100%{transform:scaleY(.4);opacity:.5}
-  50%{transform:scaleY(1);opacity:1}
-}
-.call-status{display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 16px;background:rgba(106,180,72,.05);font-size:11px;color:var(--green-dark);font-weight:600}
-.call-status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+/* Voice orb */
+.voice-orb-wrap{display:flex;flex-direction:column;align-items:center;padding:24px 0 16px;position:relative}
+.voice-orb{width:130px;height:130px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center}
+.voice-orb::before{content:'';position:absolute;inset:0;border-radius:50%;border:4px solid rgba(106,180,72,.6);box-shadow:0 0 30px rgba(106,180,72,.3),0 0 60px rgba(106,180,72,.15),inset 0 0 30px rgba(106,180,72,.2);animation:orb-ring-pulse 3s ease-in-out infinite}
+.voice-orb::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,transparent 10%,rgba(106,180,72,.7) 30%,rgba(106,180,72,.9) 50%,rgba(106,180,72,.7) 70%,transparent 90%);animation:orb-spin 3s linear infinite;filter:blur(6px)}
+.voice-orb-inner{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 45% 40%,rgba(106,180,72,.12),rgba(4,32,23,.95) 70%);position:relative;z-index:1;box-shadow:0 0 50px rgba(106,180,72,.25)}
+@keyframes orb-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes orb-ring-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:1}}
 
-.phone-chat{padding:14px;display:flex;flex-direction:column;gap:10px;background:#fff}
-.chat-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.5;color:#042017}
-.chat-msg.customer{background:#F1EBD6;border:1px solid rgba(4,32,23,.1);align-self:flex-end;border-bottom-right-radius:4px}
-.chat-msg.ai{background:rgba(4,32,23,.05);border:1px solid rgba(4,32,23,.08);color:#042017;align-self:flex-start;border-bottom-left-radius:4px}
-.chat-msg .sender{font-size:10px;font-weight:700;color:rgba(4,32,23,.4);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
-.chat-msg.ai .sender{color:rgba(4,32,23,.5)}
-.sms-link{display:block;margin-top:6px;padding:6px 10px;border-radius:6px;background:#003D29;color:#F1EBD6;font-size:10px;font-weight:700;text-align:center}
-.chat-typing{display:flex;gap:4px;padding:6px 0;align-self:flex-start}
-.chat-typing span{width:6px;height:6px;border-radius:50%;background:rgba(4,32,23,.3);animation:typing 1.4s infinite}
-.chat-typing span:nth-child(2){animation-delay:.2s}
-.chat-typing span:nth-child(3){animation-delay:.4s}
-@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+/* Soundwave below orb */
+.voice-wave{display:flex;align-items:center;justify-content:center;gap:2px;padding:0 0 8px}
+.voice-wave-bar{width:2.5px;border-radius:2px;background:#6AB448;animation:vwave 1.2s ease-in-out infinite}
+.voice-wave-bar:nth-child(1){height:6px;animation-delay:0s}
+.voice-wave-bar:nth-child(2){height:12px;animation-delay:.1s}
+.voice-wave-bar:nth-child(3){height:18px;animation-delay:.15s}
+.voice-wave-bar:nth-child(4){height:14px;animation-delay:.25s}
+.voice-wave-bar:nth-child(5){height:22px;animation-delay:.1s}
+.voice-wave-bar:nth-child(6){height:16px;animation-delay:.2s}
+.voice-wave-bar:nth-child(7){height:20px;animation-delay:.05s}
+.voice-wave-bar:nth-child(8){height:10px;animation-delay:.3s}
+.voice-wave-bar:nth-child(9){height:16px;animation-delay:.15s}
+.voice-wave-bar:nth-child(10){height:8px;animation-delay:.2s}
+.voice-wave-bar:nth-child(11){height:14px;animation-delay:.1s}
+.voice-wave-bar:nth-child(12){height:6px;animation-delay:.25s}
+@keyframes vwave{0%,100%{transform:scaleY(.35);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+/* Voice transcript bubbles */
+.voice-bubbles{padding:12px 14px 20px;display:flex;flex-direction:column;gap:8px}
+.vbubble{max-width:82%;padding:10px 12px;border-radius:14px;font-size:11px;line-height:1.45;color:#F1EBD6;display:flex;gap:8px;align-items:flex-start;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.vbubble.caller{background:rgba(241,235,214,.08);border:1px solid rgba(241,235,214,.1);align-self:flex-end;border-bottom-right-radius:4px}
+.vbubble.ai-voice{background:rgba(106,180,72,.12);border:1px solid rgba(106,180,72,.18);align-self:flex-start;border-bottom-left-radius:4px}
+.vbubble-icon{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.vbubble.caller .vbubble-icon{background:rgba(241,235,214,.12)}
+.vbubble.ai-voice .vbubble-icon{background:rgba(106,180,72,.2)}
+.vbubble-icon svg{width:10px;height:10px}
+.vbubble-text{flex:1}
+.vbubble-cta{display:block;margin-top:6px;padding:6px 10px;border-radius:6px;background:rgba(106,180,72,.2);border:1px solid rgba(106,180,72,.3);color:#6AB448;font-size:10px;font-weight:700;text-align:center}
 
 /* Ecommerce chat mockup */
 .ecom-mockup{background:#fff;border-radius:16px;border:1px solid rgba(4,32,23,.1);box-shadow:var(--shadow-lg);overflow:hidden;color:#042017}
@@ -342,7 +378,10 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .bottom-cta h2{font-size:28px}
   .phone-mockup{max-width:280px}
   .mockup-body{min-height:280px;padding:14px}
-  .phone-chat{padding:10px}
+  .phone-greeting h4{font-size:15px}
+  .voice-orb{width:90px;height:90px}
+  .voice-orb-inner{width:60px;height:60px}
+  .vbubble{font-size:10px;padding:8px 10px}
   .ecom-chat{min-height:220px;padding:12px}
   .sentiment-body{padding:14px}
   .sentiment-metrics{grid-template-columns:1fr}
@@ -361,8 +400,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .pillars-grid{grid-template-columns:1fr 1fr}
   .persona-grid{grid-template-columns:1fr}
   .closed-loop-narrative{padding:24px;font-size:14px}
-  .pillars-section,.closed-loop-section,.persona-section,.whatif-callout{padding:50px 0}
-  .whatif-inner{padding:28px 24px}
+  .pillars-section,.closed-loop-section,.persona-section{padding:50px 0}
   .whatif-inner p{font-size:16px}
 }
 
@@ -384,7 +422,13 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .phone-mockup{max-width:260px;padding:8px;border-radius:28px}
   .phone-screen{border-radius:20px}
   .mockup-body{min-height:220px;padding:10px}
-  .phone-chat{padding:8px;gap:8px}
+  .phone-greeting h4{font-size:14px;padding:20px 14px 0}
+  .voice-orb{width:70px;height:70px}
+  .voice-orb-inner{width:48px;height:48px}
+  .voice-bubbles{padding:8px 10px 14px;gap:6px}
+  .vbubble{font-size:10px;padding:7px 9px;gap:6px}
+  .vbubble-icon{width:16px;height:16px}
+  .vbubble-icon svg{width:8px;height:8px}
   .ecom-chat{min-height:180px;padding:10px;gap:8px}
   .chat-msg{font-size:11px;padding:8px 10px}
   .ecom-input{padding:8px 12px}
@@ -410,8 +454,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
   .alert-icon svg{width:14px;height:14px}
   .pillars-grid{grid-template-columns:1fr}
   .closed-loop-narrative{padding:20px;font-size:13px}
-  .pillars-section,.closed-loop-section,.persona-section,.whatif-callout{padding:36px 0}
-  .whatif-inner{padding:20px 16px}
+  .pillars-section,.closed-loop-section,.persona-section{padding:36px 0}
   .whatif-inner p{font-size:15px}
 }
 </style>
@@ -501,12 +544,15 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 </section>
 
 <!-- ===== WHAT IF CALLOUT ===== -->
-<section class="whatif-callout">
-<div class="container">
-  <div class="whatif-inner fade-in">
-    <p>What if your most knowledgeable, highest-converting budtender could be everywhere at once, and also had its ear to every corner of the internet?</p>
+<section class="whatif-callout" aria-label="Vision statement">
+  <div class="whatif-bg">
+    <div class="whatif-eyebrow">The Question That Started It All</div>
+    <p class="whatif-text">
+      <span class="ww">What</span> <span class="ww">if</span> <span class="ww">your</span> <span class="ww">most</span> <span class="ww">knowledgeable,</span> <span class="ww">highest-converting</span> <span class="ww">budtender</span> <span class="ww">could</span> <span class="ww">be</span> <span class="ww wi-accent">everywhere</span> <span class="ww">at</span> <span class="ww">once,</span> <span class="ww">and</span> <span class="ww">also</span> <span class="ww">had</span> <span class="ww">its</span> <span class="ww">ear</span> <span class="ww">to</span> <span class="ww">every</span> <span class="ww">corner</span> <span class="ww">of</span> <span class="ww">the</span> <span class="ww wi-accent">internet?</span>
+    </p>
+    <div class="whatif-followup">We built the answer. Product by product.</div>
+    <div class="whatif-rule"></div>
   </div>
-</div>
 </section>
 
 <!-- ====================================== -->
@@ -536,48 +582,43 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
     <div class="product-mockup fade-in-right">
       <div class="phone-mockup">
         <div class="phone-screen">
-          <div class="phone-status-bar">
-            <span>9:41 AM</span>
-            <span>Active Call</span>
-            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><rect x="0" y="3" width="3" height="7" rx="1" fill="#F1EBD6" opacity=".5"/><rect x="4.5" y="1.5" width="3" height="8.5" rx="1" fill="#F1EBD6" opacity=".7"/><rect x="9" y="0" width="3" height="10" rx="1" fill="#F1EBD6"/><rect x="13" y="2" width="3" height="8" rx="1" fill="#6AB448"/></svg>
+          <div class="phone-greeting">
+            <h4>Thanks for calling<br>North Cannabis Co.<br>How can I help?</h4>
           </div>
-          <div class="phone-header">
-            <h4>Green Leaf Dispensary</h4>
-            <p>AI Voice Receptionist</p>
-          </div>
-          <div class="waveform-container">
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-            <div class="waveform-bar"></div>
-          </div>
-          <div class="call-status">
-            <span class="call-status-dot"></span>
-            Active Call - AI Voice Receptionist
-          </div>
-          <div class="phone-chat">
-            <div class="chat-msg customer">
-              <div class="sender">Caller</div>
-              Hey, do you have any indica edibles? Looking for 10mg.
+          <div class="voice-orb-wrap">
+            <div class="voice-orb"><div class="voice-orb-inner"></div></div>
+            <div class="voice-wave">
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
+              <div class="voice-wave-bar"></div>
             </div>
-            <div class="chat-msg ai">
-              <div class="sender">Voice Receptionist</div>
-              Absolutely! We have 12 indica edibles. Top sellers: Wyld Marionberry Gummies (10mg, $32) and CANN Social Tonics (5mg, $18).
+          </div>
+          <div class="voice-bubbles">
+            <div class="vbubble caller">
+              <div class="vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F1EBD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
+              <div class="vbubble-text">What indica edibles do you recommend? I don't want anything super potent</div>
             </div>
-            <div class="chat-msg customer">
-              <div class="sender">Caller</div>
-              The Wyld gummies sound great. Can I order those?
+            <div class="vbubble ai-voice">
+              <div class="vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
+              <div class="vbubble-text">Great question! I think you would enjoy the Wyld Marionberry Gummies. They're 10mg for $32. Not super potent, but will still give you a relaxing feel</div>
             </div>
-            <div class="chat-msg ai">
-              <div class="sender">Voice Receptionist</div>
-              Done! I've placed your order for Wyld Marionberry Gummies ($32) for pickup today. You'll get a text confirmation now.
-              <span class="sms-link"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="vertical-align:-2px;margin-right:4px"><path d="M4 8l3 3 5-5" stroke="#F1EBD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Order Confirmed &rarr; View Order</span>
+            <div class="vbubble caller">
+              <div class="vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F1EBD6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
+              <div class="vbubble-text">Sounds great, let's place an order of those.</div>
+            </div>
+            <div class="vbubble ai-voice">
+              <div class="vbubble-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
+              <div class="vbubble-text">Perfect, I'll text you a link to your cart so you can complete the order
+              <span class="vbubble-cta"><svg width="10" height="10" viewBox="0 0 16 16" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M4 8l3 3 5-5" stroke="#6AB448" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Link sent via SMS &rarr; Order for Pickup</span></div>
             </div>
           </div>
         </div>
@@ -672,7 +713,7 @@ nav a.active{background:var(--green);color:#fff;box-shadow:0 2px 12px rgba(106,1
 <div class="container">
   <div class="product-grid">
     <div class="product-text fade-in-left">
-      <div class="product-label label-register">Register / POS</div>
+      <div class="product-label label-register">Register</div>
       <h2>Budtender<br>Co-Pilot</h2>
       <div class="tagline">Sell smarter without breaking eye contact.</div>
       <p>Built directly into the Dutchie register, the Budtender Co-Pilot provides real-time cart analysis, upsell prompts, loyalty tier nudges, product knowledge on demand, and instant compliance verification. Every budtender performs like your best budtender with no training manual required.</p>
@@ -1000,6 +1041,21 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 fadeEls.forEach(el => observer.observe(el));
+
+// What-if callout word reveal
+(function(){
+  var callout = document.querySelector('.whatif-callout');
+  if (!callout) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  io.observe(callout);
+}());
 
 // Sentiment chart bars
 const chartArea = document.getElementById('sentimentChart');
