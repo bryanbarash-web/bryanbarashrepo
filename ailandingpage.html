@@ -304,6 +304,26 @@
 .dcai-wrap .dcai-bottom-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(106,180,72,.05) 0%,transparent 60%);pointer-events:none}
 .dcai-wrap .dcai-bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto}
 .dcai-wrap .dcai-bottom-cta p{font-size:16px;color:rgba(4,32,23,.7);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
+
+/* ===== HUBSPOT MODAL ===== */
+.dcai-modal-overlay{position:fixed;inset:0;z-index:10000;background:rgba(4,32,23,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease}
+.dcai-modal-overlay.dcai-modal-open{display:flex;opacity:1}
+.dcai-modal{background:#fff;border-radius:16px;padding:40px 36px 36px;max-width:540px;width:90%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(4,32,23,.25);transform:translateY(20px);transition:transform .3s ease}
+.dcai-modal-overlay.dcai-modal-open .dcai-modal{transform:translateY(0)}
+.dcai-modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:8px;border:1px solid rgba(4,32,23,.1);background:rgba(4,32,23,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.dcai-modal-close:hover{background:rgba(4,32,23,.1);border-color:rgba(4,32,23,.2)}
+.dcai-modal-close svg{width:14px;height:14px;stroke:rgba(4,32,23,.6);stroke-width:2}
+.dcai-modal h3{font-size:22px;font-weight:700;color:#042017;margin-bottom:4px;letter-spacing:-.02em}
+.dcai-modal .dcai-modal-sub{font-size:14px;color:rgba(4,32,23,.6);margin-bottom:24px}
+.dcai-modal .hs-form{font-family:'Matter','Inter',sans-serif!important}
+.dcai-modal .hs-form fieldset{max-width:100%!important}
+.dcai-modal .hs-form .hs-input{width:100%!important;padding:10px 14px!important;border-radius:8px!important;border:1px solid rgba(4,32,23,.15)!important;font-size:14px!important;font-family:inherit!important;background:#fff!important;transition:border-color .2s!important}
+.dcai-modal .hs-form .hs-input:focus{border-color:#6AB448!important;outline:none!important;box-shadow:0 0 0 3px rgba(106,180,72,.12)!important}
+.dcai-modal .hs-form label{font-size:13px!important;font-weight:600!important;color:#042017!important;margin-bottom:4px!important}
+.dcai-modal .hs-form .hs-button{background:#042017!important;color:#F1EBD6!important;border:none!important;padding:12px 28px!important;border-radius:10px!important;font-size:15px!important;font-weight:700!important;cursor:pointer!important;transition:all .3s!important;font-family:inherit!important}
+.dcai-modal .hs-form .hs-button:hover{background:#003D29!important;transform:translateY(-1px)!important;box-shadow:0 4px 16px rgba(4,32,23,.2)!important}
+.dcai-modal .hs-form .hs-error-msg{color:#c0392b!important;font-size:12px!important}
+.dcai-modal .hs-form .hs-richtext{font-size:12px!important;color:rgba(4,32,23,.5)!important;line-height:1.5!important}
 .dcai-wrap .dcai-launch-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:24px;background:rgba(255,192,42,.1);color:#b08a1a;border:1px solid rgba(255,192,42,.25)}
 
 /* ===== RESPONSIVE ===== */
@@ -422,7 +442,7 @@
   <h1 class="dcai-fade-in">The AI Operating System<br>for <span class="dcai-gradient-text">Cannabis Retail</span></h1>
   <p class="dcai-fade-in">Dutchie Consumer AI works across every touchpoint, from phone and web to kiosk, register, and the open internet, so you never miss a sale or a signal.</p>
   <div class="dcai-hero-ctas dcai-fade-in">
-    <a href="#" class="dcai-btn-primary">
+    <a href="#" class="dcai-btn-primary dcai-open-modal">
       Join the Alpha
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
     </a>
@@ -933,7 +953,7 @@
     <h2>Stop missing revenue at the<br>touchpoints that matter most.<br><span style="background:linear-gradient(135deg,#6AB448,#8fd46a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Start with Dutchie Consumer AI.</span></h2>
     <p>Dutchie Consumer AI works across every touchpoint: phone, web, kiosk, register, and the open internet, so you never miss a sale or a signal.</p>
     <p style="font-size:14px;font-style:italic;color:rgba(4,32,23,.5);max-width:540px;margin:-16px auto 32px;">Automate the routine. Maximize the basket size. Own your reputation. Elevate the experience.</p>
-    <a href="#" class="dcai-btn-primary" style="font-size:17px;padding:16px 40px">
+    <a href="#" class="dcai-btn-primary dcai-open-modal" style="font-size:17px;padding:16px 40px">
       Get Early Access
       <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg>
     </a>
@@ -941,7 +961,20 @@
 </div>
 </section>
 
+<!-- ===== HUBSPOT FORM MODAL ===== -->
+<div class="dcai-modal-overlay" id="dcai-hs-modal">
+  <div class="dcai-modal">
+    <button class="dcai-modal-close" aria-label="Close">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke-linecap="round"/></svg>
+    </button>
+    <h3>See Dutchie Consumer AI in Action</h3>
+    <p class="dcai-modal-sub">Fill out the form below and we'll be in touch.</p>
+    <div id="dcai-hs-form"></div>
+  </div>
 </div>
+
+</div>
+<script src="//js.hsforms.net/forms/embed/v2.js" charset="utf-8"></script>
 <script>(function(){
   var wrap = document.querySelector('.dcai-wrap');
   if (!wrap) return;
@@ -987,4 +1020,45 @@
       }, 200 + i * 80);
     });
   }
+  // HubSpot modal
+  var modal = document.getElementById('dcai-hs-modal');
+  var hsFormLoaded = false;
+
+  function openModal(e) {
+    e.preventDefault();
+    modal.classList.add('dcai-modal-open');
+    document.body.style.overflow = 'hidden';
+    if (!hsFormLoaded && typeof hbspt !== 'undefined') {
+      hbspt.forms.create({
+        portalId: "21108639",
+        formId: "435f0595-043a-4d93-b306-8c8afbbdfb16",
+        region: "na1",
+        target: "#dcai-hs-form"
+      });
+      hsFormLoaded = true;
+    }
+  }
+
+  function closeModal() {
+    modal.classList.remove('dcai-modal-open');
+    document.body.style.overflow = '';
+  }
+
+  // Open modal from CTA buttons
+  var modalBtns = wrap.querySelectorAll('.dcai-open-modal');
+  modalBtns.forEach(function(btn) { btn.addEventListener('click', openModal); });
+
+  // Close on X button
+  var closeBtn = modal.querySelector('.dcai-modal-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  // Close on overlay click
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('dcai-modal-open')) closeModal();
+  });
 })();</script>
