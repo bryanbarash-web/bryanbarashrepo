@@ -997,37 +997,35 @@ body {
   .close-btn { width:28px; height:28px; font-size:12px; top:8px; right:8px; }
 }
 
-/* ===== HUBSPOT MODAL ===== */
-.hs-modal-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease}
-.hs-modal-overlay.hs-modal-open{display:flex;opacity:1}
-.hs-modal{background:#fff;border-radius:16px;padding:40px 36px 36px;max-width:540px;width:90%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4);transform:translateY(20px);transition:transform .3s ease}
-.hs-modal-overlay.hs-modal-open .hs-modal{transform:translateY(0)}
-.hs-modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:8px;border:1px solid rgba(4,32,23,.1);background:rgba(4,32,23,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.hs-modal-close:hover{background:rgba(4,32,23,.1);border-color:rgba(4,32,23,.2)}
-.hs-modal-close svg{width:14px;height:14px;stroke:rgba(4,32,23,.6);stroke-width:2}
-.hs-modal h3{font-size:22px;font-weight:700;color:#042017;margin-bottom:4px;letter-spacing:-.02em}
-.hs-modal .hs-modal-sub{font-size:14px;color:rgba(4,32,23,.6);margin-bottom:24px}
-.hs-modal .hs-form fieldset{max-width:100%!important}
-.hs-modal .hs-form .hs-input{width:100%!important;padding:10px 14px!important;border-radius:8px!important;border:1px solid rgba(4,32,23,.15)!important;font-size:14px!important;font-family:'Matter','Inter',sans-serif!important;background:#fff!important;transition:border-color .2s!important}
-.hs-modal .hs-form .hs-input:focus{border-color:#6AB448!important;outline:none!important;box-shadow:0 0 0 3px rgba(106,180,72,.12)!important}
-.hs-modal .hs-form label{font-size:13px!important;font-weight:600!important;color:#042017!important;margin-bottom:4px!important}
-.hs-modal .hs-form .hs-button{background:#042017!important;color:#F1EBD6!important;border:none!important;padding:12px 28px!important;border-radius:10px!important;font-size:15px!important;font-weight:700!important;cursor:pointer!important;transition:all .3s!important;font-family:'Matter','Inter',sans-serif!important}
-.hs-modal .hs-form .hs-button:hover{background:#003D29!important;transform:translateY(-1px)!important;box-shadow:0 4px 16px rgba(4,32,23,.2)!important}
-.hs-modal .hs-form .hs-error-msg{color:#c0392b!important;font-size:12px!important}
-.hs-modal .hs-form .hs-richtext{font-size:12px!important;color:rgba(4,32,23,.5)!important;line-height:1.5!important}
+/* ===== HUBSPOT MODAL (matches business.dutchie.com pattern) ===== */
+.form-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .4s ease}
+.form-modal--visible{display:flex;opacity:1}
+.form-modal__inner{background:#fff;border-radius:16px;padding:40px 36px 36px;max-width:540px;width:90%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.form-modal-close-btn{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:8px;border:1px solid rgba(4,32,23,.1);background:rgba(4,32,23,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0;line-height:1;font-size:18px;color:rgba(4,32,23,.6)}
+.form-modal-close-btn:hover{background:rgba(4,32,23,.1);border-color:rgba(4,32,23,.2)}
+.form-modal__inner h3{font-size:22px;font-weight:700;color:#042017;margin:0 0 4px;letter-spacing:-.02em;font-family:'Matter','Inter',sans-serif}
+.form-modal__inner .form-modal__sub{font-size:14px;color:rgba(4,32,23,.6);margin:0 0 24px;font-family:'Matter','Inter',sans-serif}
+.form-modal__inner .hs-form{font-family:'Matter','Inter',sans-serif!important}
+.form-modal__inner .hs-form fieldset{max-width:100%!important}
+.form-modal__inner .hs-form .hs-input{width:100%!important;padding:10px 14px!important;border-radius:8px!important;border:1px solid rgba(4,32,23,.15)!important;font-size:14px!important;font-family:inherit!important;background:#fff!important;transition:border-color .2s!important;box-sizing:border-box!important}
+.form-modal__inner .hs-form .hs-input:focus{border-color:#6AB448!important;outline:none!important;box-shadow:0 0 0 3px rgba(106,180,72,.12)!important}
+.form-modal__inner .hs-form label{font-size:13px!important;font-weight:600!important;color:#042017!important;margin-bottom:4px!important;display:block!important}
+.form-modal__inner .hs-form .hs-button{background:#042017!important;color:#F1EBD6!important;border:none!important;padding:12px 28px!important;border-radius:10px!important;font-size:15px!important;font-weight:700!important;cursor:pointer!important;transition:all .3s!important;font-family:inherit!important}
+.form-modal__inner .hs-form .hs-button:hover{background:#003D29!important;transform:translateY(-1px)!important;box-shadow:0 4px 16px rgba(4,32,23,.2)!important}
+.form-modal__inner .hs-form .hs-error-msg{color:#c0392b!important;font-size:12px!important}
+.form-modal__inner .hs-form .hs-richtext{font-size:12px!important;color:rgba(4,32,23,.5)!important;line-height:1.5!important}
+.form-modal__inner .hs-form .hs-fieldtype-text,.form-modal__inner .hs-form .hs-fieldtype-select,.form-modal__inner .hs-form .hs-fieldtype-phonenumber,.form-modal__inner .hs-form .hs-fieldtype-textarea{margin-bottom:16px!important}
+.form-modal__inner .hs-form select.hs-input{appearance:auto!important;-webkit-appearance:menulist!important}
 </style>
 </head>
 <body>
 
-<!-- HubSpot Form Modal -->
-<div class="hs-modal-overlay" id="hs-modal">
-  <div class="hs-modal">
-    <button class="hs-modal-close" aria-label="Close">
-      <svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke-linecap="round"/></svg>
-    </button>
+<div class="form-modal" id="v3-form-modal">
+  <div class="form-modal__inner">
+    <button class="form-modal-close-btn" aria-label="Close">&times;</button>
     <h3>See Dutchie Consumer AI in Action</h3>
-    <p class="hs-modal-sub">Fill out the form below and we'll be in touch.</p>
-    <div id="hs-form-target"></div>
+    <p class="form-modal__sub">Fill out the form below and we'll be in touch.</p>
+    <div id="v3-hs-form"></div>
   </div>
 </div>
 
@@ -1869,35 +1867,50 @@ body {
 </script>
 <script src="//js.hsforms.net/forms/embed/v2.js" charset="utf-8"></script>
 <script>(function(){
-  var modal = document.getElementById('hs-modal');
-  var hsFormLoaded = false;
+  var modalContainer = document.getElementById('v3-form-modal');
+  var modalCloseBtn = modalContainer.querySelector('.form-modal-close-btn');
 
-  function openModal(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    modal.classList.add('hs-modal-open');
-    document.body.style.overflow = 'hidden';
-    if (!hsFormLoaded && typeof hbspt !== 'undefined') {
+  // Pre-load HubSpot form on page load
+  function loadHsForm() {
+    if (typeof hbspt !== 'undefined') {
       hbspt.forms.create({
         portalId: "21108639",
         formId: "435f0595-043a-4d93-b306-8c8afbbdfb16",
         region: "na1",
-        target: "#hs-form-target"
+        target: "#v3-hs-form"
       });
-      hsFormLoaded = true;
+    } else {
+      setTimeout(loadHsForm, 500);
     }
+  }
+  loadHsForm();
+
+  function openModal(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    modalContainer.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    modalContainer.offsetHeight;
+    modalContainer.classList.add('form-modal--visible');
   }
 
   function closeModal() {
-    modal.classList.remove('hs-modal-open');
+    modalContainer.classList.remove('form-modal--visible');
     document.body.style.overflow = '';
+    setTimeout(function() {
+      if (!modalContainer.classList.contains('form-modal--visible')) {
+        modalContainer.style.display = 'none';
+      }
+    }, 400);
   }
 
   document.getElementById('cta-open-modal').addEventListener('click', openModal);
-  modal.querySelector('.hs-modal-close').addEventListener('click', closeModal);
-  modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalContainer.addEventListener('click', function(e) {
+    if (e.target === modalContainer) closeModal();
+  });
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.classList.contains('hs-modal-open')) closeModal();
+    if (e.key === 'Escape' && modalContainer.classList.contains('form-modal--visible')) closeModal();
   });
 })();
 </script>
