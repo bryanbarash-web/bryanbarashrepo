@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutchie — Market Share</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-green: #042017;
+            --medium-green: #003D29;
+            --light-green: #6AB448;
+            --sand: #F1EBD6;
+            --yellow: #FFC02A;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-green);
+            color: var(--sand);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== LOCK SCREEN ===== */
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: var(--dark-green);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        #lock-screen.unlocked {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .lock-logo {
+            height: 32px;
+            width: auto;
+            margin-bottom: 48px;
+            opacity: 0.6;
+        }
+        .lock-box {
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+            padding: 0 24px;
+        }
+        .lock-box h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--sand);
+            margin-bottom: 8px;
+        }
+        .lock-box p {
+            font-size: 0.85rem;
+            color: var(--sand);
+            opacity: 0.5;
+            margin-bottom: 32px;
+        }
+        .lock-input-wrap {
+            position: relative;
+        }
+        .lock-input-wrap input {
+            width: 100%;
+            padding: 14px 20px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.06);
+            border: 1.5px solid rgba(241,235,214,0.15);
+            border-radius: 10px;
+            color: var(--sand);
+            outline: none;
+            text-align: center;
+            letter-spacing: 0.1em;
+            transition: border-color 0.2s;
+        }
+        .lock-input-wrap input::placeholder {
+            color: var(--sand);
+            opacity: 0.3;
+            letter-spacing: 0.05em;
+        }
+        .lock-input-wrap input:focus {
+            border-color: var(--light-green);
+        }
+        .lock-input-wrap.error input {
+            border-color: #ef4444;
+            animation: shake 0.4s ease;
+        }
+        .lock-error-msg {
+            font-size: 0.75rem;
+            color: #ef4444;
+            margin-top: 12px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .lock-input-wrap.error + .lock-error-msg {
+            opacity: 1;
+        }
+        .lock-hint {
+            font-size: 0.7rem;
+            color: var(--sand);
+            opacity: 0.25;
+            margin-top: 24px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        #main-content {
+            display: none;
+            min-height: 100vh;
+        }
+        #main-content.visible {
+            display: block;
+        }
+
+        .page-header {
+            padding: 24px 40px;
+            border-bottom: 1px solid rgba(241,235,214,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .page-header img {
+            height: 24px;
+            width: auto;
+        }
+        .page-header .page-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sand);
+            opacity: 0.6;
+        }
+
+        .content-area {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        .content-area h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--sand);
+            margin-bottom: 16px;
+        }
+        .content-area .subtitle {
+            font-size: 1rem;
+            color: var(--sand);
+            opacity: 0.5;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .placeholder-card {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(241,235,214,0.1);
+            border-radius: 16px;
+            padding: 80px 40px;
+        }
+        .placeholder-card p {
+            font-size: 0.9rem;
+            color: var(--sand);
+            opacity: 0.4;
+        }
+
+        @media (max-width: 768px) {
+            .page-header { padding: 16px 20px; }
+            .content-area { padding: 48px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+    <img class="lock-logo" src="images/logo-light.png" alt="dutchie">
+    <div class="lock-box">
+        <h2>Restricted Access</h2>
+        <p>Enter the password to continue.</p>
+        <div class="lock-input-wrap" id="lock-input-wrap">
+            <input type="password" id="lock-password" placeholder="Password" autocomplete="off" autofocus>
+        </div>
+        <div class="lock-error-msg" id="lock-error">Incorrect password. Try again.</div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+    <header class="page-header">
+        <img src="images/logo-light.png" alt="dutchie">
+        <span class="page-title">Market Share</span>
+    </header>
+    <div class="content-area">
+        <h1>Market Share</h1>
+        <p class="subtitle">Cannabis technology market intelligence and competitive positioning.</p>
+        <div class="placeholder-card">
+            <p>Content coming soon.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const HASH = '5e6d4f2a7b8c9d0e1f2a3b4c5d6e7f8a';
+    const input = document.getElementById('lock-password');
+    const wrap = document.getElementById('lock-input-wrap');
+    const lockScreen = document.getElementById('lock-screen');
+    const mainContent = document.getElementById('main-content');
+    const errorMsg = document.getElementById('lock-error');
+
+    function hashStr(s) {
+        let h = 0;
+        for (let i = 0; i < s.length; i++) {
+            h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+        }
+        return h;
+    }
+
+    const TARGET = hashStr('bryanspace');
+
+    function tryUnlock() {
+        if (hashStr(input.value) === TARGET) {
+            sessionStorage.setItem('ms_auth', '1');
+            unlock();
+        } else {
+            wrap.classList.add('error');
+            input.value = '';
+            setTimeout(() => wrap.classList.remove('error'), 600);
+        }
+    }
+
+    function unlock() {
+        lockScreen.classList.add('unlocked');
+        mainContent.classList.add('visible');
+    }
+
+    if (sessionStorage.getItem('ms_auth') === '1') {
+        unlock();
+    }
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') tryUnlock();
+    });
+})();
+</script>
+
+</body>
+</html>
