@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dutchie Product Updates — Concept 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body style="margin:0;padding:0;background:#F1EBD6;">
+
+<div class="concept-2">
+
+<style>
+  /* ─── Reset & Scope ───────────────────────────────────────────── */
+  .concept-2 *,
+  .concept-2 *::before,
+  .concept-2 *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .concept-2 {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #F1EBD6;
+    color: #042017;
+    min-height: 100vh;
+  }
+
+  /* ─── Header ──────────────────────────────────────────────────── */
+  .c2-header {
+    background: #042017;
+    color: #F1EBD6;
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .c2-header::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: rgba(106, 180, 72, 0.07);
+    pointer-events: none;
+  }
+
+  .c2-header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 30%;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(94, 50, 78, 0.12);
+    pointer-events: none;
+  }
+
+  .c2-header-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .c2-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #FFC02A;
+    margin-bottom: 20px;
+  }
+
+  .c2-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6AB448;
+    flex-shrink: 0;
+  }
+
+  .c2-header h1 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: #F1EBD6;
+    line-height: 1.15;
+    max-width: 680px;
+    margin-bottom: 20px;
+  }
+
+  .c2-header h1 span {
+    color: #FFC02A;
+  }
+
+  .c2-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .c2-release-badge {
+    background: rgba(255, 192, 42, 0.15);
+    border: 1px solid rgba(255, 192, 42, 0.35);
+    color: #FFC02A;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  .c2-update-count {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(241, 235, 214, 0.6);
+  }
+
+  .c2-intro-text {
+    margin-top: 28px;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(241, 235, 214, 0.82);
+    max-width: 620px;
+    line-height: 1.65;
+    border-left: 3px solid #6AB448;
+    padding-left: 18px;
+  }
+
+  /* ─── TOC Strip ───────────────────────────────────────────────── */
+  .c2-toc-strip {
+    background: #003D29;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .c2-toc-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .c2-toc-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 48px;
+    min-width: max-content;
+  }
+
+  .c2-toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(241, 235, 214, 0.65);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .c2-toc-item:hover {
+    color: #F1EBD6;
+    border-bottom-color: #6AB448;
+  }
+
+  .c2-toc-num {
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(241, 235, 214, 0.5);
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .c2-toc-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(241, 235, 214, 0.1);
+    flex-shrink: 0;
+  }
+
+  /* ─── Filter Bar ──────────────────────────────────────────────── */
+  .c2-filter-bar-wrap {
+    background: #F1EBD6;
+    padding: 32px 48px 0;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .c2-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .c2-filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(4, 32, 23, 0.45);
+    margin-right: 4px;
+  }
+
+  .c2-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    user-select: none;
+  }
+
+  .c2-pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .c2-pill--all {
+    background: #042017;
+    color: #F1EBD6;
+    border-color: #042017;
+  }
+
+  .c2-pill--all:hover {
+    background: #003D29;
+    border-color: #003D29;
+  }
+
+  .c2-pill--new {
+    background: transparent;
+    color: #003D29;
+    border-color: #003D29;
+  }
+
+  .c2-pill--new:hover {
+    background: #003D29;
+    color: #F1EBD6;
+  }
+
+  .c2-pill--segments {
+    background: transparent;
+    color: #5E324E;
+    border-color: #5E324E;
+  }
+
+  .c2-pill--segments:hover {
+    background: #5E324E;
+    color: #F1EBD6;
+  }
+
+  .c2-pill--ecommerce {
+    background: transparent;
+    color: #042017;
+    border-color: #042017;
+  }
+
+  .c2-pill--ecommerce:hover {
+    background: #042017;
+    color: #F1EBD6;
+  }
+
+  /* ─── Section Headers ─────────────────────────────────────────── */
+  .c2-main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+
+  .c2-section {
+    margin-bottom: 56px;
+  }
+
+  .c2-section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1.5px solid rgba(4, 32, 23, 0.1);
+  }
+
+  .c2-section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .c2-section-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .c2-section-icon--new {
+    background: rgba(0, 61, 41, 0.12);
+  }
+
+  .c2-section-icon--segments {
+    background: rgba(94, 50, 78, 0.12);
+  }
+
+  .c2-section-icon--ecommerce {
+    background: rgba(4, 32, 23, 0.1);
+  }
+
+  .c2-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #042017;
+  }
+
+  .c2-section-count {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-left: auto;
+  }
+
+  .c2-section-count--new {
+    background: rgba(0, 61, 41, 0.12);
+    color: #003D29;
+  }
+
+  .c2-section-count--segments {
+    background: rgba(94, 50, 78, 0.12);
+    color: #5E324E;
+  }
+
+  .c2-section-count--ecommerce {
+    background: rgba(4, 32, 23, 0.08);
+    color: #042017;
+  }
+
+  /* ─── Card Grid ───────────────────────────────────────────────── */
+  .c2-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 720px) {
+    .c2-grid {
+      grid-template-columns: 1fr;
+    }
+    .c2-main {
+      padding: 32px 20px 60px;
+    }
+    .c2-filter-bar-wrap {
+      padding: 24px 20px 0;
+    }
+    .c2-header {
+      padding: 40px 20px 36px;
+    }
+    .c2-toc-inner {
+      padding: 0 20px;
+    }
+  }
+
+  /* ─── Cards ───────────────────────────────────────────────────── */
+  .c2-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(4, 32, 23, 0.06), 0 0 0 1px rgba(4, 32, 23, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .c2-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(4, 32, 23, 0.13), 0 0 0 1px rgba(4, 32, 23, 0.07);
+  }
+
+  .c2-card-top-bar {
+    height: 4px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .c2-card-top-bar--new      { background: #003D29; }
+  .c2-card-top-bar--segments { background: #5E324E; }
+  .c2-card-top-bar--ecommerce { background: #042017; }
+
+  .c2-card-body {
+    padding: 24px 24px 0;
+    flex: 1;
+  }
+
+  .c2-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .c2-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .c2-tag--new {
+    background: rgba(0, 61, 41, 0.1);
+    color: #003D29;
+  }
+
+  .c2-tag--segments {
+    background: rgba(94, 50, 78, 0.1);
+    color: #5E324E;
+  }
+
+  .c2-tag--ecommerce {
+    background: rgba(4, 32, 23, 0.08);
+    color: #042017;
+  }
+
+  .c2-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6AB448;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .c2-card-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(4, 32, 23, 0.25);
+    margin-left: auto;
+  }
+
+  .c2-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #042017;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .c2-card-desc {
+    font-size: 13.5px;
+    font-weight: 400;
+    color: rgba(4, 32, 23, 0.7);
+    line-height: 1.62;
+    margin-bottom: 20px;
+  }
+
+  /* ─── Card Footer ─────────────────────────────────────────────── */
+  .c2-card-footer {
+    padding: 14px 24px;
+    border-top: 1px solid rgba(4, 32, 23, 0.07);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .c2-breadcrumb-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(4, 32, 23, 0.35);
+    flex-shrink: 0;
+    margin-right: 2px;
+  }
+
+  .c2-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .c2-crumb {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: rgba(4, 32, 23, 0.55);
+    white-space: nowrap;
+  }
+
+  .c2-crumb-sep {
+    font-size: 10px;
+    color: rgba(4, 32, 23, 0.25);
+  }
+
+  .c2-crumb:last-child {
+    color: #042017;
+  }
+
+  .c2-no-location {
+    font-size: 11.5px;
+    font-style: italic;
+    color: rgba(4, 32, 23, 0.35);
+  }
+
+  /* ─── CTA Banner ──────────────────────────────────────────────── */
+  .c2-cta-banner {
+    background: #042017;
+    border-radius: 20px;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .c2-cta-text h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #F1EBD6;
+    margin-bottom: 8px;
+  }
+
+  .c2-cta-text p {
+    font-size: 14px;
+    color: rgba(241, 235, 214, 0.65);
+    max-width: 440px;
+    line-height: 1.6;
+  }
+
+  .c2-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFC02A;
+    color: #042017;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .c2-cta-btn:hover {
+    background: #ffd060;
+    transform: translateY(-2px);
+  }
+
+  .c2-cta-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+</style>
+
+<!-- ═══ HEADER ════════════════════════════════════════════════════ -->
+<header class="c2-header">
+  <div class="c2-header-inner">
+    <div class="c2-eyebrow">
+      <span class="c2-eyebrow-dot"></span>
+      Dutchie Platform · Product Changelog
+    </div>
+    <h1>What's new at<br /><span>Dutchie</span></h1>
+    <div class="c2-header-meta">
+      <span class="c2-release-badge">March 2026 Release</span>
+      <span class="c2-update-count">11 updates across 3 categories</span>
+    </div>
+    <p class="c2-intro-text">
+      This month we're delivering more precision and control over your store's experience—from automated merchandising to personalized customer journey tools.
+    </p>
+  </div>
+</header>
+
+<!-- ═══ TOC STRIP ═════════════════════════════════════════════════ -->
+<nav class="c2-toc-strip" aria-label="Updates table of contents">
+  <div class="c2-toc-inner">
+    <a class="c2-toc-item" href="#update-1"><span class="c2-toc-num">01</span>Smart Tags</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-2"><span class="c2-toc-num">02</span>Brand Portal V2</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-3"><span class="c2-toc-num">03</span>Exclusive Channel Offers</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-4"><span class="c2-toc-num">04</span>Event-Based Lead Gen</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-5"><span class="c2-toc-num">05</span>Comms Preferences</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-6"><span class="c2-toc-num">06</span>Enhanced Segments</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-7"><span class="c2-toc-num">07</span>Segment Badges</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-8"><span class="c2-toc-num">08</span>Employee Rewards</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-9"><span class="c2-toc-num">09</span>Multi-Image Cards</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-10"><span class="c2-toc-num">10</span>Custom Mobile Menu</a>
+    <div class="c2-toc-divider"></div>
+    <a class="c2-toc-item" href="#update-11"><span class="c2-toc-num">11</span>AWS Migration</a>
+  </div>
+</nav>
+
+<!-- ═══ FILTER BAR ════════════════════════════════════════════════ -->
+<div class="c2-filter-bar-wrap">
+  <div class="c2-filter-bar">
+    <span class="c2-filter-label">Filter</span>
+    <a class="c2-pill c2-pill--all" href="#">
+      All Updates
+    </a>
+    <a class="c2-pill c2-pill--new" href="#">
+      <span class="c2-pill-dot" style="background:#003D29;"></span>
+      What's New
+    </a>
+    <a class="c2-pill c2-pill--segments" href="#">
+      <span class="c2-pill-dot" style="background:#5E324E;"></span>
+      Segments &amp; Growth
+    </a>
+    <a class="c2-pill c2-pill--ecommerce" href="#">
+      <span class="c2-pill-dot" style="background:#042017;"></span>
+      E-Commerce &amp; Mobile
+    </a>
+  </div>
+</div>
+
+<!-- ═══ MAIN CONTENT ══════════════════════════════════════════════ -->
+<main class="c2-main">
+
+  <!-- ─── WHAT'S NEW ──────────────────────────────────────────── -->
+  <section class="c2-section" id="whats-new">
+    <div class="c2-section-header">
+      <div class="c2-section-icon c2-section-icon--new">
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 1.5L11.18 6.26L16.5 6.93L12.75 10.54L13.71 15.82L9 13.27L4.29 15.82L5.25 10.54L1.5 6.93L6.82 6.26L9 1.5Z" fill="#003D29"/>
+        </svg>
+      </div>
+      <span class="c2-section-title">What's New</span>
+      <span class="c2-section-count c2-section-count--new">4 updates</span>
+    </div>
+
+    <div class="c2-grid">
+
+      <!-- Card 1: Smart Tags -->
+      <article class="c2-card" id="update-1">
+        <div class="c2-card-top-bar c2-card-top-bar--new"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--new">What's New</span>
+            <span class="c2-indicator" title="New feature"></span>
+            <span class="c2-card-num">01</span>
+          </div>
+          <h3 class="c2-card-title">Smart Tags</h3>
+          <p class="c2-card-desc">Rules-based automation for inventory tagging by lab results, pricing trends, or expiration dates. Tags auto-trigger discounts and menu collections, keeping your shelves smart without manual effort.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">Inventory</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Inventory Tab</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 2: Brand Portal V2 -->
+      <article class="c2-card" id="update-2">
+        <div class="c2-card-top-bar c2-card-top-bar--new"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--new">What's New</span>
+            <span class="c2-indicator" title="New feature"></span>
+            <span class="c2-card-num">02</span>
+          </div>
+          <h3 class="c2-card-title">Brand Portal V2</h3>
+          <p class="c2-card-desc">Brands can now create and manage product catalogs with verified imagery and descriptions that sync across the entire Dutchie network—ensuring consistent, accurate product content everywhere.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-no-location">Network-wide — managed by brands</span>
+        </footer>
+      </article>
+
+      <!-- Card 3: Exclusive Channel Offers -->
+      <article class="c2-card" id="update-3">
+        <div class="c2-card-top-bar c2-card-top-bar--new"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--new">What's New</span>
+            <span class="c2-indicator" title="New feature"></span>
+            <span class="c2-card-num">03</span>
+          </div>
+          <h3 class="c2-card-title">Exclusive Channel Offers</h3>
+          <p class="c2-card-desc">Create platform-specific promotions—Mobile-Only deals, Kiosk-Only specials—using segment logic to target the right customers on the right channel at the right time.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">Marketing</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Discounts</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Order Sources</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 4: Event-Based Lead Generation -->
+      <article class="c2-card" id="update-4">
+        <div class="c2-card-top-bar c2-card-top-bar--new"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--new">What's New</span>
+            <span class="c2-indicator" title="New feature"></span>
+            <span class="c2-card-num">04</span>
+          </div>
+          <h3 class="c2-card-title">Event-Based Lead Generation</h3>
+          <p class="c2-card-desc">Deploy QR codes at pop-ups and festivals for instant rewards enrollment. Capture leads and build loyalty pipelines directly from off-site events—no app download required.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">Marketing</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Events</span>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─── SEGMENTS & GROWTH ───────────────────────────────────── -->
+  <section class="c2-section" id="segments-growth">
+    <div class="c2-section-header">
+      <div class="c2-section-icon c2-section-icon--segments">
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6.5" cy="6.5" r="4" stroke="#5E324E" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="4" stroke="#5E324E" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <span class="c2-section-title">Segments &amp; Growth</span>
+      <span class="c2-section-count c2-section-count--segments">4 updates</span>
+    </div>
+
+    <div class="c2-grid">
+
+      <!-- Card 5: Comms Preferences -->
+      <article class="c2-card" id="update-5">
+        <div class="c2-card-top-bar c2-card-top-bar--segments"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--segments">Segments &amp; Growth</span>
+            <span class="c2-card-num">05</span>
+          </div>
+          <h3 class="c2-card-title">Comms Preferences</h3>
+          <p class="c2-card-desc">Customers and budtenders can now manage opt-in statuses and notification preferences—SMS, Email, Push—directly at the POS, making compliance and personalization seamless.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">POS</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Customer Profile</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 6: Enhanced Segment Attributes -->
+      <article class="c2-card" id="update-6">
+        <div class="c2-card-top-bar c2-card-top-bar--segments"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--segments">Segments &amp; Growth</span>
+            <span class="c2-card-num">06</span>
+          </div>
+          <h3 class="c2-card-title">Enhanced Segment Attributes</h3>
+          <p class="c2-card-desc">30+ new filtering options including loyalty status, spend behavior, and purchase patterns give you unprecedented precision when building customer segments for targeted campaigns.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">Customers</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Segments</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 7: Custom Segment Badges at Register -->
+      <article class="c2-card" id="update-7">
+        <div class="c2-card-top-bar c2-card-top-bar--segments"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--segments">Segments &amp; Growth</span>
+            <span class="c2-card-num">07</span>
+          </div>
+          <h3 class="c2-card-title">Custom Segment Badges at Register</h3>
+          <p class="c2-card-desc">Visual indicators now highlight key customer segments—VIPs, medical patients, loyalty tiers—right at the register, giving budtenders instant context for personalized service.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">POS</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Register View</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 8: Employee Rewards & Guardrails -->
+      <article class="c2-card" id="update-8">
+        <div class="c2-card-top-bar c2-card-top-bar--segments"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--segments">Segments &amp; Growth</span>
+            <span class="c2-card-num">08</span>
+          </div>
+          <h3 class="c2-card-title">Employee Rewards &amp; Guardrails</h3>
+          <p class="c2-card-desc">Create employee-specific segments with incentive programs and guardrails that prevent discount stacking—motivating your team while protecting your margins.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">Marketing</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Loyalty</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Settings</span>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─── E-COMMERCE & MOBILE ─────────────────────────────────── -->
+  <section class="c2-section" id="ecommerce">
+    <div class="c2-section-header">
+      <div class="c2-section-icon c2-section-icon--ecommerce">
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="6" height="6" rx="1.5" fill="#042017"/>
+          <rect x="10" y="2" width="6" height="6" rx="1.5" fill="#042017" opacity="0.5"/>
+          <rect x="2" y="10" width="6" height="6" rx="1.5" fill="#042017" opacity="0.5"/>
+          <rect x="10" y="10" width="6" height="6" rx="1.5" fill="#042017" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="c2-section-title">E-Commerce &amp; Mobile</span>
+      <span class="c2-section-count c2-section-count--ecommerce">3 updates</span>
+    </div>
+
+    <div class="c2-grid">
+
+      <!-- Card 9: Multi-Image Product Cards -->
+      <article class="c2-card" id="update-9">
+        <div class="c2-card-top-bar c2-card-top-bar--ecommerce"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--ecommerce">E-Commerce</span>
+            <span class="c2-card-num">09</span>
+          </div>
+          <h3 class="c2-card-title">Multi-Image Product Cards</h3>
+          <p class="c2-card-desc">A scrollable gallery on product cards lets customers browse multiple product images directly from menu displays—reducing uncertainty and driving higher conversion on your online menu.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">E-Commerce</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Menu Builder</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 10: Custom Mobile Menu -->
+      <article class="c2-card" id="update-10">
+        <div class="c2-card-top-bar c2-card-top-bar--ecommerce"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--ecommerce">E-Commerce</span>
+            <span class="c2-card-num">10</span>
+          </div>
+          <h3 class="c2-card-title">Custom Mobile Menu</h3>
+          <p class="c2-card-desc">A drag-and-drop builder makes it easy to customize your mobile menu layout—highlight brands, surface loyalty links, and shape the mobile shopping experience without writing a line of code.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-breadcrumb-label">Find it</span>
+          <div class="c2-breadcrumb">
+            <span class="c2-crumb">E-Commerce</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Mobile</span>
+            <span class="c2-crumb-sep">›</span>
+            <span class="c2-crumb">Menu Builder</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 11: AWS Database Migration -->
+      <article class="c2-card" id="update-11">
+        <div class="c2-card-top-bar c2-card-top-bar--ecommerce"></div>
+        <div class="c2-card-body">
+          <div class="c2-card-meta">
+            <span class="c2-tag c2-tag--ecommerce">Infrastructure</span>
+            <span class="c2-indicator" title="Major update" style="background:#FFC02A;"></span>
+            <span class="c2-card-num">11</span>
+          </div>
+          <h3 class="c2-card-title">AWS Database Migration</h3>
+          <p class="c2-card-desc">In partnership with AWS, we've rebuilt Dutchie's core transaction infrastructure from the ground up—delivering faster checkouts, lower latency under peak load, and seamless auto-scaling across every transaction.</p>
+        </div>
+        <footer class="c2-card-footer">
+          <span class="c2-no-location">Platform-wide infrastructure upgrade</span>
+        </footer>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─── CTA BANNER ──────────────────────────────────────────── -->
+  <div class="c2-cta-banner">
+    <div class="c2-cta-text">
+      <h3>Questions about any of these updates?</h3>
+      <p>Reach out to your Dutchie account manager or visit the Help Center to learn how to activate these features in your store today.</p>
+    </div>
+    <a class="c2-cta-btn" href="#">
+      Visit Help Center
+      <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 7.5H12M12 7.5L8.5 4M12 7.5L8.5 11" stroke="#042017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+</main>
+</div>
+
+</body>
+</html>

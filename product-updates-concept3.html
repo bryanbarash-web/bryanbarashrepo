@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dutchie Product Updates — March 2026 — Concept 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body style="margin:0;padding:0;background:#042017;">
+
+<div class="concept-3">
+
+<style>
+  /* =========================================================
+     CONCEPT 3 — BENTO GRID  |  Dutchie Product Updates
+     ========================================================= */
+
+  .concept-3 *,
+  .concept-3 *::before,
+  .concept-3 *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .concept-3 {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #042017;
+    color: #F1EBD6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+
+  .c3-hero {
+    position: relative;
+    padding: 120px 80px 100px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(241,235,214,0.08);
+  }
+
+  /* Gradient mesh background */
+  .c3-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(94,50,78,0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 10% 80%, rgba(0,61,41,0.8) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 50% at 90% 90%, rgba(106,180,72,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Grid dot pattern overlay */
+  .c3-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(241,235,214,0.07) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .c3-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .c3-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #FFC02A;
+    margin-bottom: 32px;
+  }
+
+  .c3-hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: #FFC02A;
+  }
+
+  .c3-hero-date {
+    font-size: clamp(80px, 14vw, 180px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    color: #F1EBD6;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .c3-hero-date span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(241,235,214,0.25);
+  }
+
+  .c3-hero-body {
+    max-width: 600px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(241,235,214,0.75);
+    border-left: 3px solid #FFC02A;
+    padding-left: 24px;
+  }
+
+  .c3-hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 64px;
+  }
+
+  .c3-hero-stat-num {
+    font-size: 42px;
+    font-weight: 900;
+    color: #FFC02A;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .c3-hero-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(241,235,214,0.5);
+    margin-top: 6px;
+  }
+
+  /* ── SECTION DIVIDERS ────────────────────────────────── */
+
+  .c3-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 80px 0;
+  }
+
+  .c3-section:last-of-type {
+    padding-bottom: 120px;
+  }
+
+  .c3-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(241,235,214,0.1);
+  }
+
+  .c3-section-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #6AB448;
+    flex-shrink: 0;
+  }
+
+  .c3-section-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #F1EBD6;
+    line-height: 1;
+  }
+
+  .c3-section-count {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(241,235,214,0.3);
+    flex-shrink: 0;
+  }
+
+  /* ── BENTO GRID ──────────────────────────────────────── */
+
+  .c3-bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+  }
+
+  /* ── CARD BASE ───────────────────────────────────────── */
+
+  .c3-card {
+    border-radius: 20px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: default;
+  }
+
+  .c3-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  /* Card themes */
+  .c3-card--sand {
+    background: #F1EBD6;
+    color: #042017;
+  }
+
+  .c3-card--sand:hover {
+    box-shadow: 0 24px 60px rgba(241,235,214,0.15);
+  }
+
+  .c3-card--dark {
+    background: #003D29;
+    color: #F1EBD6;
+    border: 1px solid rgba(241,235,214,0.06);
+  }
+
+  .c3-card--dark:hover {
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(241,235,214,0.12);
+  }
+
+  .c3-card--purple {
+    background: #5E324E;
+    color: #F1EBD6;
+  }
+
+  .c3-card--purple:hover {
+    box-shadow: 0 24px 60px rgba(94,50,78,0.5);
+  }
+
+  .c3-card--hero-green {
+    background: linear-gradient(135deg, #003D29 0%, #042017 60%, #003D29 100%);
+    color: #F1EBD6;
+    border: 1px solid rgba(106,180,72,0.2);
+  }
+
+  .c3-card--hero-green:hover {
+    box-shadow: 0 24px 60px rgba(106,180,72,0.2);
+  }
+
+  .c3-card--hero-purple {
+    background: linear-gradient(135deg, #5E324E 0%, #3d1f33 100%);
+    color: #F1EBD6;
+  }
+
+  .c3-card--hero-purple:hover {
+    box-shadow: 0 24px 60px rgba(94,50,78,0.45);
+  }
+
+  /* ── GRID SPANS ──────────────────────────────────────── */
+
+  .c3-col-8  { grid-column: span 8; }
+  .c3-col-6  { grid-column: span 6; }
+  .c3-col-5  { grid-column: span 5; }
+  .c3-col-4  { grid-column: span 4; }
+  .c3-col-3  { grid-column: span 3; }
+  .c3-row-2  { grid-row: span 2; }
+
+  /* ── CARD ANATOMY ────────────────────────────────────── */
+
+  .c3-card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .c3-card--sand .c3-card-tag {
+    background: rgba(4,32,23,0.08);
+    color: #042017;
+  }
+
+  .c3-card--dark .c3-card-tag,
+  .c3-card--hero-green .c3-card-tag {
+    background: rgba(241,235,214,0.1);
+    color: rgba(241,235,214,0.7);
+  }
+
+  .c3-card--purple .c3-card-tag,
+  .c3-card--hero-purple .c3-card-tag {
+    background: rgba(241,235,214,0.12);
+    color: rgba(241,235,214,0.7);
+  }
+
+  .c3-badge-new {
+    display: inline-flex;
+    align-items: center;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #FFC02A;
+    color: #042017;
+    margin-left: 8px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  .c3-card-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .c3-card--hero-green .c3-card-title,
+  .c3-card--hero-purple .c3-card-title {
+    font-size: 30px;
+  }
+
+  .c3-card-desc {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.65;
+    opacity: 0.75;
+  }
+
+  .c3-card--sand .c3-card-desc {
+    color: #042017;
+    opacity: 0.65;
+  }
+
+  .c3-card-path {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  .c3-card--sand .c3-card-path {
+    color: #042017;
+    opacity: 0.45;
+  }
+
+  .c3-card--dark .c3-card-path,
+  .c3-card--hero-green .c3-card-path {
+    color: #6AB448;
+    opacity: 1;
+  }
+
+  .c3-card--purple .c3-card-path,
+  .c3-card--hero-purple .c3-card-path {
+    color: #FFC02A;
+    opacity: 1;
+  }
+
+  .c3-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #6AB448;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(106,180,72,0.7);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Hero card decorative element */
+  .c3-card--hero-green::before,
+  .c3-card--hero-purple::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(241,235,214,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .c3-card--hero-green .c3-big-num,
+  .c3-card--hero-purple .c3-big-num {
+    position: absolute;
+    bottom: -20px;
+    right: 24px;
+    font-size: 160px;
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    opacity: 0.05;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    color: #F1EBD6;
+  }
+
+  /* ── AWS SPOTLIGHT ───────────────────────────────────── */
+
+  .c3-spotlight {
+    grid-column: span 12;
+    border-radius: 24px;
+    padding: 64px 72px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(105deg, #042017 0%, #003D29 40%, #5E324E 100%);
+    border: 1px solid rgba(255,192,42,0.2);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .c3-spotlight:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 32px 80px rgba(255,192,42,0.12), 0 0 0 1px rgba(255,192,42,0.25);
+  }
+
+  .c3-spotlight::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(circle, rgba(255,192,42,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  .c3-spotlight::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,192,42,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .c3-spotlight-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 80px;
+  }
+
+  .c3-spotlight-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,192,42,0.4);
+    color: #FFC02A;
+    margin-bottom: 24px;
+  }
+
+  .c3-spotlight-pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #FFC02A;
+    box-shadow: 0 0 8px rgba(255,192,42,0.8);
+  }
+
+  .c3-spotlight-title {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #F1EBD6;
+    margin-bottom: 20px;
+  }
+
+  .c3-spotlight-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(241,235,214,0.65);
+    max-width: 640px;
+  }
+
+  .c3-spotlight-badge {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,192,42,0.3);
+    background: rgba(255,192,42,0.06);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .c3-spotlight-badge-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(241,235,214,0.5);
+    margin-bottom: 6px;
+  }
+
+  .c3-spotlight-badge-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFC02A;
+    letter-spacing: -0.02em;
+  }
+
+  .c3-spotlight-badge-sub {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(241,235,214,0.4);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FEATURES PILLARS (decorative row) ──────────────── */
+
+  .c3-pillars {
+    display: flex;
+    gap: 2px;
+    margin: 16px 0;
+  }
+
+  .c3-pillar {
+    height: 3px;
+    border-radius: 2px;
+    flex: 1;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+
+  @media (max-width: 1100px) {
+    .c3-hero { padding: 80px 40px 72px; }
+    .c3-section { padding: 60px 40px 0; }
+    .c3-col-8 { grid-column: span 12; }
+    .c3-col-6 { grid-column: span 6; }
+    .c3-col-5 { grid-column: span 6; }
+    .c3-col-4 { grid-column: span 6; }
+    .c3-col-3 { grid-column: span 6; }
+    .c3-row-2 { grid-row: span 1; }
+    .c3-spotlight-inner { grid-template-columns: 1fr; gap: 40px; }
+    .c3-spotlight-badge { display: none; }
+  }
+
+  @media (max-width: 720px) {
+    .c3-hero { padding: 60px 24px 56px; }
+    .c3-section { padding: 48px 24px 0; }
+    .c3-bento { grid-template-columns: 1fr; gap: 12px; }
+    .c3-col-8, .c3-col-6, .c3-col-5, .c3-col-4, .c3-col-3 { grid-column: span 1; }
+    .c3-spotlight { padding: 40px 28px; }
+    .c3-hero-stats { gap: 28px; flex-wrap: wrap; }
+    .c3-section-title { font-size: 28px; }
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section class="c3-hero">
+  <div class="c3-hero-inner">
+
+    <div class="c3-hero-eyebrow">Dutchie Product Updates</div>
+
+    <div class="c3-hero-date">
+      March
+      <span>2026</span>
+    </div>
+
+    <p class="c3-hero-body">
+      This month we're delivering more precision and control over your store's experience — from automated merchandising to personalized customer journey tools.
+    </p>
+
+    <div class="c3-hero-stats">
+      <div>
+        <div class="c3-hero-stat-num">11</div>
+        <div class="c3-hero-stat-label">New Features</div>
+      </div>
+      <div>
+        <div class="c3-hero-stat-num">3</div>
+        <div class="c3-hero-stat-label">Product Areas</div>
+      </div>
+      <div>
+        <div class="c3-hero-stat-num">1</div>
+        <div class="c3-hero-stat-label">Major Partnership</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1 — WHAT'S NEW
+════════════════════════════════════════════════ -->
+<section class="c3-section">
+
+  <div class="c3-section-header">
+    <span class="c3-section-number">01 /</span>
+    <h2 class="c3-section-title">What's New</h2>
+    <span class="c3-section-count">4 updates</span>
+  </div>
+
+  <div class="c3-bento">
+
+    <!-- HERO CARD: Smart Tags (col 8, row 2) -->
+    <div class="c3-card c3-card--hero-green c3-col-8 c3-row-2">
+      <div class="c3-big-num">01</div>
+      <div class="c3-card-tag">Inventory</div>
+      <h3 class="c3-card-title">
+        Smart Tags
+        <span class="c3-badge-new">New</span>
+      </h3>
+      <p class="c3-card-desc">
+        Rules-based automation for inventory tagging driven by lab results, pricing trends, or expiration dates. Tags auto-trigger discounts and populate menu collections — zero manual intervention required. Your catalog stays organized even at scale.
+      </p>
+      <div class="c3-pillars" style="margin-top:32px;">
+        <div class="c3-pillar" style="background:#6AB448;"></div>
+        <div class="c3-pillar" style="background:rgba(241,235,214,0.1);"></div>
+        <div class="c3-pillar" style="background:rgba(241,235,214,0.1);"></div>
+        <div class="c3-pillar" style="background:rgba(241,235,214,0.1);"></div>
+        <div class="c3-pillar" style="background:rgba(241,235,214,0.1);"></div>
+        <div class="c3-pillar" style="background:rgba(241,235,214,0.1);"></div>
+      </div>
+      <div class="c3-card-path">
+        <span class="c3-status-dot"></span>
+        Inventory Tab &rsaquo; Smart Tags
+      </div>
+    </div>
+
+    <!-- Brand Portal V2 (col 4) -->
+    <div class="c3-card c3-card--sand c3-col-4">
+      <div class="c3-card-tag">Brand Tools</div>
+      <h3 class="c3-card-title">Brand Portal V2</h3>
+      <p class="c3-card-desc">
+        Brands create and manage product catalogs with verified imagery and descriptions distributed across the entire Dutchie network.
+      </p>
+      <div class="c3-card-path">Brand Portal &rsaquo; Catalog</div>
+    </div>
+
+    <!-- Exclusive Channel Offers (col 4) -->
+    <div class="c3-card c3-card--purple c3-col-4">
+      <div class="c3-card-tag">Marketing</div>
+      <h3 class="c3-card-title">
+        Exclusive Channel Offers
+        <span class="c3-badge-new">New</span>
+      </h3>
+      <p class="c3-card-desc">
+        Platform-specific promotions — Mobile-Only, Kiosk-Only — using segment logic. Target the right customer in the right channel.
+      </p>
+      <div class="c3-card-path">Marketing &rsaquo; Discounts &rsaquo; Order Sources</div>
+    </div>
+
+    <!-- Event-Based Lead Gen (col 4) -->
+    <div class="c3-card c3-card--dark c3-col-4">
+      <div class="c3-card-tag">Events</div>
+      <h3 class="c3-card-title">Event-Based Lead Generation</h3>
+      <p class="c3-card-desc">
+        QR codes for pop-ups and festivals enabling instant rewards enrollment. Capture customers in the wild and bring them into your loyalty ecosystem.
+      </p>
+      <div class="c3-card-path">
+        <span class="c3-status-dot"></span>
+        Marketing &rsaquo; Events
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 — SEGMENTS, GROWTH & RETENTION
+════════════════════════════════════════════════ -->
+<section class="c3-section">
+
+  <div class="c3-section-header">
+    <span class="c3-section-number">02 /</span>
+    <h2 class="c3-section-title">Segments, Growth &amp; Retention</h2>
+    <span class="c3-section-count">4 updates</span>
+  </div>
+
+  <div class="c3-bento">
+
+    <!-- HERO CARD: Comms Preferences (col 5, row 2) -->
+    <div class="c3-card c3-card--hero-purple c3-col-5 c3-row-2">
+      <div class="c3-big-num">05</div>
+      <div class="c3-card-tag">Customer Experience</div>
+      <h3 class="c3-card-title">
+        Comms Preferences
+        <span class="c3-badge-new">New</span>
+      </h3>
+      <p class="c3-card-desc">
+        Customers and budtenders now manage opt-in statuses and notification preferences — SMS, Email, Push — directly at the POS. Control where and how customers hear from you, at the moment it matters most.
+      </p>
+      <div class="c3-card-path">POS &rsaquo; Customer Profile &rsaquo; Preferences</div>
+    </div>
+
+    <!-- Enhanced Segment Attributes (col 7) -->
+    <div class="c3-card c3-card--sand c3-col-7">
+      <div class="c3-card-tag">Segmentation</div>
+      <h3 class="c3-card-title">
+        Enhanced Segment Attributes
+        <span class="c3-badge-new">New</span>
+      </h3>
+      <p class="c3-card-desc">
+        30+ new filtering options including loyalty status, spend behavior, and purchase patterns. Build hyper-targeted segments that reflect how your customers actually shop.
+      </p>
+      <div class="c3-card-path">Customers &rsaquo; Segments</div>
+    </div>
+
+    <!-- Custom Segment Badges at Register (col 4) -->
+    <div class="c3-card c3-card--dark c3-col-4">
+      <div class="c3-card-tag">POS</div>
+      <h3 class="c3-card-title">Custom Segment Badges at Register</h3>
+      <p class="c3-card-desc">
+        Visual indicators at the register highlight VIPs, medical patients, and custom segments. Budtenders know immediately who they're serving.
+      </p>
+      <div class="c3-card-path">
+        <span class="c3-status-dot"></span>
+        POS &rsaquo; Register View
+      </div>
+    </div>
+
+    <!-- Employee Rewards & Guardrails (col 3) -->
+    <div class="c3-card c3-card--purple c3-col-3">
+      <div class="c3-card-tag">Loyalty</div>
+      <h3 class="c3-card-title">Employee Rewards &amp; Guardrails</h3>
+      <p class="c3-card-desc">
+        Employee segments with incentive programs that prevent discount stacking.
+      </p>
+      <div class="c3-card-path">Marketing &rsaquo; Loyalty &rsaquo; Settings</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 — E-COMMERCE & MOBILE
+════════════════════════════════════════════════ -->
+<section class="c3-section">
+
+  <div class="c3-section-header">
+    <span class="c3-section-number">03 /</span>
+    <h2 class="c3-section-title">E-Commerce &amp; Mobile</h2>
+    <span class="c3-section-count">3 updates</span>
+  </div>
+
+  <div class="c3-bento">
+
+    <!-- HERO CARD: Multi-Image Product Cards (col 6, row 2) -->
+    <div class="c3-card c3-card--hero-green c3-col-6 c3-row-2">
+      <div class="c3-big-num">09</div>
+      <div class="c3-card-tag">E-Commerce</div>
+      <h3 class="c3-card-title">
+        Multi-Image Product Cards
+        <span class="c3-badge-new">New</span>
+      </h3>
+      <p class="c3-card-desc">
+        Gallery display allowing customers to scroll through full product imagery from menu displays. Show every angle, every detail. Products look premium — because they are.
+      </p>
+      <div class="c3-card-path">
+        <span class="c3-status-dot"></span>
+        Menu Settings &rsaquo; Product Display
+      </div>
+    </div>
+
+    <!-- Custom Mobile Menu (col 6) -->
+    <div class="c3-card c3-card--sand c3-col-6">
+      <div class="c3-card-tag">Mobile</div>
+      <h3 class="c3-card-title">
+        Custom Mobile Menu
+        <span class="c3-badge-new">New</span>
+      </h3>
+      <p class="c3-card-desc">
+        Drag-and-drop builder for mobile menu customization. Highlight brands, surface loyalty links, and reorder your menu to match your merchandising strategy — no code required.
+      </p>
+      <div class="c3-card-path">Mobile &rsaquo; Menu Builder</div>
+    </div>
+
+    <!-- Decorative filler card for visual rhythm (col 6) -->
+    <div class="c3-card c3-card--dark c3-col-6" style="display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div class="c3-card-tag">Infrastructure</div>
+        <h3 class="c3-card-title" style="color:#F1EBD6;">More speed.<br/>Less friction.</h3>
+      </div>
+      <p class="c3-card-desc" style="margin-top:16px;">
+        With Multi-Image Cards and a fully customizable mobile menu, your digital storefront now moves at the speed of retail.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     AWS SPOTLIGHT — FULL WIDTH
+════════════════════════════════════════════════ -->
+<section class="c3-section" style="padding-bottom: 0;">
+
+  <div class="c3-spotlight">
+    <div class="c3-spotlight-inner">
+
+      <div>
+        <div class="c3-spotlight-pill">Partnership Spotlight</div>
+        <h2 class="c3-spotlight-title">AWS Database Migration</h2>
+        <p class="c3-spotlight-desc">
+          In partnership with AWS, Dutchie rebuilt its core transaction infrastructure — delivering faster checkouts, automatic scaling during peak hours, and enterprise-grade reliability. This isn't a patch. It's a new foundation.
+        </p>
+      </div>
+
+      <div class="c3-spotlight-badge">
+        <div class="c3-spotlight-badge-label">Powered by</div>
+        <div class="c3-spotlight-badge-name">AWS</div>
+        <div class="c3-spotlight-badge-sub">Infrastructure</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+</div><!-- /.concept-3 -->
+
+</body>
+</html>
