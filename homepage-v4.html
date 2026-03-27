@@ -26,7 +26,7 @@
 html { scroll-behavior: smooth; }
 .hero-section { display: none !important; }
 .hero-section.active-section { display: flex !important; }
-#option-c.active-section { display: block !important; }
+#option-b.active-section { display: block !important; }
 .section-sep { display: none !important; }
 .section-sep.active-sep { display: flex !important; }
 body { font-family: var(--font); color: var(--dark-green); background: var(--sand); -webkit-font-smoothing: antialiased; }
@@ -86,7 +86,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 /* ═══════════════════════════════════════════════════════════
    OPTION E: Floating Corner Card with Gradient Sweep
    ═══════════════════════════════════════════════════════════ */
-#option-e { background: var(--sand); display: flex; flex-direction: column; min-height: 100vh; position: relative; overflow: hidden; }
+#option-c { background: var(--sand); display: flex; flex-direction: column; min-height: 100vh; position: relative; overflow: hidden; }
 .oe-nav {
   display: flex; align-items: center; justify-content: space-between; padding: 24px 48px;
 }
@@ -96,7 +96,8 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 .oe-nav .links a:hover { color: var(--dark-green); }
 .oe-consumer-content {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  max-width: 680px; margin: 0 auto; padding: 0 32px 80px; text-align: center;
+  max-width: 560px; margin: 0 auto; padding: 0 32px 40px; text-align: center;
+  margin-right: 30%;
 }
 .oe-consumer-content h1 {
   font-size: clamp(34px, 5vw, 52px); font-weight: 700; color: var(--dark-green);
@@ -124,14 +125,14 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 
 /* Floating corner card */
 .oe-card {
-  position: absolute; bottom: 32px; right: 32px; z-index: 10;
-  width: 240px; height: 150px; border-radius: 20px; background: var(--dark-green);
+  position: absolute; top: 50%; right: 10%; transform: translateY(-50%); z-index: 10;
+  width: 260px; border-radius: 20px; background: var(--dark-green);
   border: 1px solid rgba(241,235,214,0.12); box-shadow: 0 12px 40px rgba(4,32,23,0.2);
   display: flex; flex-direction: column; justify-content: center; padding: 20px 24px;
   cursor: pointer; text-decoration: none; overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.6s ease;
 }
-.oe-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(4,32,23,0.3); }
+.oe-card:hover { transform: translateY(calc(-50% - 4px)); box-shadow: 0 16px 48px rgba(4,32,23,0.3); }
 .oe-card-eyebrow {
   font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
   color: var(--yellow); margin-bottom: 8px;
@@ -158,10 +159,29 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 .oe-card.sweep-active::before { animation: gradient-sweep 1.5s ease-in-out 3; }
 .oe-card.sweep-done { border-color: rgba(255,192,42,0.3); }
 
+/* Corner card tooltip */
+@keyframes oe-tooltip-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.oe-card-tooltip {
+  position: absolute; bottom: -52px; left: 50%; transform: translateX(-50%);
+  background: var(--yellow); color: var(--dark-green); padding: 10px 18px;
+  border-radius: 10px; font-size: 13px; font-weight: 700; white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(255,192,42,0.35);
+  opacity: 0; pointer-events: none; transition: opacity 0.4s; z-index: 20;
+}
+.oe-card-tooltip::after {
+  content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+  border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-bottom: 7px solid var(--yellow);
+}
+.oe-card-tooltip.show { opacity: 1; animation: oe-tooltip-bounce 1.5s ease-in-out infinite; }
+
 /* ═══════════════════════════════════════════════════════════
    OPTION B: Peek Panel
    ═══════════════════════════════════════════════════════════ */
-#option-b { background: var(--sand); display: flex; padding-top: 0; }
+#option-a { background: var(--sand); display: flex; padding-top: 0; }
 .ob-consumer { flex: 1; padding: 100px 48px 80px; display: flex; flex-direction: column; position: relative; min-height: 100vh; }
 .ob-consumer .wordmark { font-size: 24px; font-weight: 700; color: var(--dark-green); margin-bottom: 80px; }
 .ob-consumer-content { max-width: 580px; margin: 0 auto; }
@@ -216,7 +236,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 /* ═══════════════════════════════════════════════════════════
    OPTION C: Attention Pulse
    ═══════════════════════════════════════════════════════════ */
-#option-c { position: relative; }
+#option-b { position: relative; }
 .oc-hero { min-height: 100vh; transition: background 0.6s ease, color 0.6s ease; }
 .oc-hero.consumer-mode { background: var(--sand); }
 .oc-hero.business-mode { background: var(--dark-green); }
@@ -348,7 +368,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 /* ═══════════════════════════════════════════════════════════
    OPTION F: Hero Footer Ribbon with Shimmer Beam
    ═══════════════════════════════════════════════════════════ */
-#option-f { background: var(--sand); flex-direction: column; min-height: 100vh; position: relative; overflow: hidden; }
+#option-d { background: var(--sand); flex-direction: column; min-height: 100vh; position: relative; overflow: hidden; }
 .of-nav {
   display: flex; align-items: center; justify-content: space-between; padding: 24px 48px;
 }
@@ -387,8 +407,8 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 
 /* Footer ribbon */
 .of-ribbon {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
-  height: 56px; background: var(--dark-green); border-top: 3px solid var(--yellow);
+  position: relative; z-index: 10;
+  height: 56px; background: var(--dark-green); border-bottom: 3px solid var(--yellow);
   display: flex; align-items: center; justify-content: space-between; padding: 0 48px;
   overflow: hidden; cursor: pointer; text-decoration: none;
   transition: box-shadow 0.6s ease;
@@ -424,7 +444,26 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   pointer-events: none; z-index: 1; opacity: 0;
 }
 .of-ribbon.shimmer-active::after { animation: shimmer-beam 2s ease-in-out 2; }
-.of-ribbon.shimmer-active { box-shadow: 0 -2px 12px rgba(255,192,42,0.4); }
+.of-ribbon.shimmer-active { box-shadow: 0 2px 12px rgba(255,192,42,0.4); }
+
+/* Ribbon tooltip */
+@keyframes of-tooltip-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+.of-ribbon-tooltip {
+  position: absolute; bottom: -52px; left: 50%; transform: translateX(-50%);
+  background: var(--yellow); color: var(--dark-green); padding: 10px 18px;
+  border-radius: 10px; font-size: 13px; font-weight: 700; white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(255,192,42,0.35);
+  opacity: 0; pointer-events: none; transition: opacity 0.4s; z-index: 20;
+}
+.of-ribbon-tooltip::after {
+  content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+  border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-bottom: 7px solid var(--yellow);
+}
+.of-ribbon-tooltip.show { opacity: 1; animation: of-tooltip-bounce 1.5s ease-in-out infinite; }
 
 /* ═══════════════════════════════════════════════════════════
    SHARED: Why Dutchie
@@ -493,7 +532,7 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   .oe-card-cta { align-self: center; }
 
   /* Option B */
-  #option-b { flex-direction: column; }
+  #option-a { flex-direction: column; }
   .ob-consumer { padding: 80px 24px 40px; min-height: auto; }
   .ob-peek {
     width: 100% !important; min-width: 100% !important; max-width: 100% !important;
@@ -547,22 +586,22 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
       <span class="subtitle">Hero Selector Concepts</span>
     </div>
     <div class="sticky-tabs">
-      <button class="sticky-tab active" data-target="option-b">Option B: Peek Panel</button>
-      <button class="sticky-tab" data-target="option-c">Option C: Attention Pulse</button>
-      <button class="sticky-tab" data-target="option-e">Option E: Corner Card</button>
-      <button class="sticky-tab" data-target="option-f">Option F: Shimmer Ribbon</button>
+      <button class="sticky-tab active" data-target="option-a">Option A: Peek Panel</button>
+      <button class="sticky-tab" data-target="option-b">Option B: Attention Pulse</button>
+      <button class="sticky-tab" data-target="option-c">Option C: Corner Card</button>
+      <button class="sticky-tab" data-target="option-d">Option D: Shimmer Ribbon</button>
     </div>
   </div>
 </nav>
 
 <!-- OPTION B SEPARATOR -->
-<div class="section-sep active-sep" id="sep-b" style="margin-top: 68px;">
-  <span class="sep-label">Option B: Peek Panel</span>
+<div class="section-sep active-sep" id="sep-a" style="margin-top: 68px;">
+  <span class="sep-label">Option A: Peek Panel</span>
   <span class="sep-desc">Consumer hero is the default experience; a dark green panel peeks in from the right edge, expanding on hover.</span>
 </div>
 
 <!-- OPTION B: Peek Panel -->
-<section class="hero-section active-section" id="option-b">
+<section class="hero-section active-section" id="option-a">
   <div class="ob-consumer">
     <span class="wordmark">dutchie</span>
     <div class="ob-consumer-content fade-in">
@@ -604,13 +643,13 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 </section>
 
 <!-- OPTION C SEPARATOR -->
-<div class="section-sep" id="sep-c">
-  <span class="sep-label">Option C: Attention Pulse</span>
+<div class="section-sep" id="sep-b">
+  <span class="sep-label">Option B: Attention Pulse</span>
   <span class="sep-desc">Consumer hero with a large, prominent toggle. After 3 seconds, the Business side gets an animated attention-grabber.</span>
 </div>
 
 <!-- OPTION C: Attention Pulse -->
-<section class="hero-section" id="option-c">
+<section class="hero-section" id="option-b">
   <div class="oc-hero consumer-mode" id="oc-hero">
     <div class="oc-nav">
       <span class="wordmark">dutchie</span>
@@ -663,13 +702,13 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 </section>
 
 <!-- OPTION E SEPARATOR -->
-<div class="section-sep" id="sep-e">
-  <span class="sep-label">Option E: Floating Corner Card</span>
+<div class="section-sep" id="sep-c">
+  <span class="sep-label">Option C: Floating Corner Card</span>
   <span class="sep-desc">Consumer hero with a dark green card in the bottom-right corner. Diagonal gradient sweep draws the eye.</span>
 </div>
 
 <!-- OPTION E: Floating Corner Card -->
-<section class="hero-section" id="option-e">
+<section class="hero-section" id="option-c">
   <div class="oe-nav">
     <span class="wordmark">dutchie</span>
     <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
@@ -689,17 +728,31 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
     <div class="oe-card-eyebrow">For Business</div>
     <div class="oe-card-heading">Powering 6,500+ dispensaries</div>
     <span class="oe-card-cta">Get a demo &rarr;</span>
+    <div class="oe-card-tooltip" id="oe-card-tooltip">The technology behind modern cannabis retail &rarr;</div>
   </a>
 </section>
 
 <!-- OPTION F SEPARATOR -->
-<div class="section-sep" id="sep-f">
-  <span class="sep-label">Option F: Shimmer Ribbon</span>
+<div class="section-sep" id="sep-d">
+  <span class="sep-label">Option D: Shimmer Ribbon</span>
   <span class="sep-desc">Full-width business ribbon at hero bottom with a traveling green-gold shimmer beam effect.</span>
 </div>
 
-<!-- OPTION F: Hero Footer Ribbon -->
-<section class="hero-section" id="option-f">
+<!-- OPTION D: Shimmer Ribbon -->
+<section class="hero-section" id="option-d">
+  <a href="#" class="of-ribbon" id="of-ribbon">
+    <div class="of-ribbon-left">
+      <span class="of-ribbon-badge">For Business</span>
+      <span class="of-ribbon-text">The platform powering 6,500+ dispensaries</span>
+    </div>
+    <div class="of-ribbon-right">
+      <div class="of-ribbon-stat"><div class="num">$22B+</div><div class="label">Processed</div></div>
+      <div class="of-ribbon-stat"><div class="num">6,500+</div><div class="label">Dispensaries</div></div>
+      <div class="of-ribbon-stat"><div class="num">40+</div><div class="label">States</div></div>
+      <span class="of-ribbon-cta">Get a demo &rarr;</span>
+    </div>
+    <div class="of-ribbon-tooltip" id="of-ribbon-tooltip">Dutchie powers modern cannabis retail &rarr;</div>
+  </a>
   <div class="of-nav">
     <span class="wordmark">dutchie</span>
     <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
@@ -717,18 +770,6 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
       </div>
     </div>
   </div>
-  <a href="#" class="of-ribbon" id="of-ribbon">
-    <div class="of-ribbon-left">
-      <span class="of-ribbon-badge">For Business</span>
-      <span class="of-ribbon-text">The platform powering 6,500+ dispensaries</span>
-    </div>
-    <div class="of-ribbon-right">
-      <div class="of-ribbon-stat"><div class="num">$22B+</div><div class="label">Processed</div></div>
-      <div class="of-ribbon-stat"><div class="num">6,500+</div><div class="label">Dispensaries</div></div>
-      <div class="of-ribbon-stat"><div class="num">40+</div><div class="label">States</div></div>
-      <span class="of-ribbon-cta">Get a demo &rarr;</span>
-    </div>
-  </a>
 </section>
 
 <!-- SHARED: Why Dutchie -->
@@ -801,8 +842,8 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 <script>
 // TAB SHOW/HIDE NAVIGATION
 const tabs = document.querySelectorAll('.sticky-tab');
-const sectionIds = ['option-b', 'option-c', 'option-e', 'option-f'];
-const sepIds = ['sep-b', 'sep-c', 'sep-e', 'sep-f'];
+const sectionIds = ['option-a', 'option-b', 'option-c', 'option-d'];
+const sepIds = ['sep-a', 'sep-b', 'sep-c', 'sep-d'];
 
 function showOption(targetId) {
   sectionIds.forEach(id => {
@@ -825,7 +866,7 @@ tabs.forEach(tab => {
 });
 
 // Show Option B by default
-showOption('option-b');
+showOption('option-a');
 
 // FADE-IN OBSERVER
 const fadeObserver = new IntersectionObserver((entries) => {
@@ -872,7 +913,7 @@ function dismissTooltip() {
 }
 
 { // Pulse always fires for concept review (remove sessionStorage gate for testing)
-  const ocSection = document.getElementById('option-c');
+  const ocSection = document.getElementById('option-b');
   let pulseTriggered = false;
 
   const pulseObserver = new IntersectionObserver((entries) => {
@@ -903,13 +944,13 @@ function dismissTooltip() {
   }, { threshold: 0.4 });
 
   pulseObserver.observe(ocSection);
-  document.getElementById('option-c').addEventListener('click', dismissTooltip, { once: true });
+  document.getElementById('option-b').addEventListener('click', dismissTooltip, { once: true });
 }
 
-// OPTION E: Gradient sweep trigger
+// OPTION C: Gradient sweep trigger
 {
   const oeCard = document.getElementById('oe-card');
-  const oeSection = document.getElementById('option-e');
+  const oeSection = document.getElementById('option-c');
   let sweepTriggered = false;
   const sweepObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -920,6 +961,12 @@ function dismissTooltip() {
           oeCard.addEventListener('animationend', function() {
             oeCard.classList.add('sweep-done');
           }, { once: true });
+          // Show tooltip after sweeps finish
+          setTimeout(function() {
+            var tt = document.getElementById('oe-card-tooltip');
+            tt.classList.add('show');
+            setTimeout(function() { tt.classList.remove('show'); }, 5000);
+          }, 4800);
         }, 3000);
       }
     });
@@ -927,10 +974,10 @@ function dismissTooltip() {
   sweepObserver.observe(oeSection);
 }
 
-// OPTION F: Shimmer beam trigger
+// OPTION D: Shimmer beam trigger
 {
   const ofRibbon = document.getElementById('of-ribbon');
-  const ofSection = document.getElementById('option-f');
+  const ofSection = document.getElementById('option-d');
   let shimmerTriggered = false;
   const shimmerObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -938,6 +985,12 @@ function dismissTooltip() {
         shimmerTriggered = true;
         setTimeout(function() {
           ofRibbon.classList.add('shimmer-active');
+          // Show tooltip after shimmer finishes
+          setTimeout(function() {
+            var tt = document.getElementById('of-ribbon-tooltip');
+            tt.classList.add('show');
+            setTimeout(function() { tt.classList.remove('show'); }, 5000);
+          }, 4500);
         }, 3000);
       }
     });
