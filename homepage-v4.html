@@ -1067,6 +1067,10 @@ function showOption(targetId) {
   });
   tabs.forEach(t => t.classList.toggle('active', t.dataset.target === targetId));
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Trigger effects for the shown option
+  if (targetId === 'option-b') triggerPulse();
+  if (targetId === 'option-c') triggerSweep();
+  if (targetId === 'option-d') triggerShimmer();
 }
 
 tabs.forEach(tab => {
@@ -1120,88 +1124,64 @@ function dismissTooltip() {
   tt.classList.remove('show');
 }
 
-{ // Pulse always fires for concept review (remove sessionStorage gate for testing)
-  const ocSection = document.getElementById('option-b');
-  let pulseTriggered = false;
+// OPTION B: Pulse effect — triggered by showOption
+function triggerPulse() {
+  tooltipDismissed = false;
+  // Reset previous state
+  document.querySelectorAll('.oc-pulse-ring').forEach(function(p) { p.classList.remove('animating'); });
+  document.getElementById('oc-tooltip').classList.remove('show');
 
-  const pulseObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !pulseTriggered) {
-        pulseTriggered = true;
-        sessionStorage.setItem('dutchie-pulse-shown', '1');
-
-        setTimeout(() => {
-          const pulses = [document.getElementById('oc-pulse1'), document.getElementById('oc-pulse2'), document.getElementById('oc-pulse3')];
-
-          pulses.forEach((p, i) => {
-            setTimeout(() => {
-              p.classList.add('animating');
-              p.addEventListener('animationend', () => p.classList.remove('animating'), { once: true });
-            }, i * 900);
-          });
-
-          setTimeout(() => {
-            if (!tooltipDismissed) {
-              document.getElementById('oc-tooltip').classList.add('show');
-              setTimeout(() => { dismissTooltip(); }, 5000);
-            }
-          }, 3200);
-        }, 2000);
-      }
+  setTimeout(function() {
+    var pulses = [document.getElementById('oc-pulse1'), document.getElementById('oc-pulse2'), document.getElementById('oc-pulse3')];
+    pulses.forEach(function(p, i) {
+      setTimeout(function() {
+        p.classList.add('animating');
+        p.addEventListener('animationend', function() { p.classList.remove('animating'); }, { once: true });
+      }, i * 900);
     });
-  }, { threshold: 0.4 });
+    setTimeout(function() {
+      if (!tooltipDismissed) {
+        document.getElementById('oc-tooltip').classList.add('show');
+        setTimeout(function() { dismissTooltip(); }, 5000);
+      }
+    }, 3200);
+  }, 2000);
+}
+document.getElementById('option-b').addEventListener('click', dismissTooltip, { once: false });
 
-  pulseObserver.observe(ocSection);
-  document.getElementById('option-b').addEventListener('click', dismissTooltip, { once: true });
+// OPTION C: Gradient sweep — triggered by showOption
+function triggerSweep() {
+  var card = document.getElementById('oe-card');
+  // Reset previous state
+  card.classList.remove('sweep-active', 'sweep-done', 'expanded');
+  document.getElementById('oe-card-tooltip').classList.remove('show');
+  document.getElementById('oe-card-highlight').classList.remove('show');
+
+  setTimeout(function() {
+    card.classList.add('sweep-active');
+    setTimeout(function() {
+      card.classList.add('sweep-done', 'expanded');
+      var tt = document.getElementById('oe-card-tooltip');
+      tt.classList.add('show');
+      document.getElementById('oe-card-highlight').classList.add('show');
+      setTimeout(function() { tt.classList.remove('show'); }, 5000);
+    }, 4800);
+  }, 2000);
 }
 
-// OPTION C: Gradient sweep trigger
-{
-  const oeCard = document.getElementById('oe-card');
-  const oeSection = document.getElementById('option-c');
-  let sweepTriggered = false;
-  const sweepObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting && !sweepTriggered) {
-        sweepTriggered = true;
-        setTimeout(function() {
-          oeCard.classList.add('sweep-active');
-          // After sweeps finish, expand the card and show tooltip
-          setTimeout(function() {
-            oeCard.classList.add('sweep-done');
-            oeCard.classList.add('expanded');
-            var tt = document.getElementById('oe-card-tooltip');
-            tt.classList.add('show');
-            document.getElementById('oe-card-highlight').classList.add('show');
-            setTimeout(function() { tt.classList.remove('show'); }, 5000);
-          }, 4800);
-        }, 3000);
-      }
-    });
-  }, { threshold: 0.4 });
-  sweepObserver.observe(oeSection);
-}
+// OPTION D: Shimmer beam — triggered by showOption
+function triggerShimmer() {
+  var ribbon = document.getElementById('of-ribbon');
+  // Reset previous state
+  ribbon.classList.remove('shimmer-active');
+  document.getElementById('of-ribbon-floater').classList.remove('show');
 
-// OPTION D: Shimmer beam trigger
-{
-  const ofRibbon = document.getElementById('of-ribbon');
-  const ofSection = document.getElementById('option-d');
-  let shimmerTriggered = false;
-  const shimmerObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting && !shimmerTriggered) {
-        shimmerTriggered = true;
-        setTimeout(function() {
-          ofRibbon.classList.add('shimmer-active');
-          // Show floating header text after shimmer finishes
-          setTimeout(function() {
-            document.getElementById('of-ribbon-floater').classList.add('show');
-          }, 4500);
-        }, 3000);
-      }
-    });
-  }, { threshold: 0.4 });
-  shimmerObserver.observe(ofSection);
+  setTimeout(function() {
+    ribbon.classList.add('shimmer-active');
+    setTimeout(function() {
+      document.getElementById('of-ribbon-floater').classList.add('show');
+    }, 4500);
+  }, 2000);
 }
 
 </script>
