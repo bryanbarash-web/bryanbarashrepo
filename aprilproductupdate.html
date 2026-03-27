@@ -252,9 +252,10 @@
 /* ── BELOW THE FOLD LAYOUT ─────────────────────────────────── */
 
 .april-update .au-body {
-  display: flex;
+  display: block;
   position: relative;
   min-height: 100vh;
+  margin-left: 260px;
 }
 
 /* ── SIDEBAR TOC ───────────────────────────────────────────── */
@@ -262,15 +263,18 @@
 .april-update .au-sidebar {
   width: 260px;
   min-width: 260px;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   height: 100vh;
-  background: #042017;
+  background: rgba(4,32,23,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid rgba(241,235,214,0.08);
   padding: 40px 20px 20px;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  z-index: 100;
   overflow-y: auto;
 }
 
@@ -492,6 +496,62 @@
   color: #FFC02A;
 }
 
+.april-update .au-badge-walkthrough {
+  background: rgba(106,180,72,0.15);
+  color: #6AB448;
+}
+
+.april-update .au-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.april-update .au-setup-guide {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.35);
+  background: transparent;
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.april-update .au-setup-guide:hover {
+  color: #FFC02A;
+  border-color: rgba(255,192,42,0.3);
+  background: rgba(255,192,42,0.06);
+}
+
+.april-update .au-setup-guide svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.april-update .au-card-case-study .au-setup-guide {
+  color: rgba(4,32,23,0.35);
+  border-color: rgba(4,32,23,0.1);
+}
+
+.april-update .au-card-case-study .au-setup-guide:hover {
+  color: #5E324E;
+  border-color: rgba(94,50,78,0.3);
+  background: rgba(94,50,78,0.06);
+}
+
 .april-update .au-card-title {
   font-size: clamp(20px, 2.5vw, 26px);
   font-weight: 700;
@@ -564,6 +624,10 @@
 @media (max-width: 900px) {
   .april-update .au-sidebar {
     display: none;
+  }
+
+  .april-update .au-body {
+    margin-left: 0;
   }
 
   .april-update .au-main {
@@ -744,14 +808,18 @@
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Merchandising</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">Menu Tags &amp; Limited Categories</h2>
         <p class="au-card-desc">
           Transform your menu into a dynamic sales engine by automating the way you clear aging inventory. Using a combination of Menu Tags and Smart Tags, you can now create Limited Categories, also known as Outlet Menus, that automatically feature products based on specific rules like approaching expiration dates or low stock levels. These categories include native countdown timers on the product page and in the cart to create urgency and drive immediate conversions for your clearance items.
         </p>
-        <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Merchandising &gt; Smart Tags &rarr; Collections &gt; Custom Categories &gt; Limited Category
+        <div class="au-card-footer">
+          <div class="au-card-path">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            Merchandising &gt; Smart Tags &rarr; Collections &gt; Custom Categories
+          </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -766,9 +834,12 @@
         <p class="au-card-desc">
           Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time. Instead of a one-size-fits-all blast, your messages deploy throughout the day to match your customers' habits, increasing open rates and driving more immediate sales.
         </p>
-        <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Marketing &gt; Campaigns &gt; Toggle Smart Sending
+        <div class="au-card-footer">
+          <div class="au-card-path">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            Marketing &gt; Campaigns &gt; Toggle Smart Sending
+          </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -777,14 +848,18 @@
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Marketing</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">Dynamic Content Blocks</h2>
         <p class="au-card-desc">
           Boost conversions by adding dynamic content blocks to your marketing messages. Drag and drop personalized "Buy It Again" recommendations, segment-specific discounts, and real-time loyalty data directly into your campaigns. These blocks automatically show each customer their available rewards and the exact spend needed to reach the next tier, making every message feel tailored to their shopping habits.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Marketing &gt; Email Gallery &gt; Drag Block
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -799,9 +874,12 @@
         <p class="au-card-desc">
           Keep an eye on your business from anywhere. We have redesigned our highest-priority reports &mdash; Sales Overview, Closing Report, and Inventory Overview &mdash; to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Reports (mobile browser)
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -817,14 +895,18 @@
         <div class="au-card-accent au-accent-ecom-pro"></div>
         <div class="au-card-top">
           <span class="au-badge">Developer Tools</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">E-Commerce Pro SDK Enhancements</h2>
         <p class="au-card-desc">
           Three powerful updates: New Developer CLI for local storefront preview with hot reload and latency simulation. Global Styles &amp; Design Tokens to control 120+ CSS tokens for brand colors, fonts, and spacing. Custom Product Cards to replace default views with bespoke components while the SDK handles pricing, badges, and data.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           npx @dutchiesdk/ecommerce-sdk-cli dev
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -838,9 +920,12 @@
         <p class="au-card-desc">
           Reduce friction from message to checkout. Marketing links can automatically log customers into their preferred local menu and surface their usual order for faster checkout.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Marketing &gt; Campaigns &gt; Link Settings
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -855,9 +940,12 @@
         <p class="au-card-desc">
           See how PVP leveraged E-Commerce Pro to transform their digital storefront. Full case study coming soon.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           E-Commerce Pro &gt; Case Studies
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -878,9 +966,12 @@
         <p class="au-card-desc">
           In-store orders are now attached to customer profiles at POS, ensuring every walk-in visit is captured in the customer's unified history. This allows for more accurate segmenting and ensures budtenders have the full context of a customer's lifetime value the moment they check in.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           POS &gt; Customer Profile
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -889,14 +980,18 @@
         <div class="au-card-accent au-accent-ecom"></div>
         <div class="au-card-top">
           <span class="au-badge">Shopping Experience</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">One-Click Buy It Again</h2>
         <p class="au-card-desc">
           Customers can instantly re-order their favorite products directly from their profile or previous order history without navigating the full menu. Removes checkout friction, increases order frequency, and rewards repeat customers with a faster experience.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Customer Profile &gt; Order History
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -917,9 +1012,12 @@
         <p class="au-card-desc">
           Deep bidirectional integration between Onfleet and Dutchie enables real-time route synchronization and automated manifest updates while maintaining full Metrc compliance. Orders intelligently auto-assign to the nearest driver based on proximity, inventory, and current workload.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Delivery &gt; Route Management
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -933,9 +1031,12 @@
         <p class="au-card-desc">
           Set separate delivery fees for ASAP orders versus Scheduled windows, allowing you to charge a premium for immediate service or offer incentives for pre-planned orders.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Settings &gt; Delivery Fees
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -956,9 +1057,12 @@
         <p class="au-card-desc">
           Set Cooldown periods (rolling windows) or Refresh schedules (fixed dates) for specific offers, moving beyond simple lifetime caps. Define exactly how often a customer can redeem a specific deal &mdash; whether once every 24 hours or once per calendar month.
         </p>
-        <div class="au-card-path">
+        <div class="au-card-footer">
+          <div class="au-card-path">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           Marketing &gt; Discounts &gt; Limits tab
+        </div>
+          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
