@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie — March 2026 Product Updates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- ============ STORYLANE SDK — COPY THIS INTO WEBFLOW HEAD CODE ============ -->
+<script async src="https://js.storylane.io/js/v2/storylane.js"></script>
+<!-- ============ END STORYLANE SDK ============ -->
+</head>
+<body>
+
+<!-- ============ CSS — COPY THIS INTO WEBFLOW HEAD CODE ============ -->
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MARCH 2026 PRODUCT UPDATE — SCOPED STYLES
+   All classes prefixed with mu- to avoid conflicts.
+   ═══════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+.march-update {
+  font-family: 'Inter', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #042017;
+  color: #F1EBD6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+
+.march-update .mu-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px 24px;
+  margin-left: 260px;
+}
+
+.march-update .mu-hero-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.march-update .mu-blob {
+  position: absolute;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: border-radius, transform;
+}
+
+.march-update .mu-blob-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #003D29 0%, transparent 70%);
+  top: -10%; left: -5%;
+  animation: mu-morph1 12s ease-in-out infinite alternate;
+}
+
+.march-update .mu-blob-2 {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, #5E324E 0%, transparent 70%);
+  top: 20%; right: -8%;
+  animation: mu-morph2 14s ease-in-out infinite alternate;
+}
+
+.march-update .mu-blob-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #6AB448 0%, transparent 70%);
+  bottom: -5%; left: 30%;
+  opacity: 0.3;
+  animation: mu-morph3 10s ease-in-out infinite alternate;
+}
+
+.march-update .mu-blob-4 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #FFC02A 0%, transparent 70%);
+  bottom: 15%; right: 20%;
+  opacity: 0.2;
+  animation: mu-morph4 16s ease-in-out infinite alternate;
+}
+
+@keyframes mu-morph1 {
+  0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1); }
+  33%  { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: translate(30px, -20px) scale(1.05); }
+  66%  { border-radius: 50% 50% 30% 70% / 60% 40% 70% 30%; transform: translate(-20px, 30px) scale(0.95); }
+  100% { border-radius: 30% 70% 60% 40% / 50% 70% 30% 60%; transform: translate(15px, 15px) scale(1.02); }
+}
+
+@keyframes mu-morph2 {
+  0%   { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; transform: translate(0, 0) rotate(0deg) scale(1); }
+  50%  { border-radius: 30% 70% 60% 40% / 70% 30% 50% 50%; transform: translate(-40px, 20px) rotate(10deg) scale(1.08); }
+  100% { border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%; transform: translate(20px, -30px) rotate(-5deg) scale(0.95); }
+}
+
+@keyframes mu-morph3 {
+  0%   { border-radius: 70% 30% 50% 50% / 60% 40% 60% 40%; transform: translate(0, 0) scale(1); }
+  50%  { border-radius: 40% 60% 60% 40% / 50% 50% 40% 60%; transform: translate(40px, -15px) scale(1.1); }
+  100% { border-radius: 55% 45% 35% 65% / 45% 55% 65% 35%; transform: translate(-25px, 25px) scale(0.92); }
+}
+
+@keyframes mu-morph4 {
+  0%   { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: translate(0, 0) scale(1); }
+  33%  { border-radius: 65% 35% 45% 55% / 35% 65% 55% 45%; transform: translate(-30px, -25px) scale(1.06); }
+  66%  { border-radius: 35% 65% 55% 45% / 65% 35% 45% 55%; transform: translate(25px, 20px) scale(0.94); }
+  100% { border-radius: 45% 55% 65% 35% / 55% 45% 35% 65%; transform: translate(10px, -10px) scale(1.03); }
+}
+
+.march-update .mu-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 760px;
+  padding: 0 24px;
+}
+
+.march-update .mu-ghost-text {
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 900;
+  color: #F1EBD6;
+  opacity: 0.15;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  user-select: none;
+  margin-bottom: -20px;
+}
+
+.march-update .mu-hero-title {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  color: #F1EBD6;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.march-update .mu-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px auto;
+}
+
+.march-update .mu-divider-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(241,235,214,0.3));
+}
+
+.march-update .mu-divider-line:last-child {
+  background: linear-gradient(90deg, rgba(241,235,214,0.3), transparent);
+}
+
+.march-update .mu-divider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFC02A;
+  box-shadow: 0 0 12px rgba(255,192,42,0.6), 0 0 24px rgba(255,192,42,0.3);
+  animation: mu-pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes mu-pulse-dot {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,192,42,0.6), 0 0 24px rgba(255,192,42,0.3); }
+  50%      { box-shadow: 0 0 18px rgba(255,192,42,0.8), 0 0 36px rgba(255,192,42,0.4); }
+}
+
+.march-update .mu-hero-intro {
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.7;
+  color: rgba(241,235,214,0.85);
+  max-width: 720px;
+  margin: 0 auto 48px;
+  font-weight: 400;
+}
+
+.march-update .mu-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.march-update .mu-stat-box {
+  background: rgba(241,235,214,0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 14px;
+  padding: 24px 12px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.march-update .mu-stat-box:hover {
+  border-color: rgba(241,235,214,0.2);
+  transform: translateY(-2px);
+}
+
+.march-update .mu-stat-number {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: #FFC02A;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.march-update .mu-stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(241,235,214,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.march-update .mu-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+  animation: mu-bounce-hint 2s ease-in-out infinite;
+}
+
+.march-update .mu-scroll-hint span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.march-update .mu-scroll-hint svg {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes mu-bounce-hint {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── BELOW THE FOLD LAYOUT ─────────────────────────────────── */
+
+.march-update .mu-body {
+  display: block;
+  position: relative;
+  min-height: 100vh;
+  margin-left: 260px;
+}
+
+/* ── SIDEBAR TOC ───────────────────────────────────────────── */
+
+.march-update .mu-sidebar {
+  width: 260px;
+  min-width: 260px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: rgba(4,32,23,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(241,235,214,0.08);
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.march-update .mu-toc-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(241,235,214,0.35);
+  margin-bottom: 24px;
+}
+
+.march-update .mu-toc-group {
+  margin-bottom: 20px;
+}
+
+.march-update .mu-toc-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.3);
+  margin-bottom: 8px;
+  padding-left: 18px;
+}
+
+.march-update .mu-toc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0 6px 6px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.march-update .mu-toc-item:hover {
+  background: rgba(241,235,214,0.04);
+}
+
+.march-update .mu-toc-dot {
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.15);
+  transition: all 0.25s;
+}
+
+.march-update .mu-toc-label {
+  font-size: 12px;
+  color: rgba(241,235,214,0.6);
+  font-weight: 400;
+  transition: color 0.25s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.march-update .mu-toc-item.mu-active .mu-toc-dot {
+  background: #6AB448;
+  box-shadow: 0 0 8px rgba(106,180,72,0.4);
+}
+
+.march-update .mu-toc-item.mu-active .mu-toc-label {
+  color: #F1EBD6;
+  font-weight: 500;
+}
+
+.march-update .mu-progress-wrap {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.march-update .mu-progress-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.3);
+  margin-bottom: 8px;
+}
+
+.march-update .mu-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(241,235,214,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.march-update .mu-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #6AB448, #FFC02A);
+  border-radius: 2px;
+  transition: width 0.15s;
+}
+
+/* ── MAIN CONTENT ──────────────────────────────────────────── */
+
+.march-update .mu-main {
+  min-width: 0;
+  padding: 60px 48px 120px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── SECTION DIVIDERS ──────────────────────────────────────── */
+
+.march-update .mu-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 64px 0 36px;
+}
+
+.march-update .mu-section-divider:first-child {
+  margin-top: 0;
+}
+
+.march-update .mu-section-divider-line {
+  flex: 1;
+  height: 1px;
+}
+
+.march-update .mu-section-divider-line.mu-line-new       { background: linear-gradient(90deg, transparent, #003D29); }
+.march-update .mu-section-divider-line.mu-line-new:last-child { background: linear-gradient(90deg, #003D29, transparent); }
+.march-update .mu-section-divider-line.mu-line-segments   { background: linear-gradient(90deg, transparent, #5E324E); }
+.march-update .mu-section-divider-line.mu-line-segments:last-child { background: linear-gradient(90deg, #5E324E, transparent); }
+.march-update .mu-section-divider-line.mu-line-ecom       { background: linear-gradient(90deg, transparent, #FFC02A); }
+.march-update .mu-section-divider-line.mu-line-ecom:last-child { background: linear-gradient(90deg, #FFC02A, transparent); }
+.march-update .mu-section-divider-line.mu-line-infra      { background: linear-gradient(90deg, transparent, #6AB448); }
+.march-update .mu-section-divider-line.mu-line-infra:last-child { background: linear-gradient(90deg, #6AB448, transparent); }
+
+.march-update .mu-section-divider-text {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(241,235,214,0.5);
+  white-space: nowrap;
+}
+
+/* ── CARDS ─────────────────────────────────────────────────── */
+
+.march-update .mu-card {
+  background: rgba(241,235,214,0.04);
+  border: 1px solid rgba(241,235,214,0.08);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.march-update .mu-card.mu-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s;
+}
+
+.march-update .mu-card:hover {
+  border-color: rgba(241,235,214,0.18);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.march-update .mu-card.mu-clickable {
+  cursor: pointer;
+}
+
+.march-update .mu-card.mu-visible:hover {
+  transform: translateY(-3px);
+}
+
+.march-update .mu-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.march-update .mu-accent-new      { background: #003D29; }
+.march-update .mu-accent-segments { background: #5E324E; }
+.march-update .mu-accent-ecom     { background: #FFC02A; }
+.march-update .mu-accent-infra    { background: #6AB448; }
+
+.march-update .mu-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.march-update .mu-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(241,235,214,0.08);
+  color: rgba(241,235,214,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.march-update .mu-badge-walkthrough {
+  background: rgba(106,180,72,0.15);
+  color: #6AB448;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.march-update .mu-badge-walkthrough:hover {
+  background: rgba(106,180,72,0.25);
+  box-shadow: 0 0 12px rgba(106,180,72,0.2);
+}
+
+.march-update .mu-badge-case-study {
+  background: rgba(255,192,42,0.15);
+  color: #FFC02A;
+}
+
+.march-update .mu-badge-aws {
+  background: rgba(106,180,72,0.15);
+  color: #6AB448;
+}
+
+.march-update .mu-card-title {
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  color: #F1EBD6;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.march-update .mu-card-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(241,235,214,0.78);
+  margin-bottom: 20px;
+}
+
+.march-update .mu-card-footer {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.march-update .mu-setup-guide {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.5);
+  background: transparent;
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.march-update .mu-setup-guide:hover {
+  color: #FFC02A;
+  border-color: rgba(255,192,42,0.3);
+  background: rgba(255,192,42,0.06);
+}
+
+.march-update .mu-setup-guide svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.march-update .mu-help-center {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.5);
+  background: transparent;
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.march-update .mu-help-center:hover {
+  color: #6AB448;
+  border-color: rgba(106,180,72,0.3);
+  background: rgba(106,180,72,0.06);
+}
+
+.march-update .mu-help-center svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* Focus-visible for keyboard accessibility */
+.march-update .mu-toc-item:focus-visible,
+.march-update .mu-setup-guide:focus-visible,
+.march-update .mu-help-center:focus-visible,
+.march-update .mu-mobile-toc-link:focus-visible,
+.march-update .mu-mobile-toc-btn:focus-visible {
+  outline: 2px solid #FFC02A;
+  outline-offset: 2px;
+}
+
+/* ── CARD WITH FLOATED PHONE MOCKUP ──────────────────────── */
+
+.march-update .mu-card-with-phone {
+  position: relative;
+}
+
+.march-update .mu-card-with-phone .mu-card-phone-col {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  z-index: 2;
+}
+
+.march-update .mu-card-with-phone .mu-card-top,
+.march-update .mu-card-with-phone .mu-card-title,
+.march-update .mu-card-with-phone .mu-card-body-wrap {
+  margin-right: 264px;
+}
+
+.march-update .mu-card-with-phone .mu-card-body-wrap {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .march-update .mu-card-with-phone .mu-card-phone-col {
+    position: static;
+    margin: 16px auto 0;
+  }
+  .march-update .mu-card-with-phone .mu-card-top,
+  .march-update .mu-card-with-phone .mu-card-title,
+  .march-update .mu-card-with-phone .mu-card-body-wrap {
+    margin-right: 0;
+  }
+}
+
+/* ── PRODUCT MOCKUPS (General) ──────────────────────────────── */
+
+.march-update .mu-mockup {
+  margin: 20px 0 4px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,61,41,0.15);
+  border: 1px solid rgba(241,235,214,0.06);
+  position: relative;
+}
+
+/* ── Mockup: Smart Tags (Inventory Automation) ──────────────── */
+
+.march-update .mu-mock-tags {
+  padding: 0;
+}
+
+.march-update .mu-mock-tags-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(0,61,41,0.4);
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+}
+
+.march-update .mu-mock-tags-bar-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.march-update .mu-mock-tags-tab {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.4);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+}
+
+.march-update .mu-mock-tags-tab.active {
+  background: rgba(255,192,42,0.15);
+  color: #FFC02A;
+}
+
+.march-update .mu-mock-tags-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(106,180,72,0.06);
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+  font-size: 11px;
+  color: rgba(241,235,214,0.6);
+  flex-wrap: wrap;
+}
+
+.march-update .mu-mock-tags-rule-keyword {
+  font-weight: 700;
+  color: #6AB448;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.march-update .mu-mock-tags-rule-value {
+  background: rgba(241,235,214,0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #F1EBD6;
+  font-size: 11px;
+}
+
+.march-update .mu-mock-tags-body {
+  padding: 16px;
+}
+
+.march-update .mu-mock-tags-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(241,235,214,0.04);
+  border: 1px solid rgba(241,235,214,0.06);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+
+.march-update .mu-mock-tags-product:hover {
+  border-color: rgba(241,235,214,0.12);
+}
+
+.march-update .mu-mock-tags-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.march-update .mu-mock-tags-product-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #F1EBD6;
+  margin-bottom: 2px;
+}
+
+.march-update .mu-mock-tags-product-meta {
+  font-size: 10px;
+  color: rgba(241,235,214,0.35);
+}
+
+.march-update .mu-mock-tag-pill {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.march-update .mu-tag-auto-discount {
+  background: rgba(106,180,72,0.2);
+  color: #6AB448;
+}
+
+.march-update .mu-tag-expiring {
+  background: rgba(255,192,42,0.2);
+  color: #FFC02A;
+}
+
+.march-update .mu-tag-low-stock {
+  background: rgba(94,50,78,0.25);
+  color: #9e6d8e;
+}
+
+.march-update .mu-tag-clearance {
+  background: rgba(255,80,80,0.15);
+  color: #ff8080;
+}
+
+/* ── Mockup: Phone (Comms Preferences) ──────────────────────── */
+
+.march-update .mu-mock-phone {
+  width: 240px;
+  background: #021a10;
+  border-radius: 32px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  border: 1px solid rgba(241,235,214,0.06);
+}
+
+.march-update .mu-mock-phone-screen {
+  background: #042017;
+  border-radius: 22px;
+  overflow: hidden;
+  padding: 20px 16px 16px;
+}
+
+.march-update .mu-mock-phone-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.march-update .mu-mock-phone-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #003D29, #5E324E);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #F1EBD6;
+  flex-shrink: 0;
+}
+
+.march-update .mu-mock-phone-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #F1EBD6;
+}
+
+.march-update .mu-mock-phone-loyalty {
+  font-size: 9px;
+  font-weight: 600;
+  color: #FFC02A;
+  background: rgba(255,192,42,0.15);
+  padding: 2px 8px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.march-update .mu-mock-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+}
+
+.march-update .mu-mock-toggle-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(241,235,214,0.7);
+}
+
+.march-update .mu-mock-toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.march-update .mu-mock-toggle.on {
+  background: #6AB448;
+}
+
+.march-update .mu-mock-toggle.off {
+  background: rgba(241,235,214,0.15);
+}
+
+.march-update .mu-mock-toggle::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #F1EBD6;
+  top: 2px;
+  transition: left 0.2s;
+}
+
+.march-update .mu-mock-toggle.on::after {
+  left: 18px;
+}
+
+.march-update .mu-mock-toggle.off::after {
+  left: 2px;
+}
+
+.march-update .mu-mock-toast {
+  margin-top: 14px;
+  padding: 8px 12px;
+  background: rgba(106,180,72,0.12);
+  border: 1px solid rgba(106,180,72,0.2);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6AB448;
+  text-align: center;
+}
+
+/* ── Mockup: POS Register (Segment Badges) ──────────────────── */
+
+.march-update .mu-mock-pos {
+  padding: 0;
+}
+
+.march-update .mu-mock-pos-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(0,61,41,0.4);
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.4);
+  letter-spacing: 0.04em;
+}
+
+.march-update .mu-mock-pos-body {
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.march-update .mu-mock-pos-main {
+  flex: 1;
+}
+
+.march-update .mu-mock-pos-customer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.march-update .mu-mock-pos-customer-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #F1EBD6;
+}
+
+.march-update .mu-mock-pos-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.march-update .mu-mock-pos-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.march-update .mu-mock-pos-spend {
+  font-size: 11px;
+  color: rgba(241,235,214,0.4);
+}
+
+.march-update .mu-mock-pos-spend strong {
+  color: #FFC02A;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.march-update .mu-mock-pos-sidebar {
+  width: 120px;
+  background: rgba(241,235,214,0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(241,235,214,0.05);
+  padding: 10px;
+}
+
+.march-update .mu-mock-pos-sidebar-title {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(241,235,214,0.3);
+  margin-bottom: 8px;
+}
+
+.march-update .mu-mock-pos-insight {
+  font-size: 10px;
+  color: rgba(241,235,214,0.5);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.march-update .mu-mock-pos-insight strong {
+  color: #F1EBD6;
+}
+
+/* ── Mockup: Employee Rewards ──────────────────────────────── */
+
+.march-update .mu-mock-loyalty {
+  padding: 0;
+}
+
+.march-update .mu-mock-loyalty-header {
+  padding: 12px 16px;
+  background: rgba(0,61,41,0.3);
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+  font-size: 12px;
+  font-weight: 700;
+  color: #F1EBD6;
+}
+
+.march-update .mu-mock-loyalty-body {
+  padding: 16px;
+}
+
+.march-update .mu-mock-loyalty-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(241,235,214,0.04);
+}
+
+.march-update .mu-mock-loyalty-toggle-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(241,235,214,0.6);
+}
+
+.march-update .mu-mock-loyalty-indicator {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.march-update .mu-mock-loyalty-indicator.on {
+  background: rgba(106,180,72,0.15);
+  color: #6AB448;
+}
+
+.march-update .mu-mock-loyalty-indicator.off {
+  background: rgba(255,80,80,0.1);
+  color: #ff8080;
+}
+
+.march-update .mu-mock-loyalty-employees {
+  margin-top: 12px;
+}
+
+.march-update .mu-mock-loyalty-emp-title {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(241,235,214,0.3);
+  margin-bottom: 8px;
+}
+
+.march-update .mu-mock-loyalty-emp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.march-update .mu-mock-loyalty-emp-name {
+  font-size: 11px;
+  color: rgba(241,235,214,0.6);
+}
+
+.march-update .mu-mock-loyalty-emp-check {
+  color: #6AB448;
+  font-size: 12px;
+}
+
+/* ── Mockup: Multi-Image Product Card ──────────────────────── */
+
+.march-update .mu-mock-gallery {
+  padding: 0;
+}
+
+.march-update .mu-mock-gallery-image {
+  height: 120px;
+  background: linear-gradient(135deg, rgba(0,61,41,0.3), rgba(94,50,78,0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.march-update .mu-mock-gallery-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(241,235,214,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.march-update .mu-mock-gallery-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #6AB448;
+  opacity: 0.5;
+}
+
+.march-update .mu-mock-gallery-swipe {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.3);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.march-update .mu-mock-gallery-swipe svg {
+  width: 14px;
+  height: 14px;
+  stroke: rgba(241,235,214,0.3);
+}
+
+.march-update .mu-mock-gallery-body {
+  padding: 14px 16px;
+}
+
+.march-update .mu-mock-gallery-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #F1EBD6;
+  margin-bottom: 4px;
+}
+
+.march-update .mu-mock-gallery-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: #6AB448;
+  margin-bottom: 10px;
+}
+
+.march-update .mu-mock-gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding-bottom: 4px;
+}
+
+.march-update .mu-mock-gallery-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.15);
+  transition: all 0.2s;
+}
+
+.march-update .mu-mock-gallery-dot.active {
+  background: #6AB448;
+  box-shadow: 0 0 6px rgba(106,180,72,0.4);
+}
+
+/* ── CASE STUDY CARD (special treatment) ───────────────────── */
+
+.march-update .mu-card-case-study {
+  background: #F1EBD6;
+  border: 1px solid rgba(4,32,23,0.1);
+}
+
+.march-update .mu-card-case-study:hover {
+  border-color: rgba(4,32,23,0.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.march-update .mu-card-case-study .mu-card-title {
+  color: #042017;
+}
+
+.march-update .mu-card-case-study .mu-card-desc {
+  color: rgba(4,32,23,0.65);
+}
+
+.march-update .mu-card-case-study .mu-badge {
+  background: rgba(4,32,23,0.08);
+  color: rgba(4,32,23,0.6);
+}
+
+.march-update .mu-card-case-study .mu-setup-guide {
+  color: rgba(4,32,23,0.35);
+  border-color: rgba(4,32,23,0.1);
+}
+
+.march-update .mu-card-case-study .mu-setup-guide:hover {
+  color: #5E324E;
+  border-color: rgba(94,50,78,0.3);
+  background: rgba(94,50,78,0.06);
+}
+
+.march-update .mu-card-case-study .mu-quote {
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.7;
+  color: rgba(4,32,23,0.55);
+  border-left: 3px solid #6AB448;
+  padding-left: 16px;
+  margin: 16px 0;
+}
+
+.march-update .mu-card-case-study .mu-quote-author {
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  color: rgba(4,32,23,0.4);
+  margin-top: 8px;
+}
+
+/* ── CTA Link (for Brand Portal etc.) ──────────────────────── */
+
+.march-update .mu-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFC02A;
+  background: rgba(255,192,42,0.08);
+  border: 1px solid rgba(255,192,42,0.2);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+
+.march-update .mu-cta-link:hover {
+  background: rgba(255,192,42,0.15);
+  border-color: rgba(255,192,42,0.4);
+  box-shadow: 0 0 12px rgba(255,192,42,0.15);
+}
+
+.march-update .mu-cta-link svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* ── MOBILE TOC ───────────────────────────────────────────── */
+
+.march-update .mu-mobile-toc-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(4,32,23,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(241,235,214,0.12);
+  color: #F1EBD6;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.march-update .mu-mobile-toc-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(106,180,72,0.3);
+}
+
+.march-update .mu-mobile-toc-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #F1EBD6;
+  opacity: 0.8;
+}
+
+.march-update .mu-mobile-toc-drawer {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 199;
+  background: rgba(4,32,23,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(241,235,214,0.1);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 32px;
+  max-height: 60vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.4);
+}
+
+.march-update .mu-mobile-toc-drawer.mu-open {
+  transform: translateY(0);
+}
+
+.march-update .mu-mobile-toc-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(241,235,214,0.15);
+  margin: 0 auto 16px;
+}
+
+.march-update .mu-mobile-toc-heading {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(241,235,214,0.35);
+  margin-bottom: 12px;
+}
+
+.march-update .mu-mobile-toc-group-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.25);
+  margin: 12px 0 6px;
+  padding-left: 4px;
+}
+
+.march-update .mu-mobile-toc-group-label:first-of-type {
+  margin-top: 0;
+}
+
+.march-update .mu-mobile-toc-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.march-update .mu-mobile-toc-link:active {
+  background: rgba(241,235,214,0.06);
+}
+
+.march-update .mu-mobile-toc-link .mu-mtoc-dot {
+  width: 5px;
+  height: 5px;
+  min-width: 5px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.15);
+  transition: all 0.2s;
+}
+
+.march-update .mu-mobile-toc-link.mu-active .mu-mtoc-dot {
+  background: #6AB448;
+  box-shadow: 0 0 6px rgba(106,180,72,0.4);
+}
+
+.march-update .mu-mobile-toc-link .mu-mtoc-label {
+  font-size: 13px;
+  color: rgba(241,235,214,0.5);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.march-update .mu-mobile-toc-link.mu-active .mu-mtoc-label {
+  color: #F1EBD6;
+  font-weight: 500;
+}
+
+.march-update .mu-mobile-toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 198;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.march-update .mu-mobile-toc-overlay.mu-open {
+  opacity: 1;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .march-update .mu-mobile-toc-btn {
+    display: flex;
+  }
+  .march-update .mu-mobile-toc-drawer {
+    display: block;
+  }
+  .march-update .mu-mobile-toc-overlay {
+    display: block;
+  }
+
+  .march-update .mu-sidebar {
+    display: none;
+  }
+
+  .march-update .mu-hero {
+    margin-left: 0;
+  }
+
+  .march-update .mu-body {
+    margin-left: 0;
+  }
+
+  .march-update .mu-main {
+    padding: 40px 20px 80px;
+  }
+
+  .march-update .mu-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .march-update .mu-card {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .march-update .mu-mock-pos-body {
+    flex-direction: column;
+  }
+  .march-update .mu-mock-pos-sidebar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .march-update .mu-hero {
+    padding: 40px 16px;
+  }
+
+  .march-update .mu-ghost-text {
+    font-size: clamp(48px, 15vw, 80px);
+    letter-spacing: 0;
+  }
+
+  .march-update .mu-hero-intro {
+    font-size: 14px;
+  }
+
+  .march-update .mu-stats-grid {
+    gap: 8px;
+  }
+
+  .march-update .mu-stat-box {
+    padding: 16px 8px;
+  }
+
+  .march-update .mu-stat-number {
+    font-size: 20px;
+  }
+
+  .march-update .mu-stat-label {
+    font-size: 10px;
+  }
+
+  .march-update .mu-main {
+    padding: 28px 16px 60px;
+  }
+
+  .march-update .mu-section-divider {
+    margin: 40px 0 24px;
+    gap: 12px;
+  }
+
+  .march-update .mu-section-divider-text {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .march-update .mu-card {
+    padding: 20px 16px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+
+  .march-update .mu-card-title {
+    font-size: 18px;
+  }
+
+  .march-update .mu-card-desc {
+    font-size: 14px;
+  }
+
+  .march-update .mu-badge {
+    font-size: 10px;
+    padding: 3px 9px;
+  }
+
+  .march-update .mu-setup-guide,
+  .march-update .mu-help-center {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* Blobs smaller on mobile */
+  .march-update .mu-blob {
+    filter: blur(60px);
+  }
+
+  .march-update .mu-blob-1 { width: 300px; height: 300px; }
+  .march-update .mu-blob-2 { width: 280px; height: 280px; }
+  .march-update .mu-blob-3 { width: 250px; height: 250px; }
+  .march-update .mu-blob-4 { width: 200px; height: 200px; }
+
+  .march-update .mu-divider-line {
+    width: 40px;
+  }
+}
+</style>
+<!-- ============ END CSS ============ -->
+
+<!-- ============ HTML — COPY THIS INTO WEBFLOW EMBED BLOCK ============ -->
+<div class="march-update">
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO — Full Viewport
+       ════════════════════════════════════════════════════════════ -->
+  <section class="mu-hero">
+    <div class="mu-hero-mesh">
+      <div class="mu-blob mu-blob-1"></div>
+      <div class="mu-blob mu-blob-2"></div>
+      <div class="mu-blob mu-blob-3"></div>
+      <div class="mu-blob mu-blob-4"></div>
+    </div>
+
+    <div class="mu-hero-content">
+      <div class="mu-ghost-text">MARCH 2026</div>
+      <h1 class="mu-hero-title">Product Updates</h1>
+
+      <div class="mu-divider">
+        <span class="mu-divider-line"></span>
+        <span class="mu-divider-dot"></span>
+        <span class="mu-divider-line"></span>
+      </div>
+
+      <p class="mu-hero-intro">
+        This month&rsquo;s updates are focused on giving you more precision and control over your store&rsquo;s experience. From &lsquo;set it and forget it&rsquo; merchandising to advanced tools for personalizing the customer journey, here is what&rsquo;s new across the Dutchie platform.
+      </p>
+
+      <div class="mu-stats-grid">
+        <div class="mu-stat-box">
+          <div class="mu-stat-number" data-target="11" data-suffix="">0</div>
+          <div class="mu-stat-label">Updates</div>
+        </div>
+        <div class="mu-stat-box">
+          <div class="mu-stat-number" data-target="4" data-suffix="">0</div>
+          <div class="mu-stat-label">New Features</div>
+        </div>
+        <div class="mu-stat-box">
+          <div class="mu-stat-number" data-target="30" data-suffix="+">0</div>
+          <div class="mu-stat-label">Segment Filters</div>
+        </div>
+        <div class="mu-stat-box">
+          <div class="mu-stat-number" data-target="0" data-suffix="" data-static="AWS">AWS</div>
+          <div class="mu-stat-label">Partnership</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mu-scroll-hint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       BELOW THE FOLD — Sidebar + Cards
+       ════════════════════════════════════════════════════════════ -->
+  <div class="mu-body">
+
+    <!-- ── Sidebar TOC ─────────────────────────────────────── -->
+    <aside class="mu-sidebar">
+      <div class="mu-toc-title">Contents</div>
+
+      <div class="mu-toc-group">
+        <div class="mu-toc-group-label">What&rsquo;s New</div>
+        <a class="mu-toc-item" href="#mu-card-1" data-toc="mu-card-1">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Smart Tags</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-2" data-toc="mu-card-2">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Brand Portal V2</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-3" data-toc="mu-card-3">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Exclusive Channel Offers</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-4" data-toc="mu-card-4">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Event-Based Lead Gen</span>
+        </a>
+      </div>
+
+      <div class="mu-toc-group">
+        <div class="mu-toc-group-label">Segments &amp; Retention</div>
+        <a class="mu-toc-item" href="#mu-card-5" data-toc="mu-card-5">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Comms Preferences</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-6" data-toc="mu-card-6">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Enhanced Segment Attributes</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-7" data-toc="mu-card-7">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Custom Segment Badges</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-8" data-toc="mu-card-8">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Employee Rewards</span>
+        </a>
+      </div>
+
+      <div class="mu-toc-group">
+        <div class="mu-toc-group-label">E-Commerce &amp; Mobile</div>
+        <a class="mu-toc-item" href="#mu-card-9" data-toc="mu-card-9">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Multi-Image Product Cards</span>
+        </a>
+        <a class="mu-toc-item" href="#mu-card-10" data-toc="mu-card-10">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">Custom Mobile Menu</span>
+        </a>
+      </div>
+
+      <div class="mu-toc-group">
+        <div class="mu-toc-group-label">Infrastructure</div>
+        <a class="mu-toc-item" href="#mu-card-11" data-toc="mu-card-11">
+          <span class="mu-toc-dot"></span>
+          <span class="mu-toc-label">AWS Database Migration</span>
+        </a>
+      </div>
+
+      <div class="mu-progress-wrap">
+        <div class="mu-progress-label">Progress</div>
+        <div class="mu-progress-track">
+          <div class="mu-progress-fill"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main Content ────────────────────────────────────── -->
+    <main class="mu-main">
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: What's New (Medium Green #003D29 accent)
+           ══════════════════════════════════════════════════════ -->
+      <div class="mu-section-divider">
+        <span class="mu-section-divider-line mu-line-new"></span>
+        <span class="mu-section-divider-text">What&rsquo;s New</span>
+        <span class="mu-section-divider-line mu-line-new"></span>
+      </div>
+
+      <!-- Card 1: Smart Tags -->
+      <article class="mu-card" id="mu-card-1">
+        <div class="mu-card-accent mu-accent-new"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Merchandising</span>
+        </div>
+        <h2 class="mu-card-title">Smart Tags</h2>
+
+        <!-- Mockup: Inventory Automation Interface -->
+        <div class="mu-mockup mu-mock-tags">
+          <div class="mu-mock-tags-bar">
+            <span class="mu-mock-tags-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
+            <span class="mu-mock-tags-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
+            <span class="mu-mock-tags-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
+            <span class="mu-mock-tags-tab">All Products</span>
+            <span class="mu-mock-tags-tab active">Smart Rules</span>
+            <span class="mu-mock-tags-tab">History</span>
+          </div>
+          <div class="mu-mock-tags-rule">
+            <span class="mu-mock-tags-rule-keyword">IF</span>
+            <span class="mu-mock-tags-rule-value">shelf life &lt; 30 days</span>
+            <span class="mu-mock-tags-rule-keyword">THEN</span>
+            <span>apply tag:</span>
+            <span class="mu-mock-tags-rule-value">Clearance</span>
+          </div>
+          <div class="mu-mock-tags-body">
+            <div class="mu-mock-tags-product">
+              <div class="mu-mock-tags-product-info">
+                <div class="mu-mock-tags-product-name">Blue Dream 3.5g</div>
+                <div class="mu-mock-tags-product-meta">THC 24.1%</div>
+              </div>
+              <span class="mu-mock-tag-pill mu-tag-auto-discount">Auto-Discount</span>
+            </div>
+            <div class="mu-mock-tags-product">
+              <div class="mu-mock-tags-product-info">
+                <div class="mu-mock-tags-product-name">GSC Live Resin 1g</div>
+                <div class="mu-mock-tags-product-meta">THC 78.3%</div>
+              </div>
+              <span class="mu-mock-tag-pill mu-tag-expiring">Expiring Soon</span>
+            </div>
+            <div class="mu-mock-tags-product">
+              <div class="mu-mock-tags-product-info">
+                <div class="mu-mock-tags-product-name">Sour Diesel Pre-Roll 5pk</div>
+                <div class="mu-mock-tags-product-meta">THC 20.7%</div>
+              </div>
+              <span class="mu-mock-tag-pill mu-tag-low-stock">Low Stock</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="mu-card-desc">
+          Automate your merchandising with a &lsquo;set it and forget it&rsquo; rules engine. Automatically tag your inventory based on lab results, pricing trends, or expiration dates, instantly triggering the right discounts and menu collections without any manual work.
+        </p>
+        <div class="mu-card-footer">
+          <a href="#" class="mu-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+        </div>
+      </article>
+
+      <!-- Card 2: Brand Portal V2 -->
+      <article class="mu-card mu-clickable" id="mu-card-2" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
+        <div class="mu-card-accent mu-accent-new"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Brand Tools</span>
+          <span class="mu-badge mu-badge-walkthrough">&#9655; Walkthrough</span>
+        </div>
+        <h2 class="mu-card-title">Brand Portal V2</h2>
+        <p class="mu-card-desc">
+          Brands can now create and manage product catalogs with verified images, descriptions, and other product information distributed across the Dutchie network. This ensures consistent brand identity and accurate product information. Retail operators still have ultimate control over what appears on their menus.
+        </p>
+        <div class="mu-card-footer">
+          <a href="https://dutchie.webflow.io/brand-portal-demo-page" class="mu-cta-link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Learn More</a>
+        </div>
+      </article>
+
+      <!-- Card 3: Exclusive Channel Offers -->
+      <article class="mu-card" id="mu-card-3">
+        <div class="mu-card-accent mu-accent-new"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Promotions</span>
+        </div>
+        <h2 class="mu-card-title">Exclusive Channel Offers</h2>
+        <p class="mu-card-desc">
+          Drive app downloads and specific shopping behaviors by offering &lsquo;Mobile-Only&rsquo; or &lsquo;Kiosk-Only&rsquo; promotions. This feature uses segment-specific logic to show unique discounts only on the platforms you choose.
+        </p>
+        <div class="mu-card-footer">
+          <a href="https://support.dutchie.com/hc/en-us/articles/38693143983251-Create-and-manage-discounts-with-the-Dutchie-POS-Discount-Wizard" class="mu-help-center" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help Center</a>
+        </div>
+      </article>
+
+      <!-- Card 4: Event-Based Lead Generation -->
+      <article class="mu-card" id="mu-card-4">
+        <div class="mu-card-accent mu-accent-new"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Marketing</span>
+        </div>
+        <h2 class="mu-card-title">Event-Based Lead Generation</h2>
+        <p class="mu-card-desc">
+          Turn pop-ups and festivals into revenue you can track. Use unique QR codes to sign customers up for rewards instantly and track exactly how much long-term revenue each specific event generated for your brand.
+        </p>
+        <div class="mu-card-footer">
+          <a href="https://support.dutchie.com/hc/en-us/articles/48980865544851-Coming-soon-Create-and-manage-real-life-events-in-the-Dutchie-Marketing-Suite" class="mu-help-center" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help Center</a>
+        </div>
+      </article>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Segments, Growth & Retention (Purple #5E324E accent)
+           ══════════════════════════════════════════════════════ -->
+      <div class="mu-section-divider">
+        <span class="mu-section-divider-line mu-line-segments"></span>
+        <span class="mu-section-divider-text">Segments, Growth &amp; Retention</span>
+        <span class="mu-section-divider-line mu-line-segments"></span>
+      </div>
+
+      <!-- Card 5: Comms Preferences -->
+      <article class="mu-card mu-card-with-phone" id="mu-card-5">
+        <div class="mu-card-accent mu-accent-segments"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Customer Experience</span>
+        </div>
+        <h2 class="mu-card-title">Comms Preferences</h2>
+        <div class="mu-card-body-wrap">
+          <div class="mu-card-text">
+            <p class="mu-card-desc">
+              Give your customers and budtenders control. Users can now easily manage their own opt-in statuses and preferences, ensuring your marketing remains compliant and reduces unsubscribe rates.
+            </p>
+            <div class="mu-card-footer">
+              <a href="https://support.dutchie.com/hc/en-us/articles/12882467007123-View-and-edit-guest-profiles-in-the-Dutchie-POS-Register" class="mu-help-center" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help Center</a>
+            </div>
+          </div>
+          <div class="mu-card-phone-col">
+            <!-- Phone Mockup: Comms Preferences -->
+            <div class="mu-mock-phone">
+              <div class="mu-mock-phone-screen">
+                <div class="mu-mock-phone-header">
+                  <div class="mu-mock-phone-avatar">SM</div>
+                  <div>
+                    <div class="mu-mock-phone-name">Sarah M.</div>
+                    <span class="mu-mock-phone-loyalty">Gold Member</span>
+                  </div>
+                </div>
+                <div class="mu-mock-toggle-row">
+                  <span class="mu-mock-toggle-label">SMS</span>
+                  <div class="mu-mock-toggle on"></div>
+                </div>
+                <div class="mu-mock-toggle-row">
+                  <span class="mu-mock-toggle-label">Email</span>
+                  <div class="mu-mock-toggle on"></div>
+                </div>
+                <div class="mu-mock-toggle-row">
+                  <span class="mu-mock-toggle-label">Push</span>
+                  <div class="mu-mock-toggle off"></div>
+                </div>
+                <div class="mu-mock-toast">Preferences updated</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6: Enhanced Segment Attributes -->
+      <article class="mu-card" id="mu-card-6">
+        <div class="mu-card-accent mu-accent-segments"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Segmentation</span>
+        </div>
+        <h2 class="mu-card-title">Enhanced Segment Attributes</h2>
+        <p class="mu-card-desc">
+          Build audiences based on what actually drives your customers. A major expansion of segment attributes gives you 30+ new ways to filter and reach customers &mdash; spanning loyalty status, spend behavior, purchase patterns, preferred channels, location habits, campaign engagement history, and more.
+        </p>
+        <div class="mu-card-footer">
+          <a href="https://support.dutchie.com/hc/en-us/articles/38547583333011-Create-and-manage-customer-segments-in-Dutchie-POS" class="mu-help-center" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help Center</a>
+        </div>
+      </article>
+
+      <!-- Card 7: Custom Segment Badges at Register -->
+      <article class="mu-card" id="mu-card-7">
+        <div class="mu-card-accent mu-accent-segments"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Register UX</span>
+        </div>
+        <h2 class="mu-card-title">Custom Segment Badges at Register</h2>
+
+        <!-- Mockup: POS Register with Segment Badges -->
+        <div class="mu-mockup mu-mock-pos">
+          <div class="mu-mock-pos-bar">
+            <span>DUTCHIE POS</span>
+            <span style="margin-left:auto;">Register 3</span>
+          </div>
+          <div class="mu-mock-pos-body">
+            <div class="mu-mock-pos-main">
+              <div class="mu-mock-pos-customer">
+                <span class="mu-mock-pos-customer-name">James R.</span>
+              </div>
+              <div class="mu-mock-pos-badges">
+                <span class="mu-mock-pos-badge" style="background:rgba(255,192,42,0.2);color:#FFC02A;">VIP</span>
+                <span class="mu-mock-pos-badge" style="background:rgba(106,180,72,0.2);color:#6AB448;">Medical</span>
+                <span class="mu-mock-pos-badge" style="background:rgba(94,50,78,0.25);color:#9e6d8e;">Big Spender</span>
+              </div>
+              <div class="mu-mock-pos-spend">Total Spend: <strong>$4,280</strong></div>
+            </div>
+            <div class="mu-mock-pos-sidebar">
+              <div class="mu-mock-pos-sidebar-title">Insights</div>
+              <div class="mu-mock-pos-insight">Avg ticket: <strong>$72</strong></div>
+              <div class="mu-mock-pos-insight">Last visit: <strong>3 days ago</strong></div>
+              <div class="mu-mock-pos-insight">Prefers: <strong>Flower</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mu-card-desc">
+          Tailor every in-store conversation by visually flagging your most important shoppers directly at the register. Budtenders can instantly identify VIPs, medical patients, or high-value customers through customizable icons and colors.
+        </p>
+        <div class="mu-card-footer">
+          <a href="https://support.dutchie.com/hc/en-us/articles/38547583333011-Create-and-manage-customer-segments-in-Dutchie-POS" class="mu-help-center" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help Center</a>
+        </div>
+      </article>
+
+      <!-- Card 8: Employee Rewards & Guardrails -->
+      <article class="mu-card" id="mu-card-8">
+        <div class="mu-card-accent mu-accent-segments"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Loyalty</span>
+        </div>
+        <h2 class="mu-card-title">Employee Rewards &amp; Guardrails</h2>
+
+        <!-- Mockup: Loyalty Settings Panel -->
+        <div class="mu-mockup mu-mock-loyalty">
+          <div class="mu-mock-loyalty-header">Loyalty Settings &mdash; Employee Program</div>
+          <div class="mu-mock-loyalty-body">
+            <div class="mu-mock-loyalty-toggle">
+              <span class="mu-mock-loyalty-toggle-label">Employee Participation</span>
+              <span class="mu-mock-loyalty-indicator on">ON</span>
+            </div>
+            <div class="mu-mock-loyalty-toggle">
+              <span class="mu-mock-loyalty-toggle-label">Stack with loyalty points</span>
+              <span class="mu-mock-loyalty-indicator off">OFF</span>
+            </div>
+            <div class="mu-mock-loyalty-toggle">
+              <span class="mu-mock-loyalty-toggle-label">Exclusive employee tier</span>
+              <span class="mu-mock-loyalty-indicator on">ON</span>
+            </div>
+            <div class="mu-mock-loyalty-employees">
+              <div class="mu-mock-loyalty-emp-title">Employee Segment</div>
+              <div class="mu-mock-loyalty-emp">
+                <span class="mu-mock-loyalty-emp-name">Alex T.</span>
+                <span class="mu-mock-loyalty-emp-check">&#10003;</span>
+              </div>
+              <div class="mu-mock-loyalty-emp">
+                <span class="mu-mock-loyalty-emp-name">Jordan K.</span>
+                <span class="mu-mock-loyalty-emp-check">&#10003;</span>
+              </div>
+              <div class="mu-mock-loyalty-emp">
+                <span class="mu-mock-loyalty-emp-name">Riley S.</span>
+                <span class="mu-mock-loyalty-emp-check">&#10003;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mu-card-desc">
+          Boost staff retention and morale by creating incentive programs specifically for your budtenders. Build dedicated employee segments to offer exclusive rewards or set restrictions that prevent double-dipping on existing discounts.
+        </p>
+        <div class="mu-card-footer">
+          <a href="https://support.dutchie.com/hc/en-us/articles/44687646391699-Manage-employee-participation-in-your-Dutchie-Loyalty-program" class="mu-help-center" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Help Center</a>
+        </div>
+      </article>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: E-Commerce & Mobile (Yellow #FFC02A accent)
+           ══════════════════════════════════════════════════════ -->
+      <div class="mu-section-divider">
+        <span class="mu-section-divider-line mu-line-ecom"></span>
+        <span class="mu-section-divider-text">E-Commerce &amp; Mobile</span>
+        <span class="mu-section-divider-line mu-line-ecom"></span>
+      </div>
+
+      <!-- Card 9: Multi-Image Product Cards -->
+      <article class="mu-card" id="mu-card-9">
+        <div class="mu-card-accent mu-accent-ecom"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">E-Commerce</span>
+        </div>
+        <h2 class="mu-card-title">Multi-Image Product Cards</h2>
+
+        <!-- Mockup: Product Card with Gallery -->
+        <div class="mu-mockup mu-mock-gallery">
+          <div class="mu-mock-gallery-image">
+            <div class="mu-mock-gallery-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" stroke="currentColor" opacity=".3"/><path d="M12 8c-2 0-3.5 1.5-3.5 3.5S10 15 12 17c2-2 3.5-3 3.5-5.5S14 8 12 8z" stroke="currentColor"/></svg>
+            </div>
+            <div class="mu-mock-gallery-swipe">
+              swipe
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+          </div>
+          <div class="mu-mock-gallery-body">
+            <div class="mu-mock-gallery-name">Blue Dream 3.5g</div>
+            <div class="mu-mock-gallery-price">$42.00</div>
+            <div class="mu-mock-gallery-dots">
+              <span class="mu-mock-gallery-dot active"></span>
+              <span class="mu-mock-gallery-dot"></span>
+              <span class="mu-mock-gallery-dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <p class="mu-card-desc">
+          Give shoppers more confidence to buy without leaving the page. Customers can now scroll through a product&rsquo;s full gallery &mdash; labels, bud shots, and packaging &mdash; directly from the main menu, reducing click-back fatigue.
+        </p>
+      </article>
+
+      <!-- Card 10: Custom Mobile Menu -->
+      <article class="mu-card mu-clickable" id="mu-card-10" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
+        <div class="mu-card-accent mu-accent-ecom"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge">Mobile</span>
+          <span class="mu-badge mu-badge-walkthrough">&#9655; Walkthrough</span>
+        </div>
+        <h2 class="mu-card-title">Custom Mobile Menu</h2>
+        <p class="mu-card-desc">
+          Take full control of your mobile journey with our new drag-and-drop Custom Menu builder. Move beyond standard menus to highlight top brands, link directly to your loyalty program, or create nested sections in real-time.
+        </p>
+      </article>
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Infrastructure (Light Green #6AB448 accent)
+           ══════════════════════════════════════════════════════ -->
+      <div class="mu-section-divider">
+        <span class="mu-section-divider-line mu-line-infra"></span>
+        <span class="mu-section-divider-text">Infrastructure</span>
+        <span class="mu-section-divider-line mu-line-infra"></span>
+      </div>
+
+      <!-- Card 11: AWS Database Migration (Case Study — inverted card) -->
+      <article class="mu-card mu-card-case-study" id="mu-card-11">
+        <div class="mu-card-accent mu-accent-infra"></div>
+        <div class="mu-card-top">
+          <span class="mu-badge mu-badge-case-study">Case Study</span>
+          <span class="mu-badge mu-badge-aws">AWS Partnership</span>
+        </div>
+        <h2 class="mu-card-title">AWS Database Migration</h2>
+        <p class="mu-card-desc">
+          We partnered with Amazon Web Services to rebuild the core database infrastructure behind every Dutchie transaction, delivering faster checkouts, smoother cart updates, and a platform that automatically scales when traffic spikes.
+        </p>
+        <blockquote class="mu-quote">
+          &ldquo;Dutchie has built a reliable, scalable platform on AWS...&rdquo;
+          <div class="mu-quote-author">&mdash; Mehul Y. Shah, Director for Amazon RDS</div>
+        </blockquote>
+        <div class="mu-card-footer">
+          <a href="https://aws.amazon.com/blogs/database/from-bottlenecks-to-breakthroughs-dutchies-database-migration-journey/" class="mu-setup-guide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Read Case Study</a>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- ── Mobile TOC ──────────────────────────────────────────── -->
+  <div class="mu-mobile-toc-overlay" id="mu-mtoc-overlay"></div>
+  <button class="mu-mobile-toc-btn" id="mu-mtoc-btn" aria-label="Table of contents">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+  </button>
+  <div class="mu-mobile-toc-drawer" id="mu-mtoc-drawer">
+    <div class="mu-mobile-toc-handle"></div>
+    <div class="mu-mobile-toc-heading">Contents</div>
+    <div class="mu-mobile-toc-group-label">What&rsquo;s New</div>
+    <a class="mu-mobile-toc-link" href="#mu-card-1" data-mtoc="mu-card-1"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Smart Tags</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-2" data-mtoc="mu-card-2"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Brand Portal V2</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-3" data-mtoc="mu-card-3"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Exclusive Channel Offers</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-4" data-mtoc="mu-card-4"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Event-Based Lead Gen</span></a>
+    <div class="mu-mobile-toc-group-label">Segments &amp; Retention</div>
+    <a class="mu-mobile-toc-link" href="#mu-card-5" data-mtoc="mu-card-5"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Comms Preferences</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-6" data-mtoc="mu-card-6"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Enhanced Segment Attributes</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-7" data-mtoc="mu-card-7"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Custom Segment Badges</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-8" data-mtoc="mu-card-8"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Employee Rewards</span></a>
+    <div class="mu-mobile-toc-group-label">E-Commerce &amp; Mobile</div>
+    <a class="mu-mobile-toc-link" href="#mu-card-9" data-mtoc="mu-card-9"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Multi-Image Product Cards</span></a>
+    <a class="mu-mobile-toc-link" href="#mu-card-10" data-mtoc="mu-card-10"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">Custom Mobile Menu</span></a>
+    <div class="mu-mobile-toc-group-label">Infrastructure</div>
+    <a class="mu-mobile-toc-link" href="#mu-card-11" data-mtoc="mu-card-11"><span class="mu-mtoc-dot"></span><span class="mu-mtoc-label">AWS Database Migration</span></a>
+  </div>
+</div>
+<!-- ============ END HTML ============ -->
+
+<!-- ============ JS — COPY THIS INTO WEBFLOW FOOTER CODE ============ -->
+<script>
+(function() {
+  var root = document.querySelector('.march-update');
+  if (!root) return;
+
+  /* ── Animated Counters ──────────────────────────────────── */
+  function animateCounters() {
+    var counters = root.querySelectorAll('.mu-stat-number');
+    counters.forEach(function(el) {
+      if (el.dataset.static) return;
+      var target = parseInt(el.dataset.target, 10);
+      if (isNaN(target) || target === 0) return;
+      var suffix = el.dataset.suffix || '';
+      var duration = 1200;
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  var heroObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        animateCounters();
+        heroObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  var statsGrid = root.querySelector('.mu-stats-grid');
+  if (statsGrid) heroObserver.observe(statsGrid);
+
+  /* ── Card Scroll Reveal ─────────────────────────────────── */
+  var cardObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('mu-visible');
+        cardObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  root.querySelectorAll('.mu-card').forEach(function(card) {
+    cardObserver.observe(card);
+  });
+
+  /* ── TOC Active Detection + Progress Bar ────────────────── */
+  var tocItems = root.querySelectorAll('.mu-toc-item');
+  var cards = [];
+  tocItems.forEach(function(item) {
+    var id = item.getAttribute('data-toc');
+    var el = root.querySelector('#' + id);
+    if (el) cards.push({ id: id, el: el, toc: item });
+  });
+
+  var progressFill = root.querySelector('.mu-progress-fill');
+  var muBody = root.querySelector('.mu-body');
+
+  function updateTOC() {
+    var scrollY = window.scrollY;
+    var winH = window.innerHeight;
+    var activeId = null;
+
+    for (var i = cards.length - 1; i >= 0; i--) {
+      var rect = cards[i].el.getBoundingClientRect();
+      if (rect.top <= winH * 0.4) {
+        activeId = cards[i].id;
+        break;
+      }
+    }
+
+    tocItems.forEach(function(item) {
+      if (item.getAttribute('data-toc') === activeId) {
+        item.classList.add('mu-active');
+      } else {
+        item.classList.remove('mu-active');
+      }
+    });
+
+    /* Progress bar */
+    if (progressFill && muBody) {
+      var bodyRect = muBody.getBoundingClientRect();
+      var bodyTop = bodyRect.top + scrollY;
+      var bodyHeight = bodyRect.height;
+      var scrolled = scrollY + winH - bodyTop;
+      var pct = Math.max(0, Math.min(1, scrolled / bodyHeight));
+      progressFill.style.width = (pct * 100) + '%';
+    }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateTOC();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  /* Smooth scroll for TOC clicks */
+  tocItems.forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = item.getAttribute('data-toc');
+      var target = root.querySelector('#' + id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  /* Initial call */
+  updateTOC();
+
+  /* ── Mobile TOC ──────────────────────────────────────────── */
+  var mtocBtn = root.querySelector('#mu-mtoc-btn');
+  var mtocDrawer = root.querySelector('#mu-mtoc-drawer');
+  var mtocOverlay = root.querySelector('#mu-mtoc-overlay');
+  var mtocLinks = root.querySelectorAll('.mu-mobile-toc-link');
+
+  function openMtoc() {
+    mtocDrawer.classList.add('mu-open');
+    mtocOverlay.classList.add('mu-open');
+    mtocBtn.style.display = 'none';
+  }
+
+  function closeMtoc() {
+    mtocDrawer.classList.remove('mu-open');
+    mtocOverlay.classList.remove('mu-open');
+    setTimeout(function() { mtocBtn.style.display = ''; }, 350);
+  }
+
+  if (mtocBtn) mtocBtn.addEventListener('click', openMtoc);
+  if (mtocOverlay) mtocOverlay.addEventListener('click', closeMtoc);
+
+  mtocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('data-mtoc');
+      var target = root.querySelector('#' + id);
+      closeMtoc();
+      if (target) {
+        setTimeout(function() {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    });
+  });
+
+  /* Update mobile TOC active state on scroll */
+  function updateMobileTOC() {
+    var winH = window.innerHeight;
+    var activeId = null;
+    for (var i = cards.length - 1; i >= 0; i--) {
+      var rect = cards[i].el.getBoundingClientRect();
+      if (rect.top <= winH * 0.4) {
+        activeId = cards[i].id;
+        break;
+      }
+    }
+    mtocLinks.forEach(function(link) {
+      if (link.getAttribute('data-mtoc') === activeId) {
+        link.classList.add('mu-active');
+      } else {
+        link.classList.remove('mu-active');
+      }
+    });
+  }
+
+  /* Patch scroll handler to also update mobile TOC */
+  window.addEventListener('scroll', function() {
+    requestAnimationFrame(updateMobileTOC);
+  }, { passive: true });
+
+  /* ── Clickable cards → Storylane ─────────────────────────── */
+  root.querySelectorAll('.mu-clickable[data-storylane-url]').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // Don't trigger if they clicked the setup guide or help center link
+      if (e.target.closest('.mu-setup-guide') || e.target.closest('.mu-help-center') || e.target.closest('.mu-cta-link')) return;
+      var url = card.getAttribute('data-storylane-url');
+      if (typeof Storylane !== 'undefined' && url) {
+        Storylane.Play({
+          type: 'popup',
+          demo_type: 'image',
+          width: 2560,
+          height: 1245,
+          scale: '0.95',
+          demo_url: url,
+          padding_bottom: 'calc(48.63% + 25px)'
+        });
+      }
+    });
+  });
+})();
+</script>
+<!-- ============ END JS ============ -->
+
+</body>
+</html>
