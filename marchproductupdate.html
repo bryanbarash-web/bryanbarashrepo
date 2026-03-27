@@ -544,6 +544,72 @@
   box-shadow: 0 0 12px rgba(94,50,78,0.2);
 }
 
+/* ── Loom Modal ──────────────────────────────────────────── */
+
+.march-update .mu-loom-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.march-update .mu-loom-overlay.mu-open {
+  display: flex;
+}
+
+.march-update .mu-loom-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+
+.march-update .mu-loom-container::before {
+  content: '';
+  display: block;
+  padding-top: 56.25%;
+}
+
+.march-update .mu-loom-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.march-update .mu-loom-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.1);
+  border: 1px solid rgba(241,235,214,0.15);
+  color: #F1EBD6;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.march-update .mu-loom-close:hover {
+  background: rgba(241,235,214,0.2);
+}
+
 .march-update .mu-badge-case-study {
   background: rgba(255,192,42,0.15);
   color: #FFC02A;
@@ -1285,7 +1351,7 @@
         <div class="mu-card-accent mu-accent-segments"></div>
         <div class="mu-card-top">
           <span class="mu-badge">Segmentation</span>
-          <a href="https://www.loom.com/share/1f7522f000c64ca59b7e81833d98fc36" class="mu-badge mu-badge-loom" target="_blank" rel="noopener" style="text-decoration:none;">&#9654; Loom</a>
+          <span class="mu-badge mu-badge-loom" data-loom-url="https://www.loom.com/embed/1f7522f000c64ca59b7e81833d98fc36">&#9654; Loom</span>
         </div>
         <h2 class="mu-card-title">Enhanced Segment Attributes</h2>
         <p class="mu-card-desc">
@@ -1410,6 +1476,14 @@
       </article>
 
     </main>
+  </div>
+
+  <!-- ── Loom Video Modal ────────────────────────────────────── -->
+  <div class="mu-loom-overlay" id="mu-loom-overlay">
+    <div class="mu-loom-container">
+      <button class="mu-loom-close" id="mu-loom-close">&times;</button>
+      <iframe id="mu-loom-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
   </div>
 
   <!-- ── Mobile TOC ──────────────────────────────────────────── -->
@@ -1620,6 +1694,35 @@
   window.addEventListener('scroll', function() {
     requestAnimationFrame(updateMobileTOC);
   }, { passive: true });
+
+  /* ── Loom Video Modal ─────────────────────────────────────── */
+  var loomOverlay = root.querySelector('#mu-loom-overlay');
+  var loomIframe = root.querySelector('#mu-loom-iframe');
+  var loomClose = root.querySelector('#mu-loom-close');
+
+  function openLoom(embedUrl) {
+    loomIframe.src = embedUrl + '?autoplay=1';
+    loomOverlay.classList.add('mu-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLoom() {
+    loomOverlay.classList.remove('mu-open');
+    loomIframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  root.querySelectorAll('.mu-badge-loom[data-loom-url]').forEach(function(badge) {
+    badge.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openLoom(badge.getAttribute('data-loom-url'));
+    });
+  });
+
+  if (loomClose) loomClose.addEventListener('click', closeLoom);
+  if (loomOverlay) loomOverlay.addEventListener('click', function(e) {
+    if (e.target === loomOverlay) closeLoom();
+  });
 
   /* ── Clickable cards → Storylane ─────────────────────────── */
   root.querySelectorAll('.mu-clickable[data-storylane-url]').forEach(function(card) {
