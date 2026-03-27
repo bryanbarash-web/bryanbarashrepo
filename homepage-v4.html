@@ -770,6 +770,173 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   font-size: clamp(24px, 3.5vw, 40px); font-weight: 700; color: var(--sand);
   letter-spacing: -0.5px; line-height: 1.2;
 }
+
+/* ─── SHARED: Below-fold sections ─── */
+.shared-products {
+  background: var(--dark-green); text-align: center; padding: 80px 24px;
+}
+.shared-inner h2 {
+  font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: var(--sand);
+  line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 32px;
+}
+.shared-cta {
+  display: inline-block; padding: 14px 36px; border-radius: 50px;
+  background: var(--yellow); color: var(--dark-green); font-size: 16px;
+  font-weight: 700; text-decoration: none; font-family: var(--font);
+  transition: opacity 0.2s;
+}
+.shared-cta:hover { opacity: 0.88; }
+
+/* Logos */
+.shared-logos {
+  background: var(--sand); padding: 48px 24px; overflow-x: auto;
+}
+.shared-logos-track {
+  display: flex; justify-content: center; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+}
+.logo-pill {
+  background: #fff; border-radius: 12px; padding: 16px 32px;
+  font-size: 16px; font-weight: 700; color: var(--dark-green);
+  border: 1px solid rgba(4,32,23,0.08); white-space: nowrap;
+  font-family: var(--font);
+}
+
+/* Stats */
+.shared-stats { background: var(--sand); padding: 48px 24px 64px; }
+.shared-stats-row {
+  display: flex; justify-content: center; align-items: center; gap: 48px;
+  max-width: 800px; margin: 0 auto;
+}
+.shared-stat { text-align: center; }
+.shared-stat-num {
+  font-size: 48px; font-weight: 700; color: var(--dark-green);
+  line-height: 1.1; margin-bottom: 4px;
+}
+.shared-stat-label { font-size: 14px; color: rgba(4,32,23,0.55); }
+.shared-stat-divider {
+  width: 1px; height: 48px; background: rgba(4,32,23,0.15); flex-shrink: 0;
+}
+
+/* Map */
+.shared-map { background: var(--sand); padding: 0 24px 64px; }
+.shared-map-card {
+  background: var(--dark-green); border-radius: 24px; padding: 60px;
+  max-width: 1000px; margin: 0 auto; text-align: center;
+}
+.shared-map-bg {
+  position: relative; height: 260px; border-radius: 16px;
+  background: rgba(241,235,214,0.06); margin-bottom: 32px; overflow: hidden;
+}
+.map-dot {
+  position: absolute; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--light-green); opacity: 0.7;
+}
+.map-dispensary-card {
+  position: absolute; background: #fff; border-radius: 12px;
+  padding: 10px 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  text-align: left; min-width: 170px;
+}
+.map-dispensary-card.left { top: 35%; left: 8%; }
+.map-dispensary-card.right { top: 20%; right: 8%; }
+.mdc-name { font-size: 14px; font-weight: 700; color: var(--dark-green); margin-bottom: 2px; }
+.mdc-detail { font-size: 12px; color: rgba(4,32,23,0.6); margin-bottom: 4px; }
+.mdc-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--light-green); text-transform: uppercase;
+}
+.shared-map-card h2 {
+  font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--sand);
+  margin-bottom: 24px; letter-spacing: -0.5px;
+}
+.shared-map-search {
+  display: flex; max-width: 520px; margin: 0 auto; border-radius: 50px;
+  overflow: hidden; background: #fff;
+}
+.shared-map-search input {
+  flex: 1; border: none; padding: 14px 20px; font-size: 14px;
+  font-family: var(--font); outline: none; background: transparent;
+  color: var(--dark-green);
+}
+.shared-map-search button {
+  padding: 14px 28px; border: none; background: var(--yellow);
+  color: var(--dark-green); font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: var(--font); white-space: nowrap;
+}
+
+/* Cities */
+.shared-cities { background: var(--sand); padding: 48px 24px 64px; max-width: 900px; margin: 0 auto; }
+.shared-cities h3 {
+  font-size: 20px; font-weight: 700; font-style: italic;
+  color: var(--dark-green); margin-bottom: 24px;
+}
+.cities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 32px; }
+.cities-col a {
+  display: block; color: var(--dark-green); text-decoration: none;
+  font-size: 14px; font-weight: 400; margin-bottom: 8px;
+  transition: opacity 0.2s;
+}
+.cities-col a:hover { opacity: 0.6; }
+
+/* Footer */
+.shared-footer {
+  background: var(--dark-green); padding: 64px 48px 32px;
+}
+.footer-cols {
+  display: flex; gap: 48px; margin-bottom: 48px; flex-wrap: wrap;
+}
+.footer-col { flex: 1; min-width: 160px; }
+.footer-col h4 {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--sand); margin-bottom: 16px;
+}
+.footer-col a {
+  display: block; color: rgba(241,235,214,0.55); font-size: 14px;
+  text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--sand); }
+.footer-social {
+  display: flex; align-items: flex-start; gap: 16px; padding-top: 4px;
+}
+.social-icon { font-size: 20px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; }
+.social-icon:hover { opacity: 1; }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(241,235,214,0.1); padding-top: 24px;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-bottom span { font-size: 13px; color: rgba(241,235,214,0.4); }
+.footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-legal a {
+  font-size: 13px; color: rgba(241,235,214,0.4); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-legal a:hover { color: var(--sand); }
+
+/* ─── Responsive: below-fold ─── */
+@media (max-width: 768px) {
+  .shared-logos-track { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 8px; }
+  .shared-stats-row { flex-direction: column; gap: 24px; }
+  .shared-stat-divider { width: 48px; height: 1px; }
+  .shared-map-card { padding: 32px 20px; border-radius: 16px; }
+  .shared-map-bg { height: 200px; }
+  .shared-map-search { flex-direction: column; border-radius: 12px; }
+  .shared-map-search input { border-bottom: 1px solid rgba(4,32,23,0.08); }
+  .shared-map-search button { border-radius: 0 0 12px 12px; }
+  .cities-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-cols { flex-direction: column; gap: 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .shared-footer { padding: 48px 24px 24px; }
+  .map-dispensary-card { display: none; }
+}
+@media (max-width: 480px) {
+  .shared-products { padding: 56px 16px; }
+  .shared-inner h2 { font-size: 24px; }
+  .shared-stat-num { font-size: 36px; }
+  .shared-map-card { padding: 24px 16px; }
+  .shared-map-bg { height: 160px; }
+  .shared-cities { padding: 32px 16px 48px; }
+}
 </style>
 </head>
 <body>
@@ -861,7 +1028,6 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
         <div class="oc-pulse-ring" id="oc-pulse3"></div>
         <div class="oc-tooltip" id="oc-tooltip">Powering 6,500+ dispensaries &rarr;</div>
       </div>
-      <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
     </div>
     <div class="oc-content">
       <div class="oc-consumer-inner">
@@ -908,7 +1074,6 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 <section class="hero-section" id="option-c">
   <div class="oe-nav">
     <span class="wordmark">dutchie</span>
-    <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
   </div>
   <div class="oe-consumer-content">
     <h1>Your neighborhood dispensary, online.</h1>
@@ -964,7 +1129,6 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   </div>
   <div class="of-nav">
     <span class="wordmark">dutchie</span>
-    <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
   </div>
   <div class="of-consumer-hero">
     <div class="of-consumer-inner">
@@ -981,71 +1145,121 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   </div>
 </section>
 
-<!-- SHARED: Why Dutchie -->
-<section class="why-section">
-  <h2 class="fade-in">One platform, every customer</h2>
-  <div class="why-grid">
-    <div class="why-card fade-in">
-      <div class="why-icon">
-        <svg viewBox="0 0 28 28"><path d="M4 8h20M4 8v14a2 2 0 002 2h16a2 2 0 002-2V8M4 8l2-4h16l2 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14h8" stroke-linecap="round"/></svg>
-      </div>
-      <h3>Shop Online</h3>
-      <p>Browse dispensary menus, compare products, and order for pickup or delivery.</p>
+<!-- SHARED: Below-fold content -->
+<section class="shared-products">
+  <div class="shared-inner">
+    <h2>The best products.<br>The leading cannabis brands.<br>Order now for pickup or delivery.</h2>
+    <a href="#" class="shared-cta">Start shopping</a>
+  </div>
+</section>
+
+<section class="shared-logos">
+  <div class="shared-logos-track">
+    <div class="logo-pill">planet 13</div>
+    <div class="logo-pill">Ayr</div>
+    <div class="logo-pill">Green Thumb</div>
+    <div class="logo-pill">Trulieve</div>
+    <div class="logo-pill">Ascend</div>
+    <div class="logo-pill">JARS</div>
+    <div class="logo-pill">Curaleaf</div>
+    <div class="logo-pill">MedMen</div>
+  </div>
+</section>
+
+<section class="shared-stats">
+  <div class="shared-stats-row">
+    <div class="shared-stat">
+      <div class="shared-stat-num">6,500+</div>
+      <div class="shared-stat-label">Dispensaries</div>
     </div>
-    <div class="why-card fade-in">
-      <div class="why-icon">
-        <svg viewBox="0 0 28 28"><rect x="6" y="4" width="16" height="22" rx="3" stroke-linecap="round"/><path d="M12 21h4" stroke-linecap="round"/><circle cx="14" cy="12" r="3"/></svg>
-      </div>
-      <h3>Order by Phone</h3>
-      <p>Call-in orders processed seamlessly through the same integrated system.</p>
+    <div class="shared-stat-divider"></div>
+    <div class="shared-stat">
+      <div class="shared-stat-num">$22B</div>
+      <div class="shared-stat-label">Annual transaction volume</div>
     </div>
-    <div class="why-card fade-in">
-      <div class="why-icon">
-        <svg viewBox="0 0 28 28"><path d="M3 22h22M5 22V10l9-6 9 6v12" stroke-linecap="round" stroke-linejoin="round"/><rect x="11" y="16" width="6" height="6" rx="1"/></svg>
-      </div>
-      <h3>Visit In-Store</h3>
-      <p>Fast checkout with integrated POS, digital menus, and real-time inventory.</p>
-    </div>
-    <div class="why-card fade-in">
-      <div class="why-icon">
-        <svg viewBox="0 0 28 28"><path d="M14 4l3 6h6l-5 4 2 7-6-4-6 4 2-7-5-4h6z" stroke-linejoin="round"/></svg>
-      </div>
-      <h3>Manage Reviews</h3>
-      <p>Build reputation with customer reviews and ratings across every channel.</p>
+    <div class="shared-stat-divider"></div>
+    <div class="shared-stat">
+      <div class="shared-stat-num">1M</div>
+      <div class="shared-stat-label">In daily transactions</div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="wordmark">dutchie</div>
-      <p>The leading technology platform for cannabis retailers, powering dispensaries across 40+ states.</p>
+<section class="shared-map">
+  <div class="shared-map-card">
+    <div class="shared-map-bg">
+      <div class="map-dot" style="top:30%;left:20%"></div>
+      <div class="map-dot" style="top:45%;left:65%"></div>
+      <div class="map-dot" style="top:60%;left:40%"></div>
+      <div class="map-dot" style="top:25%;left:75%"></div>
+      <div class="map-dot" style="top:70%;left:55%"></div>
+      <div class="map-dispensary-card left">
+        <div class="mdc-name">Say High</div>
+        <div class="mdc-detail">Delivery &bull; 2.3 miles away</div>
+        <div class="mdc-tag">FREE DELIVERY &bull; 30-45 MINS</div>
+      </div>
+      <div class="map-dispensary-card right">
+        <div class="mdc-name">North Cannabis</div>
+        <div class="mdc-detail">Pickup or Delivery</div>
+        <div class="mdc-tag">FREE DELIVERY &bull; 30-45 MINS</div>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <a href="#">Find dispensaries</a>
-      <a href="#">Browse products</a>
-      <a href="#">Deals &amp; offers</a>
-      <a href="#">Delivery</a>
-    </div>
-    <div class="footer-col">
-      <h4>Business</h4>
-      <a href="#">Point of Sale</a>
-      <a href="#">E-Commerce</a>
-      <a href="#">Payments</a>
-      <a href="#">Loyalty</a>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <a href="#">About</a>
-      <a href="#">Careers</a>
-      <a href="#">Blog</a>
-      <a href="#">Contact</a>
+    <h2>A better way to shop locally</h2>
+    <div class="shared-map-search">
+      <input type="text" placeholder="Enter your address or city to get started...">
+      <button>Start shopping</button>
     </div>
   </div>
-  <div class="footer-copy">&copy; 2026 Dutchie. All rights reserved.</div>
+</section>
+
+<section class="shared-cities">
+  <h3>Top Cities</h3>
+  <div class="cities-grid">
+    <div class="cities-col">
+      <a href="#">Tacoma</a><a href="#">Seattle</a><a href="#">Portland</a><a href="#">Bend</a><a href="#">Eugene</a><a href="#">Beaverton</a>
+    </div>
+    <div class="cities-col">
+      <a href="#">Los Angeles</a><a href="#">San Francisco</a><a href="#">Ann Arbor</a><a href="#">Detroit</a><a href="#">Hazel Park</a><a href="#">Boston</a>
+    </div>
+    <div class="cities-col">
+      <a href="#">Great Barrington</a><a href="#">Denver</a><a href="#">Boulder</a><a href="#">Las Vegas</a><a href="#">Reno</a><a href="#">Phoenix</a>
+    </div>
+    <div class="cities-col">
+      <a href="#">Toronto</a><a href="#">Ottawa</a><a href="#">Kitchener</a><a href="#">Vancouver</a>
+    </div>
+  </div>
+</section>
+
+<footer class="shared-footer">
+  <div class="footer-cols">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a><a href="#">Careers</a><a href="#">Customer Support</a><a href="#">Product Support</a><a href="#">Press &amp; Media</a>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions for Dispensaries</h4>
+      <a href="#">Home</a><a href="#">Point of Sale</a><a href="#">Ecommerce</a><a href="#">Payments</a><a href="#">Integrations</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Blog</a><a href="#">Product Updates</a><a href="#">Refer a Dispensary</a><a href="#">Shop for Cannabis</a><a href="#">Dispensaries by City</a>
+    </div>
+    <div class="footer-social">
+      <span class="social-icon">&#x1F4F7;</span>
+      <span class="social-icon">&#x1F30D;</span>
+      <span class="social-icon">&#x1F426;</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; dutchie 2026. All Rights Reserved</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Security</a>
+      <a href="#">Dispensary Terms</a>
+    </div>
+  </div>
 </footer>
 
 <script>
