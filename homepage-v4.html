@@ -419,25 +419,26 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 /* Footer ribbon */
 .of-ribbon {
   position: relative; z-index: 10;
-  height: 56px; background: var(--dark-green); border-bottom: 3px solid var(--yellow);
+  height: 80px; background: linear-gradient(135deg, #5E324E 0%, #3a1e30 100%);
+  border-bottom: 3px solid var(--yellow);
   display: flex; align-items: center; justify-content: space-between; padding: 0 48px;
   overflow: hidden; cursor: pointer; text-decoration: none;
   transition: box-shadow 0.6s ease;
 }
-.of-ribbon-left { display: flex; align-items: center; gap: 16px; }
+.of-ribbon-left { display: flex; align-items: center; gap: 20px; }
 .of-ribbon-badge {
-  background: var(--yellow); color: var(--dark-green); padding: 4px 12px;
-  border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  background: var(--yellow); color: #5E324E; padding: 6px 16px;
+  border-radius: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
   text-transform: uppercase; white-space: nowrap;
 }
-.of-ribbon-text { color: var(--sand); font-size: 14px; font-weight: 500; white-space: nowrap; }
-.of-ribbon-right { display: flex; align-items: center; gap: 24px; }
+.of-ribbon-text { color: var(--sand); font-size: 16px; font-weight: 600; white-space: nowrap; }
+.of-ribbon-right { display: flex; align-items: center; gap: 28px; }
 .of-ribbon-stat { text-align: center; }
-.of-ribbon-stat .num { font-size: 16px; font-weight: 700; color: var(--yellow); }
-.of-ribbon-stat .label { font-size: 9px; color: rgba(241,235,214,0.5); text-transform: uppercase; letter-spacing: 0.5px; }
+.of-ribbon-stat .num { font-size: 20px; font-weight: 700; color: var(--yellow); }
+.of-ribbon-stat .label { font-size: 10px; color: rgba(241,235,214,0.5); text-transform: uppercase; letter-spacing: 0.5px; }
 .of-ribbon-cta {
-  padding: 8px 20px; border-radius: 8px; background: var(--yellow);
-  color: var(--dark-green); font-weight: 700; font-size: 13px; border: none;
+  padding: 10px 24px; border-radius: 8px; background: var(--yellow);
+  color: #5E324E; font-weight: 700; font-size: 14px; border: none;
   cursor: pointer; font-family: var(--font); white-space: nowrap; transition: background 0.2s;
 }
 .of-ribbon-cta:hover { background: #e6ac00; }
@@ -451,11 +452,11 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 }
 .of-ribbon::after {
   content: ''; position: absolute; top: 0; height: 100%; width: 120px;
-  background: linear-gradient(90deg, transparent, rgba(106,180,72,0.15), rgba(255,192,42,0.3), rgba(106,180,72,0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(94,50,78,0.3), rgba(255,192,42,0.4), rgba(94,50,78,0.3), transparent);
   pointer-events: none; z-index: 1; opacity: 0;
 }
 .of-ribbon.shimmer-active::after { animation: shimmer-beam 2s ease-in-out 2; }
-.of-ribbon.shimmer-active { box-shadow: 0 2px 12px rgba(255,192,42,0.4); }
+.of-ribbon.shimmer-active { box-shadow: 0 4px 20px rgba(94,50,78,0.4), 0 2px 12px rgba(255,192,42,0.3); }
 
 /* Ribbon floating header text */
 @keyframes of-header-float {
@@ -473,7 +474,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 8px;
 }
 .of-ribbon-floater h2 span {
-  background: linear-gradient(135deg, var(--yellow), #e6ac00);
+  background: linear-gradient(135deg, #5E324E, #9b5a82);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .of-ribbon-floater p {
