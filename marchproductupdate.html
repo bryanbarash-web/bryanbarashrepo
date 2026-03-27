@@ -31,6 +31,191 @@
   overflow-x: hidden;
 }
 
+/* ── Hero Background Selector ─────────────────────────────── */
+
+.march-update .mu-bg-selector {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 500;
+  display: flex;
+  gap: 6px;
+  background: rgba(4,32,23,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 10px;
+  padding: 6px;
+}
+
+.march-update .mu-bg-btn {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.45);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.march-update .mu-bg-btn:hover {
+  color: rgba(241,235,214,0.7);
+  background: rgba(241,235,214,0.04);
+}
+
+.march-update .mu-bg-btn.mu-bg-active {
+  color: #FFC02A;
+  background: rgba(255,192,42,0.1);
+  border-color: rgba(255,192,42,0.2);
+}
+
+/* ── Hero Background Variants ────────────────────────────── */
+
+.march-update .mu-hero-bg {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.march-update .mu-hero-bg.mu-bg-hidden { opacity: 0; }
+
+/* Variant B: Aurora Waves */
+.march-update .mu-aurora-band {
+  position: absolute;
+  width: 200%;
+  filter: blur(60px);
+}
+
+.march-update .mu-aurora-band-1 {
+  height: 40%;
+  top: 10%;
+  left: -50%;
+  background: linear-gradient(90deg, transparent 0%, #003D29 20%, #5E324E 50%, #003D29 80%, transparent 100%);
+  animation: mu-aurora1 20s ease-in-out infinite alternate;
+  opacity: 0.4;
+}
+
+.march-update .mu-aurora-band-2 {
+  height: 35%;
+  top: 35%;
+  left: -30%;
+  background: linear-gradient(90deg, transparent 0%, #5E324E 25%, #6AB448 50%, #003D29 75%, transparent 100%);
+  animation: mu-aurora2 16s ease-in-out infinite alternate;
+  opacity: 0.25;
+}
+
+.march-update .mu-aurora-band-3 {
+  height: 30%;
+  bottom: 10%;
+  left: -40%;
+  background: linear-gradient(90deg, transparent 0%, #003D29 30%, #FFC02A 60%, transparent 100%);
+  animation: mu-aurora3 24s ease-in-out infinite alternate;
+  opacity: 0.15;
+}
+
+@keyframes mu-aurora1 {
+  0% { transform: translateX(0) skewY(-3deg); }
+  100% { transform: translateX(15%) skewY(2deg); }
+}
+
+@keyframes mu-aurora2 {
+  0% { transform: translateX(0) skewY(2deg) scaleY(0.8); }
+  100% { transform: translateX(-10%) skewY(-4deg) scaleY(1.2); }
+}
+
+@keyframes mu-aurora3 {
+  0% { transform: translateX(0) skewY(1deg); }
+  100% { transform: translateX(20%) skewY(-2deg); }
+}
+
+/* Variant C: Constellation Grid */
+.march-update .mu-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(241,235,214,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241,235,214,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: mu-grid-fade 8s ease-in-out infinite alternate;
+}
+
+@keyframes mu-grid-fade {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.8; }
+}
+
+.march-update .mu-const-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+
+.march-update .mu-const-glow-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,61,41,0.5) 0%, transparent 70%);
+  top: 15%; left: 20%;
+  animation: mu-cpulse1 10s ease-in-out infinite alternate;
+}
+
+.march-update .mu-const-glow-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(94,50,78,0.4) 0%, transparent 70%);
+  top: 40%; right: 15%;
+  animation: mu-cpulse2 14s ease-in-out infinite alternate;
+}
+
+.march-update .mu-const-glow-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,192,42,0.15) 0%, transparent 70%);
+  bottom: 20%; left: 40%;
+  animation: mu-cpulse3 12s ease-in-out infinite alternate;
+}
+
+@keyframes mu-cpulse1 { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.15); opacity: 0.8; } }
+@keyframes mu-cpulse2 { 0% { transform: scale(1.1); opacity: 0.4; } 100% { transform: scale(0.9); opacity: 0.7; } }
+@keyframes mu-cpulse3 { 0% { transform: scale(0.9); opacity: 0.3; } 100% { transform: scale(1.2); opacity: 0.5; } }
+
+/* Variant D: Radial Pulse */
+.march-update .mu-radial-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(241,235,214,0.04);
+}
+
+.march-update .mu-radial-ring-1 { width: 30vmin; height: 30vmin; border-color: rgba(0,61,41,0.15); animation: mu-ring-pulse 8s ease-in-out infinite; }
+.march-update .mu-radial-ring-2 { width: 55vmin; height: 55vmin; border-color: rgba(94,50,78,0.1); animation: mu-ring-pulse 8s ease-in-out infinite 1s; }
+.march-update .mu-radial-ring-3 { width: 80vmin; height: 80vmin; border-color: rgba(106,180,72,0.06); animation: mu-ring-pulse 8s ease-in-out infinite 2s; }
+.march-update .mu-radial-ring-4 { width: 110vmin; height: 110vmin; border-color: rgba(255,192,42,0.04); animation: mu-ring-pulse 8s ease-in-out infinite 3s; }
+
+@keyframes mu-ring-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.5; }
+}
+
+.march-update .mu-radial-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,61,41,0.6) 0%, rgba(94,50,78,0.3) 40%, transparent 70%);
+  filter: blur(40px);
+  animation: mu-core-breathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes mu-core-breathe {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+}
+
 /* ── HERO ─────────────────────────────────────────────────── */
 
 .march-update .mu-hero {
@@ -44,12 +229,6 @@
   margin-left: 260px;
 }
 
-.march-update .mu-hero-mesh {
-  position: absolute;
-  inset: -20%;
-  z-index: 0;
-  pointer-events: none;
-}
 
 .march-update .mu-blob {
   position: absolute;
@@ -1111,12 +1290,45 @@
   <!-- ════════════════════════════════════════════════════════════
        HERO — Full Viewport
        ════════════════════════════════════════════════════════════ -->
+  <!-- Hero Background Selector -->
+  <div class="mu-bg-selector">
+    <button class="mu-bg-btn mu-bg-active" data-bg="mesh">Fluid Mesh</button>
+    <button class="mu-bg-btn" data-bg="aurora">Aurora</button>
+    <button class="mu-bg-btn" data-bg="grid">Constellation</button>
+    <button class="mu-bg-btn" data-bg="radial">Radial Pulse</button>
+  </div>
+
   <section class="mu-hero">
-    <div class="mu-hero-mesh">
+    <!-- BG A: Fluid Mesh (default) -->
+    <div class="mu-hero-bg" id="mu-bg-mesh">
       <div class="mu-blob mu-blob-1"></div>
       <div class="mu-blob mu-blob-2"></div>
       <div class="mu-blob mu-blob-3"></div>
       <div class="mu-blob mu-blob-4"></div>
+    </div>
+
+    <!-- BG B: Aurora Waves -->
+    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-aurora">
+      <div class="mu-aurora-band mu-aurora-band-1"></div>
+      <div class="mu-aurora-band mu-aurora-band-2"></div>
+      <div class="mu-aurora-band mu-aurora-band-3"></div>
+    </div>
+
+    <!-- BG C: Constellation Grid -->
+    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-grid">
+      <div class="mu-grid-lines"></div>
+      <div class="mu-const-glow mu-const-glow-1"></div>
+      <div class="mu-const-glow mu-const-glow-2"></div>
+      <div class="mu-const-glow mu-const-glow-3"></div>
+    </div>
+
+    <!-- BG D: Radial Pulse -->
+    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-radial">
+      <div class="mu-radial-ring mu-radial-ring-1"></div>
+      <div class="mu-radial-ring mu-radial-ring-2"></div>
+      <div class="mu-radial-ring mu-radial-ring-3"></div>
+      <div class="mu-radial-ring mu-radial-ring-4"></div>
+      <div class="mu-radial-core"></div>
     </div>
 
     <div class="mu-hero-content">
@@ -1740,6 +1952,27 @@
           padding_bottom: 'calc(48.63% + 25px)'
         });
       }
+    });
+  });
+
+  /* ── Background Variant Switcher ─────────────────────────── */
+  var bgBtns = root.querySelectorAll('.mu-bg-btn');
+  var bgPanels = root.querySelectorAll('.mu-hero-bg');
+
+  bgBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = btn.getAttribute('data-bg');
+
+      bgBtns.forEach(function(b) { b.classList.remove('mu-bg-active'); });
+      btn.classList.add('mu-bg-active');
+
+      bgPanels.forEach(function(panel) {
+        if (panel.id === 'mu-bg-' + target) {
+          panel.classList.remove('mu-bg-hidden');
+        } else {
+          panel.classList.add('mu-bg-hidden');
+        }
+      });
     });
   });
 })();
