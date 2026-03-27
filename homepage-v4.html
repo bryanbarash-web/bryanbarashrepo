@@ -158,6 +158,17 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 }
 .oe-card.sweep-active::before { animation: gradient-sweep 1.5s ease-in-out 3; }
 .oe-card.sweep-done { border-color: rgba(255,192,42,0.3); }
+.oe-card.expanded {
+  width: 320px; padding: 28px 32px;
+  transform: translateY(-50%);
+  box-shadow: 0 20px 60px rgba(4,32,23,0.3);
+  border-color: rgba(255,192,42,0.3);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.oe-card.expanded:hover { transform: translateY(calc(-50% - 4px)); }
+.oe-card.expanded .oe-card-eyebrow { font-size: 12px; margin-bottom: 10px; }
+.oe-card.expanded .oe-card-heading { font-size: 20px; margin-bottom: 16px; }
+.oe-card.expanded .oe-card-cta { padding: 10px 22px; font-size: 14px; }
 
 /* Corner card tooltip */
 @keyframes oe-tooltip-bounce {
@@ -446,24 +457,28 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 .of-ribbon.shimmer-active::after { animation: shimmer-beam 2s ease-in-out 2; }
 .of-ribbon.shimmer-active { box-shadow: 0 2px 12px rgba(255,192,42,0.4); }
 
-/* Ribbon tooltip */
-@keyframes of-tooltip-bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
+/* Ribbon floating header text */
+@keyframes of-header-float {
+  0% { opacity: 0; transform: translateY(-16px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
-.of-ribbon-tooltip {
-  position: absolute; bottom: -52px; left: 50%; transform: translateX(-50%);
-  background: var(--yellow); color: var(--dark-green); padding: 10px 18px;
-  border-radius: 10px; font-size: 13px; font-weight: 700; white-space: nowrap;
-  box-shadow: 0 8px 24px rgba(255,192,42,0.35);
-  opacity: 0; pointer-events: none; transition: opacity 0.4s; z-index: 20;
+.of-ribbon-floater {
+  position: absolute; top: calc(100% + 20px); left: 0; right: 0;
+  text-align: center; pointer-events: none; z-index: 20;
+  opacity: 0;
 }
-.of-ribbon-tooltip::after {
-  content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-  border-left: 7px solid transparent; border-right: 7px solid transparent;
-  border-bottom: 7px solid var(--yellow);
+.of-ribbon-floater.show { animation: of-header-float 0.6s ease-out forwards; }
+.of-ribbon-floater h2 {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: var(--dark-green);
+  letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 8px;
 }
-.of-ribbon-tooltip.show { opacity: 1; animation: of-tooltip-bounce 1.5s ease-in-out infinite; }
+.of-ribbon-floater h2 span {
+  background: linear-gradient(135deg, var(--yellow), #e6ac00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.of-ribbon-floater p {
+  font-size: 15px; color: rgba(4,32,23,0.5); font-weight: 500;
+}
 
 /* ═══════════════════════════════════════════════════════════
    SHARED: Why Dutchie
@@ -751,7 +766,10 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
       <div class="of-ribbon-stat"><div class="num">40+</div><div class="label">States</div></div>
       <span class="of-ribbon-cta">Get a demo &rarr;</span>
     </div>
-    <div class="of-ribbon-tooltip" id="of-ribbon-tooltip">Dutchie powers modern cannabis retail &rarr;</div>
+    <div class="of-ribbon-floater" id="of-ribbon-floater">
+      <h2>The technology that powers <span>modern cannabis retail</span></h2>
+      <p>POS, E-Commerce, Loyalty, Payments — all in one platform</p>
+    </div>
   </a>
   <div class="of-nav">
     <span class="wordmark">dutchie</span>
@@ -958,11 +976,10 @@ function dismissTooltip() {
         sweepTriggered = true;
         setTimeout(function() {
           oeCard.classList.add('sweep-active');
-          oeCard.addEventListener('animationend', function() {
-            oeCard.classList.add('sweep-done');
-          }, { once: true });
-          // Show tooltip after sweeps finish
+          // After sweeps finish, expand the card and show tooltip
           setTimeout(function() {
+            oeCard.classList.add('sweep-done');
+            oeCard.classList.add('expanded');
             var tt = document.getElementById('oe-card-tooltip');
             tt.classList.add('show');
             setTimeout(function() { tt.classList.remove('show'); }, 5000);
@@ -985,11 +1002,9 @@ function dismissTooltip() {
         shimmerTriggered = true;
         setTimeout(function() {
           ofRibbon.classList.add('shimmer-active');
-          // Show tooltip after shimmer finishes
+          // Show floating header text after shimmer finishes
           setTimeout(function() {
-            var tt = document.getElementById('of-ribbon-tooltip');
-            tt.classList.add('show');
-            setTimeout(function() { tt.classList.remove('show'); }, 5000);
+            document.getElementById('of-ribbon-floater').classList.add('show');
           }, 4500);
         }, 3000);
       }
