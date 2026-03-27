@@ -224,7 +224,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   width: 25%; min-width: 280px; max-width: 380px; background: var(--dark-green); position: relative;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex; align-items: center; justify-content: center; overflow: hidden;
-  clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+  box-shadow: -8px 0 30px rgba(4,32,23,0.25), -2px 0 8px rgba(4,32,23,0.15);
 }
 .ob-peek:hover { width: 50%; min-width: 400px; max-width: 600px; }
 .ob-peek-content {
@@ -552,7 +552,7 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   .ob-consumer { padding: 80px 24px 40px; min-height: auto; }
   .ob-peek {
     width: 100% !important; min-width: 100% !important; max-width: 100% !important;
-    clip-path: none; min-height: 200px;
+    box-shadow: 0 -4px 20px rgba(4,32,23,0.15); min-height: 200px;
   }
   .ob-peek:hover { width: 100% !important; min-width: 100% !important; max-width: 100% !important; }
   .ob-peek-content { padding: 32px 24px; text-align: center; }
