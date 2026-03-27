@@ -588,6 +588,155 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .oc-biz-ctas { flex-direction: column; align-items: center; }
   .of-consumer-inner h1 { font-size: 28px; }
+  .ve-split { flex-direction: column; }
+  .ve-side { flex: none; min-height: auto; }
+  .ve-side--consumer { padding: 60px 24px 40px; }
+  .ve-side--business { padding: 60px 24px; }
+  .ve-products { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .ve-dash { display: none; }
+  .ve-tabs { top: 60px; left: 24px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OPTION E: Concept Image Faithful Recreation
+   ═══════════════════════════════════════════════════════════ */
+#option-e { flex-direction: column; min-height: 100vh; }
+
+.ve-topnav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 40px; background: var(--dark-green); border-bottom: 1px solid rgba(241,235,214,0.08);
+}
+.ve-topnav .wordmark { font-size: 22px; font-weight: 700; color: var(--sand); }
+.ve-topnav .links { display: flex; align-items: center; gap: 16px; }
+.ve-topnav .links a { color: var(--sand); text-decoration: none; font-size: 14px; font-weight: 500; opacity: 0.7; transition: opacity 0.2s; }
+.ve-topnav .links a:hover { opacity: 1; }
+.ve-topnav .signup-btn {
+  padding: 8px 20px; border-radius: 8px; background: var(--yellow); color: var(--dark-green);
+  font-size: 14px; font-weight: 700; border: none; cursor: pointer; font-family: var(--font);
+}
+
+.ve-split { display: flex; flex: 1; position: relative; }
+
+.ve-side { flex: 1 1 50%; display: flex; flex-direction: column; justify-content: center; padding: 60px 48px; position: relative; }
+.ve-side--consumer { background: var(--sand); }
+.ve-side--business { background: var(--dark-green); overflow: hidden; }
+
+/* Mode tabs floating on left side */
+.ve-tabs {
+  position: absolute; top: 24px; left: 48px; display: flex; gap: 12px; z-index: 5;
+}
+.ve-tab {
+  display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+  border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: var(--font); border: none; transition: all 0.25s;
+}
+.ve-tab--shop { background: var(--dark-green); color: var(--sand); box-shadow: 0 2px 12px rgba(4,32,23,0.15); }
+.ve-tab--biz {
+  background: transparent; color: var(--dark-green); border: 1.5px solid rgba(4,32,23,0.15);
+  position: relative; overflow: visible;
+}
+.ve-tab--biz:hover { border-color: rgba(4,32,23,0.3); background: rgba(4,32,23,0.04); }
+
+/* Pulse on For Business tab */
+@keyframes ve-tab-pulse {
+  0% { transform: scale(1); opacity: 0.6; background: rgba(255,192,42,0.3); }
+  100% { transform: scale(1.6); opacity: 0; background: rgba(255,192,42,0); }
+}
+.ve-tab-pulse {
+  position: absolute; inset: -2px; border-radius: 10px; pointer-events: none; opacity: 0; z-index: -1;
+}
+.ve-tab-pulse.animating { animation: ve-tab-pulse 1.5s ease-out forwards; }
+
+/* Consumer side content */
+.ve-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.ve-side--consumer .ve-eyebrow { color: var(--med-green); }
+.ve-side--business .ve-eyebrow { color: var(--yellow); }
+
+.ve-headline {
+  font-size: clamp(26px, 3vw, 36px); font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.5px; margin-bottom: 24px;
+}
+.ve-side--consumer .ve-headline { color: var(--dark-green); }
+.ve-side--business .ve-headline { color: var(--sand); }
+
+.ve-search {
+  display: flex; gap: 8px; margin-bottom: 28px; max-width: 420px;
+}
+.ve-search input {
+  flex: 1; padding: 14px 16px 14px 40px; border-radius: 10px;
+  border: 2px solid rgba(4,32,23,0.1); background: #fff url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 1C5.2 1 3 3.7 3 7c0 4 5 8 5 8s5-4 5-8c0-3.3-2.2-6-5-6z' stroke='%23042017' stroke-opacity='.35' stroke-width='1.2'/%3E%3Ccircle cx='8' cy='6.5' r='1.5' stroke='%23042017' stroke-opacity='.35' stroke-width='1.2'/%3E%3C/svg%3E") 14px center/14px no-repeat;
+  font-size: 14px; font-family: var(--font); outline: none; color: var(--dark-green); min-width: 0;
+}
+.ve-search input::placeholder { color: rgba(4,32,23,0.35); }
+.ve-search button {
+  padding: 14px 20px; border-radius: 10px; background: var(--yellow); border: none;
+  color: var(--dark-green); font-weight: 700; font-size: 13px; cursor: pointer;
+  font-family: var(--font); white-space: nowrap; transition: background 0.2s;
+}
+.ve-search button:hover { background: #e6ac00; }
+
+/* Product imagery grid */
+.ve-products {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 420px;
+}
+.ve-product {
+  border-radius: 12px; overflow: hidden; position: relative; aspect-ratio: 1;
+  box-shadow: 0 2px 12px rgba(4,32,23,0.08); transition: transform 0.3s;
+}
+.ve-product:hover { transform: translateY(-3px); }
+.ve-product img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ve-product-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--dark-green); text-align: center; padding: 8px;
+  line-height: 1.3;
+}
+.ve-product:nth-child(1) .ve-product-placeholder { background: linear-gradient(135deg, #e8e0c8, #d9ceb0); }
+.ve-product:nth-child(2) .ve-product-placeholder { background: linear-gradient(135deg, #c5d4b0, #a8c090); }
+.ve-product:nth-child(3) .ve-product-placeholder { background: linear-gradient(135deg, #d4c8a8, #c0b48e); }
+.ve-product:nth-child(4) .ve-product-placeholder { background: linear-gradient(135deg, #b8c8a0, #9ab880); }
+.ve-product:nth-child(5) .ve-product-placeholder { background: linear-gradient(135deg, #c8bca0, #b8a880); }
+.ve-product:nth-child(6) .ve-product-placeholder { background: linear-gradient(135deg, #d0c4a8, #bfb08f); }
+
+/* Business side */
+.ve-biz-inner { max-width: 440px; position: relative; z-index: 2; }
+.ve-biz-cta {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+  border-radius: 10px; border: 2px solid var(--yellow); background: transparent;
+  color: var(--yellow); font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: var(--font); transition: all 0.25s;
+}
+.ve-biz-cta:hover { background: rgba(255,192,42,0.1); }
+
+/* Dashboard mockup */
+.ve-dash {
+  position: absolute; top: 15%; right: -10%; width: 80%; max-width: 500px;
+  transform: rotate(-5deg); opacity: 0.12; pointer-events: none; z-index: 1;
+}
+.ve-dash-frame {
+  background: rgba(241,235,214,0.08); border-radius: 12px; padding: 16px;
+  border: 1px solid rgba(241,235,214,0.06);
+}
+.ve-dash-bar { height: 8px; background: rgba(241,235,214,0.15); border-radius: 4px; margin-bottom: 12px; }
+.ve-dash-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.ve-dash-cell { flex: 1; height: 24px; background: rgba(241,235,214,0.08); border-radius: 4px; }
+.ve-dash-cell.accent { background: rgba(255,192,42,0.15); }
+.ve-dash-chart { display: flex; align-items: flex-end; gap: 4px; height: 60px; margin-top: 12px; }
+.ve-dash-chart-bar { flex: 1; background: rgba(106,180,72,0.15); border-radius: 3px 3px 0 0; }
+
+/* Below fold teaser */
+.ve-below {
+  text-align: center; padding: 48px 32px; background: var(--dark-green);
+}
+.ve-below-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--yellow); margin-bottom: 16px;
+}
+.ve-below h2 {
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 700; color: var(--sand);
+  letter-spacing: -0.5px; line-height: 1.2;
 }
 </style>
 </head>
@@ -606,6 +755,7 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
       <button class="sticky-tab" data-target="option-b">Option B: Attention Pulse</button>
       <button class="sticky-tab" data-target="option-c">Option C: Corner Card</button>
       <button class="sticky-tab" data-target="option-d">Option D: Shimmer Ribbon</button>
+      <button class="sticky-tab" data-target="option-e">Option E: Concept Image</button>
     </div>
   </div>
 </nav>
@@ -791,6 +941,79 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   </div>
 </section>
 
+<!-- OPTION E SEPARATOR -->
+<div class="section-sep" id="sep-e">
+  <span class="sep-label">Option E: Concept Image</span>
+  <span class="sep-desc">Faithful recreation of the original concept mockup. 50/50 split with product imagery and dashboard hint.</span>
+</div>
+
+<!-- OPTION E: Concept Image -->
+<section class="hero-section" id="option-e">
+  <div class="ve-topnav">
+    <span class="wordmark">dutchie</span>
+    <div class="links">
+      <a href="#">Log in</a>
+      <button class="signup-btn">Sign up</button>
+    </div>
+  </div>
+  <div class="ve-split">
+    <div class="ve-side ve-side--consumer">
+      <div class="ve-tabs">
+        <button class="ve-tab ve-tab--shop">&#x1F6D2; Shop now</button>
+        <button class="ve-tab ve-tab--biz" id="ve-biz-tab">
+          &#x1F4BC; For Business
+          <div class="ve-tab-pulse" id="ve-pulse1"></div>
+          <div class="ve-tab-pulse" id="ve-pulse2"></div>
+          <div class="ve-tab-pulse" id="ve-pulse3"></div>
+        </button>
+      </div>
+      <div class="ve-eyebrow">Ready to shop local?</div>
+      <h1 class="ve-headline">Order cannabis online from the best dispensaries near you.</h1>
+      <div class="ve-search">
+        <input type="text" placeholder="Enter your address or city to get started...">
+        <button>Start shopping</button>
+      </div>
+      <div class="ve-products">
+        <div class="ve-product"><div class="ve-product-placeholder">Mr. Moxey's Mints</div></div>
+        <div class="ve-product"><div class="ve-product-placeholder">Releaf Soak</div></div>
+        <div class="ve-product"><div class="ve-product-placeholder">Kiva Confections</div></div>
+        <div class="ve-product"><div class="ve-product-placeholder">Wyld Gummies</div></div>
+        <div class="ve-product"><div class="ve-product-placeholder">Raw Garden</div></div>
+        <div class="ve-product"><div class="ve-product-placeholder">STIIIZY</div></div>
+      </div>
+    </div>
+    <div class="ve-side ve-side--business">
+      <div class="ve-dash">
+        <div class="ve-dash-frame">
+          <div class="ve-dash-bar" style="width:60%"></div>
+          <div class="ve-dash-row"><div class="ve-dash-cell"></div><div class="ve-dash-cell accent"></div><div class="ve-dash-cell"></div></div>
+          <div class="ve-dash-row"><div class="ve-dash-cell accent"></div><div class="ve-dash-cell"></div><div class="ve-dash-cell"></div></div>
+          <div class="ve-dash-row"><div class="ve-dash-cell"></div><div class="ve-dash-cell"></div><div class="ve-dash-cell accent"></div></div>
+          <div class="ve-dash-chart">
+            <div class="ve-dash-chart-bar" style="height:40%"></div>
+            <div class="ve-dash-chart-bar" style="height:55%"></div>
+            <div class="ve-dash-chart-bar" style="height:45%"></div>
+            <div class="ve-dash-chart-bar" style="height:70%"></div>
+            <div class="ve-dash-chart-bar" style="height:60%"></div>
+            <div class="ve-dash-chart-bar" style="height:85%"></div>
+            <div class="ve-dash-chart-bar" style="height:75%"></div>
+            <div class="ve-dash-chart-bar" style="height:90%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ve-biz-inner">
+        <div class="ve-eyebrow">Ready to grow your business?</div>
+        <h1 class="ve-headline">The technology that powers modern cannabis retail.</h1>
+        <button class="ve-biz-cta">Learn more about our business solutions &rarr;</button>
+      </div>
+    </div>
+  </div>
+  <div class="ve-below">
+    <div class="ve-below-eyebrow">Why shop with us?</div>
+    <h2>The best products.<br>The leading cannabis brands.</h2>
+  </div>
+</section>
+
 <!-- SHARED: Why Dutchie -->
 <section class="why-section">
   <h2 class="fade-in">One platform, every customer</h2>
@@ -861,8 +1084,8 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 <script>
 // TAB SHOW/HIDE NAVIGATION
 const tabs = document.querySelectorAll('.sticky-tab');
-const sectionIds = ['option-a', 'option-b', 'option-c', 'option-d'];
-const sepIds = ['sep-a', 'sep-b', 'sep-c', 'sep-d'];
+const sectionIds = ['option-a', 'option-b', 'option-c', 'option-d', 'option-e'];
+const sepIds = ['sep-a', 'sep-b', 'sep-c', 'sep-d', 'sep-e'];
 
 function showOption(targetId) {
   sectionIds.forEach(id => {
@@ -1012,6 +1235,29 @@ function dismissTooltip() {
     });
   }, { threshold: 0.4 });
   shimmerObserver.observe(ofSection);
+}
+
+// OPTION E: Pulse on "For Business" tab
+{
+  var veSection = document.getElementById('option-e');
+  var vePulseTriggered = false;
+  var veObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !vePulseTriggered) {
+        vePulseTriggered = true;
+        setTimeout(function() {
+          var pulses = [document.getElementById('ve-pulse1'), document.getElementById('ve-pulse2'), document.getElementById('ve-pulse3')];
+          pulses.forEach(function(p, i) {
+            setTimeout(function() {
+              p.classList.add('animating');
+              p.addEventListener('animationend', function() { p.classList.remove('animating'); }, { once: true });
+            }, i * 800);
+          });
+        }, 3000);
+      }
+    });
+  }, { threshold: 0.4 });
+  veObserver.observe(veSection);
 }
 </script>
 </body>
