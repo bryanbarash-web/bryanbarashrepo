@@ -95,7 +95,7 @@
   }
   .overview-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
   @media (max-width: 780px) { .overview-grid { grid-template-columns: 1fr; } }
@@ -127,6 +127,7 @@
   .overview-card:nth-child(1)::before { background: linear-gradient(90deg, #003D29, #6AB448); }
   .overview-card:nth-child(2)::before { background: linear-gradient(90deg, #5E324E, #FFC02A); }
   .overview-card:nth-child(3)::before { background: linear-gradient(90deg, #FFC02A, #6AB448); }
+  .overview-card:nth-child(4)::before { background: linear-gradient(90deg, #5E324E, #FFC02A, #6AB448); }
   .oc-number {
     font-size: 64px;
     font-weight: 900;
@@ -200,6 +201,10 @@
     <span class="concept-tab-name">03 — Bento Feature Showcase</span>
     <span class="concept-tab-desc">Dark, editorial bento grid</span>
   </a>
+  <a class="concept-tab" onclick="showConcept('c4', this)">
+    <span class="concept-tab-name">04 — Immersive Scroll</span>
+    <span class="concept-tab-desc">Full-viewport chapters, wild</span>
+  </a>
 </nav>
 
 <div id="overview" class="overview-page active">
@@ -245,6 +250,21 @@
         <span class="oc-feat">Hero Cards</span>
         <span class="oc-feat">Gradient Mesh</span>
         <span class="oc-feat">Spotlight</span>
+      </div>
+      <div class="oc-click-hint">View concept →</div>
+    </div>
+
+    <div class="overview-card" onclick="showConcept('c4', document.querySelectorAll('.concept-tab')[4])">
+      <div class="oc-number">04</div>
+      <div class="oc-style">Dark + Immersive</div>
+      <div class="oc-name">Immersive Scroll Experience</div>
+      <div class="oc-desc">Apple keynote meets luxury lookbook. Full-viewport chapters, animated gradient mesh, horizontal scroll carousel with glassmorphism cards, 3D tilt on hover, split-screen layouts, and a dramatic AWS spotlight with animated gradient borders.</div>
+      <div class="oc-features">
+        <span class="oc-feat">Full Chapters</span>
+        <span class="oc-feat">Gradient Mesh</span>
+        <span class="oc-feat">3D Tilt</span>
+        <span class="oc-feat">Horizontal Scroll</span>
+        <span class="oc-feat">Glassmorphism</span>
       </div>
       <div class="oc-click-hint">View concept →</div>
     </div>
@@ -3077,6 +3097,583 @@ html { scroll-behavior: smooth; }
 
 </div><!-- /.concept-3 -->
 
+</div>
+
+<!-- Concept 4: Immersive Scroll Experience -->
+<div id="c4" class="concept-section">
+
+<div class="concept-4">
+  <!-- Noise texture -->
+  <div class="c4-noise"></div>
+
+  <!-- Progress bar -->
+  <div class="c4-progress-line" id="c4Progress"></div>
+
+  <!-- ============================================
+       STICKY FROSTED HEADER
+  ============================================= -->
+  <header class="c4-header" id="c4Header">
+    <div class="c4-header-logo">Dutchie <span>Platform</span></div>
+    <div class="c4-section-label" id="c4SectionLabel">Product Updates</div>
+    <nav class="c4-header-nav" aria-label="Section navigation">
+      <div class="c4-nav-dot active" data-section="hero" title="Hero"></div>
+      <div class="c4-nav-dot" data-section="whats-new" title="What's New"></div>
+      <div class="c4-nav-dot" data-section="segments" title="Segments & Growth"></div>
+      <div class="c4-nav-dot" data-section="ecommerce" title="E-Commerce & Mobile"></div>
+      <div class="c4-nav-dot" data-section="footer" title="Wrap-Up"></div>
+    </nav>
+  </header>
+
+  <!-- ============================================
+       CHAPTER 1 — HERO
+  ============================================= -->
+  <section class="c4-chapter-hero" id="c4-hero" data-section-name="Product Updates">
+    <div class="mesh-bg">
+      <div class="mesh-blob mesh-blob-1"></div>
+      <div class="mesh-blob mesh-blob-2"></div>
+      <div class="mesh-blob mesh-blob-3"></div>
+    </div>
+    <div class="c4-grid-lines"></div>
+
+    <div class="c4-hero-eyebrow c4-reveal">Dutchie Platform — Release Notes</div>
+
+    <h1 class="c4-hero-date c4-reveal c4-delay-1" data-text="MARCH 2026">MARCH<br>2026</h1>
+
+    <p class="c4-hero-subtitle c4-reveal c4-delay-2">
+      <strong>11 new features.</strong> One massive infrastructure leap. Your platform just leveled up.
+    </p>
+
+    <!-- Stats Dashboard -->
+    <div class="c4-stats-dashboard c4-reveal c4-delay-3">
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="11" data-suffix="">0</div>
+        <div class="c4-stat-label">New Features</div>
+      </div>
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="4" data-suffix="">0</div>
+        <div class="c4-stat-label">Product Areas</div>
+      </div>
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="30" data-suffix="+">0</div>
+        <div class="c4-stat-label">Segment Filters</div>
+      </div>
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="1" data-suffix="">0</div>
+        <div class="c4-stat-label">AWS Partnership</div>
+      </div>
+    </div>
+
+    <div class="c4-scroll-cue c4-reveal c4-delay-4">
+      <span>Scroll to explore</span>
+      <div class="c4-scroll-arrow"></div>
+    </div>
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 2 — WHAT'S NEW
+  ============================================= -->
+  <section class="c4-chapter-whats-new" id="c4-whats-new" data-section-name="What's New">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:60vw;height:60vw;background:radial-gradient(circle,#5E324E 0%,transparent 70%);top:10%;left:-20%;animation:meshShift2 20s ease-in-out infinite;opacity:0.3;"></div>
+      <div class="mesh-blob" style="width:40vw;height:40vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);bottom:0;right:0;animation:meshShift1 16s ease-in-out infinite;opacity:0.35;"></div>
+    </div>
+    <div class="c4-edge-label">Chapter 02 — What's New</div>
+
+    <div class="c4-whats-new-intro">
+      <div class="c4-chapter-tag c4-reveal">Chapter 02</div>
+      <h2 class="c4-chapter-headline c4-reveal c4-delay-1">
+        What's<br><em>New</em>
+      </h2>
+      <p class="c4-chapter-desc c4-reveal c4-delay-2">
+        Four powerhouse additions to Inventory, Marketing, and Brand management — drag left to explore each one.
+      </p>
+    </div>
+
+    <!-- Horizontal scroll carousel -->
+    <div class="c4-hscroll-track c4-reveal c4-delay-3" id="c4HScroll">
+
+      <!-- Card 1: Smart Tags -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(106,180,72,0.25),transparent 70%);"></div>
+        <div class="c4-glass-card-number">01 — Smart Tags</div>
+        <div class="c4-glass-card-title">Smart Tags</div>
+        <div class="c4-glass-card-desc">
+          Rules-based automation for inventory tagging. Tags trigger automatically based on lab results, pricing trends, and expiration dates — then fire discounts and menu collections without a single manual click.
+        </div>
+        <div class="c4-glass-card-location">Inventory tab</div>
+      </div>
+
+      <!-- Card 2: Brand Portal V2 -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(94,50,78,0.35),transparent 70%);"></div>
+        <div class="c4-glass-card-number">02 — Brand Portal V2</div>
+        <div class="c4-glass-card-title">Brand Portal V2</div>
+        <div class="c4-glass-card-desc">
+          Brands now own their catalog experience. Create and manage product listings with verified imagery, rich descriptions, and compliance-ready assets — all in one consolidated, brand-controlled space.
+        </div>
+        <div class="c4-glass-card-location">Brand Portal</div>
+      </div>
+
+      <!-- Card 3: Exclusive Channel Offers -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(255,192,42,0.2),transparent 70%);"></div>
+        <div class="c4-glass-card-number">03 — Channel Offers</div>
+        <div class="c4-glass-card-title">Exclusive Channel Offers</div>
+        <div class="c4-glass-card-desc">
+          Precision promotions scoped to a single order source. Run Mobile-Only flash sales, Kiosk-Only bundle deals, or drive online exclusives — each promotion targeted exactly where you want it.
+        </div>
+        <div class="c4-glass-card-location">Marketing › Discounts › Order Sources</div>
+      </div>
+
+      <!-- Card 4: Event-Based Lead Gen -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(0,61,41,0.5),transparent 70%);"></div>
+        <div class="c4-glass-card-number">04 — Event Lead Gen</div>
+        <div class="c4-glass-card-title">Event-Based Lead Generation</div>
+        <div class="c4-glass-card-desc">
+          Capture customers in the wild. Generate QR codes for pop-ups, festivals, and community events. Scan-to-signup flows feed directly into your CRM, turning every event into a growth opportunity.
+        </div>
+        <div class="c4-glass-card-location">Marketing › Events</div>
+      </div>
+
+    </div>
+
+    <div class="c4-hscroll-hint c4-reveal c4-delay-4">
+      <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 6H19M13 1L19 6L13 11" stroke="rgba(241,235,214,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Drag to scroll</span>
+    </div>
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 3 — SEGMENTS & GROWTH
+  ============================================= -->
+  <section class="c4-chapter-segments" id="c4-segments" data-section-name="Segments & Growth">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:65vw;height:65vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);top:-10%;right:-20%;animation:meshShift1 24s ease-in-out infinite;opacity:0.3;"></div>
+      <div class="mesh-blob" style="width:45vw;height:45vw;background:radial-gradient(circle,#5E324E 0%,transparent 70%);bottom:5%;left:-10%;animation:meshShift3 18s ease-in-out infinite;opacity:0.25;"></div>
+    </div>
+    <div class="c4-edge-label">Chapter 03 — Segments & Growth</div>
+
+    <div class="c4-segments-intro">
+      <div class="c4-chapter-tag c4-reveal">Chapter 03</div>
+      <h2 class="c4-chapter-headline c4-reveal c4-delay-1">
+        Segments<br>&amp; <em>Growth</em>
+      </h2>
+      <p class="c4-chapter-desc c4-reveal c4-delay-2">
+        Know your customers deeper, reach them smarter, and reward your team — all with more control than ever before.
+      </p>
+    </div>
+
+    <!-- Row 1: Comms Preferences -->
+    <div class="c4-split-row">
+      <div class="c4-split-text-side c4-reveal-left">
+        <div class="c4-split-big-number">05</div>
+        <div class="c4-split-feature-name">Communications <em>Preferences</em></div>
+        <div class="c4-split-feature-desc">
+          Put customers and budtenders in the driver's seat. Notification preferences for SMS, Email, and Push can now be managed right at the POS — reducing opt-out rates and increasing message relevance.
+        </div>
+        <div class="c4-split-feature-loc">Point of Sale</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-right">
+        <div class="c4-sfcard-glow"></div>
+        <div class="c4-sfcard-icon">💬</div>
+        <div class="c4-sfcard-title">Choose how you hear from us</div>
+        <div class="c4-sfcard-desc">SMS, Email, and Push notification preferences collected at checkout — no app required, no friction added.</div>
+        <div class="c4-sfcard-loc">POS — Customer Profile</div>
+      </div>
+    </div>
+
+    <!-- Row 2: Enhanced Segment Attributes -->
+    <div class="c4-split-row reverse">
+      <div class="c4-split-text-side c4-reveal-right">
+        <div class="c4-split-big-number">06</div>
+        <div class="c4-split-feature-name">Enhanced Segment <em>Attributes</em></div>
+        <div class="c4-split-feature-desc">
+          Over 30 new filtering options unlock hyper-targeted customer segments. Slice by purchase behavior, product preferences, visit frequency, spend thresholds, and more.
+        </div>
+        <div class="c4-split-feature-loc">Customers › Segments</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-left" style="border-color: rgba(255,192,42,0.25); background: linear-gradient(135deg, rgba(255,192,42,0.08) 0%, rgba(4,32,23,0.7) 100%);">
+        <div class="c4-sfcard-glow" style="background: radial-gradient(circle, rgba(255,192,42,0.3), transparent 70%);"></div>
+        <div class="c4-sfcard-icon">🎯</div>
+        <div class="c4-sfcard-title">30+ new ways to slice your audience</div>
+        <div class="c4-sfcard-desc">Build segments based on behaviors, preferences, and patterns you couldn't reach before. More signal, less noise.</div>
+        <div class="c4-sfcard-loc" style="border-color: rgba(255,192,42,0.3); color: rgba(255,192,42,0.7);">Customers › Segments</div>
+      </div>
+    </div>
+
+    <!-- Row 3: Custom Segment Badges -->
+    <div class="c4-split-row">
+      <div class="c4-split-text-side c4-reveal-left">
+        <div class="c4-split-big-number">07</div>
+        <div class="c4-split-feature-name">Custom Segment <em>Badges</em></div>
+        <div class="c4-split-feature-desc">
+          Visual indicators surface instantly at the register — spot VIPs, medical patients, loyalty tiers, and custom segments with a glance. Better service starts before the first word is said.
+        </div>
+        <div class="c4-split-feature-loc">Register — Customer View</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-right" style="border-color: rgba(106,180,72,0.3); background: linear-gradient(135deg, rgba(106,180,72,0.1) 0%, rgba(4,32,23,0.7) 100%);">
+        <div class="c4-sfcard-glow" style="background: radial-gradient(circle, rgba(106,180,72,0.3), transparent 70%);"></div>
+        <div class="c4-sfcard-icon">🏷️</div>
+        <div class="c4-sfcard-title">Instant customer recognition at the register</div>
+        <div class="c4-sfcard-desc">Color-coded badges help staff identify VIPs, medical patients, and custom segments in real time — enabling personalized service at scale.</div>
+        <div class="c4-sfcard-loc" style="border-color: rgba(106,180,72,0.35); color: rgba(106,180,72,0.8);">Register — Customer Profile</div>
+      </div>
+    </div>
+
+    <!-- Row 4: Employee Rewards & Guardrails -->
+    <div class="c4-split-row reverse">
+      <div class="c4-split-text-side c4-reveal-right">
+        <div class="c4-split-big-number">08</div>
+        <div class="c4-split-feature-name">Employee Rewards <em>&amp; Guardrails</em></div>
+        <div class="c4-split-feature-desc">
+          Reward your team while protecting your margins. Employee segments with configurable guardrails ensure discounts and loyalty perks stay within company policy — automatically.
+        </div>
+        <div class="c4-split-feature-loc">Marketing › Loyalty › Settings</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-left" style="border-color: rgba(94,50,78,0.45);">
+        <div class="c4-sfcard-glow"></div>
+        <div class="c4-sfcard-icon">⚡</div>
+        <div class="c4-sfcard-title">Reward your team, protect your margins</div>
+        <div class="c4-sfcard-desc">Configurable discount guardrails on employee segments mean staff perks are always within policy — no manager overrides, no surprise shrink.</div>
+        <div class="c4-sfcard-loc">Marketing › Loyalty › Settings</div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 4 — E-COMMERCE & MOBILE
+  ============================================= -->
+  <section class="c4-chapter-ecommerce" id="c4-ecommerce" data-section-name="E-Commerce &amp; Mobile">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:70vw;height:70vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);top:0%;left:-30%;animation:meshShift2 20s ease-in-out infinite;opacity:0.28;"></div>
+      <div class="mesh-blob" style="width:50vw;height:50vw;background:radial-gradient(circle,#042017 0%,#FFC02A 100%);bottom:-10%;right:-10%;animation:meshShift3 22s ease-in-out infinite;opacity:0.12;"></div>
+    </div>
+    <div class="c4-edge-label">Chapter 04 — E-Commerce &amp; Mobile</div>
+
+    <div class="c4-ecom-intro">
+      <div class="c4-chapter-tag c4-reveal">Chapter 04</div>
+      <h2 class="c4-chapter-headline c4-reveal c4-delay-1">
+        E-Commerce<br>&amp; <em>Mobile</em>
+      </h2>
+      <p class="c4-chapter-desc c4-reveal c4-delay-2">
+        A reimagined digital storefront, a drag-and-drop menu builder, and the most significant infrastructure upgrade in Dutchie's history.
+      </p>
+    </div>
+
+    <!-- Two drama cards side by side -->
+    <div class="c4-ecom-grid">
+
+      <div class="c4-drama-card green-theme c4-reveal c4-delay-1">
+        <div class="c4-drama-card-bg-text">IMG</div>
+        <div class="c4-drama-card-badge">Feature 09</div>
+        <div class="c4-drama-card-title">Multi-Image Product Cards</div>
+        <div class="c4-drama-card-desc">
+          Show your product from every angle. Multi-image galleries on product cards give customers a richer, more confident buying experience — directly from menu displays, no third-party tools required.
+        </div>
+        <div class="c4-drama-card-loc">Menus — Product Cards</div>
+      </div>
+
+      <div class="c4-drama-card yellow-theme c4-reveal c4-delay-2">
+        <div class="c4-drama-card-bg-text">MENU</div>
+        <div class="c4-drama-card-badge">Feature 10</div>
+        <div class="c4-drama-card-title">Custom Mobile Menu Builder</div>
+        <div class="c4-drama-card-desc">
+          Drag. Drop. Deploy. A visual drag-and-drop builder gives operators full control over mobile menu layout — reorder sections, feature collections, and create curated shopping flows without writing a line of code.
+        </div>
+        <div class="c4-drama-card-loc">Menu Builder — Mobile Layout</div>
+      </div>
+
+    </div>
+
+    <!-- AWS SPOTLIGHT — full width, animated border -->
+    <div class="c4-aws-spotlight-wrapper c4-reveal c4-delay-3">
+      <div class="c4-aws-spotlight">
+        <div class="c4-aws-bg-glow"></div>
+        <div>
+          <div class="c4-aws-badge">Feature 11 — Infrastructure Spotlight</div>
+          <div class="c4-aws-title">AWS Database<br><em>Migration</em></div>
+          <p class="c4-aws-desc">
+            In partnership with Amazon Web Services, Dutchie has completed a major database migration to AWS-managed infrastructure — unlocking faster checkouts, intelligent auto-scaling during peak demand, and enterprise-grade reliability. This isn't a feature update. It's a foundation upgrade.
+          </p>
+          <div class="c4-aws-stats">
+            <div class="c4-aws-stat">
+              <div class="c4-aws-stat-val">↑99.9%</div>
+              <div class="c4-aws-stat-lbl">Uptime Target</div>
+            </div>
+            <div class="c4-aws-stat">
+              <div class="c4-aws-stat-val">Auto</div>
+              <div class="c4-aws-stat-lbl">Scale on Demand</div>
+            </div>
+            <div class="c4-aws-stat">
+              <div class="c4-aws-stat-val">Faster</div>
+              <div class="c4-aws-stat-lbl">Checkout Speed</div>
+            </div>
+          </div>
+        </div>
+        <div class="c4-aws-logo-area">
+          <div class="c4-aws-logo-box">☁️</div>
+          <div class="c4-aws-partner-label">AWS<br>Partnership</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 5 — THAT'S A WRAP
+  ============================================= -->
+  <section class="c4-chapter-footer" id="c4-footer" data-section-name="That's a Wrap">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:80vw;height:80vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);top:-30%;left:-20%;animation:meshShift1 25s ease-in-out infinite;opacity:0.25;"></div>
+      <div class="mesh-blob" style="width:60vw;height:60vw;background:radial-gradient(circle,#5E324E 0%,transparent 70%);bottom:-20%;right:-20%;animation:meshShift2 20s ease-in-out infinite;opacity:0.25;"></div>
+    </div>
+    <div class="c4-grid-lines"></div>
+
+    <div class="c4-chapter-tag c4-reveal" style="margin-bottom:0;">Chapter 05</div>
+
+    <div class="c4-footer-wrap-text c4-reveal c4-delay-1">
+      That's a<br><span>Wrap.</span>
+    </div>
+
+    <p class="c4-footer-sub c4-reveal c4-delay-2">
+      March 2026 marks a new chapter for the Dutchie platform — more automation, deeper customer intelligence, and infrastructure built to scale with you.
+    </p>
+
+    <!-- Stats recap -->
+    <div class="c4-footer-stats-recap c4-reveal c4-delay-3">
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">11</div>
+        <div class="c4-footer-stat-lbl">Features Shipped</div>
+      </div>
+      <div class="c4-footer-divider"></div>
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">30+</div>
+        <div class="c4-footer-stat-lbl">Segment Filters</div>
+      </div>
+      <div class="c4-footer-divider"></div>
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">1</div>
+        <div class="c4-footer-stat-lbl">AWS Partnership</div>
+      </div>
+      <div class="c4-footer-divider"></div>
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">∞</div>
+        <div class="c4-footer-stat-lbl">Possibilities Ahead</div>
+      </div>
+    </div>
+
+    <a href="#" class="c4-cta-btn c4-reveal c4-delay-4">
+      Explore the Platform
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 6H15M9 1L15 6L9 11" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <div class="c4-footer-brand c4-reveal c4-delay-5">
+      &copy; 2026 <span>Dutchie</span> — Cannabis Technology Platform
+    </div>
+  </section>
+
+</div><!-- end .concept-4 -->
+
+<!-- ============================================
+     JAVASCRIPT
+============================================= -->
+<script>
+(function() {
+  'use strict';
+
+  /* ----------------------------------------
+     1. SCROLL PROGRESS BAR
+  ---------------------------------------- */
+  const progressBar = document.getElementById('c4Progress');
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+
+  /* ----------------------------------------
+     2. SECTION DETECTION + NAV DOTS + HEADER LABEL
+  ---------------------------------------- */
+  const sections = [
+    { id: 'c4-hero',       dot: 0, name: 'Product Updates'     },
+    { id: 'c4-whats-new',  dot: 1, name: "What's New"          },
+    { id: 'c4-segments',   dot: 2, name: 'Segments & Growth'   },
+    { id: 'c4-ecommerce',  dot: 3, name: 'E-Commerce & Mobile' },
+    { id: 'c4-footer',     dot: 4, name: "That's a Wrap"       },
+  ];
+
+  const navDots = document.querySelectorAll('.c4-nav-dot');
+  const sectionLabel = document.getElementById('c4SectionLabel');
+
+  function updateActiveSection() {
+    const scrollY = window.scrollY + window.innerHeight * 0.4;
+    let active = sections[0];
+    for (const s of sections) {
+      const el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollY) active = s;
+    }
+    navDots.forEach((d, i) => {
+      d.classList.toggle('active', i === active.dot);
+    });
+    sectionLabel.textContent = active.name;
+  }
+
+  /* ----------------------------------------
+     3. INTERSECTION OBSERVER — REVEAL ANIMATIONS
+  ---------------------------------------- */
+  const revealSelectors = [
+    '.c4-reveal',
+    '.c4-reveal-left',
+    '.c4-reveal-right',
+    '.c4-reveal-scale',
+  ];
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  document.querySelectorAll(revealSelectors.join(',')).forEach((el) => {
+    observer.observe(el);
+  });
+
+  /* ----------------------------------------
+     4. ANIMATED COUNTERS
+  ---------------------------------------- */
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current + (progress === 1 ? suffix : '');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    counterObserver.observe(el);
+  });
+
+  /* ----------------------------------------
+     5. CARD TILT ON HOVER (3D perspective)
+  ---------------------------------------- */
+  function addTilt(selector) {
+    document.querySelectorAll(selector).forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const rotX = -dy * 6;
+        const rotY = dx * 6;
+        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  addTilt('.c4-glass-card');
+  addTilt('.c4-segment-feature-card');
+  addTilt('.c4-drama-card');
+
+  /* ----------------------------------------
+     6. HORIZONTAL SCROLL DRAG
+  ---------------------------------------- */
+  const hTrack = document.getElementById('c4HScroll');
+  if (hTrack) {
+    let isDown = false, startX, scrollLeft;
+    hTrack.addEventListener('mousedown', (e) => {
+      isDown = true;
+      hTrack.classList.add('active');
+      startX = e.pageX - hTrack.offsetLeft;
+      scrollLeft = hTrack.scrollLeft;
+    });
+    hTrack.addEventListener('mouseleave', () => { isDown = false; });
+    hTrack.addEventListener('mouseup', () => { isDown = false; });
+    hTrack.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - hTrack.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      hTrack.scrollLeft = scrollLeft - walk;
+    });
+  }
+
+  /* ----------------------------------------
+     7. NAV DOT CLICK SCROLL
+  ---------------------------------------- */
+  navDots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(sections[i].id);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ----------------------------------------
+     8. SCROLL EVENT AGGREGATION
+  ---------------------------------------- */
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateProgress();
+        updateActiveSection();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Init
+  updateProgress();
+  updateActiveSection();
+
+})();
+</script>
 </div>
 
 <script>
