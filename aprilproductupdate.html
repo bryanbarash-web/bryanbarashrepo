@@ -17,7 +17,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 .april-update {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #042017;
   color: #F1EBD6;
   -webkit-font-smoothing: antialiased;
@@ -173,7 +173,7 @@
 .april-update .au-hero-intro {
   font-size: clamp(15px, 1.8vw, 18px);
   line-height: 1.7;
-  color: rgba(241,235,214,0.75);
+  color: rgba(241,235,214,0.85);
   max-width: 720px;
   margin: 0 auto 48px;
   font-weight: 400;
@@ -329,7 +329,7 @@
 
 .april-update .au-toc-label {
   font-size: 12px;
-  color: rgba(241,235,214,0.45);
+  color: rgba(241,235,214,0.6);
   font-weight: 400;
   transition: color 0.25s;
   white-space: nowrap;
@@ -489,8 +489,8 @@
 }
 
 .april-update .au-badge-loom {
-  background: rgba(98,71,234,0.2);
-  color: #a793f5;
+  background: rgba(94,50,78,0.2);
+  color: #9e6d8e;
 }
 
 .april-update .au-badge-coming-soon {
@@ -504,22 +504,17 @@
 }
 
 .april-update .au-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
   margin-top: 20px;
-  flex-wrap: wrap;
 }
 
 .april-update .au-setup-guide {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(241,235,214,0.35);
+  color: rgba(241,235,214,0.5);
   background: transparent;
   border: 1px solid rgba(241,235,214,0.1);
   border-radius: 8px;
@@ -552,6 +547,15 @@
   color: #5E324E;
   border-color: rgba(94,50,78,0.3);
   background: rgba(94,50,78,0.06);
+}
+
+/* Focus-visible for keyboard accessibility */
+.april-update .au-toc-item:focus-visible,
+.april-update .au-setup-guide:focus-visible,
+.april-update .au-mobile-toc-link:focus-visible,
+.april-update .au-mobile-toc-btn:focus-visible {
+  outline: 2px solid #FFC02A;
+  outline-offset: 2px;
 }
 
 /* ── CARD WITH FLOATED PHONE MOCKUP ──────────────────────── */
@@ -762,7 +766,7 @@
 
 .april-update .au-mock-phone {
   width: 240px;
-  background: #111;
+  background: #021a10;
   border-radius: 32px;
   padding: 12px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.35);
@@ -897,7 +901,7 @@
 
 .april-update .au-mock-report-phone {
   width: 240px;
-  background: #111;
+  background: #021a10;
   border-radius: 32px;
   padding: 12px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.35);
@@ -1033,29 +1037,10 @@
 .april-update .au-card-desc {
   font-size: 15px;
   line-height: 1.7;
-  color: rgba(241,235,214,0.65);
+  color: rgba(241,235,214,0.78);
   margin-bottom: 20px;
 }
 
-.april-update .au-card-path {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-  font-size: 12px;
-  color: rgba(241,235,214,0.4);
-  background: rgba(241,235,214,0.04);
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba(241,235,214,0.06);
-}
-
-.april-update .au-card-path svg {
-  width: 14px;
-  height: 14px;
-  opacity: 0.5;
-  flex-shrink: 0;
-}
 
 /* ── CASE STUDY CARD (special treatment) ───────────────────── */
 
@@ -1082,11 +1067,6 @@
   color: rgba(4,32,23,0.6);
 }
 
-.april-update .au-card-case-study .au-card-path {
-  color: rgba(4,32,23,0.4);
-  background: rgba(4,32,23,0.05);
-  border-color: rgba(4,32,23,0.08);
-}
 
 /* ── RESPONSIVE ────────────────────────────────────────────── */
 
@@ -1330,17 +1310,6 @@
     font-size: 14px;
   }
 
-  .april-update .au-card-path {
-    font-size: 10px;
-    word-break: break-all;
-    padding: 6px 10px;
-  }
-
-  .april-update .au-card-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
 
   .april-update .au-badge {
     font-size: 10px;
@@ -1553,9 +1522,9 @@
         <!-- Product Mockup: Outlet Menu -->
         <div class="au-mockup au-mock-menu">
           <div class="au-mock-menu-bar">
-            <span class="au-mock-menu-bar-dot" style="background:#ff5f57;"></span>
-            <span class="au-mock-menu-bar-dot" style="background:#febc2e;"></span>
-            <span class="au-mock-menu-bar-dot" style="background:#28c840;"></span>
+            <span class="au-mock-menu-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
+            <span class="au-mock-menu-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
+            <span class="au-mock-menu-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
             <span class="au-mock-menu-tab">All Products</span>
             <span class="au-mock-menu-tab">Flower</span>
             <span class="au-mock-menu-tab active">Flash Sale</span>
@@ -1604,10 +1573,6 @@
           Transform your menu into a dynamic sales engine by automating the way you clear aging inventory. Using a combination of Menu Tags and Smart Tags, you can now create Limited Categories, also known as Outlet Menus, that automatically feature products based on specific rules like approaching expiration dates or low stock levels. These categories include native countdown timers on the product page and in the cart to create urgency and drive immediate conversions for your clearance items.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            Merchandising &gt; Smart Tags &rarr; Collections &gt; Custom Categories
-          </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1626,10 +1591,6 @@
               Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time. Instead of a one-size-fits-all blast, your messages deploy throughout the day to match your customers' habits, increasing open rates and driving more immediate sales.
             </p>
             <div class="au-card-footer">
-              <div class="au-card-path">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                Marketing &gt; Campaigns &gt; Toggle Smart Sending
-              </div>
               <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
             </div>
           </div>
@@ -1682,10 +1643,6 @@
           Boost conversions by adding dynamic content blocks to your marketing messages. Drag and drop personalized "Buy It Again" recommendations, segment-specific discounts, and real-time loyalty data directly into your campaigns. These blocks automatically show each customer their available rewards and the exact spend needed to reach the next tier, making every message feel tailored to their shopping habits.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Marketing &gt; Email Gallery &gt; Drag Block
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1704,10 +1661,6 @@
               Keep an eye on your business from anywhere. We have redesigned our highest-priority reports &mdash; Sales Overview, Closing Report, and Inventory Overview &mdash; to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
             </p>
             <div class="au-card-footer">
-              <div class="au-card-path">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                Reports (mobile browser)
-              </div>
               <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
             </div>
           </div>
@@ -1788,10 +1741,6 @@
           Three powerful updates: New Developer CLI for local storefront preview with hot reload and latency simulation. Global Styles &amp; Design Tokens to control 120+ CSS tokens for brand colors, fonts, and spacing. Custom Product Cards to replace default views with bespoke components while the SDK handles pricing, badges, and data.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          npx @dutchiesdk/ecommerce-sdk-cli dev
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1807,10 +1756,6 @@
           Reduce friction from message to checkout. Marketing links can automatically log customers into their preferred local menu and surface their usual order for faster checkout.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Marketing &gt; Campaigns &gt; Link Settings
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1826,13 +1771,6 @@
         <p class="au-card-desc">
           See how PVP leveraged E-Commerce Pro to transform their digital storefront. Full case study coming soon.
         </p>
-        <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          E-Commerce Pro &gt; Case Studies
-        </div>
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-        </div>
       </article>
 
       <!-- SECTION: E-Commerce -->
@@ -1853,10 +1791,6 @@
           In-store orders are now attached to customer profiles at POS, ensuring every walk-in visit is captured in the customer's unified history. This allows for more accurate segmenting and ensures budtenders have the full context of a customer's lifetime value the moment they check in.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          POS &gt; Customer Profile
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1873,10 +1807,6 @@
           Customers can instantly re-order their favorite products directly from their profile or previous order history without navigating the full menu. Removes checkout friction, increases order frequency, and rewards repeat customers with a faster experience.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Customer Profile &gt; Order History
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1899,10 +1829,6 @@
           Deep bidirectional integration between Onfleet and Dutchie enables real-time route synchronization and automated manifest updates while maintaining full Metrc compliance. Orders intelligently auto-assign to the nearest driver based on proximity, inventory, and current workload.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Delivery &gt; Route Management
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1918,10 +1844,6 @@
           Set separate delivery fees for ASAP orders versus Scheduled windows, allowing you to charge a premium for immediate service or offer incentives for pre-planned orders.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Settings &gt; Delivery Fees
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
@@ -1944,10 +1866,6 @@
           Set Cooldown periods (rolling windows) or Refresh schedules (fixed dates) for specific offers, moving beyond simple lifetime caps. Define exactly how often a customer can redeem a specific deal &mdash; whether once every 24 hours or once per calendar month.
         </p>
         <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Marketing &gt; Discounts &gt; Limits tab
-        </div>
           <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
