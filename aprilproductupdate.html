@@ -1090,6 +1090,162 @@
 
 /* ── RESPONSIVE ────────────────────────────────────────────── */
 
+/* ── MOBILE TOC ───────────────────────────────────────────── */
+
+.april-update .au-mobile-toc-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(4,32,23,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(241,235,214,0.12);
+  color: #F1EBD6;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.april-update .au-mobile-toc-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(106,180,72,0.3);
+}
+
+.april-update .au-mobile-toc-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #F1EBD6;
+  opacity: 0.8;
+}
+
+.april-update .au-mobile-toc-drawer {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 199;
+  background: rgba(4,32,23,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(241,235,214,0.1);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 32px;
+  max-height: 60vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.4);
+}
+
+.april-update .au-mobile-toc-drawer.au-open {
+  transform: translateY(0);
+}
+
+.april-update .au-mobile-toc-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(241,235,214,0.15);
+  margin: 0 auto 16px;
+}
+
+.april-update .au-mobile-toc-heading {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(241,235,214,0.35);
+  margin-bottom: 12px;
+}
+
+.april-update .au-mobile-toc-group-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.25);
+  margin: 12px 0 6px;
+  padding-left: 4px;
+}
+
+.april-update .au-mobile-toc-group-label:first-of-type {
+  margin-top: 0;
+}
+
+.april-update .au-mobile-toc-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.april-update .au-mobile-toc-link:active {
+  background: rgba(241,235,214,0.06);
+}
+
+.april-update .au-mobile-toc-link .au-mtoc-dot {
+  width: 5px;
+  height: 5px;
+  min-width: 5px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.15);
+  transition: all 0.2s;
+}
+
+.april-update .au-mobile-toc-link.au-active .au-mtoc-dot {
+  background: #6AB448;
+  box-shadow: 0 0 6px rgba(106,180,72,0.4);
+}
+
+.april-update .au-mobile-toc-link .au-mtoc-label {
+  font-size: 13px;
+  color: rgba(241,235,214,0.5);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.april-update .au-mobile-toc-link.au-active .au-mtoc-label {
+  color: #F1EBD6;
+  font-weight: 500;
+}
+
+.april-update .au-mobile-toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 198;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.april-update .au-mobile-toc-overlay.au-open {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .april-update .au-mobile-toc-btn {
+    display: flex;
+  }
+  .april-update .au-mobile-toc-drawer {
+    display: block;
+  }
+  .april-update .au-mobile-toc-overlay {
+    display: block;
+  }
+}
+
 @media (max-width: 900px) {
   .april-update .au-sidebar {
     display: none;
@@ -1798,6 +1954,33 @@
 
     </main>
   </div>
+
+  <!-- Mobile TOC -->
+  <div class="au-mobile-toc-overlay" id="au-mtoc-overlay"></div>
+  <button class="au-mobile-toc-btn" id="au-mtoc-btn" aria-label="Table of contents">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+  </button>
+  <div class="au-mobile-toc-drawer" id="au-mtoc-drawer">
+    <div class="au-mobile-toc-handle"></div>
+    <div class="au-mobile-toc-heading">Contents</div>
+    <div class="au-mobile-toc-group-label">Hero Features</div>
+    <a class="au-mobile-toc-link" href="#card-1" data-mtoc="card-1"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Menu Tags &amp; Limited Categories</span></a>
+    <a class="au-mobile-toc-link" href="#card-2" data-mtoc="card-2"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Smart Sending</span></a>
+    <a class="au-mobile-toc-link" href="#card-3" data-mtoc="card-3"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Dynamic Content Blocks</span></a>
+    <a class="au-mobile-toc-link" href="#card-4" data-mtoc="card-4"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Mobile Responsive Reporting</span></a>
+    <div class="au-mobile-toc-group-label">E-Commerce Pro</div>
+    <a class="au-mobile-toc-link" href="#card-5" data-mtoc="card-5"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">SDK Enhancements</span></a>
+    <a class="au-mobile-toc-link" href="#card-6" data-mtoc="card-6"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Dynamic Marketing URLs</span></a>
+    <a class="au-mobile-toc-link" href="#card-7" data-mtoc="card-7"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">E-Com Pro Case Study</span></a>
+    <div class="au-mobile-toc-group-label">E-Commerce</div>
+    <a class="au-mobile-toc-link" href="#card-8" data-mtoc="card-8"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Holistic Order History</span></a>
+    <a class="au-mobile-toc-link" href="#card-9" data-mtoc="card-9"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">One-Click Buy It Again</span></a>
+    <div class="au-mobile-toc-group-label">Delivery</div>
+    <a class="au-mobile-toc-link" href="#card-10" data-mtoc="card-10"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Route Optimization</span></a>
+    <a class="au-mobile-toc-link" href="#card-11" data-mtoc="card-11"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Separate Delivery Fees</span></a>
+    <div class="au-mobile-toc-group-label">Other</div>
+    <a class="au-mobile-toc-link" href="#card-12" data-mtoc="card-12"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Time-Based Discount Limits</span></a>
+  </div>
 </div>
 
 <script>
@@ -1919,6 +2102,66 @@
 
   /* Initial call */
   updateTOC();
+
+  /* ── Mobile TOC ──────────────────────────────────────────── */
+  var mtocBtn = root.querySelector('#au-mtoc-btn');
+  var mtocDrawer = root.querySelector('#au-mtoc-drawer');
+  var mtocOverlay = root.querySelector('#au-mtoc-overlay');
+  var mtocLinks = root.querySelectorAll('.au-mobile-toc-link');
+
+  function openMtoc() {
+    mtocDrawer.classList.add('au-open');
+    mtocOverlay.classList.add('au-open');
+    mtocBtn.style.display = 'none';
+  }
+
+  function closeMtoc() {
+    mtocDrawer.classList.remove('au-open');
+    mtocOverlay.classList.remove('au-open');
+    setTimeout(function() { mtocBtn.style.display = ''; }, 350);
+  }
+
+  if (mtocBtn) mtocBtn.addEventListener('click', openMtoc);
+  if (mtocOverlay) mtocOverlay.addEventListener('click', closeMtoc);
+
+  mtocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('data-mtoc');
+      var target = root.querySelector('#' + id);
+      closeMtoc();
+      if (target) {
+        setTimeout(function() {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    });
+  });
+
+  /* Update mobile TOC active state on scroll */
+  function updateMobileTOC() {
+    var winH = window.innerHeight;
+    var activeId = null;
+    for (var i = cards.length - 1; i >= 0; i--) {
+      var rect = cards[i].el.getBoundingClientRect();
+      if (rect.top <= winH * 0.4) {
+        activeId = cards[i].id;
+        break;
+      }
+    }
+    mtocLinks.forEach(function(link) {
+      if (link.getAttribute('data-mtoc') === activeId) {
+        link.classList.add('au-active');
+      } else {
+        link.classList.remove('au-active');
+      }
+    });
+  }
+
+  /* Patch scroll handler to also update mobile TOC */
+  window.addEventListener('scroll', function() {
+    requestAnimationFrame(updateMobileTOC);
+  }, { passive: true });
 })();
 </script>
 
