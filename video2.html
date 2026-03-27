@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dutchie Consumer AI - The AI Operating System for Cannabis Retail</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  WEBFLOW: Copy everything between <style> and </style>     ║
+     ║  and paste into Webflow > Project Settings > Custom Code   ║
+     ║  > Head Code, wrapped in <style> tags.                     ║
+     ║  Also include the Google Fonts <link> tag above.           ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
 <style>
 @font-face { font-family:'Matter'; src:local('Matter'); font-weight:400; font-style:normal; }
 @font-face { font-family:'Matter'; src:local('Matter Medium'); font-weight:500; font-style:normal; }
@@ -997,8 +1004,19 @@ body {
   .close-btn { width:28px; height:28px; font-size:12px; top:8px; right:8px; }
 }
 </style>
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  END OF CSS — everything above goes in Webflow Head Code   ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
 </head>
 <body>
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  WEBFLOW: Copy everything from <canvas> down to the        ║
+     ║  </div> before the <script> tag and paste into a           ║
+     ║  Webflow Embed element on your page.                       ║
+     ║  NOTE: The video page is a full-page experience — use a    ║
+     ║  blank Webflow page with no nav/footer for best results.   ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
 
 <canvas id="particles"></canvas>
 
@@ -1406,6 +1424,15 @@ body {
   <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
 </div>
 
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  END OF HTML — everything above goes in Webflow Embed      ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  WEBFLOW: Copy everything between <script> and </script>   ║
+     ║  and paste into Webflow > Project Settings > Custom Code   ║
+     ║  > Footer Code, wrapped in <script> tags.                  ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
 <script>
 // ===== PARTICLE SYSTEM =====
 (function() {
@@ -1836,5 +1863,8 @@ body {
   });
 })();
 </script>
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  END OF JS — everything above goes in Webflow Footer Code  ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
 </body>
 </html>
