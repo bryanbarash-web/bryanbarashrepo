@@ -554,6 +554,29 @@
   background: rgba(94,50,78,0.06);
 }
 
+/* ── CARD WITH FLOATED PHONE MOCKUP ──────────────────────── */
+
+.april-update .au-card-with-phone .au-card-body-wrap {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.april-update .au-card-with-phone .au-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.april-update .au-card-with-phone .au-card-phone-col {
+  flex-shrink: 0;
+}
+
+@media (max-width: 700px) {
+  .april-update .au-card-with-phone .au-card-body-wrap {
+    flex-direction: column;
+  }
+}
+
 /* ── PRODUCT MOCKUPS ──────────────────────────────────────── */
 
 .april-update .au-mockup {
@@ -569,8 +592,6 @@
 
 .april-update .au-mock-menu {
   padding: 0;
-  max-width: 340px;
-  margin: 20px auto 4px;
 }
 
 .april-update .au-mock-menu-bar {
@@ -728,8 +749,7 @@
 /* ── Mockup 2: Smart Sending Phone ───────────────────────── */
 
 .april-update .au-mock-phone {
-  max-width: 280px;
-  margin: 20px auto 4px;
+  width: 240px;
   background: #111;
   border-radius: 32px;
   padding: 12px;
@@ -864,8 +884,7 @@
 /* ── Mockup 3: Mobile Reporting ──────────────────────────── */
 
 .april-update .au-mock-report-phone {
-  max-width: 280px;
-  margin: 20px auto 4px;
+  width: 240px;
   background: #111;
   border-radius: 32px;
   padding: 12px;
@@ -1317,57 +1336,60 @@
       </article>
 
       <!-- Card 2 -->
-      <article class="au-card" id="card-2">
+      <article class="au-card au-card-with-phone" id="card-2">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Marketing AI</span>
           <span class="au-badge au-badge-loom">&#9654; Loom</span>
         </div>
         <h2 class="au-card-title">Smart Sending</h2>
-
-        <!-- Product Mockup: AI-Timed SMS on Phone -->
-        <div class="au-mock-phone">
-          <div class="au-mock-phone-screen">
-            <div class="au-mock-phone-status">
-              <span>2:47 PM</span>
-              <span style="display:flex;gap:4px;align-items:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 20l4-4m4-4l4-4m4-4l4-4" opacity=".3"/><path d="M1 20l4-4m4-4l4-4"/></svg> LTE</span>
-            </div>
-            <div class="au-mock-phone-time-label">AI-Optimized Delivery Window</div>
-            <div class="au-mock-ai-bar">
-              <span class="au-mock-ai-dot"></span>
-              <span class="au-mock-ai-text">Smart Send predicted Sarah shops between 2-4 PM on Fridays</span>
-            </div>
-            <div class="au-mock-sms">
-              <div class="au-mock-sms-from">Green Leaf Dispensary</div>
-              <div class="au-mock-sms-body">Hey Sarah! Your favorites are restocked 🌿 Use <strong>FRIDAY15</strong> for 15% off your next order. One tap to reorder ↗</div>
-              <div class="au-mock-sms-time">Delivered 2:47 PM · Opened 2:49 PM</div>
-            </div>
-            <div class="au-mock-engagement">
-              <div class="au-mock-eng-stat">
-                <div class="au-mock-eng-num">3.2×</div>
-                <div class="au-mock-eng-label">Open Rate</div>
+        <div class="au-card-body-wrap">
+          <div class="au-card-text">
+            <p class="au-card-desc">
+              Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time. Instead of a one-size-fits-all blast, your messages deploy throughout the day to match your customers' habits, increasing open rates and driving more immediate sales.
+            </p>
+            <div class="au-card-footer">
+              <div class="au-card-path">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                Marketing &gt; Campaigns &gt; Toggle Smart Sending
               </div>
-              <div class="au-mock-eng-stat">
-                <div class="au-mock-eng-num">41%</div>
-                <div class="au-mock-eng-label">Click Rate</div>
-              </div>
-              <div class="au-mock-eng-stat">
-                <div class="au-mock-eng-num">$67</div>
-                <div class="au-mock-eng-label">Avg Order</div>
+              <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+            </div>
+          </div>
+          <div class="au-card-phone-col">
+            <div class="au-mock-phone">
+              <div class="au-mock-phone-screen">
+                <div class="au-mock-phone-status">
+                  <span>2:47 PM</span>
+                  <span style="display:flex;gap:4px;align-items:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 20l4-4m4-4l4-4m4-4l4-4" opacity=".3"/><path d="M1 20l4-4m4-4l4-4"/></svg> LTE</span>
+                </div>
+                <div class="au-mock-phone-time-label">AI-Optimized Delivery Window</div>
+                <div class="au-mock-ai-bar">
+                  <span class="au-mock-ai-dot"></span>
+                  <span class="au-mock-ai-text">Smart Send predicted Sarah shops between 2-4 PM on Fridays</span>
+                </div>
+                <div class="au-mock-sms">
+                  <div class="au-mock-sms-from">Green Leaf Dispensary</div>
+                  <div class="au-mock-sms-body">Hey Sarah! Your favorites are restocked 🌿 Use <strong>FRIDAY15</strong> for 15% off your next order. One tap to reorder ↗</div>
+                  <div class="au-mock-sms-time">Delivered 2:47 PM · Opened 2:49 PM</div>
+                </div>
+                <div class="au-mock-engagement">
+                  <div class="au-mock-eng-stat">
+                    <div class="au-mock-eng-num">3.2×</div>
+                    <div class="au-mock-eng-label">Open Rate</div>
+                  </div>
+                  <div class="au-mock-eng-stat">
+                    <div class="au-mock-eng-num">41%</div>
+                    <div class="au-mock-eng-label">Click Rate</div>
+                  </div>
+                  <div class="au-mock-eng-stat">
+                    <div class="au-mock-eng-num">$67</div>
+                    <div class="au-mock-eng-label">Avg Order</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <p class="au-card-desc">
-          Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time. Instead of a one-size-fits-all blast, your messages deploy throughout the day to match your customers' habits, increasing open rates and driving more immediate sales.
-        </p>
-        <div class="au-card-footer">
-          <div class="au-card-path">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            Marketing &gt; Campaigns &gt; Toggle Smart Sending
-          </div>
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
@@ -1392,78 +1414,81 @@
       </article>
 
       <!-- Card 4 -->
-      <article class="au-card" id="card-4">
+      <article class="au-card au-card-with-phone" id="card-4">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Analytics</span>
           <span class="au-badge au-badge-loom">&#9654; Loom</span>
         </div>
         <h2 class="au-card-title">Mobile Responsive Reporting</h2>
-
-        <!-- Product Mockup: Mobile Dashboard -->
-        <div class="au-mock-report-phone">
-          <div class="au-mock-report-screen">
-            <div class="au-mock-report-header">
-              <div class="au-mock-report-nav">
-                <span>&#8592; Reports</span>
-                <span>&#8943;</span>
+        <div class="au-card-body-wrap">
+          <div class="au-card-text">
+            <p class="au-card-desc">
+              Keep an eye on your business from anywhere. We have redesigned our highest-priority reports &mdash; Sales Overview, Closing Report, and Inventory Overview &mdash; to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
+            </p>
+            <div class="au-card-footer">
+              <div class="au-card-path">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                Reports (mobile browser)
               </div>
-              <div class="au-mock-report-title-bar">Sales Overview</div>
-              <div class="au-mock-report-period">Mar 21 – Mar 27, 2026</div>
+              <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
             </div>
-            <div class="au-mock-report-body">
-              <div class="au-mock-report-stats">
-                <div class="au-mock-report-stat">
-                  <div class="au-mock-report-stat-num">$47.2k</div>
-                  <div class="au-mock-report-stat-label">Revenue</div>
+          </div>
+          <div class="au-card-phone-col">
+            <div class="au-mock-report-phone">
+              <div class="au-mock-report-screen">
+                <div class="au-mock-report-header">
+                  <div class="au-mock-report-nav">
+                    <span>&#8592; Reports</span>
+                    <span>&#8943;</span>
+                  </div>
+                  <div class="au-mock-report-title-bar">Sales Overview</div>
+                  <div class="au-mock-report-period">Mar 21 – Mar 27, 2026</div>
                 </div>
-                <div class="au-mock-report-stat">
-                  <div class="au-mock-report-stat-num" style="color:#6AB448;">+12%</div>
-                  <div class="au-mock-report-stat-label">vs Last Week</div>
-                </div>
-                <div class="au-mock-report-stat">
-                  <div class="au-mock-report-stat-num">812</div>
-                  <div class="au-mock-report-stat-label">Transactions</div>
-                </div>
-                <div class="au-mock-report-stat">
-                  <div class="au-mock-report-stat-num">$58</div>
-                  <div class="au-mock-report-stat-label">Avg Ticket</div>
-                </div>
-              </div>
-              <div class="au-mock-report-chart">
-                <div class="au-mock-chart-label">Daily Revenue</div>
-                <div class="au-mock-chart-bars">
-                  <div class="au-mock-chart-bar" style="height:55%;background:#003D29;"></div>
-                  <div class="au-mock-chart-bar" style="height:70%;background:#003D29;"></div>
-                  <div class="au-mock-chart-bar" style="height:45%;background:#003D29;"></div>
-                  <div class="au-mock-chart-bar" style="height:80%;background:#003D29;"></div>
-                  <div class="au-mock-chart-bar" style="height:65%;background:#003D29;"></div>
-                  <div class="au-mock-chart-bar" style="height:90%;background:#6AB448;"></div>
-                  <div class="au-mock-chart-bar" style="height:100%;background:#6AB448;"></div>
-                </div>
-                <div class="au-mock-chart-days">
-                  <span class="au-mock-chart-day">M</span>
-                  <span class="au-mock-chart-day">T</span>
-                  <span class="au-mock-chart-day">W</span>
-                  <span class="au-mock-chart-day">T</span>
-                  <span class="au-mock-chart-day">F</span>
-                  <span class="au-mock-chart-day">S</span>
-                  <span class="au-mock-chart-day">S</span>
+                <div class="au-mock-report-body">
+                  <div class="au-mock-report-stats">
+                    <div class="au-mock-report-stat">
+                      <div class="au-mock-report-stat-num">$47.2k</div>
+                      <div class="au-mock-report-stat-label">Revenue</div>
+                    </div>
+                    <div class="au-mock-report-stat">
+                      <div class="au-mock-report-stat-num" style="color:#6AB448;">+12%</div>
+                      <div class="au-mock-report-stat-label">vs Last Week</div>
+                    </div>
+                    <div class="au-mock-report-stat">
+                      <div class="au-mock-report-stat-num">812</div>
+                      <div class="au-mock-report-stat-label">Transactions</div>
+                    </div>
+                    <div class="au-mock-report-stat">
+                      <div class="au-mock-report-stat-num">$58</div>
+                      <div class="au-mock-report-stat-label">Avg Ticket</div>
+                    </div>
+                  </div>
+                  <div class="au-mock-report-chart">
+                    <div class="au-mock-chart-label">Daily Revenue</div>
+                    <div class="au-mock-chart-bars">
+                      <div class="au-mock-chart-bar" style="height:55%;background:#003D29;"></div>
+                      <div class="au-mock-chart-bar" style="height:70%;background:#003D29;"></div>
+                      <div class="au-mock-chart-bar" style="height:45%;background:#003D29;"></div>
+                      <div class="au-mock-chart-bar" style="height:80%;background:#003D29;"></div>
+                      <div class="au-mock-chart-bar" style="height:65%;background:#003D29;"></div>
+                      <div class="au-mock-chart-bar" style="height:90%;background:#6AB448;"></div>
+                      <div class="au-mock-chart-bar" style="height:100%;background:#6AB448;"></div>
+                    </div>
+                    <div class="au-mock-chart-days">
+                      <span class="au-mock-chart-day">M</span>
+                      <span class="au-mock-chart-day">T</span>
+                      <span class="au-mock-chart-day">W</span>
+                      <span class="au-mock-chart-day">T</span>
+                      <span class="au-mock-chart-day">F</span>
+                      <span class="au-mock-chart-day">S</span>
+                      <span class="au-mock-chart-day">S</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <p class="au-card-desc">
-          Keep an eye on your business from anywhere. We have redesigned our highest-priority reports &mdash; Sales Overview, Closing Report, and Inventory Overview &mdash; to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
-        </p>
-        <div class="au-card-footer">
-          <div class="au-card-path">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          Reports (mobile browser)
-        </div>
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
         </div>
       </article>
 
