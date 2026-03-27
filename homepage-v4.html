@@ -79,49 +79,57 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 .btn-outline:hover { border-color: var(--sand); background: rgba(241,235,214,0.05); }
 
 /* ═══════════════════════════════════════════════════════════
-   OPTION A: Hero Cards
+   OPTION A: Static Split Screen
    ═══════════════════════════════════════════════════════════ */
-#option-a { background: var(--sand); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 32px 80px; }
-.oa-nav { position: absolute; top: 90px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 0 48px; }
-.oa-nav .wordmark { font-size: 24px; font-weight: 700; color: var(--dark-green); }
-.oa-nav .links { display: flex; gap: 20px; }
-.oa-nav .links a { color: var(--dark-green); text-decoration: none; font-size: 15px; font-weight: 600; opacity: 0.7; transition: opacity 0.2s; }
-.oa-nav .links a:hover { opacity: 1; }
-.oa-heading { font-size: clamp(36px, 5vw, 56px); font-weight: 700; color: var(--dark-green); margin-bottom: 48px; text-align: center; letter-spacing: -1px; }
-.oa-cards { display: flex; gap: 24px; max-width: 900px; width: 100%; }
-.oa-card {
-  flex: 1; border-radius: 20px; padding: 40px 32px; min-height: 340px;
-  display: flex; flex-direction: column; cursor: pointer;
-  transition: transform 0.35s ease, box-shadow 0.35s ease; position: relative; overflow: hidden;
+#option-a { display: flex; min-height: 100vh; }
+.oa-side { flex: 1 1 50%; display: flex; flex-direction: column; justify-content: center; padding: 80px 56px; position: relative; }
+.oa-side--consumer { background: var(--sand); }
+.oa-side--business { background: var(--dark-green); }
+.oa-side-top { position: absolute; top: 24px; left: 40px; right: 40px; display: flex; justify-content: space-between; align-items: center; }
+.oa-side-top .wordmark { font-size: 24px; font-weight: 700; }
+.oa-side--consumer .oa-side-top .wordmark { color: var(--dark-green); }
+.oa-side--business .oa-side-top .wordmark { color: var(--sand); }
+.oa-side-top .links { display: flex; gap: 16px; }
+.oa-side-top .links a { text-decoration: none; font-size: 14px; font-weight: 600; transition: opacity 0.2s; }
+.oa-side--consumer .oa-side-top .links a { color: rgba(4,32,23,0.6); }
+.oa-side--consumer .oa-side-top .links a:hover { color: var(--dark-green); }
+.oa-side--business .oa-side-top .links a { color: rgba(241,235,214,0.6); }
+.oa-side--business .oa-side-top .links a:hover { color: var(--sand); }
+.oa-side-inner { max-width: 460px; }
+.oa-eyebrow {
+  display: inline-block; padding: 6px 14px; border-radius: 100px; font-size: 11px;
+  font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 24px;
 }
-.oa-card:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(4,32,23,0.12); }
-.oa-card--shop {
-  background: linear-gradient(135deg, #faf6ea 0%, #f1ebd6 100%);
-  border: 2px solid rgba(0,61,41,0.1);
+.oa-side--consumer .oa-eyebrow { background: rgba(0,61,41,0.08); color: var(--med-green); }
+.oa-side--business .oa-eyebrow { background: rgba(255,192,42,0.15); color: var(--yellow); }
+.oa-headline { font-size: clamp(30px, 3.5vw, 44px); font-weight: 700; line-height: 1.1; margin-bottom: 14px; letter-spacing: -0.5px; }
+.oa-side--consumer .oa-headline { color: var(--dark-green); }
+.oa-side--business .oa-headline { color: var(--sand); }
+.oa-sub { font-size: 16px; line-height: 1.6; margin-bottom: 32px; }
+.oa-side--consumer .oa-sub { color: rgba(4,32,23,0.6); }
+.oa-side--business .oa-sub { color: rgba(241,235,214,0.55); }
+.oa-search { display: flex; gap: 8px; }
+.oa-search input {
+  flex: 1; padding: 14px 18px; border-radius: 10px; border: 2px solid rgba(0,61,41,0.1);
+  background: #fff; font-size: 15px; font-family: var(--font); outline: none; color: var(--dark-green); min-width: 0;
 }
-.oa-card--biz { background: var(--dark-green); }
-.oa-card-icon { width: 56px; height: 56px; margin-bottom: 20px; }
-.oa-card-icon svg { width: 100%; height: 100%; }
-.oa-card--shop .oa-card-title { color: var(--dark-green); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-.oa-card--shop .oa-card-desc { color: rgba(4,32,23,0.65); font-size: 15px; line-height: 1.5; margin-bottom: auto; }
-.oa-card--biz .oa-card-title { color: var(--sand); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-.oa-card--biz .oa-card-desc { color: rgba(241,235,214,0.6); font-size: 15px; line-height: 1.5; margin-bottom: auto; }
-.oa-search-preview {
-  display: flex; gap: 8px; margin-top: 24px;
-}
-.oa-search-preview input {
-  flex: 1; padding: 12px 16px; border-radius: 10px; border: 2px solid rgba(0,61,41,0.12);
-  background: #fff; font-size: 14px; font-family: var(--font); color: var(--dark-green); outline: none;
-}
-.oa-search-preview input::placeholder { color: rgba(4,32,23,0.35); }
-.oa-search-preview button {
-  padding: 12px 20px; border-radius: 10px; background: var(--yellow); border: none;
+.oa-search input::placeholder { color: rgba(4,32,23,0.3); }
+.oa-search button {
+  padding: 14px 22px; border-radius: 10px; background: var(--yellow); border: none;
   color: var(--dark-green); font-weight: 700; font-size: 14px; cursor: pointer; font-family: var(--font);
-  transition: background 0.2s;
+  white-space: nowrap; transition: background 0.2s;
 }
-.oa-search-preview button:hover { background: #e6ac00; }
-.oa-card--biz .btn-yellow { margin-top: 24px; align-self: flex-start; padding: 12px 24px; font-size: 15px; }
-.oa-stats { margin-top: 40px; font-size: 14px; color: rgba(4,32,23,0.45); font-weight: 500; }
+.oa-search button:hover { background: #e6ac00; }
+.oa-biz-stats { display: flex; gap: 32px; margin-top: 32px; }
+.oa-biz-stats .stat-num { font-size: 28px; font-weight: 700; color: var(--yellow); }
+.oa-biz-stats .stat-label { font-size: 12px; color: rgba(241,235,214,0.45); margin-top: 2px; }
+.btn-yellow {
+  display: inline-block; padding: 14px 28px; border-radius: 10px; background: var(--yellow);
+  color: var(--dark-green); font-weight: 700; font-size: 15px; border: none; cursor: pointer;
+  font-family: var(--font); transition: background 0.2s; text-decoration: none;
+}
+.btn-yellow:hover { background: #e6ac00; }
+.oa-divider { width: 1px; background: rgba(4,32,23,0.08); flex-shrink: 0; }
 
 /* ═══════════════════════════════════════════════════════════
    OPTION B: Peek Panel
@@ -217,15 +225,16 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 
 /* Pulse animation */
 @keyframes pulse-ring {
-  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
-  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.5); opacity: 0; }
 }
 .oc-pulse-ring {
-  position: absolute; top: 50%; right: 0; transform: translate(-50%, -50%);
-  width: 70px; height: 52px; border-radius: 14px; border: 3px solid var(--yellow);
+  position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%);
+  width: 140px; height: 52px; border-radius: 14px; border: 3px solid var(--yellow);
   pointer-events: none; opacity: 0; z-index: 10;
+  box-shadow: 0 0 20px rgba(255,192,42,0.4);
 }
-.oc-pulse-ring.animating { animation: pulse-ring 1s ease-out forwards; }
+.oc-pulse-ring.animating { animation: pulse-ring 1.2s ease-out forwards; }
 
 /* Tooltip */
 @keyframes tooltip-bounce {
@@ -351,7 +360,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   max-height: 0; opacity: 0; overflow: hidden;
   transition: max-height 0.5s ease, opacity 0.4s ease 0.1s; margin-top: 0;
 }
-.od-door:hover .od-expanded { max-height: 200px; opacity: 1; margin-top: 24px; }
+.od-door:hover .od-expanded { max-height: 200px; opacity: 1; margin-top: 20px; }
 
 .od-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .od-pills span {
@@ -418,8 +427,11 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   .section-sep .sep-desc { text-align: center; }
 
   /* Option A */
-  .oa-cards { flex-direction: column; }
-  .oa-nav { padding: 0 24px; top: 80px; }
+  #option-a { flex-direction: column; }
+  .oa-side { flex: none; min-height: 50vh; padding: 60px 24px; }
+  .oa-divider { width: 100%; height: 1px; }
+  .oa-side-top { left: 24px; right: 24px; }
+  .oa-search { flex-direction: column; }
 
   /* Option B */
   #option-b { flex-direction: column; }
@@ -453,8 +465,9 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 @media (max-width: 480px) {
   .sticky-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
   .sticky-tab { text-align: center; font-size: 10px; padding: 6px 4px; }
-  .oa-heading { font-size: 32px; }
-  .oa-card { min-height: 280px; padding: 28px 24px; }
+  .oa-headline { font-size: 26px; }
+  .oa-side { padding: 48px 16px; }
+  .oa-biz-stats { gap: 16px; flex-wrap: wrap; }
   .ob-search { flex-direction: column; }
   .oc-search { flex-direction: column; }
   .od-search { flex-direction: column; }
@@ -476,7 +489,7 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
       <span class="subtitle">Hero Selector Concepts</span>
     </div>
     <div class="sticky-tabs">
-      <button class="sticky-tab active" data-target="option-a">Option A: Hero Cards</button>
+      <button class="sticky-tab active" data-target="option-a">Option A: Split Screen</button>
       <button class="sticky-tab" data-target="option-b">Option B: Peek Panel</button>
       <button class="sticky-tab" data-target="option-c">Option C: Attention Pulse</button>
       <button class="sticky-tab" data-target="option-d">Option D: Two Doors</button>
@@ -486,50 +499,45 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 
 <!-- OPTION A SEPARATOR -->
 <div class="section-sep" id="sep-a" style="margin-top: 68px;">
-  <span class="sep-label">Option A: Hero Cards</span>
-  <span class="sep-desc">Two large, visually rich cards replace the nav toggle. Users choose their path up front.</span>
+  <span class="sep-label">Option A: Static Split Screen</span>
+  <span class="sep-desc">Clean 50/50 split — consumer left, business right. No movement, pure clarity.</span>
 </div>
 
-<!-- OPTION A: Hero Cards -->
+<!-- OPTION A: Static Split Screen -->
 <section class="hero-section" id="option-a">
-  <div class="oa-nav">
-    <span class="wordmark">dutchie</span>
-    <div class="links"><a href="#">Log in</a><a href="#">Sign up</a></div>
-  </div>
-  <h1 class="oa-heading fade-in">Welcome to dutchie</h1>
-  <div class="oa-cards fade-in">
-    <div class="oa-card oa-card--shop">
-      <div class="oa-card-icon">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="12" y="22" width="32" height="26" rx="4" stroke="#003D29" stroke-width="2.5"/>
-          <path d="M20 22V16a8 8 0 1116 0v6" stroke="#003D29" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="24" cy="32" r="2" fill="#6AB448"/>
-          <circle cx="32" cy="32" r="2" fill="#6AB448"/>
-        </svg>
-      </div>
-      <div class="oa-card-title">Shop Cannabis</div>
-      <div class="oa-card-desc">Order from the best dispensaries near you. Pickup or delivery.</div>
-      <div class="oa-search-preview">
-        <input type="text" placeholder="Enter your address...">
-        <button>Search</button>
+  <div class="oa-side oa-side--consumer">
+    <div class="oa-side-top">
+      <span class="wordmark">dutchie</span>
+      <div class="links"><a href="#">Shop now</a></div>
+    </div>
+    <div class="oa-side-inner">
+      <div class="oa-eyebrow">Ready to shop local?</div>
+      <h1 class="oa-headline">Order cannabis online from the best dispensaries near you.</h1>
+      <p class="oa-sub">Browse menus, compare products, and order for pickup or delivery in minutes.</p>
+      <div class="oa-search">
+        <input type="text" placeholder="Enter your address or city...">
+        <button>Start shopping</button>
       </div>
     </div>
-    <div class="oa-card oa-card--biz">
-      <div class="oa-card-icon">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="14" width="40" height="30" rx="4" stroke="#F1EBD6" stroke-width="2.5"/>
-          <path d="M16 36V26" stroke="#6AB448" stroke-width="3" stroke-linecap="round"/>
-          <path d="M24 36V22" stroke="#FFC02A" stroke-width="3" stroke-linecap="round"/>
-          <path d="M32 36V28" stroke="#6AB448" stroke-width="3" stroke-linecap="round"/>
-          <path d="M40 36V20" stroke="#FFC02A" stroke-width="3" stroke-linecap="round"/>
-        </svg>
+  </div>
+  <div class="oa-divider"></div>
+  <div class="oa-side oa-side--business">
+    <div class="oa-side-top">
+      <span class="wordmark" style="opacity:0">d</span>
+      <div class="links"><a href="#">Log in</a><a href="#">Sign up</a></div>
+    </div>
+    <div class="oa-side-inner">
+      <div class="oa-eyebrow">Ready to grow your business?</div>
+      <h1 class="oa-headline">The technology that powers modern cannabis retail.</h1>
+      <p class="oa-sub">POS, E-Commerce, Loyalty, Payments — all in one platform trusted by 6,500+ dispensaries.</p>
+      <button class="btn-yellow">Get a demo &rarr;</button>
+      <div class="oa-biz-stats">
+        <div><div class="stat-num">$22B+</div><div class="stat-label">transactions</div></div>
+        <div><div class="stat-num">6,500+</div><div class="stat-label">dispensaries</div></div>
+        <div><div class="stat-num">40+</div><div class="stat-label">states</div></div>
       </div>
-      <div class="oa-card-title">For Business</div>
-      <div class="oa-card-desc">POS, E-Commerce, Loyalty, Payments -- all in one. Trusted by 6,500+ dispensaries.</div>
-      <button class="btn-yellow">Get a demo <span>&rarr;</span></button>
     </div>
   </div>
-  <div class="oa-stats fade-in">Dutchie powers $22B+ in transactions across 40+ states</div>
 </section>
 
 <!-- OPTION B SEPARATOR -->
@@ -822,7 +830,7 @@ function dismissTooltip() {
   tt.classList.remove('show');
 }
 
-if (!sessionStorage.getItem('dutchie-pulse-shown')) {
+{ // Pulse always fires for concept review (remove sessionStorage gate for testing)
   const ocSection = document.getElementById('option-c');
   let pulseTriggered = false;
 
@@ -834,13 +842,12 @@ if (!sessionStorage.getItem('dutchie-pulse-shown')) {
 
         setTimeout(() => {
           const pulses = [document.getElementById('oc-pulse1'), document.getElementById('oc-pulse2'), document.getElementById('oc-pulse3')];
-          pulses.forEach(p => { p.style.left = '75%'; });
 
           pulses.forEach((p, i) => {
             setTimeout(() => {
               p.classList.add('animating');
               p.addEventListener('animationend', () => p.classList.remove('animating'), { once: true });
-            }, i * 800);
+            }, i * 600);
           });
 
           setTimeout(() => {
@@ -848,8 +855,8 @@ if (!sessionStorage.getItem('dutchie-pulse-shown')) {
               document.getElementById('oc-tooltip').classList.add('show');
               setTimeout(() => { dismissTooltip(); }, 5000);
             }
-          }, 2800);
-        }, 3000);
+          }, 2200);
+        }, 2000);
       }
     });
   }, { threshold: 0.4 });
@@ -872,16 +879,16 @@ function setupDoorHovers() {
 }
 
 function bizEnter() {
-  doorConsumer.style.flex = '1 1 35%';
-  doorBusiness.style.flex = '1 1 65%';
+  doorConsumer.style.flex = '1 1 44%';
+  doorBusiness.style.flex = '1 1 56%';
 }
 function bizLeave() {
   doorConsumer.style.flex = '1 1 50%';
   doorBusiness.style.flex = '1 1 50%';
 }
 function conEnter() {
-  doorConsumer.style.flex = '1 1 65%';
-  doorBusiness.style.flex = '1 1 35%';
+  doorConsumer.style.flex = '1 1 56%';
+  doorBusiness.style.flex = '1 1 44%';
 }
 function conLeave() {
   doorConsumer.style.flex = '1 1 50%';
