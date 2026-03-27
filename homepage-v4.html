@@ -3,1237 +3,892 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dutchie — Your neighborhood dispensary, online.</title>
+<title>Dutchie — Hero Selector Concepts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@font-face {
-  font-family: 'Matter';
-  src: local('Matter');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Matter';
-  src: local('Matter Medium');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Matter';
-  src: local('Matter SemiBold');
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Matter';
-  src: local('Matter Bold');
-  font-weight: 700;
-  font-style: normal;
-}
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@font-face { font-family: 'Matter'; src: local('Matter Regular'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Matter'; src: local('Matter Medium'); font-weight: 500; font-style: normal; }
+@font-face { font-family: 'Matter'; src: local('Matter SemiBold'); font-weight: 600; font-style: normal; }
+@font-face { font-family: 'Matter'; src: local('Matter Bold'); font-weight: 700; font-style: normal; }
 
 :root {
   --sand: #F1EBD6;
   --dark-green: #042017;
-  --medium-green: #003D29;
+  --med-green: #003D29;
   --light-green: #6AB448;
   --yellow: #FFC02A;
   --purple: #5E324E;
-  --transition-speed: 0.6s;
+  --font: 'Matter', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { font-family: var(--font); color: var(--dark-green); background: var(--sand); -webkit-font-smoothing: antialiased; }
+
+/* ─── STICKY NAV ─── */
+.sticky-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(4, 32, 23, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(241, 235, 214, 0.1);
 }
-
-body {
-  font-family: 'Matter', 'Inter', system-ui, -apple-system, sans-serif;
-  color: var(--dark-green);
-  background: #fff;
-  line-height: 1.6;
-  overflow-x: hidden;
+.sticky-nav-inner {
+  max-width: 1400px; margin: 0 auto; display: flex; align-items: center; padding: 0 32px; height: 68px; gap: 24px;
 }
-
-/* ========================================
-   NAV
-   ======================================== */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding: 0 40px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--sand);
-  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+.sticky-brand { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.sticky-brand .wordmark { color: var(--sand); font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+.sticky-brand .sep { width: 1px; height: 24px; background: rgba(241,235,214,0.2); }
+.sticky-brand .subtitle { color: rgba(241,235,214,0.6); font-size: 13px; font-weight: 500; }
+.sticky-tabs { display: flex; gap: 4px; margin-left: auto; }
+.sticky-tab {
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  color: rgba(241,235,214,0.65); background: transparent; border: none; cursor: pointer;
+  transition: all 0.25s; white-space: nowrap; font-family: var(--font);
 }
+.sticky-tab:hover { color: var(--sand); background: rgba(241,235,214,0.08); }
+.sticky-tab.active { color: var(--dark-green); background: var(--yellow); }
 
-.mode-business .nav {
-  background-color: var(--dark-green);
+/* ─── SECTION SEPARATORS ─── */
+.section-sep {
+  background: var(--med-green); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; gap: 32px;
 }
+.section-sep .sep-label { color: var(--sand); font-size: 20px; font-weight: 700; white-space: nowrap; }
+.section-sep .sep-desc { color: rgba(241,235,214,0.55); font-size: 15px; text-align: right; max-width: 480px; }
 
-.nav-wordmark {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  color: var(--dark-green);
-  transition: color var(--transition-speed) ease;
-  text-decoration: none;
+/* ─── COMMON HERO ─── */
+.hero-section { min-height: 100vh; position: relative; overflow: hidden; }
+
+/* ─── FADE IN ANIMATIONS ─── */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── BTN STYLES ─── */
+.btn-yellow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--yellow); color: var(--dark-green);
+  font-size: 16px; font-weight: 600; border: none; border-radius: 12px;
+  cursor: pointer; transition: all 0.25s; font-family: var(--font);
 }
-
-.mode-business .nav-wordmark {
-  color: var(--sand);
-}
-
-/* Toggle Switch */
-.toggle-wrapper {
-  display: flex;
-  align-items: center;
-  background: rgba(0,0,0,0.08);
-  border-radius: 40px;
-  padding: 4px;
-  position: relative;
-  transition: background var(--transition-speed) ease;
-}
-
-.mode-business .toggle-wrapper {
-  background: rgba(255,255,255,0.1);
-}
-
-.toggle-btn {
-  padding: 8px 24px;
-  border: none;
-  border-radius: 36px;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  background: transparent;
-  color: rgba(4,32,23,0.45);
-  transition: all 0.35s ease;
-  position: relative;
-  z-index: 2;
-}
-
-.toggle-btn.active {
-  background: var(--yellow);
-  color: var(--dark-green);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-
-.mode-business .toggle-btn:not(.active) {
-  color: rgba(241,235,214,0.45);
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nav-link {
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  color: var(--dark-green);
-  transition: color var(--transition-speed) ease;
-  padding: 8px 12px;
-}
-
-.mode-business .nav-link {
-  color: var(--sand);
-}
-
-.nav-signup {
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  background: var(--medium-green);
-  color: #fff;
-  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
-}
-
-.mode-business .nav-signup {
-  background: var(--yellow);
-  color: var(--dark-green);
-}
-
-/* ========================================
-   HERO WRAPPER
-   ======================================== */
-.hero-wrapper {
-  position: relative;
-  min-height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--sand);
-  transition: background-color var(--transition-speed) ease;
-  overflow: hidden;
-}
-
-.mode-business .hero-wrapper {
-  background-color: var(--dark-green);
-}
-
-/* Background decorations */
-.hero-bg-consumer {
-  position: absolute;
-  inset: 0;
-  opacity: 1;
-  transition: opacity var(--transition-speed) ease;
-  pointer-events: none;
-}
-
-.mode-business .hero-bg-consumer {
-  opacity: 0;
-}
-
-.hero-bg-consumer::before {
-  content: '';
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(106,180,72,0.06) 0%, transparent 70%);
-}
-
-.hero-bg-consumer::after {
-  content: '';
-  position: absolute;
-  bottom: -15%;
-  left: -8%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(106,180,72,0.05) 0%, transparent 70%);
-}
-
-/* Leaf patterns */
-.leaf-pattern {
-  position: absolute;
-  opacity: 0.04;
-  font-size: 280px;
-  line-height: 1;
-  color: var(--medium-green);
-  pointer-events: none;
-  user-select: none;
-}
-
-.leaf-1 { top: 5%; right: 8%; transform: rotate(25deg); }
-.leaf-2 { bottom: 10%; left: 5%; transform: rotate(-15deg); font-size: 220px; }
-
-.hero-bg-business {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity var(--transition-speed) ease;
-  pointer-events: none;
-  background:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-.hero-bg-business::after {
-  content: '';
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(106,180,72,0.08) 0%, transparent 70%);
-}
-
-.mode-business .hero-bg-business {
-  opacity: 1;
-}
-
-/* Hero Content */
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 740px;
-  padding: 80px 24px;
-  width: 100%;
-}
-
-.hero-headline {
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  color: var(--dark-green);
-  margin-bottom: 20px;
-  transition: color var(--transition-speed) ease;
-}
-
-.mode-business .hero-headline {
-  color: var(--sand);
-}
-
-.hero-sub {
-  font-size: 20px;
-  font-weight: 400;
-  color: rgba(4,32,23,0.7);
-  margin-bottom: 40px;
-  line-height: 1.5;
-  transition: color var(--transition-speed) ease;
-}
-
-.mode-business .hero-sub {
-  color: rgba(241,235,214,0.7);
-}
-
-/* Consumer content */
-.consumer-content {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  position: relative;
-}
-
-.mode-business .consumer-content {
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  left: 0;
-}
-
-/* Search bar */
-.search-bar {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 16px;
-  padding: 6px 6px 6px 20px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  max-width: 560px;
-  margin: 0 auto 28px;
-}
-
-.search-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
-  color: rgba(4,32,23,0.35);
-}
-
-.search-bar input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-family: inherit;
-  font-size: 16px;
-  color: var(--dark-green);
-  background: transparent;
-}
-
-.search-bar input::placeholder {
-  color: rgba(4,32,23,0.4);
-}
-
-.search-btn {
-  flex-shrink: 0;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 12px;
-  background: var(--yellow);
-  color: var(--dark-green);
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.search-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255,192,42,0.4);
-}
-
-.category-pills {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.pill {
-  padding: 8px 20px;
-  border-radius: 40px;
-  font-size: 14px;
-  font-weight: 500;
-  background: rgba(0,61,41,0.07);
-  color: var(--medium-green);
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
-  border: none;
-  font-family: inherit;
-}
-
-.pill:hover {
-  background: rgba(0,61,41,0.13);
-  transform: translateY(-1px);
-}
-
-/* Business content */
-.business-content {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  left: 0;
-}
-
-.mode-business .business-content {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  position: relative;
-}
-
-.business-ctas {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 48px;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  padding: 16px 36px;
-  border: none;
-  border-radius: 12px;
-  background: var(--yellow);
-  color: var(--dark-green);
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255,192,42,0.4);
-}
-
+.btn-yellow:hover { background: #e6ac00; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,192,42,0.3); }
 .btn-outline {
-  padding: 16px 36px;
-  border: 2px solid rgba(241,235,214,0.4);
-  border-radius: 12px;
-  background: transparent;
-  color: var(--sand);
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.15s ease;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: transparent; color: var(--sand);
+  font-size: 16px; font-weight: 600; border: 2px solid rgba(241,235,214,0.3); border-radius: 12px;
+  cursor: pointer; transition: all 0.25s; font-family: var(--font);
 }
+.btn-outline:hover { border-color: var(--sand); background: rgba(241,235,214,0.05); }
 
-.btn-outline:hover {
-  border-color: var(--sand);
-  transform: translateY(-1px);
+/* ═══════════════════════════════════════════════════════════
+   OPTION A: Hero Cards
+   ═══════════════════════════════════════════════════════════ */
+#option-a { background: var(--sand); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 32px 80px; }
+.oa-nav { position: absolute; top: 90px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 0 48px; }
+.oa-nav .wordmark { font-size: 24px; font-weight: 700; color: var(--dark-green); }
+.oa-nav .links { display: flex; gap: 20px; }
+.oa-nav .links a { color: var(--dark-green); text-decoration: none; font-size: 15px; font-weight: 600; opacity: 0.7; transition: opacity 0.2s; }
+.oa-nav .links a:hover { opacity: 1; }
+.oa-heading { font-size: clamp(36px, 5vw, 56px); font-weight: 700; color: var(--dark-green); margin-bottom: 48px; text-align: center; letter-spacing: -1px; }
+.oa-cards { display: flex; gap: 24px; max-width: 900px; width: 100%; }
+.oa-card {
+  flex: 1; border-radius: 20px; padding: 40px 32px; min-height: 340px;
+  display: flex; flex-direction: column; cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease; position: relative; overflow: hidden;
 }
-
-.stats-row {
-  display: flex;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
+.oa-card:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(4,32,23,0.12); }
+.oa-card--shop {
+  background: linear-gradient(135deg, #faf6ea 0%, #f1ebd6 100%);
+  border: 2px solid rgba(0,61,41,0.1);
 }
-
-.stat-block {
-  text-align: center;
+.oa-card--biz { background: var(--dark-green); }
+.oa-card-icon { width: 56px; height: 56px; margin-bottom: 20px; }
+.oa-card-icon svg { width: 100%; height: 100%; }
+.oa-card--shop .oa-card-title { color: var(--dark-green); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.oa-card--shop .oa-card-desc { color: rgba(4,32,23,0.65); font-size: 15px; line-height: 1.5; margin-bottom: auto; }
+.oa-card--biz .oa-card-title { color: var(--sand); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.oa-card--biz .oa-card-desc { color: rgba(241,235,214,0.6); font-size: 15px; line-height: 1.5; margin-bottom: auto; }
+.oa-search-preview {
+  display: flex; gap: 8px; margin-top: 24px;
 }
-
-.stat-value {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--yellow);
-  letter-spacing: -0.5px;
+.oa-search-preview input {
+  flex: 1; padding: 12px 16px; border-radius: 10px; border: 2px solid rgba(0,61,41,0.12);
+  background: #fff; font-size: 14px; font-family: var(--font); color: var(--dark-green); outline: none;
 }
-
-.stat-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(241,235,214,0.6);
-  margin-top: 4px;
+.oa-search-preview input::placeholder { color: rgba(4,32,23,0.35); }
+.oa-search-preview button {
+  padding: 12px 20px; border-radius: 10px; background: var(--yellow); border: none;
+  color: var(--dark-green); font-weight: 700; font-size: 14px; cursor: pointer; font-family: var(--font);
+  transition: background 0.2s;
 }
+.oa-search-preview button:hover { background: #e6ac00; }
+.oa-card--biz .btn-yellow { margin-top: 24px; align-self: flex-start; padding: 12px 24px; font-size: 15px; }
+.oa-stats { margin-top: 40px; font-size: 14px; color: rgba(4,32,23,0.45); font-weight: 500; }
 
-/* ========================================
-   SHARED SECTIONS
-   ======================================== */
-section {
-  padding: 100px 24px;
+/* ═══════════════════════════════════════════════════════════
+   OPTION B: Peek Panel
+   ═══════════════════════════════════════════════════════════ */
+#option-b { background: var(--sand); display: flex; padding-top: 0; }
+.ob-consumer { flex: 1; padding: 100px 48px 80px; display: flex; flex-direction: column; position: relative; min-height: 100vh; }
+.ob-consumer .wordmark { font-size: 24px; font-weight: 700; color: var(--dark-green); margin-bottom: 80px; }
+.ob-consumer-content { max-width: 580px; margin: 0 auto; }
+.ob-consumer-content h1 {
+  font-size: clamp(32px, 4vw, 48px); font-weight: 700; color: var(--dark-green);
+  line-height: 1.1; margin-bottom: 28px; letter-spacing: -1px;
 }
-
-.container {
-  max-width: 1120px;
-  margin: 0 auto;
+.ob-search { display: flex; gap: 8px; margin-bottom: 20px; }
+.ob-search input {
+  flex: 1; padding: 16px 20px; border-radius: 12px; border: 2px solid rgba(0,61,41,0.12);
+  background: #fff; font-size: 16px; font-family: var(--font); outline: none;
 }
-
-.section-heading {
-  font-size: 42px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  line-height: 1.15;
-  margin-bottom: 16px;
+.ob-search input::placeholder { color: rgba(4,32,23,0.35); }
+.ob-search button {
+  padding: 16px 24px; border-radius: 12px; background: var(--yellow); border: none;
+  font-weight: 700; font-size: 15px; cursor: pointer; font-family: var(--font); color: var(--dark-green);
+  transition: background 0.2s; white-space: nowrap;
 }
-
-.section-sub {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.6;
-  opacity: 0.7;
-  max-width: 520px;
+.ob-search button:hover { background: #e6ac00; }
+.ob-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.ob-pill {
+  padding: 8px 16px; border-radius: 100px; background: rgba(4,32,23,0.06);
+  font-size: 13px; font-weight: 600; color: var(--dark-green); cursor: pointer;
+  transition: background 0.2s;
 }
+.ob-pill:hover { background: rgba(4,32,23,0.12); }
 
-/* Fade in on scroll */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+.ob-peek {
+  width: 25%; min-width: 280px; max-width: 380px; background: var(--dark-green); position: relative;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
 }
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+.ob-peek:hover { width: 50%; min-width: 400px; max-width: 600px; }
+.ob-peek-content {
+  padding: 40px 48px 40px 64px; text-align: left; width: 100%;
 }
+.ob-peek-label { color: var(--yellow); font-size: 12px; font-weight: 700; letter-spacing: 2px; margin-bottom: 16px; text-transform: uppercase; }
+.ob-peek-heading { color: var(--sand); font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; transition: font-size 0.4s; }
+.ob-peek:hover .ob-peek-heading { font-size: 28px; }
+.ob-peek-stat { color: rgba(241,235,214,0.5); font-size: 14px; margin-bottom: 24px; }
+.ob-peek .btn-yellow { padding: 12px 24px; font-size: 14px; }
+.ob-peek-expanded { opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.4s 0.1s, max-height 0.4s; }
+.ob-peek:hover .ob-peek-expanded { opacity: 1; max-height: 300px; }
+.ob-peek-expanded h2 { color: var(--sand); font-size: 22px; font-weight: 700; margin: 24px 0 16px; line-height: 1.3; }
+.ob-peek-stats-row { display: flex; gap: 24px; margin-bottom: 20px; }
+.ob-peek-stats-row .stat-block { text-align: left; }
+.ob-peek-stats-row .stat-num { color: var(--yellow); font-size: 24px; font-weight: 700; }
+.ob-peek-stats-row .stat-label { color: rgba(241,235,214,0.5); font-size: 12px; }
+.ob-peek-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* ========================================
-   WHY DUTCHIE
-   ======================================== */
-.why-dutchie {
-  background: var(--sand);
+/* ═══════════════════════════════════════════════════════════
+   OPTION C: Attention Pulse
+   ═══════════════════════════════════════════════════════════ */
+#option-c { position: relative; }
+.oc-hero { min-height: 100vh; transition: background 0.6s ease, color 0.6s ease; }
+.oc-hero.consumer-mode { background: var(--sand); }
+.oc-hero.business-mode { background: var(--dark-green); }
+
+.oc-nav {
+  display: flex; align-items: center; justify-content: space-between; padding: 24px 48px;
 }
+.oc-nav .wordmark { font-size: 24px; font-weight: 700; transition: color 0.6s; }
+.consumer-mode .oc-nav .wordmark { color: var(--dark-green); }
+.business-mode .oc-nav .wordmark { color: var(--sand); }
 
-.why-dutchie .section-heading {
-  text-align: center;
-  color: var(--dark-green);
+.oc-toggle-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.oc-toggle {
+  display: flex; width: 280px; height: 52px; background: rgba(4,32,23,0.08); border-radius: 14px;
+  padding: 4px; position: relative; overflow: hidden; transition: background 0.6s;
 }
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 56px;
+.business-mode .oc-toggle { background: rgba(241,235,214,0.1); }
+.oc-toggle-slider {
+  position: absolute; top: 4px; left: 4px; width: calc(50% - 4px); height: 44px;
+  background: var(--yellow); border-radius: 11px; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
 }
-
-.card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 36px 28px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.oc-toggle.biz-active .oc-toggle-slider { transform: translateX(100%); }
+.oc-toggle-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700; cursor: pointer; z-index: 1; position: relative;
+  background: none; border: none; font-family: var(--font); transition: color 0.3s;
+  color: rgba(4,32,23,0.5);
 }
+.oc-toggle-btn.active { color: var(--dark-green); }
+.business-mode .oc-toggle-btn { color: rgba(241,235,214,0.5); }
+.business-mode .oc-toggle-btn.active { color: var(--dark-green); }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+/* Pulse animation */
+@keyframes pulse-ring {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
 }
-
-.card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(0,61,41,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  color: var(--medium-green);
+.oc-pulse-ring {
+  position: absolute; top: 50%; right: 0; transform: translate(-50%, -50%);
+  width: 70px; height: 52px; border-radius: 14px; border: 3px solid var(--yellow);
+  pointer-events: none; opacity: 0; z-index: 10;
 }
+.oc-pulse-ring.animating { animation: pulse-ring 1s ease-out forwards; }
 
-.card-icon svg {
-  width: 24px;
-  height: 24px;
+/* Tooltip */
+@keyframes tooltip-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-6px); }
 }
-
-.card-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--dark-green);
-  margin-bottom: 8px;
+.oc-tooltip {
+  position: absolute; top: -56px; left: 75%; transform: translateX(-50%);
+  background: var(--dark-green); color: var(--sand); padding: 10px 18px;
+  border-radius: 10px; font-size: 13px; font-weight: 600; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.4s; z-index: 20;
 }
-
-.card-desc {
-  font-size: 15px;
-  color: rgba(4,32,23,0.6);
-  line-height: 1.5;
+.oc-tooltip::after {
+  content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent;
+  border-top: 6px solid var(--dark-green);
 }
+.oc-tooltip.show { opacity: 1; animation: tooltip-bounce 1.5s ease-in-out infinite; }
+.business-mode .oc-tooltip { background: var(--sand); color: var(--dark-green); }
+.business-mode .oc-tooltip::after { border-top-color: var(--sand); }
 
-/* ========================================
-   PRODUCT SHOWCASE
-   ======================================== */
-.product-showcase {
-  background: var(--dark-green);
+.oc-nav .links a { text-decoration: none; font-size: 15px; font-weight: 600; opacity: 0.7; transition: all 0.6s; }
+.consumer-mode .oc-nav .links a { color: var(--dark-green); }
+.business-mode .oc-nav .links a { color: var(--sand); }
+
+.oc-content { max-width: 680px; margin: 0 auto; padding: 80px 32px; text-align: center; position: relative; }
+.oc-content h1 {
+  font-size: clamp(34px, 5vw, 52px); font-weight: 700; line-height: 1.1;
+  margin-bottom: 28px; letter-spacing: -1px; transition: color 0.6s;
+}
+.consumer-mode .oc-content h1 { color: var(--dark-green); }
+.business-mode .oc-content h1 { color: var(--sand); }
+.oc-content .sub { font-size: 18px; margin-bottom: 32px; transition: color 0.6s; }
+.consumer-mode .oc-content .sub { color: rgba(4,32,23,0.6); }
+.business-mode .oc-content .sub { color: rgba(241,235,214,0.6); }
+
+.oc-search { display: flex; gap: 8px; max-width: 500px; margin: 0 auto 24px; }
+.oc-search input {
+  flex: 1; padding: 16px 20px; border-radius: 12px; border: 2px solid rgba(0,61,41,0.12);
+  background: #fff; font-size: 16px; font-family: var(--font); outline: none;
+}
+.oc-search input::placeholder { color: rgba(4,32,23,0.35); }
+.oc-search button {
+  padding: 16px 24px; border-radius: 12px; background: var(--yellow); border: none;
+  font-weight: 700; font-size: 15px; cursor: pointer; font-family: var(--font); color: var(--dark-green);
+}
+.oc-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 500px; margin: 0 auto; }
+.oc-pill {
+  padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.consumer-mode .oc-pill { background: rgba(4,32,23,0.06); color: var(--dark-green); }
+.consumer-mode .oc-pill:hover { background: rgba(4,32,23,0.12); }
+
+.oc-biz-content { text-align: center; padding-top: 20px; }
+.oc-biz-stats { display: flex; gap: 48px; justify-content: center; margin-bottom: 36px; }
+.oc-biz-stats .stat { text-align: center; }
+.oc-biz-stats .stat-num { font-size: 36px; font-weight: 700; color: var(--yellow); }
+.oc-biz-stats .stat-label { font-size: 13px; color: rgba(241,235,214,0.5); margin-top: 4px; }
+.oc-biz-ctas { display: flex; gap: 16px; justify-content: center; }
+
+/* Consumer content visibility */
+.oc-consumer-inner { transition: opacity 0.5s, transform 0.5s; }
+.oc-hero.business-mode .oc-consumer-inner { opacity: 0; transform: translateY(20px); position: absolute; pointer-events: none; left: 0; right: 0; }
+.oc-hero.consumer-mode .oc-consumer-inner { opacity: 1; transform: translateY(0); }
+.oc-biz-inner { transition: opacity 0.5s 0.15s, transform 0.5s 0.15s; }
+.oc-hero.consumer-mode .oc-biz-inner { opacity: 0; transform: translateY(20px); position: absolute; pointer-events: none; left: 0; right: 0; }
+.oc-hero.business-mode .oc-biz-inner { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════════════
+   OPTION D: Two Doors
+   ═══════════════════════════════════════════════════════════ */
+#option-d { display: flex; min-height: 100vh; }
+.od-door {
+  flex: 1 1 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 80px 48px; position: relative; transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
+.od-door--consumer { background: var(--sand); }
+.od-door--business { background: var(--dark-green); }
 
-.product-showcase .section-heading {
-  color: var(--sand);
-  text-align: center;
+.od-door-top { position: absolute; top: 24px; left: 32px; right: 32px; display: flex; justify-content: space-between; align-items: center; }
+.od-door-top .wordmark { font-size: 22px; font-weight: 700; }
+.od-door--consumer .od-door-top .wordmark { color: var(--dark-green); }
+.od-door-top .links { display: flex; gap: 16px; }
+.od-door-top .links a { text-decoration: none; font-size: 14px; font-weight: 600; color: rgba(241,235,214,0.7); transition: color 0.2s; }
+.od-door-top .links a:hover { color: var(--sand); }
+
+.od-content { max-width: 420px; text-align: left; }
+.od-eyebrow {
+  display: inline-block; padding: 6px 14px; border-radius: 100px; font-size: 11px;
+  font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px;
+}
+.od-door--consumer .od-eyebrow { background: rgba(0,61,41,0.08); color: var(--med-green); }
+.od-door--business .od-eyebrow { border: 1.5px solid rgba(241,235,214,0.25); color: var(--sand); }
+.od-headline { font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.5px; }
+.od-door--consumer .od-headline { color: var(--dark-green); }
+.od-door--business .od-headline { color: var(--sand); }
+.od-sub { font-size: 15px; line-height: 1.5; margin-bottom: 28px; }
+.od-door--consumer .od-sub { color: rgba(4,32,23,0.6); }
+.od-door--business .od-sub { color: rgba(241,235,214,0.55); }
+
+.od-search { display: flex; gap: 8px; }
+.od-search input {
+  flex: 1; padding: 14px 18px; border-radius: 10px; border: 2px solid rgba(0,61,41,0.1);
+  background: #fff; font-size: 15px; font-family: var(--font); outline: none; min-width: 0;
+}
+.od-search input::placeholder { color: rgba(4,32,23,0.3); }
+.od-search button {
+  padding: 14px 20px; border-radius: 10px; background: var(--yellow); border: none;
+  font-weight: 700; font-size: 14px; cursor: pointer; font-family: var(--font); color: var(--dark-green);
+  white-space: nowrap; transition: background 0.2s;
+}
+.od-search button:hover { background: #e6ac00; }
+
+/* Divider */
+.od-divider {
+  width: 2px; background: rgba(241,235,214,0.15); flex-shrink: 0; z-index: 2;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.marquee-wrapper {
-  margin-top: 56px;
-  overflow: hidden;
-  position: relative;
+/* Expanded extras */
+.od-expanded {
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.4s ease 0.1s; margin-top: 0;
 }
+.od-door:hover .od-expanded { max-height: 200px; opacity: 1; margin-top: 24px; }
 
-.marquee-wrapper::before,
-.marquee-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
+.od-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.od-pills span {
+  padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600;
+  background: rgba(4,32,23,0.06); color: var(--dark-green);
 }
+.od-popular { font-size: 13px; color: rgba(4,32,23,0.4); margin-top: 12px; font-weight: 500; }
+.od-biz-stats { display: flex; gap: 28px; }
+.od-biz-stats .stat { text-align: left; }
+.od-biz-stats .stat-num { font-size: 28px; font-weight: 700; color: var(--yellow); }
+.od-biz-stats .stat-label { font-size: 11px; color: rgba(241,235,214,0.45); margin-top: 2px; }
 
-.marquee-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, var(--dark-green), transparent);
+/* ═══════════════════════════════════════════════════════════
+   SHARED: Why Dutchie
+   ═══════════════════════════════════════════════════════════ */
+.why-section { background: var(--sand); padding: 100px 48px; }
+.why-section h2 {
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; color: var(--dark-green);
+  text-align: center; margin-bottom: 56px; letter-spacing: -0.5px;
 }
-
-.marquee-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, var(--dark-green), transparent);
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.why-card {
+  background: #fff; border-radius: 16px; padding: 32px 24px; text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+.why-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(4,32,23,0.08); }
+.why-icon { width: 52px; height: 52px; margin: 0 auto 16px; background: rgba(0,61,41,0.06); border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+.why-icon svg { width: 28px; height: 28px; stroke: var(--med-green); fill: none; stroke-width: 1.5; }
+.why-card h3 { font-size: 17px; font-weight: 700; color: var(--dark-green); margin-bottom: 8px; }
+.why-card p { font-size: 14px; color: rgba(4,32,23,0.55); line-height: 1.5; }
 
-.marquee-track {
-  display: flex;
-  animation: marquee 30s linear infinite;
-  width: max-content;
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.marquee-item {
-  flex-shrink: 0;
-  width: 160px;
-  height: 80px;
-  margin: 0 24px;
-  background: rgba(241,235,214,0.06);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(241,235,214,0.35);
-  letter-spacing: 0.5px;
-}
-
-.browse-link {
-  display: block;
-  text-align: center;
-  margin-top: 48px;
-  color: var(--yellow);
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.browse-link:hover {
-  opacity: 0.8;
-}
-
-/* ========================================
-   BUSINESS FEATURES
-   ======================================== */
-.biz-features {
-  background: var(--sand);
-}
-
-.biz-features .section-heading {
-  text-align: center;
-  color: var(--dark-green);
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 56px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.feature-tile {
-  background: #fff;
-  border-radius: 16px;
-  padding: 36px 32px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.feature-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-}
-
-.feature-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: rgba(0,61,41,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  color: var(--medium-green);
-}
-
-.feature-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-.feature-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--dark-green);
-  margin-bottom: 6px;
-}
-
-.feature-desc {
-  font-size: 15px;
-  color: rgba(4,32,23,0.6);
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-
-.feature-link {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--medium-green);
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.feature-link:hover {
-  opacity: 0.7;
-}
-
-/* ========================================
-   SOCIAL PROOF
-   ======================================== */
-.social-proof {
-  background: var(--dark-green);
-  text-align: center;
-}
-
-.quote-mark {
-  font-size: 72px;
-  line-height: 1;
-  color: var(--yellow);
-  opacity: 0.4;
-  margin-bottom: 8px;
-}
-
-.quote-text {
-  font-size: 28px;
-  font-weight: 500;
-  color: var(--sand);
-  line-height: 1.45;
-  max-width: 720px;
-  margin: 0 auto 28px;
-  letter-spacing: -0.3px;
-}
-
-.quote-author {
-  font-size: 15px;
-  color: rgba(241,235,214,0.6);
-  margin-bottom: 56px;
-}
-
-.quote-author strong {
-  color: var(--sand);
-  font-weight: 600;
-}
-
-.proof-stats {
-  display: flex;
-  justify-content: center;
-  gap: 64px;
-  flex-wrap: wrap;
-  border-top: 1px solid rgba(241,235,214,0.1);
-  padding-top: 48px;
-}
-
-.proof-stat-value {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--sand);
-  letter-spacing: -0.5px;
-}
-
-.proof-stat-label {
-  font-size: 14px;
-  color: rgba(241,235,214,0.5);
-  margin-top: 4px;
-}
-
-/* ========================================
+/* ═══════════════════════════════════════════════════════════
    FOOTER
-   ======================================== */
-.footer {
-  background: var(--dark-green);
-  border-top: 1px solid rgba(241,235,214,0.08);
-  padding: 72px 24px 40px;
-}
+   ═══════════════════════════════════════════════════════════ */
+footer { background: var(--dark-green); padding: 64px 48px 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; max-width: 1100px; margin: 0 auto 48px; }
+.footer-brand .wordmark { font-size: 24px; font-weight: 700; color: var(--sand); margin-bottom: 12px; }
+.footer-brand p { color: rgba(241,235,214,0.45); font-size: 14px; line-height: 1.6; max-width: 260px; }
+.footer-col h4 { color: var(--sand); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+.footer-col a { display: block; color: rgba(241,235,214,0.55); font-size: 14px; text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--sand); }
+.footer-copy { text-align: center; padding-top: 32px; border-top: 1px solid rgba(241,235,214,0.08); color: rgba(241,235,214,0.3); font-size: 13px; max-width: 1100px; margin: 0 auto; }
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
-  gap: 48px;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-.footer-brand .nav-wordmark {
-  color: var(--sand);
-  display: inline-block;
-  margin-bottom: 12px;
-}
-
-.footer-tagline {
-  font-size: 14px;
-  color: rgba(241,235,214,0.5);
-  line-height: 1.5;
-  max-width: 260px;
-}
-
-.footer-col-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(241,235,214,0.4);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-}
-
-.footer-col a {
-  display: block;
-  font-size: 15px;
-  color: rgba(241,235,214,0.7);
-  text-decoration: none;
-  margin-bottom: 12px;
-  transition: color 0.2s;
-}
-
-.footer-col a:hover {
-  color: var(--sand);
-}
-
-.footer-bottom {
-  max-width: 1120px;
-  margin: 48px auto 0;
-  padding-top: 24px;
-  border-top: 1px solid rgba(241,235,214,0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-copy {
-  font-size: 13px;
-  color: rgba(241,235,214,0.35);
-}
-
-.footer-legal {
-  display: flex;
-  gap: 24px;
-}
-
-.footer-legal a {
-  font-size: 13px;
-  color: rgba(241,235,214,0.35);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-legal a:hover {
-  color: rgba(241,235,214,0.6);
-}
-
-/* ========================================
+/* ═══════════════════════════════════════════════════════════
    RESPONSIVE
-   ======================================== */
+   ═══════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .hero-headline { font-size: 46px; }
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
-  .section-heading { font-size: 36px; }
+  .sticky-tabs { gap: 2px; }
+  .sticky-tab { font-size: 12px; padding: 6px 12px; }
+  .sticky-brand .subtitle { display: none; }
+  .sticky-brand .sep { display: none; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .nav { padding: 0 20px; height: 64px; }
-  .nav-wordmark { font-size: 24px; }
-  .toggle-btn { padding: 7px 18px; font-size: 13px; }
-  .nav-link { display: none; }
+  .sticky-nav-inner { padding: 0 16px; flex-wrap: wrap; }
+  .sticky-brand .wordmark { font-size: 18px; }
+  .sticky-tabs { gap: 2px; width: 100%; justify-content: center; overflow-x: auto; padding-bottom: 4px; }
+  .sticky-tab { font-size: 11px; padding: 5px 8px; }
+  .sticky-nav-inner { height: auto; padding: 8px 16px; }
 
-  .hero-headline { font-size: 38px; letter-spacing: -1px; }
-  .hero-sub { font-size: 17px; }
-  .hero-content { padding: 60px 20px; }
-  .search-bar { flex-direction: column; padding: 12px; gap: 10px; }
-  .search-bar input { width: 100%; text-align: center; padding: 8px; }
-  .search-btn { width: 100%; }
+  .section-sep { flex-direction: column; gap: 8px; padding: 24px 24px; text-align: center; }
+  .section-sep .sep-desc { text-align: center; }
 
-  .card-grid { grid-template-columns: 1fr; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .stats-row { gap: 28px; }
-  .stat-value { font-size: 26px; }
+  /* Option A */
+  .oa-cards { flex-direction: column; }
+  .oa-nav { padding: 0 24px; top: 80px; }
 
-  .quote-text { font-size: 22px; }
-  .proof-stats { gap: 36px; }
-  .proof-stat-value { font-size: 28px; }
+  /* Option B */
+  #option-b { flex-direction: column; }
+  .ob-consumer { padding: 80px 24px 40px; min-height: auto; }
+  .ob-peek {
+    width: 100% !important; min-width: 100% !important; max-width: 100% !important;
+    clip-path: none; min-height: 200px;
+  }
+  .ob-peek:hover { width: 100% !important; min-width: 100% !important; max-width: 100% !important; }
+  .ob-peek-content { padding: 32px 24px; text-align: center; }
+  .ob-peek-expanded { opacity: 1; max-height: 300px; }
 
-  section { padding: 72px 20px; }
+  /* Option C */
+  .oc-nav { padding: 16px 24px; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .oc-toggle { width: 240px; height: 46px; }
+  .oc-toggle-slider { height: 38px; }
+  .oc-content { padding: 40px 24px; }
+  .oc-biz-stats { gap: 24px; flex-wrap: wrap; }
+
+  /* Option D */
+  #option-d { flex-direction: column; }
+  .od-door { flex: none !important; min-height: 50vh; padding: 60px 24px; }
+  .od-divider { width: 100%; height: 2px; }
+  .od-expanded { max-height: 200px; opacity: 1; margin-top: 16px; }
+
+  /* Shared */
+  .why-section { padding: 60px 24px; }
+  footer { padding: 48px 24px 32px; }
 }
 
 @media (max-width: 480px) {
-  .nav { padding: 0 16px; }
-  .nav-signup { padding: 7px 14px; font-size: 13px; }
-  .toggle-btn { padding: 6px 14px; font-size: 12px; }
-
-  .hero-headline { font-size: 30px; }
-  .hero-sub { font-size: 16px; }
-  .hero-content { padding: 48px 16px; }
-
-  .business-ctas { flex-direction: column; align-items: center; }
-  .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
-
-  .section-heading { font-size: 28px; }
-  .category-pills { gap: 8px; }
-  .pill { padding: 6px 16px; font-size: 13px; }
-
+  .sticky-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .sticky-tab { text-align: center; font-size: 10px; padding: 6px 4px; }
+  .oa-heading { font-size: 32px; }
+  .oa-card { min-height: 280px; padding: 28px 24px; }
+  .ob-search { flex-direction: column; }
+  .oc-search { flex-direction: column; }
+  .od-search { flex-direction: column; }
+  .why-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; text-align: center; }
-  .footer-legal { justify-content: center; }
+  .oc-biz-ctas { flex-direction: column; align-items: center; }
+  .od-biz-stats { flex-direction: column; gap: 12px; }
 }
 </style>
 </head>
 <body>
 
-<div class="page-wrapper mode-consumer">
-
-  <!-- ====== NAV ====== -->
-  <nav class="nav">
-    <a href="#" class="nav-wordmark">dutchie</a>
-    <div class="toggle-wrapper">
-      <button class="toggle-btn active" data-mode="consumer" onclick="setMode('consumer')">Shop</button>
-      <button class="toggle-btn" data-mode="business" onclick="setMode('business')">Business</button>
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <div class="sticky-nav-inner">
+    <div class="sticky-brand">
+      <span class="wordmark">dutchie</span>
+      <span class="sep"></span>
+      <span class="subtitle">Hero Selector Concepts</span>
     </div>
-    <div class="nav-actions">
-      <a href="#" class="nav-link">Log in</a>
-      <a href="#" class="nav-signup">Sign up</a>
+    <div class="sticky-tabs">
+      <button class="sticky-tab active" data-target="option-a">Option A: Hero Cards</button>
+      <button class="sticky-tab" data-target="option-b">Option B: Peek Panel</button>
+      <button class="sticky-tab" data-target="option-c">Option C: Attention Pulse</button>
+      <button class="sticky-tab" data-target="option-d">Option D: Two Doors</button>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- ====== HERO ====== -->
-  <section class="hero-wrapper">
-    <!-- Consumer background -->
-    <div class="hero-bg-consumer">
-      <span class="leaf-pattern leaf-1">&#x1F33F;</span>
-      <span class="leaf-pattern leaf-2">&#x1F33F;</span>
-    </div>
-    <!-- Business background -->
-    <div class="hero-bg-business"></div>
-
-    <div class="hero-content">
-      <!-- Consumer headline -->
-      <div class="consumer-content">
-        <h1 class="hero-headline">Your neighborhood dispensary, online.</h1>
-        <p class="hero-sub">Order cannabis for pickup or delivery from dispensaries near you.</p>
-        <div class="search-bar">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Enter your address or zip code">
-          <button class="search-btn">Search</button>
-        </div>
-        <div class="category-pills">
-          <button class="pill">Flower</button>
-          <button class="pill">Edibles</button>
-          <button class="pill">Vapes</button>
-          <button class="pill">Pre-Rolls</button>
-        </div>
-      </div>
-
-      <!-- Business headline -->
-      <div class="business-content">
-        <h1 class="hero-headline">Grow your dispensary with Dutchie.</h1>
-        <p class="hero-sub">The all-in-one platform for POS, E-Commerce, loyalty, and payments.</p>
-        <div class="business-ctas">
-          <button class="btn-primary">Get a demo</button>
-          <button class="btn-outline">See the platform &rarr;</button>
-        </div>
-        <div class="stats-row">
-          <div class="stat-block">
-            <div class="stat-value">$22B+</div>
-            <div class="stat-label">transactions</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-value">6,500+</div>
-            <div class="stat-label">dispensaries</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-value">40+</div>
-            <div class="stat-label">states</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== WHY DUTCHIE ====== -->
-  <section class="why-dutchie">
-    <div class="container">
-      <h2 class="section-heading fade-in">One platform, every customer.</h2>
-      <div class="card-grid">
-        <div class="card fade-in">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <div class="card-title">Shop Online</div>
-          <div class="card-desc">Browse menus, compare products, and order ahead for pickup or delivery from local dispensaries.</div>
-        </div>
-        <div class="card fade-in">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          </div>
-          <div class="card-title">Order by Phone</div>
-          <div class="card-desc">Call your favorite dispensary and place an order with real-time menu integration and smart routing.</div>
-        </div>
-        <div class="card fade-in">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="card-title">Visit In-Store</div>
-          <div class="card-desc">Walk in to any Dutchie-powered dispensary for a seamless checkout experience with modern POS.</div>
-        </div>
-        <div class="card fade-in">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <div class="card-title">Manage Reviews</div>
-          <div class="card-desc">Collect and showcase customer reviews to build trust and drive more traffic to your store.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== PRODUCT SHOWCASE ====== -->
-  <section class="product-showcase">
-    <div class="container">
-      <h2 class="section-heading fade-in">The most trusted names in cannabis</h2>
-      <div class="marquee-wrapper fade-in">
-        <div class="marquee-track">
-          <div class="marquee-item">STIIIZY</div>
-          <div class="marquee-item">Cookies</div>
-          <div class="marquee-item">WYLD</div>
-          <div class="marquee-item">Select</div>
-          <div class="marquee-item">Kiva</div>
-          <div class="marquee-item">Pax</div>
-          <div class="marquee-item">Dosist</div>
-          <div class="marquee-item">Raw Garden</div>
-          <div class="marquee-item">Cresco</div>
-          <div class="marquee-item">Jeeter</div>
-          <!-- Duplicate set for seamless loop -->
-          <div class="marquee-item">STIIIZY</div>
-          <div class="marquee-item">Cookies</div>
-          <div class="marquee-item">WYLD</div>
-          <div class="marquee-item">Select</div>
-          <div class="marquee-item">Kiva</div>
-          <div class="marquee-item">Pax</div>
-          <div class="marquee-item">Dosist</div>
-          <div class="marquee-item">Raw Garden</div>
-          <div class="marquee-item">Cresco</div>
-          <div class="marquee-item">Jeeter</div>
-        </div>
-      </div>
-      <a href="#" class="browse-link fade-in">Browse all products &rarr;</a>
-    </div>
-  </section>
-
-  <!-- ====== BUSINESS FEATURES ====== -->
-  <section class="biz-features">
-    <div class="container">
-      <h2 class="section-heading fade-in">Built for operators, loved by customers</h2>
-      <div class="feature-grid">
-        <div class="feature-tile fade-in">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          </div>
-          <div class="feature-name">Point of Sale</div>
-          <div class="feature-desc">Fast, compliant checkout built for cannabis. Handle walk-ins, pre-orders, and delivery from one screen.</div>
-          <a href="#" class="feature-link">Learn more &rarr;</a>
-        </div>
-        <div class="feature-tile fade-in">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-          </div>
-          <div class="feature-name">E-Commerce</div>
-          <div class="feature-desc">Beautiful online menus that convert. Pickup, delivery, and curbside ordering with real-time inventory.</div>
-          <a href="#" class="feature-link">Learn more &rarr;</a>
-        </div>
-        <div class="feature-tile fade-in">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </div>
-          <div class="feature-name">Loyalty</div>
-          <div class="feature-desc">Reward your best customers automatically. Points, tiers, and personalized offers that drive repeat visits.</div>
-          <a href="#" class="feature-link">Learn more &rarr;</a>
-        </div>
-        <div class="feature-tile fade-in">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          </div>
-          <div class="feature-name">Payments</div>
-          <div class="feature-desc">Cashless, compliant payments your customers expect. Debit, ACH, and more integrated directly into checkout.</div>
-          <a href="#" class="feature-link">Learn more &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== SOCIAL PROOF ====== -->
-  <section class="social-proof">
-    <div class="container">
-      <div class="fade-in">
-        <div class="quote-mark">&ldquo;</div>
-        <p class="quote-text">Dutchie transformed how we run our dispensary. Online orders are up 140%, and our team spends less time on manual tasks and more time with customers.</p>
-        <p class="quote-author"><strong>Maria Rodriguez</strong> &mdash; Owner, Green Valley Dispensary</p>
-      </div>
-      <div class="proof-stats fade-in">
-        <div>
-          <div class="proof-stat-value">98%</div>
-          <div class="proof-stat-label">customer satisfaction</div>
-        </div>
-        <div>
-          <div class="proof-stat-value">2.5x</div>
-          <div class="proof-stat-label">average order increase</div>
-        </div>
-        <div>
-          <div class="proof-stat-value">35%</div>
-          <div class="proof-stat-label">reduction in wait times</div>
-        </div>
-        <div>
-          <div class="proof-stat-value">#1</div>
-          <div class="proof-stat-label">cannabis technology platform</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== FOOTER ====== -->
-  <footer class="footer">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <span class="nav-wordmark">dutchie</span>
-        <p class="footer-tagline">The leading technology platform powering the cannabis industry. Connecting consumers and dispensaries through seamless experiences.</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Consumers</div>
-        <a href="#">Find a dispensary</a>
-        <a href="#">Browse products</a>
-        <a href="#">Deals near you</a>
-        <a href="#">Download the app</a>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Business</div>
-        <a href="#">Point of Sale</a>
-        <a href="#">E-Commerce</a>
-        <a href="#">Loyalty</a>
-        <a href="#">Payments</a>
-        <a href="#">Pricing</a>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Company</div>
-        <a href="#">About</a>
-        <a href="#">Careers</a>
-        <a href="#">Blog</a>
-        <a href="#">Press</a>
-        <a href="#">Contact</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">&copy; 2026 Dutchie. All rights reserved.</div>
-      <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Accessibility</a>
-      </div>
-    </div>
-  </footer>
-
+<!-- OPTION A SEPARATOR -->
+<div class="section-sep" id="sep-a" style="margin-top: 68px;">
+  <span class="sep-label">Option A: Hero Cards</span>
+  <span class="sep-desc">Two large, visually rich cards replace the nav toggle. Users choose their path up front.</span>
 </div>
 
+<!-- OPTION A: Hero Cards -->
+<section class="hero-section" id="option-a">
+  <div class="oa-nav">
+    <span class="wordmark">dutchie</span>
+    <div class="links"><a href="#">Log in</a><a href="#">Sign up</a></div>
+  </div>
+  <h1 class="oa-heading fade-in">Welcome to dutchie</h1>
+  <div class="oa-cards fade-in">
+    <div class="oa-card oa-card--shop">
+      <div class="oa-card-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="22" width="32" height="26" rx="4" stroke="#003D29" stroke-width="2.5"/>
+          <path d="M20 22V16a8 8 0 1116 0v6" stroke="#003D29" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="24" cy="32" r="2" fill="#6AB448"/>
+          <circle cx="32" cy="32" r="2" fill="#6AB448"/>
+        </svg>
+      </div>
+      <div class="oa-card-title">Shop Cannabis</div>
+      <div class="oa-card-desc">Order from the best dispensaries near you. Pickup or delivery.</div>
+      <div class="oa-search-preview">
+        <input type="text" placeholder="Enter your address...">
+        <button>Search</button>
+      </div>
+    </div>
+    <div class="oa-card oa-card--biz">
+      <div class="oa-card-icon">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="14" width="40" height="30" rx="4" stroke="#F1EBD6" stroke-width="2.5"/>
+          <path d="M16 36V26" stroke="#6AB448" stroke-width="3" stroke-linecap="round"/>
+          <path d="M24 36V22" stroke="#FFC02A" stroke-width="3" stroke-linecap="round"/>
+          <path d="M32 36V28" stroke="#6AB448" stroke-width="3" stroke-linecap="round"/>
+          <path d="M40 36V20" stroke="#FFC02A" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="oa-card-title">For Business</div>
+      <div class="oa-card-desc">POS, E-Commerce, Loyalty, Payments -- all in one. Trusted by 6,500+ dispensaries.</div>
+      <button class="btn-yellow">Get a demo <span>&rarr;</span></button>
+    </div>
+  </div>
+  <div class="oa-stats fade-in">Dutchie powers $22B+ in transactions across 40+ states</div>
+</section>
+
+<!-- OPTION B SEPARATOR -->
+<div class="section-sep" id="sep-b">
+  <span class="sep-label">Option B: Peek Panel</span>
+  <span class="sep-desc">Consumer hero is the default experience; a dark green panel peeks in from the right edge, expanding on hover.</span>
+</div>
+
+<!-- OPTION B: Peek Panel -->
+<section class="hero-section" id="option-b">
+  <div class="ob-consumer">
+    <span class="wordmark">dutchie</span>
+    <div class="ob-consumer-content fade-in">
+      <h1>Order cannabis from the best dispensaries near you.</h1>
+      <div class="ob-search">
+        <input type="text" placeholder="Enter your delivery address...">
+        <button>Find dispensaries</button>
+      </div>
+      <div class="ob-pills">
+        <span class="ob-pill">Flower</span>
+        <span class="ob-pill">Edibles</span>
+        <span class="ob-pill">Vapes</span>
+        <span class="ob-pill">Concentrates</span>
+        <span class="ob-pill">Topicals</span>
+        <span class="ob-pill">Pre-Rolls</span>
+      </div>
+    </div>
+  </div>
+  <div class="ob-peek">
+    <div class="ob-peek-content">
+      <div class="ob-peek-label">For Business</div>
+      <div class="ob-peek-heading">Powering 6,500+ dispensaries</div>
+      <div class="ob-peek-stat">$22B+ processed</div>
+      <button class="btn-yellow">Get a demo <span>&rarr;</span></button>
+      <div class="ob-peek-expanded">
+        <h2>The technology that powers modern cannabis retail.</h2>
+        <div class="ob-peek-stats-row">
+          <div class="stat-block"><div class="stat-num">$22B+</div><div class="stat-label">Processed</div></div>
+          <div class="stat-block"><div class="stat-num">6,500+</div><div class="stat-label">Dispensaries</div></div>
+          <div class="stat-block"><div class="stat-num">40+</div><div class="stat-label">States</div></div>
+        </div>
+        <div class="ob-peek-ctas">
+          <button class="btn-yellow" style="padding:10px 20px;font-size:14px;">Schedule a demo</button>
+          <button class="btn-outline" style="padding:10px 20px;font-size:14px;">See the platform</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPTION C SEPARATOR -->
+<div class="section-sep" id="sep-c">
+  <span class="sep-label">Option C: Attention Pulse</span>
+  <span class="sep-desc">Consumer hero with a large, prominent toggle. After 3 seconds, the Business side gets an animated attention-grabber.</span>
+</div>
+
+<!-- OPTION C: Attention Pulse -->
+<section class="hero-section" id="option-c">
+  <div class="oc-hero consumer-mode" id="oc-hero">
+    <div class="oc-nav">
+      <span class="wordmark">dutchie</span>
+      <div class="oc-toggle-wrap">
+        <div class="oc-toggle" id="oc-toggle">
+          <div class="oc-toggle-slider"></div>
+          <button class="oc-toggle-btn active" data-mode="consumer">Shop</button>
+          <button class="oc-toggle-btn" data-mode="business">Business</button>
+        </div>
+        <div class="oc-pulse-ring" id="oc-pulse1"></div>
+        <div class="oc-pulse-ring" id="oc-pulse2"></div>
+        <div class="oc-pulse-ring" id="oc-pulse3"></div>
+        <div class="oc-tooltip" id="oc-tooltip">Powering 6,500+ dispensaries &rarr;</div>
+      </div>
+      <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
+    </div>
+    <div class="oc-content">
+      <div class="oc-consumer-inner">
+        <h1>Your neighborhood dispensary, online.</h1>
+        <p class="sub">Browse menus, order ahead, and get cannabis delivered or ready for pickup.</p>
+        <div class="oc-search">
+          <input type="text" placeholder="Enter your address...">
+          <button>Search</button>
+        </div>
+        <div class="oc-pills">
+          <span class="oc-pill">Flower</span>
+          <span class="oc-pill">Edibles</span>
+          <span class="oc-pill">Vapes</span>
+          <span class="oc-pill">Concentrates</span>
+          <span class="oc-pill">Pre-Rolls</span>
+        </div>
+      </div>
+      <div class="oc-biz-inner">
+        <h1>Grow your dispensary with Dutchie.</h1>
+        <p class="sub">POS, E-Commerce, Loyalty, Payments -- the complete platform for modern cannabis retail.</p>
+        <div class="oc-biz-content">
+          <div class="oc-biz-stats">
+            <div class="stat"><div class="stat-num">$22B+</div><div class="stat-label">Transactions processed</div></div>
+            <div class="stat"><div class="stat-num">6,500+</div><div class="stat-label">Dispensaries</div></div>
+            <div class="stat"><div class="stat-num">40+</div><div class="stat-label">States</div></div>
+          </div>
+          <div class="oc-biz-ctas">
+            <button class="btn-yellow">Get a demo <span>&rarr;</span></button>
+            <button class="btn-outline">See the platform</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPTION D SEPARATOR -->
+<div class="section-sep" id="sep-d">
+  <span class="sep-label">Option D: Two Doors</span>
+  <span class="sep-desc">Full-width hero split into two hoverable "doors." Each side expands on hover, revealing more content.</span>
+</div>
+
+<!-- OPTION D: Two Doors -->
+<section class="hero-section" id="option-d">
+  <div class="od-door od-door--consumer">
+    <div class="od-door-top"><span class="wordmark">dutchie</span></div>
+    <div class="od-content">
+      <div class="od-eyebrow">Shop Cannabis</div>
+      <h1 class="od-headline">Find your perfect product.</h1>
+      <p class="od-sub">Order for pickup or delivery from dispensaries near you.</p>
+      <div class="od-search">
+        <input type="text" placeholder="Enter your address...">
+        <button>Search</button>
+      </div>
+      <div class="od-expanded">
+        <div class="od-pills">
+          <span>Flower</span><span>Edibles</span><span>Vapes</span><span>Pre-Rolls</span>
+        </div>
+        <div class="od-popular">Popular near you: Stiiizy, Cookies, Raw Garden</div>
+      </div>
+    </div>
+  </div>
+  <div class="od-divider"></div>
+  <div class="od-door od-door--business">
+    <div class="od-door-top"><span class="wordmark" style="color:transparent;">&nbsp;</span><div class="links"><a href="#">Log in</a><a href="#">Sign up</a></div></div>
+    <div class="od-content">
+      <div class="od-eyebrow">For Dispensaries</div>
+      <h1 class="od-headline">Grow with Dutchie.</h1>
+      <p class="od-sub">POS, E-Commerce, Loyalty, Payments -- trusted by 6,500+ dispensaries.</p>
+      <button class="btn-yellow">Get a demo <span>&rarr;</span></button>
+      <div class="od-expanded">
+        <div class="od-biz-stats">
+          <div class="stat"><div class="stat-num">$22B+</div><div class="stat-label">Processed</div></div>
+          <div class="stat"><div class="stat-num">6,500+</div><div class="stat-label">Dispensaries</div></div>
+          <div class="stat"><div class="stat-num">40+</div><div class="stat-label">States</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARED: Why Dutchie -->
+<section class="why-section">
+  <h2 class="fade-in">One platform, every customer</h2>
+  <div class="why-grid">
+    <div class="why-card fade-in">
+      <div class="why-icon">
+        <svg viewBox="0 0 28 28"><path d="M4 8h20M4 8v14a2 2 0 002 2h16a2 2 0 002-2V8M4 8l2-4h16l2 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14h8" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Shop Online</h3>
+      <p>Browse dispensary menus, compare products, and order for pickup or delivery.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="why-icon">
+        <svg viewBox="0 0 28 28"><rect x="6" y="4" width="16" height="22" rx="3" stroke-linecap="round"/><path d="M12 21h4" stroke-linecap="round"/><circle cx="14" cy="12" r="3"/></svg>
+      </div>
+      <h3>Order by Phone</h3>
+      <p>Call-in orders processed seamlessly through the same integrated system.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="why-icon">
+        <svg viewBox="0 0 28 28"><path d="M3 22h22M5 22V10l9-6 9 6v12" stroke-linecap="round" stroke-linejoin="round"/><rect x="11" y="16" width="6" height="6" rx="1"/></svg>
+      </div>
+      <h3>Visit In-Store</h3>
+      <p>Fast checkout with integrated POS, digital menus, and real-time inventory.</p>
+    </div>
+    <div class="why-card fade-in">
+      <div class="why-icon">
+        <svg viewBox="0 0 28 28"><path d="M14 4l3 6h6l-5 4 2 7-6-4-6 4 2-7-5-4h6z" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Manage Reviews</h3>
+      <p>Build reputation with customer reviews and ratings across every channel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="wordmark">dutchie</div>
+      <p>The leading technology platform for cannabis retailers, powering dispensaries across 40+ states.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Find dispensaries</a>
+      <a href="#">Browse products</a>
+      <a href="#">Deals &amp; offers</a>
+      <a href="#">Delivery</a>
+    </div>
+    <div class="footer-col">
+      <h4>Business</h4>
+      <a href="#">Point of Sale</a>
+      <a href="#">E-Commerce</a>
+      <a href="#">Payments</a>
+      <a href="#">Loyalty</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-copy">&copy; 2026 Dutchie. All rights reserved.</div>
+</footer>
+
 <script>
-// Mode toggle
-function setMode(mode) {
-  const wrapper = document.querySelector('.page-wrapper');
-  const btns = document.querySelectorAll('.toggle-btn');
+// SCROLL SPY + TAB NAVIGATION
+const tabs = document.querySelectorAll('.sticky-tab');
+const sections = ['option-a', 'option-b', 'option-c', 'option-d'].map(id => document.getElementById(id));
 
-  if (mode === 'business') {
-    wrapper.classList.remove('mode-consumer');
-    wrapper.classList.add('mode-business');
-  } else {
-    wrapper.classList.remove('mode-business');
-    wrapper.classList.add('mode-consumer');
-  }
-
-  btns.forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.mode === mode);
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const sepId = 'sep-' + tab.dataset.target.split('-')[1];
+    const sep = document.getElementById(sepId);
+    if (sep) sep.scrollIntoView({ behavior: 'smooth' });
   });
+});
+
+// Scroll spy with IntersectionObserver
+const spyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      tabs.forEach(t => t.classList.remove('active'));
+      const activeTab = document.querySelector('[data-target="' + id + '"]');
+      if (activeTab) activeTab.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+sections.forEach(s => { if (s) spyObserver.observe(s); });
+
+// FADE-IN OBSERVER
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+// OPTION C: Toggle logic
+const ocHero = document.getElementById('oc-hero');
+const ocToggle = document.getElementById('oc-toggle');
+const ocBtns = ocToggle.querySelectorAll('.oc-toggle-btn');
+
+ocBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    ocBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (mode === 'business') {
+      ocToggle.classList.add('biz-active');
+      ocHero.classList.remove('consumer-mode');
+      ocHero.classList.add('business-mode');
+    } else {
+      ocToggle.classList.remove('biz-active');
+      ocHero.classList.remove('business-mode');
+      ocHero.classList.add('consumer-mode');
+    }
+    dismissTooltip();
+  });
+});
+
+// OPTION C: Pulse + Tooltip animation
+let tooltipDismissed = false;
+function dismissTooltip() {
+  if (tooltipDismissed) return;
+  tooltipDismissed = true;
+  const tt = document.getElementById('oc-tooltip');
+  tt.classList.remove('show');
 }
 
-// Scroll fade-in with IntersectionObserver
-document.addEventListener('DOMContentLoaded', () => {
-  const observer = new IntersectionObserver((entries) => {
+if (!sessionStorage.getItem('dutchie-pulse-shown')) {
+  const ocSection = document.getElementById('option-c');
+  let pulseTriggered = false;
+
+  const pulseObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+      if (entry.isIntersecting && !pulseTriggered) {
+        pulseTriggered = true;
+        sessionStorage.setItem('dutchie-pulse-shown', '1');
+
+        setTimeout(() => {
+          const pulses = [document.getElementById('oc-pulse1'), document.getElementById('oc-pulse2'), document.getElementById('oc-pulse3')];
+          pulses.forEach(p => { p.style.left = '75%'; });
+
+          pulses.forEach((p, i) => {
+            setTimeout(() => {
+              p.classList.add('animating');
+              p.addEventListener('animationend', () => p.classList.remove('animating'), { once: true });
+            }, i * 800);
+          });
+
+          setTimeout(() => {
+            if (!tooltipDismissed) {
+              document.getElementById('oc-tooltip').classList.add('show');
+              setTimeout(() => { dismissTooltip(); }, 5000);
+            }
+          }, 2800);
+        }, 3000);
       }
     });
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
-  });
+  }, { threshold: 0.4 });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-});
+  pulseObserver.observe(ocSection);
+  document.getElementById('option-c').addEventListener('click', dismissTooltip, { once: true });
+}
+
+// OPTION D: Door hover expand (JS for sibling control)
+const doorConsumer = document.querySelector('.od-door--consumer');
+const doorBusiness = document.querySelector('.od-door--business');
+
+function setupDoorHovers() {
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    doorBusiness.addEventListener('mouseenter', bizEnter);
+    doorBusiness.addEventListener('mouseleave', bizLeave);
+    doorConsumer.addEventListener('mouseenter', conEnter);
+    doorConsumer.addEventListener('mouseleave', conLeave);
+  }
+}
+
+function bizEnter() {
+  doorConsumer.style.flex = '1 1 35%';
+  doorBusiness.style.flex = '1 1 65%';
+}
+function bizLeave() {
+  doorConsumer.style.flex = '1 1 50%';
+  doorBusiness.style.flex = '1 1 50%';
+}
+function conEnter() {
+  doorConsumer.style.flex = '1 1 65%';
+  doorBusiness.style.flex = '1 1 35%';
+}
+function conLeave() {
+  doorConsumer.style.flex = '1 1 50%';
+  doorBusiness.style.flex = '1 1 50%';
+}
+
+setupDoorHovers();
 </script>
-
 </body>
 </html>
