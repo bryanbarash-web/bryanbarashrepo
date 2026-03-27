@@ -556,24 +556,36 @@
 
 /* ── CARD WITH FLOATED PHONE MOCKUP ──────────────────────── */
 
-.april-update .au-card-with-phone .au-card-body-wrap {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-.april-update .au-card-with-phone .au-card-text {
-  flex: 1;
-  min-width: 0;
+.april-update .au-card-with-phone {
+  position: relative;
 }
 
 .april-update .au-card-with-phone .au-card-phone-col {
-  flex-shrink: 0;
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  z-index: 2;
+}
+
+.april-update .au-card-with-phone .au-card-top,
+.april-update .au-card-with-phone .au-card-title,
+.april-update .au-card-with-phone .au-card-body-wrap {
+  margin-right: 264px;
+}
+
+.april-update .au-card-with-phone .au-card-body-wrap {
+  display: block;
 }
 
 @media (max-width: 700px) {
+  .april-update .au-card-with-phone .au-card-phone-col {
+    position: static;
+    margin: 16px auto 0;
+  }
+  .april-update .au-card-with-phone .au-card-top,
+  .april-update .au-card-with-phone .au-card-title,
   .april-update .au-card-with-phone .au-card-body-wrap {
-    flex-direction: column;
+    margin-right: 0;
   }
 }
 
