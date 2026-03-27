@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dutchie Product Updates — March 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #042017;
+      color: #F1EBD6;
+      overflow-x: hidden;
+    }
+
+    /* =============================================
+       CONCEPT 4 WRAPPER
+    ============================================= */
+    .concept-4 {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #042017;
+      color: #F1EBD6;
+      position: relative;
+    }
+
+    /* =============================================
+       STICKY FROSTED HEADER
+    ============================================= */
+    .c4-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(4, 32, 23, 0.72);
+      border-bottom: 1px solid rgba(241, 235, 214, 0.08);
+      transition: all 0.4s ease;
+    }
+
+    .c4-header-logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #F1EBD6;
+      opacity: 0.9;
+    }
+
+    .c4-header-logo span {
+      color: #6AB448;
+    }
+
+    .c4-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(241, 235, 214, 0.5);
+      transition: color 0.4s ease;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .c4-header-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .c4-nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(241, 235, 214, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .c4-nav-dot.active {
+      background: #6AB448;
+      box-shadow: 0 0 8px rgba(106, 180, 72, 0.7);
+      transform: scale(1.4);
+    }
+
+    /* =============================================
+       ANIMATED GRADIENT MESH BACKGROUND
+    ============================================= */
+    @keyframes meshShift1 {
+      0%   { transform: translate(0%, 0%) scale(1); }
+      33%  { transform: translate(5%, -8%) scale(1.1); }
+      66%  { transform: translate(-4%, 6%) scale(0.95); }
+      100% { transform: translate(0%, 0%) scale(1); }
+    }
+    @keyframes meshShift2 {
+      0%   { transform: translate(0%, 0%) scale(1); }
+      33%  { transform: translate(-6%, 10%) scale(1.08); }
+      66%  { transform: translate(8%, -4%) scale(1.02); }
+      100% { transform: translate(0%, 0%) scale(1); }
+    }
+    @keyframes meshShift3 {
+      0%   { transform: translate(0%, 0%) scale(1); }
+      50%  { transform: translate(10%, 5%) scale(1.15); }
+      100% { transform: translate(0%, 0%) scale(1); }
+    }
+
+    .mesh-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .mesh-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+    }
+
+    .mesh-blob-1 {
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, #003D29 0%, transparent 70%);
+      top: -20%;
+      left: -20%;
+      animation: meshShift1 18s ease-in-out infinite;
+    }
+
+    .mesh-blob-2 {
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(circle, #5E324E 0%, transparent 70%);
+      top: 10%;
+      right: -15%;
+      animation: meshShift2 22s ease-in-out infinite;
+    }
+
+    .mesh-blob-3 {
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, #042017 0%, #6AB448 100%);
+      bottom: -10%;
+      left: 30%;
+      animation: meshShift3 15s ease-in-out infinite;
+      opacity: 0.2;
+    }
+
+    /* =============================================
+       SCROLL ANIMATIONS
+    ============================================= */
+    .c4-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .c4-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .c4-reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .c4-reveal-left.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .c4-reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .c4-reveal-right.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .c4-reveal-scale {
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .c4-reveal-scale.revealed {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger delays */
+    .c4-delay-1 { transition-delay: 0.1s; }
+    .c4-delay-2 { transition-delay: 0.2s; }
+    .c4-delay-3 { transition-delay: 0.35s; }
+    .c4-delay-4 { transition-delay: 0.5s; }
+    .c4-delay-5 { transition-delay: 0.65s; }
+
+    /* =============================================
+       CHAPTER 1 — HERO
+    ============================================= */
+    .c4-chapter-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 40px 80px;
+    }
+
+    .c4-hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #6AB448;
+      margin-bottom: 28px;
+    }
+
+    .c4-hero-date {
+      font-size: clamp(72px, 14vw, 148px);
+      font-weight: 900;
+      line-height: 0.88;
+      text-align: center;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #F1EBD6 0%, rgba(241,235,214,0.6) 50%, #F1EBD6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .c4-hero-date::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(106, 180, 72, 0.25) 60%, transparent 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .c4-hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(241, 235, 214, 0.6);
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .c4-hero-subtitle strong {
+      color: #F1EBD6;
+      font-weight: 600;
+    }
+
+    /* Stats Dashboard */
+    .c4-stats-dashboard {
+      margin-top: 72px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(241, 235, 214, 0.04);
+      border: 1px solid rgba(241, 235, 214, 0.08);
+      backdrop-filter: blur(30px);
+    }
+
+    .c4-stat-cell {
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: rgba(4, 32, 23, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .c4-stat-cell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(106, 180, 72, 0.12) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .c4-stat-cell:hover::before {
+      opacity: 1;
+    }
+
+    .c4-stat-number {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #FFC02A;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .c4-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(241, 235, 214, 0.45);
+      text-align: center;
+    }
+
+    /* Scroll indicator */
+    .c4-scroll-cue {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: rgba(241, 235, 214, 0.35);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.35; }
+      50% { transform: translateY(8px); opacity: 0.7; }
+    }
+
+    .c4-scroll-arrow {
+      width: 28px;
+      height: 28px;
+      border-right: 1.5px solid rgba(241,235,214,0.35);
+      border-bottom: 1.5px solid rgba(241,235,214,0.35);
+      transform: rotate(45deg);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    /* Grid line decorations */
+    .c4-grid-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+    }
+
+    .c4-grid-lines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(241,235,214,0.8) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(241,235,214,0.8) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    /* =============================================
+       CHAPTER DIVIDER
+    ============================================= */
+    .c4-chapter-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(241,235,214,0.12), rgba(106,180,72,0.3), rgba(241,235,214,0.12), transparent);
+      margin: 0;
+    }
+
+    /* =============================================
+       CHAPTER LABELS
+    ============================================= */
+    .c4-chapter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(241, 235, 214, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .c4-chapter-tag::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: #6AB448;
+    }
+
+    /* =============================================
+       CHAPTER 2 — WHAT'S NEW (HORIZONTAL SCROLL)
+    ============================================= */
+    .c4-chapter-whats-new {
+      position: relative;
+      min-height: 100vh;
+      padding: 100px 0 100px 80px;
+      overflow: hidden;
+    }
+
+    .c4-chapter-whats-new .mesh-bg .mesh-blob-1 {
+      background: radial-gradient(circle, #5E324E 0%, transparent 70%);
+    }
+
+    .c4-whats-new-intro {
+      padding-right: 80px;
+      margin-bottom: 60px;
+    }
+
+    .c4-chapter-headline {
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: #F1EBD6;
+    }
+
+    .c4-chapter-headline em {
+      font-style: normal;
+      background: linear-gradient(90deg, #6AB448, #FFC02A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .c4-chapter-desc {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(241, 235, 214, 0.55);
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    /* Horizontal scroll track */
+    .c4-hscroll-track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 20px 80px 40px 0;
+      cursor: grab;
+      scrollbar-width: none;
+    }
+
+    .c4-hscroll-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .c4-hscroll-track:active {
+      cursor: grabbing;
+    }
+
+    /* Glassmorphism cards */
+    .c4-glass-card {
+      flex: 0 0 360px;
+      scroll-snap-align: start;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(241, 235, 214, 0.1);
+      border-radius: 24px;
+      padding: 40px 36px;
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    .c4-glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(241,235,214,0.3), transparent);
+    }
+
+    .c4-glass-card:hover {
+      border-color: rgba(106, 180, 72, 0.35);
+      box-shadow:
+        0 0 30px rgba(106, 180, 72, 0.12),
+        0 24px 60px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+    }
+
+    .c4-glass-card-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #6AB448;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .c4-glass-card-number::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(106,180,72,0.4), transparent);
+    }
+
+    .c4-glass-card-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #F1EBD6;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .c4-glass-card-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(241, 235, 214, 0.6);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .c4-glass-card-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 7px 14px;
+      border-radius: 40px;
+      background: rgba(241, 235, 214, 0.06);
+      border: 1px solid rgba(241, 235, 214, 0.12);
+      color: rgba(241, 235, 214, 0.55);
+    }
+
+    .c4-glass-card-location::before {
+      content: '→';
+      color: #FFC02A;
+    }
+
+    /* Card accent overlays */
+    .c4-glass-card-glow {
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    /* Scroll hint arrow for horizontal */
+    .c4-hscroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(241, 235, 214, 0.3);
+      margin-top: 12px;
+      padding-right: 80px;
+    }
+
+    @keyframes slideRight {
+      0%, 100% { transform: translateX(0); opacity: 0.3; }
+      50% { transform: translateX(10px); opacity: 0.7; }
+    }
+
+    .c4-hscroll-hint svg {
+      animation: slideRight 2s ease-in-out infinite;
+    }
+
+    /* =============================================
+       CHAPTER 3 — SEGMENTS & GROWTH (SPLIT SCREEN)
+    ============================================= */
+    .c4-chapter-segments {
+      position: relative;
+      padding: 100px 80px;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .c4-segments-intro {
+      margin-bottom: 80px;
+      max-width: 700px;
+    }
+
+    .c4-split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .c4-split-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .c4-split-row.reverse {
+      direction: rtl;
+    }
+
+    .c4-split-row.reverse > * {
+      direction: ltr;
+    }
+
+    .c4-split-text-side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .c4-split-big-number {
+      font-size: clamp(80px, 10vw, 120px);
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.06em;
+      background: linear-gradient(135deg, rgba(241,235,214,0.12) 0%, rgba(241,235,214,0.04) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      user-select: none;
+    }
+
+    .c4-split-feature-name {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #F1EBD6;
+    }
+
+    .c4-split-feature-name em {
+      font-style: normal;
+      color: #FFC02A;
+    }
+
+    .c4-split-feature-desc {
+      font-size: 15px;
+      color: rgba(241,235,214,0.55);
+      line-height: 1.7;
+    }
+
+    .c4-split-feature-loc {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #6AB448;
+      letter-spacing: 0.1em;
+    }
+
+    /* Segment feature card (right side) */
+    .c4-segment-feature-card {
+      background: linear-gradient(135deg, rgba(94, 50, 78, 0.25) 0%, rgba(4,32,23,0.6) 100%);
+      border: 1px solid rgba(94, 50, 78, 0.35);
+      border-radius: 24px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+    }
+
+    .c4-segment-feature-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(94,50,78,0.8), transparent);
+    }
+
+    .c4-segment-feature-card:hover {
+      transform: translateY(-6px) rotateX(1.5deg);
+      box-shadow: 0 20px 50px rgba(94, 50, 78, 0.2), 0 0 30px rgba(94, 50, 78, 0.1);
+    }
+
+    .c4-sfcard-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(94, 50, 78, 0.4);
+      border: 1px solid rgba(94, 50, 78, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 22px;
+    }
+
+    .c4-sfcard-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #F1EBD6;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .c4-sfcard-desc {
+      font-size: 14px;
+      color: rgba(241,235,214,0.55);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .c4-sfcard-loc {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(94,50,78,0.9);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(94,50,78,0.4);
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 30px;
+    }
+
+    .c4-sfcard-glow {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(94, 50, 78, 0.4), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* =============================================
+       CHAPTER 4 — E-COMMERCE & MOBILE
+    ============================================= */
+    .c4-chapter-ecommerce {
+      position: relative;
+      padding: 100px 80px;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .c4-ecom-intro {
+      margin-bottom: 80px;
+      max-width: 700px;
+    }
+
+    .c4-ecom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* Dramatic reveal cards */
+    .c4-drama-card {
+      border-radius: 24px;
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    .c4-drama-card.green-theme {
+      background: linear-gradient(135deg, rgba(0, 61, 41, 0.5) 0%, rgba(4, 32, 23, 0.7) 100%);
+      border: 1px solid rgba(0, 61, 41, 0.6);
+    }
+
+    .c4-drama-card.green-theme:hover {
+      transform: translateY(-8px) rotateY(2deg);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0, 61, 41, 0.25);
+    }
+
+    .c4-drama-card.yellow-theme {
+      background: linear-gradient(135deg, rgba(255, 192, 42, 0.1) 0%, rgba(4, 32, 23, 0.75) 100%);
+      border: 1px solid rgba(255, 192, 42, 0.2);
+    }
+
+    .c4-drama-card.yellow-theme:hover {
+      transform: translateY(-8px) rotateY(-2deg);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 30px rgba(255, 192, 42, 0.15);
+    }
+
+    .c4-drama-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 30px;
+      margin-bottom: 28px;
+    }
+
+    .green-theme .c4-drama-card-badge {
+      background: rgba(106, 180, 72, 0.15);
+      border: 1px solid rgba(106, 180, 72, 0.3);
+      color: #6AB448;
+    }
+
+    .yellow-theme .c4-drama-card-badge {
+      background: rgba(255, 192, 42, 0.12);
+      border: 1px solid rgba(255, 192, 42, 0.25);
+      color: #FFC02A;
+    }
+
+    .c4-drama-card-title {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #F1EBD6;
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+
+    .c4-drama-card-desc {
+      font-size: 14px;
+      color: rgba(241,235,214,0.55);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .c4-drama-card-loc {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(241,235,214,0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .c4-drama-card-loc::before {
+      content: '→';
+      color: #6AB448;
+    }
+
+    .c4-drama-card-bg-text {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      font-size: 100px;
+      font-weight: 900;
+      color: rgba(241,235,214,0.03);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* =============================================
+       AWS SPOTLIGHT CARD
+    ============================================= */
+    @keyframes gradientBorderSpin {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 40px rgba(255, 192, 42, 0.2), 0 0 80px rgba(106, 180, 72, 0.1), 0 30px 80px rgba(0,0,0,0.5); }
+      50% { box-shadow: 0 0 60px rgba(255, 192, 42, 0.35), 0 0 120px rgba(106, 180, 72, 0.2), 0 30px 80px rgba(0,0,0,0.5); }
+    }
+
+    .c4-aws-spotlight-wrapper {
+      position: relative;
+      border-radius: 28px;
+      padding: 2px;
+      background: linear-gradient(270deg, #FFC02A, #6AB448, #003D29, #5E324E, #FFC02A);
+      background-size: 400% 400%;
+      animation: gradientBorderSpin 4s ease infinite, pulseGlow 3s ease-in-out infinite;
+    }
+
+    .c4-aws-spotlight {
+      border-radius: 26px;
+      background: linear-gradient(135deg, #042017 0%, #003D29 40%, #042017 100%);
+      padding: 56px 60px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .c4-aws-spotlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(255, 192, 42, 0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 50%, rgba(106, 180, 72, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .c4-aws-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, rgba(255,192,42,0.15), rgba(255,192,42,0.05));
+      border: 1px solid rgba(255, 192, 42, 0.3);
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #FFC02A;
+      margin-bottom: 24px;
+    }
+
+    .c4-aws-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FFC02A;
+      box-shadow: 0 0 8px #FFC02A;
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .c4-aws-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: #F1EBD6;
+      margin-bottom: 20px;
+    }
+
+    .c4-aws-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, #FFC02A, #6AB448);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .c4-aws-desc {
+      font-size: 16px;
+      color: rgba(241,235,214,0.6);
+      line-height: 1.75;
+      max-width: 580px;
+      margin-bottom: 28px;
+    }
+
+    .c4-aws-stats {
+      display: flex;
+      gap: 36px;
+    }
+
+    .c4-aws-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .c4-aws-stat-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: #FFC02A;
+      letter-spacing: -0.03em;
+    }
+
+    .c4-aws-stat-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(241,235,214,0.35);
+    }
+
+    .c4-aws-logo-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0.7;
+    }
+
+    .c4-aws-logo-box {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      background: rgba(255, 192, 42, 0.08);
+      border: 1px solid rgba(255, 192, 42, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .c4-aws-partner-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(241,235,214,0.3);
+      text-align: center;
+    }
+
+    .c4-aws-bg-glow {
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 192, 42, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* =============================================
+       CHAPTER 5 — FOOTER / THAT'S A WRAP
+    ============================================= */
+    .c4-chapter-footer {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 80px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .c4-footer-wrap-text {
+      font-size: clamp(60px, 11vw, 130px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      color: #F1EBD6;
+      margin-bottom: 40px;
+    }
+
+    .c4-footer-wrap-text span {
+      display: block;
+      background: linear-gradient(90deg, #6AB448, #FFC02A, #6AB448);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientBorderSpin 5s ease infinite;
+    }
+
+    .c4-footer-sub {
+      font-size: 18px;
+      color: rgba(241,235,214,0.5);
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    .c4-footer-stats-recap {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .c4-footer-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .c4-footer-stat-val {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #FFC02A;
+    }
+
+    .c4-footer-stat-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(241,235,214,0.35);
+    }
+
+    .c4-footer-divider {
+      width: 1px;
+      height: 60px;
+      background: rgba(241,235,214,0.1);
+    }
+
+    .c4-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #FFC02A, #e6a800);
+      color: #042017;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      border-radius: 60px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .c4-cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 60px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .c4-cta-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 40px rgba(255, 192, 42, 0.4);
+    }
+
+    .c4-cta-btn:hover::before {
+      opacity: 1;
+    }
+
+    .c4-footer-brand {
+      margin-top: 60px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(241,235,214,0.2);
+    }
+
+    .c4-footer-brand span {
+      color: #6AB448;
+      opacity: 0.6;
+    }
+
+    /* =============================================
+       ANIMATED GRADIENT BORDER UTILITY
+    ============================================= */
+    @keyframes borderGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* =============================================
+       SECTION LABELS ON LEFT EDGE
+    ============================================= */
+    .c4-edge-label {
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(241,235,214,0.18);
+      white-space: nowrap;
+      transform-origin: center center;
+    }
+
+    /* =============================================
+       PROGRESS LINE
+    ============================================= */
+    .c4-progress-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #6AB448, #FFC02A);
+      z-index: 1001;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(106, 180, 72, 0.6);
+    }
+
+    /* =============================================
+       NOISE TEXTURE OVERLAY
+    ============================================= */
+    .c4-noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      .c4-stats-dashboard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .c4-split-row {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .c4-split-row.reverse {
+        direction: ltr;
+      }
+      .c4-ecom-grid {
+        grid-template-columns: 1fr;
+      }
+      .c4-aws-spotlight {
+        grid-template-columns: 1fr;
+      }
+      .c4-chapter-segments,
+      .c4-chapter-ecommerce,
+      .c4-chapter-whats-new {
+        padding: 80px 24px;
+      }
+      .c4-chapter-hero {
+        padding: 100px 24px 60px;
+      }
+      .c4-header {
+        padding: 12px 20px;
+      }
+      .c4-chapter-footer {
+        padding: 80px 24px;
+      }
+      .c4-hscroll-track {
+        padding-right: 24px;
+      }
+      .c4-whats-new-intro {
+        padding-right: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="concept-4">
+  <!-- Noise texture -->
+  <div class="c4-noise"></div>
+
+  <!-- Progress bar -->
+  <div class="c4-progress-line" id="c4Progress"></div>
+
+  <!-- ============================================
+       STICKY FROSTED HEADER
+  ============================================= -->
+  <header class="c4-header" id="c4Header">
+    <div class="c4-header-logo">Dutchie <span>Platform</span></div>
+    <div class="c4-section-label" id="c4SectionLabel">Product Updates</div>
+    <nav class="c4-header-nav" aria-label="Section navigation">
+      <div class="c4-nav-dot active" data-section="hero" title="Hero"></div>
+      <div class="c4-nav-dot" data-section="whats-new" title="What's New"></div>
+      <div class="c4-nav-dot" data-section="segments" title="Segments & Growth"></div>
+      <div class="c4-nav-dot" data-section="ecommerce" title="E-Commerce & Mobile"></div>
+      <div class="c4-nav-dot" data-section="footer" title="Wrap-Up"></div>
+    </nav>
+  </header>
+
+  <!-- ============================================
+       CHAPTER 1 — HERO
+  ============================================= -->
+  <section class="c4-chapter-hero" id="c4-hero" data-section-name="Product Updates">
+    <div class="mesh-bg">
+      <div class="mesh-blob mesh-blob-1"></div>
+      <div class="mesh-blob mesh-blob-2"></div>
+      <div class="mesh-blob mesh-blob-3"></div>
+    </div>
+    <div class="c4-grid-lines"></div>
+
+    <div class="c4-hero-eyebrow c4-reveal">Dutchie Platform — Release Notes</div>
+
+    <h1 class="c4-hero-date c4-reveal c4-delay-1" data-text="MARCH 2026">MARCH<br>2026</h1>
+
+    <p class="c4-hero-subtitle c4-reveal c4-delay-2">
+      <strong>11 new features.</strong> One massive infrastructure leap. Your platform just leveled up.
+    </p>
+
+    <!-- Stats Dashboard -->
+    <div class="c4-stats-dashboard c4-reveal c4-delay-3">
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="11" data-suffix="">0</div>
+        <div class="c4-stat-label">New Features</div>
+      </div>
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="4" data-suffix="">0</div>
+        <div class="c4-stat-label">Product Areas</div>
+      </div>
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="30" data-suffix="+">0</div>
+        <div class="c4-stat-label">Segment Filters</div>
+      </div>
+      <div class="c4-stat-cell">
+        <div class="c4-stat-number" data-count="1" data-suffix="">0</div>
+        <div class="c4-stat-label">AWS Partnership</div>
+      </div>
+    </div>
+
+    <div class="c4-scroll-cue c4-reveal c4-delay-4">
+      <span>Scroll to explore</span>
+      <div class="c4-scroll-arrow"></div>
+    </div>
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 2 — WHAT'S NEW
+  ============================================= -->
+  <section class="c4-chapter-whats-new" id="c4-whats-new" data-section-name="What's New">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:60vw;height:60vw;background:radial-gradient(circle,#5E324E 0%,transparent 70%);top:10%;left:-20%;animation:meshShift2 20s ease-in-out infinite;opacity:0.3;"></div>
+      <div class="mesh-blob" style="width:40vw;height:40vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);bottom:0;right:0;animation:meshShift1 16s ease-in-out infinite;opacity:0.35;"></div>
+    </div>
+    <div class="c4-edge-label">Chapter 02 — What's New</div>
+
+    <div class="c4-whats-new-intro">
+      <div class="c4-chapter-tag c4-reveal">Chapter 02</div>
+      <h2 class="c4-chapter-headline c4-reveal c4-delay-1">
+        What's<br><em>New</em>
+      </h2>
+      <p class="c4-chapter-desc c4-reveal c4-delay-2">
+        Four powerhouse additions to Inventory, Marketing, and Brand management — drag left to explore each one.
+      </p>
+    </div>
+
+    <!-- Horizontal scroll carousel -->
+    <div class="c4-hscroll-track c4-reveal c4-delay-3" id="c4HScroll">
+
+      <!-- Card 1: Smart Tags -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(106,180,72,0.25),transparent 70%);"></div>
+        <div class="c4-glass-card-number">01 — Smart Tags</div>
+        <div class="c4-glass-card-title">Smart Tags</div>
+        <div class="c4-glass-card-desc">
+          Rules-based automation for inventory tagging. Tags trigger automatically based on lab results, pricing trends, and expiration dates — then fire discounts and menu collections without a single manual click.
+        </div>
+        <div class="c4-glass-card-location">Inventory tab</div>
+      </div>
+
+      <!-- Card 2: Brand Portal V2 -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(94,50,78,0.35),transparent 70%);"></div>
+        <div class="c4-glass-card-number">02 — Brand Portal V2</div>
+        <div class="c4-glass-card-title">Brand Portal V2</div>
+        <div class="c4-glass-card-desc">
+          Brands now own their catalog experience. Create and manage product listings with verified imagery, rich descriptions, and compliance-ready assets — all in one consolidated, brand-controlled space.
+        </div>
+        <div class="c4-glass-card-location">Brand Portal</div>
+      </div>
+
+      <!-- Card 3: Exclusive Channel Offers -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(255,192,42,0.2),transparent 70%);"></div>
+        <div class="c4-glass-card-number">03 — Channel Offers</div>
+        <div class="c4-glass-card-title">Exclusive Channel Offers</div>
+        <div class="c4-glass-card-desc">
+          Precision promotions scoped to a single order source. Run Mobile-Only flash sales, Kiosk-Only bundle deals, or drive online exclusives — each promotion targeted exactly where you want it.
+        </div>
+        <div class="c4-glass-card-location">Marketing › Discounts › Order Sources</div>
+      </div>
+
+      <!-- Card 4: Event-Based Lead Gen -->
+      <div class="c4-glass-card">
+        <div class="c4-glass-card-glow" style="background:radial-gradient(circle,rgba(0,61,41,0.5),transparent 70%);"></div>
+        <div class="c4-glass-card-number">04 — Event Lead Gen</div>
+        <div class="c4-glass-card-title">Event-Based Lead Generation</div>
+        <div class="c4-glass-card-desc">
+          Capture customers in the wild. Generate QR codes for pop-ups, festivals, and community events. Scan-to-signup flows feed directly into your CRM, turning every event into a growth opportunity.
+        </div>
+        <div class="c4-glass-card-location">Marketing › Events</div>
+      </div>
+
+    </div>
+
+    <div class="c4-hscroll-hint c4-reveal c4-delay-4">
+      <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 6H19M13 1L19 6L13 11" stroke="rgba(241,235,214,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Drag to scroll</span>
+    </div>
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 3 — SEGMENTS & GROWTH
+  ============================================= -->
+  <section class="c4-chapter-segments" id="c4-segments" data-section-name="Segments & Growth">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:65vw;height:65vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);top:-10%;right:-20%;animation:meshShift1 24s ease-in-out infinite;opacity:0.3;"></div>
+      <div class="mesh-blob" style="width:45vw;height:45vw;background:radial-gradient(circle,#5E324E 0%,transparent 70%);bottom:5%;left:-10%;animation:meshShift3 18s ease-in-out infinite;opacity:0.25;"></div>
+    </div>
+    <div class="c4-edge-label">Chapter 03 — Segments & Growth</div>
+
+    <div class="c4-segments-intro">
+      <div class="c4-chapter-tag c4-reveal">Chapter 03</div>
+      <h2 class="c4-chapter-headline c4-reveal c4-delay-1">
+        Segments<br>&amp; <em>Growth</em>
+      </h2>
+      <p class="c4-chapter-desc c4-reveal c4-delay-2">
+        Know your customers deeper, reach them smarter, and reward your team — all with more control than ever before.
+      </p>
+    </div>
+
+    <!-- Row 1: Comms Preferences -->
+    <div class="c4-split-row">
+      <div class="c4-split-text-side c4-reveal-left">
+        <div class="c4-split-big-number">05</div>
+        <div class="c4-split-feature-name">Communications <em>Preferences</em></div>
+        <div class="c4-split-feature-desc">
+          Put customers and budtenders in the driver's seat. Notification preferences for SMS, Email, and Push can now be managed right at the POS — reducing opt-out rates and increasing message relevance.
+        </div>
+        <div class="c4-split-feature-loc">Point of Sale</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-right">
+        <div class="c4-sfcard-glow"></div>
+        <div class="c4-sfcard-icon">💬</div>
+        <div class="c4-sfcard-title">Choose how you hear from us</div>
+        <div class="c4-sfcard-desc">SMS, Email, and Push notification preferences collected at checkout — no app required, no friction added.</div>
+        <div class="c4-sfcard-loc">POS — Customer Profile</div>
+      </div>
+    </div>
+
+    <!-- Row 2: Enhanced Segment Attributes -->
+    <div class="c4-split-row reverse">
+      <div class="c4-split-text-side c4-reveal-right">
+        <div class="c4-split-big-number">06</div>
+        <div class="c4-split-feature-name">Enhanced Segment <em>Attributes</em></div>
+        <div class="c4-split-feature-desc">
+          Over 30 new filtering options unlock hyper-targeted customer segments. Slice by purchase behavior, product preferences, visit frequency, spend thresholds, and more.
+        </div>
+        <div class="c4-split-feature-loc">Customers › Segments</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-left" style="border-color: rgba(255,192,42,0.25); background: linear-gradient(135deg, rgba(255,192,42,0.08) 0%, rgba(4,32,23,0.7) 100%);">
+        <div class="c4-sfcard-glow" style="background: radial-gradient(circle, rgba(255,192,42,0.3), transparent 70%);"></div>
+        <div class="c4-sfcard-icon">🎯</div>
+        <div class="c4-sfcard-title">30+ new ways to slice your audience</div>
+        <div class="c4-sfcard-desc">Build segments based on behaviors, preferences, and patterns you couldn't reach before. More signal, less noise.</div>
+        <div class="c4-sfcard-loc" style="border-color: rgba(255,192,42,0.3); color: rgba(255,192,42,0.7);">Customers › Segments</div>
+      </div>
+    </div>
+
+    <!-- Row 3: Custom Segment Badges -->
+    <div class="c4-split-row">
+      <div class="c4-split-text-side c4-reveal-left">
+        <div class="c4-split-big-number">07</div>
+        <div class="c4-split-feature-name">Custom Segment <em>Badges</em></div>
+        <div class="c4-split-feature-desc">
+          Visual indicators surface instantly at the register — spot VIPs, medical patients, loyalty tiers, and custom segments with a glance. Better service starts before the first word is said.
+        </div>
+        <div class="c4-split-feature-loc">Register — Customer View</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-right" style="border-color: rgba(106,180,72,0.3); background: linear-gradient(135deg, rgba(106,180,72,0.1) 0%, rgba(4,32,23,0.7) 100%);">
+        <div class="c4-sfcard-glow" style="background: radial-gradient(circle, rgba(106,180,72,0.3), transparent 70%);"></div>
+        <div class="c4-sfcard-icon">🏷️</div>
+        <div class="c4-sfcard-title">Instant customer recognition at the register</div>
+        <div class="c4-sfcard-desc">Color-coded badges help staff identify VIPs, medical patients, and custom segments in real time — enabling personalized service at scale.</div>
+        <div class="c4-sfcard-loc" style="border-color: rgba(106,180,72,0.35); color: rgba(106,180,72,0.8);">Register — Customer Profile</div>
+      </div>
+    </div>
+
+    <!-- Row 4: Employee Rewards & Guardrails -->
+    <div class="c4-split-row reverse">
+      <div class="c4-split-text-side c4-reveal-right">
+        <div class="c4-split-big-number">08</div>
+        <div class="c4-split-feature-name">Employee Rewards <em>&amp; Guardrails</em></div>
+        <div class="c4-split-feature-desc">
+          Reward your team while protecting your margins. Employee segments with configurable guardrails ensure discounts and loyalty perks stay within company policy — automatically.
+        </div>
+        <div class="c4-split-feature-loc">Marketing › Loyalty › Settings</div>
+      </div>
+      <div class="c4-segment-feature-card c4-reveal-left" style="border-color: rgba(94,50,78,0.45);">
+        <div class="c4-sfcard-glow"></div>
+        <div class="c4-sfcard-icon">⚡</div>
+        <div class="c4-sfcard-title">Reward your team, protect your margins</div>
+        <div class="c4-sfcard-desc">Configurable discount guardrails on employee segments mean staff perks are always within policy — no manager overrides, no surprise shrink.</div>
+        <div class="c4-sfcard-loc">Marketing › Loyalty › Settings</div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 4 — E-COMMERCE & MOBILE
+  ============================================= -->
+  <section class="c4-chapter-ecommerce" id="c4-ecommerce" data-section-name="E-Commerce &amp; Mobile">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:70vw;height:70vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);top:0%;left:-30%;animation:meshShift2 20s ease-in-out infinite;opacity:0.28;"></div>
+      <div class="mesh-blob" style="width:50vw;height:50vw;background:radial-gradient(circle,#042017 0%,#FFC02A 100%);bottom:-10%;right:-10%;animation:meshShift3 22s ease-in-out infinite;opacity:0.12;"></div>
+    </div>
+    <div class="c4-edge-label">Chapter 04 — E-Commerce &amp; Mobile</div>
+
+    <div class="c4-ecom-intro">
+      <div class="c4-chapter-tag c4-reveal">Chapter 04</div>
+      <h2 class="c4-chapter-headline c4-reveal c4-delay-1">
+        E-Commerce<br>&amp; <em>Mobile</em>
+      </h2>
+      <p class="c4-chapter-desc c4-reveal c4-delay-2">
+        A reimagined digital storefront, a drag-and-drop menu builder, and the most significant infrastructure upgrade in Dutchie's history.
+      </p>
+    </div>
+
+    <!-- Two drama cards side by side -->
+    <div class="c4-ecom-grid">
+
+      <div class="c4-drama-card green-theme c4-reveal c4-delay-1">
+        <div class="c4-drama-card-bg-text">IMG</div>
+        <div class="c4-drama-card-badge">Feature 09</div>
+        <div class="c4-drama-card-title">Multi-Image Product Cards</div>
+        <div class="c4-drama-card-desc">
+          Show your product from every angle. Multi-image galleries on product cards give customers a richer, more confident buying experience — directly from menu displays, no third-party tools required.
+        </div>
+        <div class="c4-drama-card-loc">Menus — Product Cards</div>
+      </div>
+
+      <div class="c4-drama-card yellow-theme c4-reveal c4-delay-2">
+        <div class="c4-drama-card-bg-text">MENU</div>
+        <div class="c4-drama-card-badge">Feature 10</div>
+        <div class="c4-drama-card-title">Custom Mobile Menu Builder</div>
+        <div class="c4-drama-card-desc">
+          Drag. Drop. Deploy. A visual drag-and-drop builder gives operators full control over mobile menu layout — reorder sections, feature collections, and create curated shopping flows without writing a line of code.
+        </div>
+        <div class="c4-drama-card-loc">Menu Builder — Mobile Layout</div>
+      </div>
+
+    </div>
+
+    <!-- AWS SPOTLIGHT — full width, animated border -->
+    <div class="c4-aws-spotlight-wrapper c4-reveal c4-delay-3">
+      <div class="c4-aws-spotlight">
+        <div class="c4-aws-bg-glow"></div>
+        <div>
+          <div class="c4-aws-badge">Feature 11 — Infrastructure Spotlight</div>
+          <div class="c4-aws-title">AWS Database<br><em>Migration</em></div>
+          <p class="c4-aws-desc">
+            In partnership with Amazon Web Services, Dutchie has completed a major database migration to AWS-managed infrastructure — unlocking faster checkouts, intelligent auto-scaling during peak demand, and enterprise-grade reliability. This isn't a feature update. It's a foundation upgrade.
+          </p>
+          <div class="c4-aws-stats">
+            <div class="c4-aws-stat">
+              <div class="c4-aws-stat-val">↑99.9%</div>
+              <div class="c4-aws-stat-lbl">Uptime Target</div>
+            </div>
+            <div class="c4-aws-stat">
+              <div class="c4-aws-stat-val">Auto</div>
+              <div class="c4-aws-stat-lbl">Scale on Demand</div>
+            </div>
+            <div class="c4-aws-stat">
+              <div class="c4-aws-stat-val">Faster</div>
+              <div class="c4-aws-stat-lbl">Checkout Speed</div>
+            </div>
+          </div>
+        </div>
+        <div class="c4-aws-logo-area">
+          <div class="c4-aws-logo-box">☁️</div>
+          <div class="c4-aws-partner-label">AWS<br>Partnership</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="c4-chapter-divider"></div>
+
+  <!-- ============================================
+       CHAPTER 5 — THAT'S A WRAP
+  ============================================= -->
+  <section class="c4-chapter-footer" id="c4-footer" data-section-name="That's a Wrap">
+    <div class="mesh-bg">
+      <div class="mesh-blob" style="width:80vw;height:80vw;background:radial-gradient(circle,#003D29 0%,transparent 70%);top:-30%;left:-20%;animation:meshShift1 25s ease-in-out infinite;opacity:0.25;"></div>
+      <div class="mesh-blob" style="width:60vw;height:60vw;background:radial-gradient(circle,#5E324E 0%,transparent 70%);bottom:-20%;right:-20%;animation:meshShift2 20s ease-in-out infinite;opacity:0.25;"></div>
+    </div>
+    <div class="c4-grid-lines"></div>
+
+    <div class="c4-chapter-tag c4-reveal" style="margin-bottom:0;">Chapter 05</div>
+
+    <div class="c4-footer-wrap-text c4-reveal c4-delay-1">
+      That's a<br><span>Wrap.</span>
+    </div>
+
+    <p class="c4-footer-sub c4-reveal c4-delay-2">
+      March 2026 marks a new chapter for the Dutchie platform — more automation, deeper customer intelligence, and infrastructure built to scale with you.
+    </p>
+
+    <!-- Stats recap -->
+    <div class="c4-footer-stats-recap c4-reveal c4-delay-3">
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">11</div>
+        <div class="c4-footer-stat-lbl">Features Shipped</div>
+      </div>
+      <div class="c4-footer-divider"></div>
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">30+</div>
+        <div class="c4-footer-stat-lbl">Segment Filters</div>
+      </div>
+      <div class="c4-footer-divider"></div>
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">1</div>
+        <div class="c4-footer-stat-lbl">AWS Partnership</div>
+      </div>
+      <div class="c4-footer-divider"></div>
+      <div class="c4-footer-stat">
+        <div class="c4-footer-stat-val">∞</div>
+        <div class="c4-footer-stat-lbl">Possibilities Ahead</div>
+      </div>
+    </div>
+
+    <a href="#" class="c4-cta-btn c4-reveal c4-delay-4">
+      Explore the Platform
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 6H15M9 1L15 6L9 11" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <div class="c4-footer-brand c4-reveal c4-delay-5">
+      &copy; 2026 <span>Dutchie</span> — Cannabis Technology Platform
+    </div>
+  </section>
+
+</div><!-- end .concept-4 -->
+
+<!-- ============================================
+     JAVASCRIPT
+============================================= -->
+<script>
+(function() {
+  'use strict';
+
+  /* ----------------------------------------
+     1. SCROLL PROGRESS BAR
+  ---------------------------------------- */
+  const progressBar = document.getElementById('c4Progress');
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+
+  /* ----------------------------------------
+     2. SECTION DETECTION + NAV DOTS + HEADER LABEL
+  ---------------------------------------- */
+  const sections = [
+    { id: 'c4-hero',       dot: 0, name: 'Product Updates'     },
+    { id: 'c4-whats-new',  dot: 1, name: "What's New"          },
+    { id: 'c4-segments',   dot: 2, name: 'Segments & Growth'   },
+    { id: 'c4-ecommerce',  dot: 3, name: 'E-Commerce & Mobile' },
+    { id: 'c4-footer',     dot: 4, name: "That's a Wrap"       },
+  ];
+
+  const navDots = document.querySelectorAll('.c4-nav-dot');
+  const sectionLabel = document.getElementById('c4SectionLabel');
+
+  function updateActiveSection() {
+    const scrollY = window.scrollY + window.innerHeight * 0.4;
+    let active = sections[0];
+    for (const s of sections) {
+      const el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollY) active = s;
+    }
+    navDots.forEach((d, i) => {
+      d.classList.toggle('active', i === active.dot);
+    });
+    sectionLabel.textContent = active.name;
+  }
+
+  /* ----------------------------------------
+     3. INTERSECTION OBSERVER — REVEAL ANIMATIONS
+  ---------------------------------------- */
+  const revealSelectors = [
+    '.c4-reveal',
+    '.c4-reveal-left',
+    '.c4-reveal-right',
+    '.c4-reveal-scale',
+  ];
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  document.querySelectorAll(revealSelectors.join(',')).forEach((el) => {
+    observer.observe(el);
+  });
+
+  /* ----------------------------------------
+     4. ANIMATED COUNTERS
+  ---------------------------------------- */
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current + (progress === 1 ? suffix : '');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    counterObserver.observe(el);
+  });
+
+  /* ----------------------------------------
+     5. CARD TILT ON HOVER (3D perspective)
+  ---------------------------------------- */
+  function addTilt(selector) {
+    document.querySelectorAll(selector).forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const rotX = -dy * 6;
+        const rotY = dx * 6;
+        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  addTilt('.c4-glass-card');
+  addTilt('.c4-segment-feature-card');
+  addTilt('.c4-drama-card');
+
+  /* ----------------------------------------
+     6. HORIZONTAL SCROLL DRAG
+  ---------------------------------------- */
+  const hTrack = document.getElementById('c4HScroll');
+  if (hTrack) {
+    let isDown = false, startX, scrollLeft;
+    hTrack.addEventListener('mousedown', (e) => {
+      isDown = true;
+      hTrack.classList.add('active');
+      startX = e.pageX - hTrack.offsetLeft;
+      scrollLeft = hTrack.scrollLeft;
+    });
+    hTrack.addEventListener('mouseleave', () => { isDown = false; });
+    hTrack.addEventListener('mouseup', () => { isDown = false; });
+    hTrack.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - hTrack.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      hTrack.scrollLeft = scrollLeft - walk;
+    });
+  }
+
+  /* ----------------------------------------
+     7. NAV DOT CLICK SCROLL
+  ---------------------------------------- */
+  navDots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(sections[i].id);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ----------------------------------------
+     8. SCROLL EVENT AGGREGATION
+  ---------------------------------------- */
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateProgress();
+        updateActiveSection();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Init
+  updateProgress();
+  updateActiveSection();
+
+})();
+</script>
+
+</body>
+</html>
