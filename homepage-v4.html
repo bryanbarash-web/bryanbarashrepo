@@ -791,9 +791,31 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 .shared-logos-img {
   display: block; width: 100%; max-width: 900px; margin: 0 auto; height: auto;
 }
-.shared-map-img {
-  display: block; width: 100%; max-width: 1000px; margin: 0 auto; height: auto; border-radius: 20px;
+.shared-map-wrap {
+  position: relative; max-width: 1000px; margin: 0 auto;
 }
+.shared-map-img {
+  display: block; width: 100%; height: auto; border-radius: 20px;
+}
+.shared-map-search-overlay {
+  position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 0;
+  background: #fff; border-radius: 12px; padding: 4px 4px 4px 16px;
+  box-shadow: 0 4px 20px rgba(4,32,23,0.12);
+  width: 56%; max-width: 520px;
+}
+.map-search-icon { width: 18px; height: 18px; flex-shrink: 0; margin-right: 8px; }
+.shared-map-search-overlay input {
+  flex: 1; border: none; outline: none; font-family: var(--font);
+  font-size: 14px; color: var(--dark-green); background: transparent; min-width: 0;
+}
+.shared-map-search-overlay input::placeholder { color: rgba(4,32,23,0.35); }
+.shared-map-search-overlay button {
+  padding: 10px 20px; border-radius: 9px; background: var(--yellow); border: none;
+  color: var(--dark-green); font-weight: 700; font-size: 13px; cursor: pointer;
+  font-family: var(--font); white-space: nowrap; transition: background 0.2s;
+}
+.shared-map-search-overlay button:hover { background: #e6ac00; }
 .shared-logos {
   background: var(--sand); padding: 48px 24px; overflow-x: auto;
 }
@@ -934,6 +956,9 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .shared-footer { padding: 48px 24px 24px; }
   .map-dispensary-card { display: none; }
+  .shared-map-search-overlay { width: 70%; padding: 3px 3px 3px 12px; }
+  .shared-map-search-overlay input { font-size: 12px; }
+  .shared-map-search-overlay button { padding: 8px 14px; font-size: 11px; }
 }
 @media (max-width: 480px) {
   .shared-products { padding: 56px 16px; }
@@ -1183,7 +1208,14 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
 </section>
 
 <section class="shared-map">
-  <img src="images/shop-local-map.png" alt="A better way to shop locally — find dispensaries near you" class="shared-map-img">
+  <div class="shared-map-wrap">
+    <img src="images/shop-local-map.png" alt="A better way to shop locally — find dispensaries near you" class="shared-map-img">
+    <div class="shared-map-search-overlay">
+      <svg class="map-search-icon" viewBox="0 0 20 20" fill="none"><path d="M10 5a5 5 0 00-5 5c0 3.5 5 7 5 7s5-3.5 5-7a5 5 0 00-5-5z" stroke="#042017" stroke-opacity=".4" stroke-width="1.5"/><circle cx="10" cy="9.5" r="2" stroke="#042017" stroke-opacity=".4" stroke-width="1.5"/></svg>
+      <input type="text" placeholder="Enter your address or city to get started...">
+      <button>Start shopping</button>
+    </div>
+  </div>
 </section>
 
 <section class="shared-cities">
