@@ -176,7 +176,7 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   50% { transform: translateY(6px); }
 }
 .oe-card-tooltip {
-  position: absolute; bottom: -52px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: calc(50% + 120px); right: calc(10% - 10px); transform: none; z-index: 12;
   background: var(--yellow); color: var(--dark-green); padding: 10px 18px;
   border-radius: 10px; font-size: 13px; font-weight: 700; white-space: nowrap;
   box-shadow: 0 8px 24px rgba(255,192,42,0.35);
@@ -195,8 +195,8 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   100% { opacity: 1; transform: translateY(0); }
 }
 .oe-card-highlight {
-  position: absolute; top: calc(100% + 60px); left: 50%; transform: translateX(-50%);
-  width: 280px; text-align: center; pointer-events: none; opacity: 0;
+  position: absolute; bottom: 8%; right: 10%; transform: translateX(10%);
+  width: 280px; text-align: center; pointer-events: none; opacity: 0; z-index: 11;
 }
 .oe-card-highlight.show { animation: oe-highlight-in 0.5s ease-out forwards; animation-delay: 0.3s; }
 .oe-card-highlight h3 {
@@ -483,8 +483,9 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   100% { opacity: 1; transform: translateY(0); }
 }
 .of-ribbon-floater {
-  position: absolute; top: calc(100% + 20px); left: 0; right: 0;
-  text-align: center; pointer-events: none; z-index: 20;
+  position: relative; z-index: 20;
+  text-align: center; pointer-events: none;
+  padding: 24px 32px 0;
   opacity: 0;
 }
 .of-ribbon-floater.show { animation: of-header-float 0.6s ease-out forwards; }
@@ -924,12 +925,12 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
     <div class="oe-card-eyebrow">For Business</div>
     <div class="oe-card-heading">Powering 6,500+ dispensaries</div>
     <span class="oe-card-cta">Get a demo &rarr;</span>
-    <div class="oe-card-tooltip" id="oe-card-tooltip">The technology behind modern cannabis retail &rarr;</div>
-    <div class="oe-card-highlight" id="oe-card-highlight">
-      <h3><em>POS, E-Commerce, Loyalty, Payments</em></h3>
-      <p>All in one platform. Trusted by 6,500+ dispensaries across 40+ states.</p>
-    </div>
   </a>
+  <div class="oe-card-tooltip" id="oe-card-tooltip">The technology behind modern cannabis retail &rarr;</div>
+  <div class="oe-card-highlight" id="oe-card-highlight">
+    <h3><em>POS, E-Commerce, Loyalty, Payments</em></h3>
+    <p>All in one platform. Trusted by 6,500+ dispensaries across 40+ states.</p>
+  </div>
 </section>
 
 <!-- OPTION F SEPARATOR -->
@@ -951,16 +952,16 @@ footer { background: var(--dark-green); padding: 64px 48px 40px; }
       <div class="of-ribbon-stat"><div class="num">40+</div><div class="label">States</div></div>
       <span class="of-ribbon-cta">Get a demo &rarr;</span>
     </div>
-    <div class="of-ribbon-floater" id="of-ribbon-floater">
-      <h2>The technology that powers <em>modern cannabis retail</em></h2>
-      <p>POS, E-Commerce, Loyalty, Payments — all in one platform</p>
-      <div class="highlight-stats">
-        <div class="hs"><div class="hs-num">$22B+</div><div class="hs-label">Processed</div></div>
-        <div class="hs"><div class="hs-num">6,500+</div><div class="hs-label">Dispensaries</div></div>
-        <div class="hs"><div class="hs-num">40+</div><div class="hs-label">States</div></div>
-      </div>
-    </div>
   </a>
+  <div class="of-ribbon-floater" id="of-ribbon-floater">
+    <h2>The technology that powers <em>modern cannabis retail</em></h2>
+    <p>POS, E-Commerce, Loyalty, Payments — all in one platform</p>
+    <div class="highlight-stats">
+      <div class="hs"><div class="hs-num">$22B+</div><div class="hs-label">Processed</div></div>
+      <div class="hs"><div class="hs-num">6,500+</div><div class="hs-label">Dispensaries</div></div>
+      <div class="hs"><div class="hs-num">40+</div><div class="hs-label">States</div></div>
+    </div>
+  </div>
   <div class="of-nav">
     <span class="wordmark">dutchie</span>
     <div class="links"><a href="#">Log in</a>&nbsp;&nbsp;<a href="#">Sign up</a></div>
