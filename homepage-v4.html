@@ -228,18 +228,34 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
 .business-mode .oc-toggle-btn { color: rgba(241,235,214,0.5); }
 .business-mode .oc-toggle-btn.active { color: var(--dark-green); }
 
-/* Pulse animation */
-@keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(2.5); opacity: 0; }
+/* Pulse animation — warm aura radiating from Business button */
+@keyframes pulse-aura {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+    background: rgba(255,192,42,0.35);
+    box-shadow: 0 0 0 0 rgba(255,192,42,0.4);
+  }
+  40% {
+    opacity: 0.5;
+    background: rgba(255,192,42,0.15);
+    box-shadow: 0 0 20px 10px rgba(255,192,42,0.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+    background: rgba(255,192,42,0);
+    box-shadow: 0 0 40px 20px rgba(255,192,42,0);
+  }
 }
 .oc-pulse-ring {
   position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%);
-  width: 136px; height: 44px; border-radius: 11px; border: 3px solid var(--yellow);
+  width: 136px; height: 44px; border-radius: 11px;
+  background: rgba(255,192,42,0.35);
   pointer-events: none; opacity: 0; z-index: 10;
-  box-shadow: 0 0 30px rgba(255,192,42,0.5), inset 0 0 15px rgba(255,192,42,0.1);
+  filter: blur(2px);
 }
-.oc-pulse-ring.animating { animation: pulse-ring 1.2s ease-out forwards; }
+.oc-pulse-ring.animating { animation: pulse-aura 1.8s ease-out forwards; }
 
 /* Tooltip */
 @keyframes tooltip-bounce {
@@ -844,7 +860,7 @@ function dismissTooltip() {
             setTimeout(() => {
               p.classList.add('animating');
               p.addEventListener('animationend', () => p.classList.remove('animating'), { once: true });
-            }, i * 600);
+            }, i * 900);
           });
 
           setTimeout(() => {
@@ -852,7 +868,7 @@ function dismissTooltip() {
               document.getElementById('oc-tooltip').classList.add('show');
               setTimeout(() => { dismissTooltip(); }, 5000);
             }
-          }, 2200);
+          }, 3200);
         }, 2000);
       }
     });
