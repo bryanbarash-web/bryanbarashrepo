@@ -245,6 +245,15 @@ body { font-family: var(--font); color: var(--dark-green); background: var(--san
   display: flex; align-items: center; justify-content: center; overflow: hidden;
   box-shadow: -8px 0 30px rgba(4,32,23,0.25), -2px 0 8px rgba(4,32,23,0.15);
 }
+@keyframes peek-nudge {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-18px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}
+.ob-peek.nudge { animation: peek-nudge 0.7s ease-in-out; }
 .ob-peek:hover { width: 50%; min-width: 400px; max-width: 600px; }
 .ob-peek-content {
   padding: 40px 48px 40px 64px; text-align: left; width: 100%;
@@ -1289,6 +1298,7 @@ function showOption(targetId) {
   tabs.forEach(t => t.classList.toggle('active', t.dataset.target === targetId));
   window.scrollTo({ top: 0, behavior: 'smooth' });
   // Trigger effects for the shown option
+  if (targetId === 'option-a') triggerPeekNudge();
   if (targetId === 'option-b') triggerPulse();
   if (targetId === 'option-c') triggerSweep();
   if (targetId === 'option-d') triggerShimmer();
@@ -1343,6 +1353,17 @@ function dismissTooltip() {
   tooltipDismissed = true;
   const tt = document.getElementById('oc-tooltip');
   tt.classList.remove('show');
+}
+
+// OPTION A: Peek panel nudge — triggered by showOption
+function triggerPeekNudge() {
+  var peek = document.querySelector('.ob-peek');
+  if (!peek) return;
+  peek.classList.remove('nudge');
+  setTimeout(function() {
+    peek.classList.add('nudge');
+    peek.addEventListener('animationend', function() { peek.classList.remove('nudge'); }, { once: true });
+  }, 3000);
 }
 
 // OPTION B: Pulse effect — triggered by showOption
