@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie — Cannabis, simplified</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Font Faces ===== */
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Medium');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter SemiBold');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Bold');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --sand: #F1EBD6;
+  --dark-green: #042017;
+  --medium-green: #003D29;
+  --light-green: #6AB448;
+  --yellow: #FFC02A;
+  --purple: #5E324E;
+  --font: 'Matter', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--dark-green);
+  background: var(--sand);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===== Fade-in Animations ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+.fade-in-delay-4 { transition-delay: 0.4s; }
+
+/* ===== Nav ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--dark-green);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+}
+
+.nav-wordmark {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--sand);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.nav-toggle-pill {
+  padding: 8px 24px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: rgba(241, 235, 214, 0.7);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle-pill.active {
+  background: var(--yellow);
+  color: var(--dark-green);
+  font-weight: 600;
+}
+
+.nav-toggle-pill:hover:not(.active) {
+  color: var(--sand);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-link {
+  color: rgba(241, 235, 214, 0.8);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: var(--sand);
+}
+
+.nav-signup {
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1.5px solid var(--yellow);
+  background: transparent;
+  color: var(--yellow);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.nav-signup:hover {
+  background: var(--yellow);
+  color: var(--dark-green);
+}
+
+/* ===== Consumer Hero ===== */
+.consumer-hero {
+  background: var(--sand);
+  min-height: calc(100vh - 64px);
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.consumer-content {
+  flex: 0 0 55%;
+  max-width: 55%;
+  padding-right: 48px;
+}
+
+.consumer-visual {
+  flex: 0 0 45%;
+  max-width: 45%;
+  position: relative;
+  height: 500px;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.eyebrow-green {
+  background: var(--medium-green);
+  color: var(--sand);
+}
+
+.eyebrow-outline {
+  background: transparent;
+  border: 1.5px solid rgba(241, 235, 214, 0.3);
+  color: rgba(241, 235, 214, 0.8);
+}
+
+.consumer-hero h1 {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--dark-green);
+  margin-bottom: 20px;
+}
+
+.consumer-hero .subtext {
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(4, 32, 23, 0.65);
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 6px 6px 6px 20px;
+  max-width: 520px;
+  box-shadow: 0 4px 24px rgba(4, 32, 23, 0.08);
+}
+
+.search-bar .pin-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-right: 12px;
+  color: var(--medium-green);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--dark-green);
+  background: transparent;
+}
+.search-bar input::placeholder {
+  color: rgba(4, 32, 23, 0.35);
+}
+
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--dark-green);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-yellow:hover {
+  background: #e6ac00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 192, 42, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid rgba(241, 235, 214, 0.4);
+  color: var(--sand);
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-outline:hover {
+  border-color: var(--sand);
+  background: rgba(241, 235, 214, 0.08);
+}
+
+/* Floating Product Cards */
+.product-card {
+  position: absolute;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(4, 32, 23, 0.12);
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+.product-card:hover {
+  transform: scale(1.04);
+}
+
+.product-card-1 {
+  top: 20px;
+  right: 40px;
+  transform: rotate(-4deg);
+}
+.product-card-2 {
+  top: 180px;
+  right: 180px;
+  transform: rotate(3deg);
+}
+.product-card-3 {
+  top: 320px;
+  right: 20px;
+  transform: rotate(-2deg);
+}
+
+.product-img-placeholder {
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.product-card-1 .product-img-placeholder {
+  background: linear-gradient(135deg, #6AB448 0%, #003D29 100%);
+}
+.product-card-2 .product-img-placeholder {
+  background: linear-gradient(135deg, #5E324E 0%, #FFC02A 100%);
+}
+.product-card-3 .product-img-placeholder {
+  background: linear-gradient(135deg, #003D29 0%, #042017 100%);
+}
+
+.product-card-type {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(4, 32, 23, 0.45);
+  margin-bottom: 4px;
+}
+
+.product-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 6px;
+}
+
+.product-card-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--medium-green);
+}
+
+.product-card-rating {
+  font-size: 12px;
+  color: rgba(4, 32, 23, 0.5);
+  margin-top: 4px;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(4, 32, 23, 0.35);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  border-left: 2px solid rgba(4, 32, 23, 0.25);
+  border-bottom: 2px solid rgba(4, 32, 23, 0.25);
+  transform: rotate(-45deg);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ===== Business Hero ===== */
+.business-hero {
+  background: var(--dark-green);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 48px;
+  position: relative;
+}
+
+.business-visual {
+  flex: 0 0 45%;
+  max-width: 45%;
+  padding-right: 48px;
+}
+
+.business-content {
+  flex: 0 0 55%;
+  max-width: 55%;
+}
+
+.business-hero h2 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  color: var(--sand);
+  margin-bottom: 20px;
+}
+
+.business-hero .subtext {
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(241, 235, 214, 0.6);
+  margin-bottom: 40px;
+  max-width: 500px;
+}
+
+.cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Dashboard Mockup */
+.dashboard-mockup {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.dashboard-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sand);
+}
+
+.dashboard-badge {
+  background: rgba(106, 180, 72, 0.15);
+  color: var(--light-green);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: rgba(241, 235, 214, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--sand);
+}
+
+.metric-change {
+  font-size: 12px;
+  color: var(--light-green);
+  margin-top: 4px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 80px;
+  padding-top: 8px;
+}
+
+.chart-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.6s ease;
+}
+
+.chart-bar:nth-child(odd) {
+  background: var(--light-green);
+}
+.chart-bar:nth-child(even) {
+  background: rgba(106, 180, 72, 0.35);
+}
+
+.dashboard-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.dashboard-nav-item {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: rgba(241, 235, 214, 0.5);
+}
+.dashboard-nav-item.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--sand);
+  font-weight: 500;
+}
+
+/* ===== Stats Bar ===== */
+.stats-bar {
+  background: var(--medium-green);
+  padding: 48px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--sand);
+  margin-bottom: 6px;
+}
+
+.stat-item p {
+  font-size: 14px;
+  color: rgba(241, 235, 214, 0.6);
+  font-weight: 500;
+}
+
+/* ===== Dual Value Props ===== */
+.value-props {
+  padding: 100px 48px;
+  background: #fff;
+}
+
+.value-props-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.value-divider {
+  background: rgba(4, 32, 23, 0.08);
+}
+
+.value-col-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 40px;
+}
+
+.value-col-title.shopper {
+  color: var(--medium-green);
+}
+.value-col-title.business {
+  color: var(--purple);
+}
+
+.value-item {
+  margin-bottom: 36px;
+}
+
+.value-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.value-item-icon.green {
+  background: rgba(0, 61, 41, 0.08);
+}
+.value-item-icon.purple {
+  background: rgba(94, 50, 78, 0.08);
+}
+
+.value-item h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 8px;
+}
+
+.value-item p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(4, 32, 23, 0.55);
+}
+
+/* ===== Testimonials ===== */
+.testimonials {
+  background: var(--sand);
+  padding: 100px 48px;
+  overflow: hidden;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.testimonials-header h2 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--dark-green);
+  letter-spacing: -1px;
+}
+
+.testimonials-track {
+  display: flex;
+  gap: 24px;
+  animation: scroll-left 30s linear infinite;
+  width: max-content;
+}
+
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+.testimonial-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  width: 380px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 16px rgba(4, 32, 23, 0.05);
+}
+
+.testimonial-quote {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--dark-green);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.testimonial-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-green);
+}
+
+.testimonial-role {
+  font-size: 13px;
+  color: rgba(4, 32, 23, 0.5);
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== Final CTA ===== */
+.final-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 400px;
+}
+
+.final-cta-left {
+  background: var(--sand);
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.final-cta-right {
+  background: var(--dark-green);
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.final-cta h3 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+}
+
+.final-cta-left h3 {
+  color: var(--dark-green);
+}
+
+.final-cta-right h3 {
+  color: var(--sand);
+}
+
+.final-cta-left .search-bar {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--dark-green);
+  border-top: 1px solid rgba(241, 235, 214, 0.08);
+  padding: 64px 48px 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+
+.footer-brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--sand);
+  margin-bottom: 12px;
+}
+
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(241, 235, 214, 0.45);
+  max-width: 280px;
+}
+
+.footer-col h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(241, 235, 214, 0.35);
+  margin-bottom: 20px;
+}
+
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: rgba(241, 235, 214, 0.65);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.2s;
+}
+.footer-col a:hover {
+  color: var(--sand);
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(241, 235, 214, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom p {
+  font-size: 13px;
+  color: rgba(241, 235, 214, 0.3);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-bottom-links a {
+  font-size: 13px;
+  color: rgba(241, 235, 214, 0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-bottom-links a:hover {
+  color: rgba(241, 235, 214, 0.6);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .consumer-hero h1 { font-size: 48px; }
+  .business-hero h2 { font-size: 44px; }
+  .consumer-content { flex: 0 0 55%; max-width: 55%; }
+  .consumer-visual { flex: 0 0 45%; max-width: 45%; }
+  .product-card { width: 170px; }
+  .product-card-2 { right: 120px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .stat-item h3 { font-size: 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .footer-grid > div:first-child { grid-column: span 3; }
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 0 24px; }
+  .nav-toggle-pill { padding: 6px 16px; font-size: 13px; }
+  .consumer-hero {
+    flex-direction: column;
+    padding: 60px 24px 80px;
+    min-height: auto;
+  }
+  .consumer-content { flex: none; max-width: 100%; padding-right: 0; margin-bottom: 48px; }
+  .consumer-visual { flex: none; max-width: 100%; height: 360px; }
+  .consumer-hero h1 { font-size: 40px; letter-spacing: -1px; }
+  .consumer-hero .subtext { font-size: 17px; }
+  .search-bar { max-width: 100%; }
+
+  .business-hero {
+    flex-direction: column-reverse;
+    padding: 80px 24px;
+    min-height: auto;
+  }
+  .business-visual { flex: none; max-width: 100%; padding-right: 0; margin-top: 48px; }
+  .business-content { flex: none; max-width: 100%; }
+  .business-hero h2 { font-size: 36px; }
+  .business-hero .subtext { font-size: 17px; }
+
+  .scroll-indicator { display: none; }
+
+  .value-props { padding: 80px 24px; }
+  .value-props-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .value-divider {
+    height: 1px;
+    width: 100%;
+  }
+
+  .testimonials { padding: 80px 24px; }
+  .testimonial-card { width: 300px; padding: 24px; }
+
+  .final-cta { grid-template-columns: 1fr; }
+  .final-cta-left, .final-cta-right { padding: 60px 24px; }
+  .final-cta h3 { font-size: 28px; }
+
+  .footer { padding: 48px 24px 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-grid > div:first-child { grid-column: span 2; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  .dashboard-metrics { grid-template-columns: 1fr; gap: 10px; }
+  .metric-value { font-size: 20px; }
+}
+
+@media (max-width: 480px) {
+  .nav { padding: 0 16px; height: 56px; }
+  .nav-wordmark { font-size: 20px; }
+  .nav-right { gap: 8px; }
+  .nav-link { display: none; }
+  .nav-signup { padding: 6px 16px; font-size: 13px; }
+  .nav-toggle-pill { padding: 6px 12px; font-size: 12px; }
+
+  .consumer-hero { padding: 40px 16px 60px; margin-top: 56px; }
+  .consumer-hero h1 { font-size: 32px; }
+  .consumer-visual { height: 280px; }
+  .product-card { width: 140px; padding: 12px; }
+  .product-card-1 { right: 10px; top: 0; }
+  .product-card-2 { right: 100px; top: 120px; }
+  .product-card-3 { right: 0px; top: 220px; }
+  .product-img-placeholder { height: 80px; }
+
+  .business-hero { padding: 60px 16px; }
+  .business-hero h2 { font-size: 30px; }
+  .cta-row { flex-direction: column; }
+  .btn-yellow, .btn-outline { width: 100%; text-align: center; }
+
+  .stats-bar { padding: 32px 16px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-item h3 { font-size: 28px; }
+
+  .value-props { padding: 60px 16px; }
+  .testimonials { padding: 60px 16px; }
+  .testimonials-header h2 { font-size: 28px; }
+  .testimonial-card { width: 280px; }
+
+  .final-cta-left, .final-cta-right { padding: 48px 16px; }
+  .final-cta h3 { font-size: 24px; }
+
+  .footer { padding: 40px 16px 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-grid > div:first-child { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <a href="#" class="nav-wordmark">dutchie</a>
+  <div class="nav-toggle">
+    <button class="nav-toggle-pill active" data-target="consumer-section" id="pill-shop">Shop</button>
+    <button class="nav-toggle-pill" data-target="business-section" id="pill-business">For Business</button>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-link">Log in</a>
+    <a href="#" class="nav-signup">Sign up</a>
+  </div>
+</nav>
+
+<!-- ===== CONSUMER HERO ===== -->
+<section class="consumer-hero" id="consumer-section">
+  <div class="consumer-content">
+    <div class="eyebrow eyebrow-green fade-in">Shop Cannabis</div>
+    <h1 class="fade-in fade-in-delay-1">Find your perfect product.</h1>
+    <p class="subtext fade-in fade-in-delay-2">Browse dispensaries near you. Order for pickup or delivery in minutes.</p>
+    <div class="search-bar fade-in fade-in-delay-3">
+      <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <input type="text" placeholder="Enter your address...">
+      <button class="btn-yellow">Find dispensaries</button>
+    </div>
+  </div>
+  <div class="consumer-visual">
+    <div class="product-card product-card-1 fade-in fade-in-delay-2">
+      <div class="product-img-placeholder"></div>
+      <div class="product-card-type">Flower</div>
+      <div class="product-card-name">Blue Dream</div>
+      <div class="product-card-price">$38.00</div>
+      <div class="product-card-rating">4.8 / 5</div>
+    </div>
+    <div class="product-card product-card-2 fade-in fade-in-delay-3">
+      <div class="product-img-placeholder"></div>
+      <div class="product-card-type">Edible</div>
+      <div class="product-card-name">Mango Gummies</div>
+      <div class="product-card-price">$24.00</div>
+      <div class="product-card-rating">4.6 / 5</div>
+    </div>
+    <div class="product-card product-card-3 fade-in fade-in-delay-4">
+      <div class="product-img-placeholder"></div>
+      <div class="product-card-type">Cartridge</div>
+      <div class="product-card-name">OG Kush Live</div>
+      <div class="product-card-price">$45.00</div>
+      <div class="product-card-rating">4.9 / 5</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ===== BUSINESS HERO ===== -->
+<section class="business-hero" id="business-section">
+  <div class="business-visual">
+    <div class="dashboard-mockup fade-in">
+      <div class="dashboard-nav">
+        <div class="dashboard-nav-item active">Overview</div>
+        <div class="dashboard-nav-item">Orders</div>
+        <div class="dashboard-nav-item">Products</div>
+        <div class="dashboard-nav-item">Loyalty</div>
+      </div>
+      <div class="dashboard-header">
+        <div class="dashboard-title">Today's Performance</div>
+        <div class="dashboard-badge">+12% vs last week</div>
+      </div>
+      <div class="dashboard-metrics">
+        <div class="metric-card">
+          <div class="metric-label">Revenue</div>
+          <div class="metric-value">$14.2K</div>
+          <div class="metric-change">+8.3%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Orders</div>
+          <div class="metric-value">284</div>
+          <div class="metric-change">+15.1%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg Ticket</div>
+          <div class="metric-value">$49</div>
+          <div class="metric-change">+3.2%</div>
+        </div>
+      </div>
+      <div class="chart-bars">
+        <div class="chart-bar" style="height: 45%"></div>
+        <div class="chart-bar" style="height: 60%"></div>
+        <div class="chart-bar" style="height: 35%"></div>
+        <div class="chart-bar" style="height: 80%"></div>
+        <div class="chart-bar" style="height: 55%"></div>
+        <div class="chart-bar" style="height: 70%"></div>
+        <div class="chart-bar" style="height: 90%"></div>
+        <div class="chart-bar" style="height: 65%"></div>
+        <div class="chart-bar" style="height: 75%"></div>
+        <div class="chart-bar" style="height: 50%"></div>
+        <div class="chart-bar" style="height: 85%"></div>
+        <div class="chart-bar" style="height: 100%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="business-content">
+    <div class="eyebrow eyebrow-outline fade-in">For Dispensaries</div>
+    <h2 class="fade-in fade-in-delay-1">The platform that powers modern cannabis retail.</h2>
+    <p class="subtext fade-in fade-in-delay-2">POS, E-Commerce, Loyalty, Payments — all in one. Trusted by 6,500+ dispensaries.</p>
+    <div class="cta-row fade-in fade-in-delay-3">
+      <button class="btn-yellow">Get a demo</button>
+      <button class="btn-outline">Watch the video</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS BAR ===== -->
+<section class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item fade-in">
+      <h3>$22B+</h3>
+      <p>Processed in sales</p>
+    </div>
+    <div class="stat-item fade-in fade-in-delay-1">
+      <h3>6,500+</h3>
+      <p>Dispensaries powered</p>
+    </div>
+    <div class="stat-item fade-in fade-in-delay-2">
+      <h3>40+</h3>
+      <p>States served</p>
+    </div>
+    <div class="stat-item fade-in fade-in-delay-3">
+      <h3>1M</h3>
+      <p>Daily orders</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DUAL VALUE PROPS ===== -->
+<section class="value-props">
+  <div class="value-props-grid">
+    <div class="value-col">
+      <div class="value-col-title shopper">For Shoppers</div>
+      <div class="value-item fade-in">
+        <div class="value-item-icon green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#003D29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h4>Fast ordering</h4>
+        <p>Skip the line. Browse menus, place your order, and pick up in minutes or get it delivered to your door.</p>
+      </div>
+      <div class="value-item fade-in fade-in-delay-1">
+        <div class="value-item-icon green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#003D29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h4>Wide selection</h4>
+        <p>Access thousands of products across flower, edibles, concentrates, and more from dispensaries near you.</p>
+      </div>
+      <div class="value-item fade-in fade-in-delay-2">
+        <div class="value-item-icon green">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#003D29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>Trusted products</h4>
+        <p>Every product is lab-tested and compliant. Reviews from real customers help you choose with confidence.</p>
+      </div>
+    </div>
+    <div class="value-divider"></div>
+    <div class="value-col">
+      <div class="value-col-title business">For Businesses</div>
+      <div class="value-item fade-in">
+        <div class="value-item-icon purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E324E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h4>Increase revenue</h4>
+        <p>Drive more sales with built-in E-Commerce, real-time menus, and powerful marketing tools.</p>
+      </div>
+      <div class="value-item fade-in fade-in-delay-1">
+        <div class="value-item-icon purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E324E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h4>Streamline ops</h4>
+        <p>One platform for POS, inventory, compliance, and payments. Less software, fewer headaches.</p>
+      </div>
+      <div class="value-item fade-in fade-in-delay-2">
+        <div class="value-item-icon purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E324E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h4>Grow loyalty</h4>
+        <p>Built-in loyalty programs keep customers coming back. Reward visits, referrals, and spending.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <div class="testimonials-header">
+    <h2 class="fade-in">What people are saying</h2>
+  </div>
+  <div class="testimonials-track">
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"I ordered from my couch and had it ready for pickup in 15 minutes. This is how it should be."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--medium-green);">M</div>
+        <div>
+          <div class="testimonial-name">Marcus T.</div>
+          <div class="testimonial-role">Dutchie customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"Since switching to Dutchie POS, our average transaction time dropped by 40%. The staff loves it."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--purple);">S</div>
+        <div>
+          <div class="testimonial-name">Sarah K.</div>
+          <div class="testimonial-role">Dispensary Owner, CO</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"The selection is incredible. I can compare products across three dispensaries without leaving the app."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--light-green);">J</div>
+        <div>
+          <div class="testimonial-name">James P.</div>
+          <div class="testimonial-role">Dutchie customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"Dutchie's loyalty program increased our repeat customers by 28% in the first quarter alone."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--dark-green);">R</div>
+        <div>
+          <div class="testimonial-name">Rachel M.</div>
+          <div class="testimonial-role">Operations Manager, OR</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"Delivery was fast and the budtender recommendations were spot on. Five stars, every time."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: #e6ac00;">A</div>
+        <div>
+          <div class="testimonial-name">Alex W.</div>
+          <div class="testimonial-role">Dutchie customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"We consolidated three different software tools into Dutchie. Saves us $2K a month and hours of training."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--medium-green);">D</div>
+        <div>
+          <div class="testimonial-name">David L.</div>
+          <div class="testimonial-role">Multi-store Owner, MI</div>
+        </div>
+      </div>
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"I ordered from my couch and had it ready for pickup in 15 minutes. This is how it should be."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--medium-green);">M</div>
+        <div>
+          <div class="testimonial-name">Marcus T.</div>
+          <div class="testimonial-role">Dutchie customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"Since switching to Dutchie POS, our average transaction time dropped by 40%. The staff loves it."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--purple);">S</div>
+        <div>
+          <div class="testimonial-name">Sarah K.</div>
+          <div class="testimonial-role">Dispensary Owner, CO</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"The selection is incredible. I can compare products across three dispensaries without leaving the app."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--light-green);">J</div>
+        <div>
+          <div class="testimonial-name">James P.</div>
+          <div class="testimonial-role">Dutchie customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"Dutchie's loyalty program increased our repeat customers by 28% in the first quarter alone."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--dark-green);">R</div>
+        <div>
+          <div class="testimonial-name">Rachel M.</div>
+          <div class="testimonial-role">Operations Manager, OR</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"Delivery was fast and the budtender recommendations were spot on. Five stars, every time."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: #e6ac00;">A</div>
+        <div>
+          <div class="testimonial-name">Alex W.</div>
+          <div class="testimonial-role">Dutchie customer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-quote">"We consolidated three different software tools into Dutchie. Saves us $2K a month and hours of training."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background: var(--medium-green);">D</div>
+        <div>
+          <div class="testimonial-name">David L.</div>
+          <div class="testimonial-role">Multi-store Owner, MI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta">
+  <div class="final-cta-left">
+    <h3 class="fade-in">Ready to order?</h3>
+    <div class="search-bar fade-in fade-in-delay-1">
+      <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--medium-green);">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <input type="text" placeholder="Enter your address...">
+      <button class="btn-yellow">Search</button>
+    </div>
+  </div>
+  <div class="final-cta-right">
+    <h3 class="fade-in">Ready to grow?</h3>
+    <button class="btn-yellow fade-in fade-in-delay-1">Get a demo</button>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">dutchie</div>
+      <p class="footer-desc">The leading technology platform powering the cannabis industry. Connecting consumers with dispensaries everywhere.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Find dispensaries</a>
+      <a href="#">Delivery</a>
+      <a href="#">Pickup</a>
+      <a href="#">Deals</a>
+    </div>
+    <div class="footer-col">
+      <h4>Business</h4>
+      <a href="#">POS</a>
+      <a href="#">E-Commerce</a>
+      <a href="#">Payments</a>
+      <a href="#">Loyalty</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help center</a>
+      <a href="#">Contact</a>
+      <a href="#">Status</a>
+      <a href="#">API docs</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Dutchie. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== IntersectionObserver for fade-in animations =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== Nav toggle pills =====
+const pillShop = document.getElementById('pill-shop');
+const pillBusiness = document.getElementById('pill-business');
+
+function setActivePill(activePill) {
+  document.querySelectorAll('.nav-toggle-pill').forEach(p => p.classList.remove('active'));
+  activePill.classList.add('active');
+}
+
+pillShop.addEventListener('click', () => {
+  setActivePill(pillShop);
+  document.getElementById('consumer-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+pillBusiness.addEventListener('click', () => {
+  setActivePill(pillBusiness);
+  document.getElementById('business-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ===== Update active pill on scroll =====
+const consumerSection = document.getElementById('consumer-section');
+const businessSection = document.getElementById('business-section');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (entry.target.id === 'consumer-section') {
+        setActivePill(pillShop);
+      } else if (entry.target.id === 'business-section') {
+        setActivePill(pillBusiness);
+      }
+    }
+  });
+}, {
+  threshold: 0.4
+});
+
+sectionObserver.observe(consumerSection);
+sectionObserver.observe(businessSection);
+</script>
+</body>
+</html>

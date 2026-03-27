@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie Homepage Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@font-face { font-family:'Matter'; src:local('Matter'); font-weight:400; font-style:normal; }
+@font-face { font-family:'Matter'; src:local('Matter Medium'); font-weight:500; font-style:normal; }
+@font-face { font-family:'Matter'; src:local('Matter SemiBold'); font-weight:600; font-style:normal; }
+@font-face { font-family:'Matter'; src:local('Matter Bold'); font-weight:700; font-style:normal; }
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Matter','Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#042017;color:#F1EBD6;-webkit-font-smoothing:antialiased}
+
+/* Tab bar */
+.tab-bar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(4,32,23,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(241,235,214,.08);
+  padding:0 24px;
+  display:flex;align-items:center;gap:16px;height:56px;
+}
+.tab-bar-logo{
+  font-size:18px;font-weight:800;color:#F1EBD6;letter-spacing:-.02em;margin-right:24px;
+  display:flex;align-items:center;gap:8px;
+}
+.tab-bar-logo span{font-size:11px;font-weight:600;color:rgba(241,235,214,.4);letter-spacing:.08em;text-transform:uppercase;margin-left:4px}
+
+.tabs{display:flex;gap:4px;background:rgba(241,235,214,.06);border-radius:10px;padding:3px;border:1px solid rgba(241,235,214,.08)}
+.tab{
+  padding:7px 18px;border-radius:8px;font-size:12px;font-weight:600;
+  color:rgba(241,235,214,.5);cursor:pointer;transition:all .25s;
+  white-space:nowrap;border:none;background:none;font-family:inherit;
+}
+.tab:hover{color:rgba(241,235,214,.8)}
+.tab.active{background:#FFC02A;color:#042017;box-shadow:0 2px 12px rgba(255,192,42,.25)}
+
+.tab-info{
+  margin-left:auto;display:flex;align-items:center;gap:16px;
+}
+.tab-desc{
+  font-size:11px;color:rgba(241,235,214,.4);max-width:300px;line-height:1.4;
+  display:none;
+}
+.tab-desc.active{display:block}
+
+.fullscreen-btn{
+  padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;
+  color:#042017;background:#FFC02A;border:none;cursor:pointer;
+  font-family:inherit;transition:all .2s;white-space:nowrap;
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+}
+.fullscreen-btn:hover{background:#e6ad25;transform:translateY(-1px)}
+.fullscreen-btn svg{width:12px;height:12px}
+
+/* Iframe container */
+.frame-wrap{
+  position:fixed;top:56px;left:0;right:0;bottom:0;
+}
+.concept-frame{
+  width:100%;height:100%;border:none;
+  position:absolute;top:0;left:0;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.concept-frame.active{opacity:1;pointer-events:auto}
+
+/* Loading state */
+.loading-overlay{
+  position:fixed;top:56px;left:0;right:0;bottom:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#042017;z-index:5;
+  transition:opacity .4s ease;
+}
+.loading-overlay.hidden{opacity:0;pointer-events:none}
+.loading-text{font-size:14px;color:rgba(241,235,214,.5);font-weight:500}
+.loading-dot{display:inline-block;animation:pulse 1.4s ease-in-out infinite}
+.loading-dot:nth-child(2){animation-delay:.2s}
+.loading-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,80%,100%{opacity:.3}40%{opacity:1}}
+
+/* Mobile */
+@media(max-width:768px){
+  .tab-bar{padding:0 12px;gap:8px;height:48px;overflow-x:auto}
+  .tab-bar-logo{font-size:15px;margin-right:12px;flex-shrink:0}
+  .tab-bar-logo span{display:none}
+  .tabs{flex-shrink:0}
+  .tab{padding:6px 12px;font-size:11px}
+  .tab-info{display:none}
+  .frame-wrap{top:48px}
+  .loading-overlay{top:48px}
+}
+</style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <div class="tab-bar-logo">
+    dutchie
+    <span>Homepage Concepts</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-target="v1">V1: Split Hero</button>
+    <button class="tab" data-target="v2">V2: Consumer-First</button>
+    <button class="tab" data-target="v3">V3: Stacked Dual</button>
+    <button class="tab" data-target="v4">V4: Morphing Toggle</button>
+  </div>
+
+  <div class="tab-info">
+    <div class="tab-desc active" data-desc="v1">50/50 split — consumer search left, business right. Matches concept image.</div>
+    <div class="tab-desc" data-desc="v2">Slice-inspired — full-width consumer hero with business banner below.</div>
+    <div class="tab-desc" data-desc="v3">Both audiences get full-width sections, stacked. Nav pills toggle between.</div>
+    <div class="tab-desc" data-desc="v4">Single hero morphs between consumer/business with smooth toggle transition.</div>
+    <a class="fullscreen-btn" id="fullscreen-link" href="homepage-v1.html" target="_blank">
+      Open full
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2H2v4M14 2h-4M14 10v4h-4M2 10v4h4M2 2l5 5M14 2l-5 5M2 14l5-5M14 14l-5-5"/></svg>
+    </a>
+  </div>
+</div>
+
+<div class="loading-overlay" id="loader">
+  <div class="loading-text">Loading concepts<span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span></div>
+</div>
+
+<div class="frame-wrap">
+  <iframe class="concept-frame active" id="frame-v1" src="homepage-v1.html" loading="eager"></iframe>
+  <iframe class="concept-frame" id="frame-v2" src="homepage-v2.html" loading="lazy"></iframe>
+  <iframe class="concept-frame" id="frame-v3" src="homepage-v3.html" loading="lazy"></iframe>
+  <iframe class="concept-frame" id="frame-v4" src="homepage-v4.html" loading="lazy"></iframe>
+</div>
+
+<script>
+(function(){
+  const tabs = document.querySelectorAll('.tab');
+  const frames = document.querySelectorAll('.concept-frame');
+  const descs = document.querySelectorAll('.tab-desc');
+  const link = document.getElementById('fullscreen-link');
+  const loader = document.getElementById('loader');
+
+  const fileMap = { v1:'homepage-v1.html', v2:'homepage-v2.html', v3:'homepage-v3.html', v4:'homepage-v4.html' };
+
+  // Hide loader when first frame loads
+  document.getElementById('frame-v1').addEventListener('load', function() {
+    loader.classList.add('hidden');
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const target = this.dataset.target;
+
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+
+      frames.forEach(f => f.classList.remove('active'));
+      document.getElementById('frame-' + target).classList.add('active');
+
+      descs.forEach(d => d.classList.remove('active'));
+      document.querySelector('[data-desc="' + target + '"]').classList.add('active');
+
+      link.href = fileMap[target];
+
+      // Trigger lazy load
+      const frame = document.getElementById('frame-' + target);
+      if (frame.getAttribute('loading') === 'lazy') {
+        frame.setAttribute('loading', 'eager');
+      }
+    });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key >= '1' && e.key <= '4') {
+      const idx = parseInt(e.key) - 1;
+      tabs[idx].click();
+    }
+  });
+})();
+</script>
+</body>
+</html>

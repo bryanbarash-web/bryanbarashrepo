@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie - Cannabis, delivered.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Medium');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter SemiBold');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Matter';
+  src: local('Matter Bold');
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --sand: #F1EBD6;
+  --dark-green: #042017;
+  --medium-green: #003D29;
+  --light-green: #6AB448;
+  --yellow: #FFC02A;
+  --purple: #5E324E;
+  --font: 'Matter', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--dark-green);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============ ANIMATIONS ============ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+  background: transparent;
+}
+.nav.scrolled {
+  background: var(--dark-green);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+}
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-wordmark {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--sand);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--sand);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover {
+  opacity: 1;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav-login {
+  color: var(--sand);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.nav-login:hover { opacity: 1; }
+.nav-signup {
+  background: var(--yellow);
+  color: var(--dark-green);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 100px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-signup:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255,192,42,0.35);
+}
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.nav-mobile-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--sand);
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+/* ============ HERO ============ */
+.hero {
+  background: var(--dark-green);
+  background: radial-gradient(ellipse at 50% 80%, rgba(0,61,41,0.5) 0%, var(--dark-green) 70%);
+  padding: 160px 40px 80px;
+  text-align: center;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hero-headline {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--sand);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.hero-sub {
+  font-size: 20px;
+  color: var(--sand);
+  opacity: 0.75;
+  font-weight: 400;
+  margin-bottom: 48px;
+  max-width: 500px;
+}
+
+/* Search bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 100px;
+  padding: 6px 6px 6px 24px;
+  max-width: 620px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  margin-bottom: 40px;
+}
+.search-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  color: var(--medium-green);
+}
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: var(--font);
+  color: var(--dark-green);
+  background: transparent;
+  min-width: 0;
+}
+.search-bar input::placeholder {
+  color: #999;
+}
+.search-btn {
+  flex-shrink: 0;
+  background: var(--yellow);
+  color: var(--dark-green);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: none;
+  border-radius: 100px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255,192,42,0.4);
+}
+
+/* Pills */
+.pills {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 56px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.pills::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--sand);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  text-decoration: none;
+}
+.pill:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* Popular dispensaries */
+.popular-section {
+  width: 100%;
+  max-width: 1100px;
+  text-align: left;
+}
+.popular-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sand);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.dispensary-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.dispensary-card:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+}
+.dispensary-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--medium-green);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sand);
+}
+.dispensary-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.dispensary-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.stars {
+  color: var(--yellow);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.distance {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+.dispensary-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--light-green);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.dispensary-link:hover { opacity: 0.8; }
+
+/* ============ BUSINESS BANNER ============ */
+.biz-banner {
+  background: var(--medium-green);
+  padding: 28px 40px;
+}
+.biz-banner-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.biz-banner-text {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--sand);
+}
+.biz-banner-cta {
+  flex-shrink: 0;
+  background: var(--yellow);
+  color: var(--dark-green);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  padding: 12px 28px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.biz-banner-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255,192,42,0.35);
+}
+
+/* ============ CATEGORIES ============ */
+.categories {
+  background: var(--sand);
+  padding: 100px 40px;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-heading {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--dark-green);
+  letter-spacing: -1px;
+  margin-bottom: 48px;
+}
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.cat-card {
+  border-radius: 20px;
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(4,32,23,0.15);
+}
+.cat-card-icon {
+  font-size: 44px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.cat-card-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+.cat-flower { background: linear-gradient(135deg, var(--medium-green), #005a3c); }
+.cat-edibles { background: linear-gradient(135deg, var(--purple), #7a4565); }
+.cat-vapes { background: linear-gradient(135deg, #1a3a5c, #2d5f8a); }
+.cat-prerolls { background: linear-gradient(135deg, #5c4a1a, #8a7a3d); }
+.cat-concentrates { background: linear-gradient(135deg, #8a4a1a, #c47a30); }
+.cat-topicals { background: linear-gradient(135deg, #1a5c4a, #3d8a6a); }
+
+/* ============ FEATURED BRANDS ============ */
+.brands {
+  background: #fff;
+  padding: 100px 40px;
+}
+.brands-scroll {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.brands-scroll::-webkit-scrollbar { height: 4px; }
+.brands-scroll::-webkit-scrollbar-track { background: #eee; border-radius: 4px; }
+.brands-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+.brand-logo {
+  flex-shrink: 0;
+  width: 160px;
+  height: 80px;
+  border-radius: 12px;
+  background: #f5f5f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+  transition: transform 0.2s;
+}
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+/* ============ HOW IT WORKS ============ */
+.how-it-works {
+  background: var(--sand);
+  padding: 100px 40px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 48px;
+  position: relative;
+}
+.step {
+  text-align: center;
+}
+.step-number {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--medium-green);
+  color: var(--sand);
+  font-size: 26px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.step-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+.step-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 10px;
+}
+.step-desc {
+  font-size: 16px;
+  color: var(--dark-green);
+  opacity: 0.65;
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+.step-connector {
+  display: none;
+}
+
+/* ============ BUSINESS SECTION ============ */
+.business {
+  background: var(--dark-green);
+  padding: 120px 40px;
+  text-align: center;
+}
+.business .section-heading {
+  color: var(--sand);
+}
+.business-intro {
+  font-size: 18px;
+  color: var(--sand);
+  opacity: 0.7;
+  max-width: 560px;
+  margin: 0 auto 64px;
+  line-height: 1.7;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto 56px;
+}
+.stat-block {
+  text-align: center;
+}
+.stat-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+.stat-label {
+  font-size: 15px;
+  color: var(--sand);
+  opacity: 0.6;
+  font-weight: 500;
+}
+.business-cta {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--dark-green);
+  font-size: 17px;
+  font-weight: 600;
+  font-family: var(--font);
+  padding: 16px 40px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.business-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255,192,42,0.35);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--dark-green);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 80px 40px 48px;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+.footer-brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--sand);
+  margin-bottom: 16px;
+}
+.footer-tagline {
+  font-size: 14px;
+  color: var(--sand);
+  opacity: 0.5;
+  line-height: 1.6;
+  max-width: 260px;
+}
+.footer-col-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sand);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: var(--sand);
+  opacity: 0.55;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: opacity 0.2s;
+}
+.footer-col a:hover { opacity: 0.9; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-copy {
+  font-size: 13px;
+  color: var(--sand);
+  opacity: 0.4;
+}
+.footer-legal {
+  display: flex;
+  gap: 24px;
+}
+.footer-legal a {
+  font-size: 13px;
+  color: var(--sand);
+  opacity: 0.4;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.footer-legal a:hover { opacity: 0.8; }
+
+/* ============ RESPONSIVE 1024px ============ */
+@media (max-width: 1024px) {
+  .hero-headline { font-size: 52px; }
+  .popular-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .footer-grid > :last-child { display: none; }
+}
+
+/* ============ RESPONSIVE 768px ============ */
+@media (max-width: 768px) {
+  .nav-inner { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: block; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--dark-green);
+    padding: 24px;
+    gap: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .hero {
+    padding: 140px 24px 60px;
+    min-height: auto;
+  }
+  .hero-headline { font-size: 44px; letter-spacing: -1.5px; }
+  .hero-sub { font-size: 17px; margin-bottom: 36px; }
+  .search-bar { padding: 4px 4px 4px 16px; }
+  .search-btn { padding: 12px 24px; font-size: 15px; }
+  .popular-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .biz-banner { padding: 24px; }
+  .biz-banner-inner { flex-direction: column; text-align: center; }
+  .biz-banner-text { font-size: 15px; }
+
+  .categories, .brands, .how-it-works, .business { padding: 72px 24px; }
+  .section-heading { font-size: 32px; margin-bottom: 36px; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cat-card { min-height: 150px; padding: 28px 24px; }
+  .cat-card-name { font-size: 18px; }
+
+  .steps { grid-template-columns: 1fr; gap: 40px; }
+  .stats { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .stat-number { font-size: 36px; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+/* ============ RESPONSIVE 480px ============ */
+@media (max-width: 480px) {
+  .hero { padding: 120px 16px 48px; }
+  .hero-headline { font-size: 36px; letter-spacing: -1px; }
+  .hero-sub { font-size: 16px; margin-bottom: 28px; }
+  .search-bar {
+    flex-wrap: wrap;
+    border-radius: 20px;
+    padding: 12px;
+    gap: 10px;
+  }
+  .search-icon { display: none; }
+  .search-bar input { width: 100%; font-size: 15px; }
+  .search-btn { width: 100%; text-align: center; }
+
+  .pills { gap: 8px; }
+  .pill { font-size: 13px; padding: 8px 16px; }
+  .popular-grid { grid-template-columns: 1fr; }
+  .popular-section { padding: 0 4px; }
+
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cat-card { min-height: 130px; padding: 24px 20px; }
+  .cat-card-icon { font-size: 32px; }
+  .cat-card-name { font-size: 16px; }
+
+  .brand-logo { width: 130px; height: 64px; }
+
+  .stats { grid-template-columns: 1fr; gap: 28px; }
+  .stat-number { font-size: 40px; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-legal { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-wordmark">dutchie</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#categories">Shop</a></li>
+      <li><a href="#brands">Deals</a></li>
+      <li><a href="#brands">Brands</a></li>
+      <li><a href="#business">For Business</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="nav-login">Log in</a>
+      <a href="#" class="nav-signup">Sign up</a>
+      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <h1 class="hero-headline">Cannabis, delivered.</h1>
+  <p class="hero-sub">Order from the best dispensaries near you. Pickup or delivery.</p>
+
+  <div class="search-bar">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <input type="text" placeholder="Enter your address or zip code">
+    <button class="search-btn">Search</button>
+  </div>
+
+  <div class="pills">
+    <a class="pill" href="#">Flower</a>
+    <a class="pill" href="#">Edibles</a>
+    <a class="pill" href="#">Vapes</a>
+    <a class="pill" href="#">Pre-rolls</a>
+    <a class="pill" href="#">Topicals</a>
+    <a class="pill" href="#">Concentrates</a>
+  </div>
+
+  <div class="popular-section fade-in">
+    <div class="popular-label">Popular near you</div>
+    <div class="popular-grid">
+      <div class="dispensary-card">
+        <div class="dispensary-avatar">G</div>
+        <div class="dispensary-name">Green Leaf Dispensary</div>
+        <div class="dispensary-meta">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="distance">0.8 mi</span>
+        </div>
+        <a href="#" class="dispensary-link">Order now &rarr;</a>
+      </div>
+      <div class="dispensary-card">
+        <div class="dispensary-avatar">S</div>
+        <div class="dispensary-name">Sunset Cannabis Co.</div>
+        <div class="dispensary-meta">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          <span class="distance">1.2 mi</span>
+        </div>
+        <a href="#" class="dispensary-link">Order now &rarr;</a>
+      </div>
+      <div class="dispensary-card">
+        <div class="dispensary-avatar">B</div>
+        <div class="dispensary-name">Bloom Room</div>
+        <div class="dispensary-meta">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="distance">2.1 mi</span>
+        </div>
+        <a href="#" class="dispensary-link">Order now &rarr;</a>
+      </div>
+      <div class="dispensary-card">
+        <div class="dispensary-avatar">E</div>
+        <div class="dispensary-name">Elevated Wellness</div>
+        <div class="dispensary-meta">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          <span class="distance">3.5 mi</span>
+        </div>
+        <a href="#" class="dispensary-link">Order now &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS BANNER ============ -->
+<div class="biz-banner">
+  <div class="biz-banner-inner">
+    <div class="biz-banner-text">Own a dispensary? Dutchie powers 6,500+ dispensaries across 40+ states.</div>
+    <a href="#business" class="biz-banner-cta">Get a demo &rarr;</a>
+  </div>
+</div>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="categories" id="categories">
+  <div class="section-inner">
+    <h2 class="section-heading fade-in">Shop by category</h2>
+    <div class="cat-grid">
+      <div class="cat-card cat-flower fade-in">
+        <div class="cat-card-icon">&#127807;</div>
+        <div class="cat-card-name">Flower</div>
+      </div>
+      <div class="cat-card cat-edibles fade-in">
+        <div class="cat-card-icon">&#127850;</div>
+        <div class="cat-card-name">Edibles</div>
+      </div>
+      <div class="cat-card cat-vapes fade-in">
+        <div class="cat-card-icon">&#128168;</div>
+        <div class="cat-card-name">Vapes</div>
+      </div>
+      <div class="cat-card cat-prerolls fade-in">
+        <div class="cat-card-icon">&#9900;</div>
+        <div class="cat-card-name">Pre-Rolls</div>
+      </div>
+      <div class="cat-card cat-concentrates fade-in">
+        <div class="cat-card-icon">&#128167;</div>
+        <div class="cat-card-name">Concentrates</div>
+      </div>
+      <div class="cat-card cat-topicals fade-in">
+        <div class="cat-card-icon">&#129524;</div>
+        <div class="cat-card-name">Topicals</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED BRANDS ============ -->
+<section class="brands" id="brands">
+  <div class="section-inner">
+    <h2 class="section-heading fade-in">The brands you love</h2>
+    <div class="brands-scroll fade-in">
+      <div class="brand-logo">Cookies</div>
+      <div class="brand-logo">STIIIZY</div>
+      <div class="brand-logo">Wyld</div>
+      <div class="brand-logo">Kiva</div>
+      <div class="brand-logo">Raw Garden</div>
+      <div class="brand-logo">Select</div>
+      <div class="brand-logo">Jeeter</div>
+      <div class="brand-logo">Canndescent</div>
+      <div class="brand-logo">Dosist</div>
+      <div class="brand-logo">PAX</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how-it-works" id="how">
+  <div class="section-inner">
+    <h2 class="section-heading fade-in">How it works</h2>
+    <div class="steps">
+      <div class="step fade-in">
+        <div class="step-number">1</div>
+        <div class="step-icon">&#128269;</div>
+        <div class="step-title">Search</div>
+        <div class="step-desc">Enter your address to find dispensaries offering pickup and delivery near you.</div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">2</div>
+        <div class="step-icon">&#128722;</div>
+        <div class="step-title">Shop</div>
+        <div class="step-desc">Browse menus, compare products, and add your favorites to cart.</div>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">3</div>
+        <div class="step-icon">&#127881;</div>
+        <div class="step-title">Enjoy</div>
+        <div class="step-desc">Pick up your order or get it delivered right to your door.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS SECTION ============ -->
+<section class="business" id="business">
+  <div class="section-inner">
+    <h2 class="section-heading fade-in">Built for dispensaries</h2>
+    <p class="business-intro fade-in">Dutchie is the leading technology partner for cannabis retailers. Our all-in-one platform powers online ordering, point of sale, payments, and more.</p>
+    <div class="stats fade-in">
+      <div class="stat-block">
+        <div class="stat-number">$22B+</div>
+        <div class="stat-label">Transactions processed</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number">6,500+</div>
+        <div class="stat-label">Dispensaries powered</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number">40+</div>
+        <div class="stat-label">States served</div>
+      </div>
+    </div>
+    <a href="#" class="business-cta fade-in">Schedule a demo</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">dutchie</div>
+        <div class="footer-tagline">The leading technology platform powering the cannabis industry. Order from dispensaries near you or grow your business with Dutchie.</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <a href="#">Dispensaries</a>
+        <a href="#">Flower</a>
+        <a href="#">Edibles</a>
+        <a href="#">Vapes</a>
+        <a href="#">Deals</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Business</div>
+        <a href="#">Dutchie POS</a>
+        <a href="#">Payments</a>
+        <a href="#">Ecommerce</a>
+        <a href="#">Analytics</a>
+        <a href="#">Get a demo</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <a href="#">Help Center</a>
+        <a href="#">FAQ</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Status</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Dutchie. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll behavior
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// Mobile nav toggle
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+// Fade-in on scroll with IntersectionObserver
+const fadeEls = document.querySelectorAll('.fade-in');
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.12,
+  rootMargin: '0px 0px -40px 0px'
+});
+fadeEls.forEach(el => fadeObserver.observe(el));
+</script>
+</body>
+</html>
