@@ -3133,37 +3133,136 @@ html { scroll-behavior: smooth; }
     overflow: hidden;
   }
 
-  .concept-4 .c4-orb {
+  /* Fluid mesh container */
+  .concept-4 .c4-mesh {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 700px;
-    height: 700px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, rgba(0,61,41,0.8), rgba(94,50,78,0.5) 50%, transparent 70%);
-    filter: blur(80px);
-    animation: c4-orbPulse 8s ease-in-out infinite alternate;
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
     z-index: 0;
   }
 
-  @keyframes c4-orbPulse {
+  /* Individual fluid blobs — organic shapes via border-radius */
+  .concept-4 .c4-blob {
+    position: absolute;
+    filter: blur(80px);
+    will-change: transform, border-radius;
+  }
+
+  .concept-4 .c4-blob-1 {
+    width: 55vmin;
+    height: 55vmin;
+    top: 10%;
+    left: 15%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(0,61,41,0.85), rgba(0,61,41,0.2) 70%, transparent);
+    border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+    animation: c4-morph1 12s ease-in-out infinite alternate;
+  }
+
+  .concept-4 .c4-blob-2 {
+    width: 50vmin;
+    height: 45vmin;
+    top: 20%;
+    right: 10%;
+    background: radial-gradient(ellipse at 60% 50%, rgba(94,50,78,0.75), rgba(94,50,78,0.15) 65%, transparent);
+    border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+    animation: c4-morph2 14s ease-in-out infinite alternate;
+  }
+
+  .concept-4 .c4-blob-3 {
+    width: 40vmin;
+    height: 40vmin;
+    bottom: 15%;
+    left: 30%;
+    background: radial-gradient(ellipse at 50% 60%, rgba(106,180,72,0.45), rgba(0,61,41,0.3) 60%, transparent);
+    border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+    animation: c4-morph3 10s ease-in-out infinite alternate;
+  }
+
+  .concept-4 .c4-blob-4 {
+    width: 30vmin;
+    height: 35vmin;
+    top: 40%;
+    left: 45%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,192,42,0.15), rgba(94,50,78,0.2) 60%, transparent);
+    border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%;
+    animation: c4-morph4 16s ease-in-out infinite alternate;
+    filter: blur(100px);
+  }
+
+  @keyframes c4-morph1 {
     0% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.7;
-      background: radial-gradient(circle at 50% 50%, rgba(0,61,41,0.9), rgba(94,50,78,0.5) 50%, transparent 70%);
+      border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+      transform: translate(0, 0) rotate(0deg) scale(1);
     }
-    33% {
-      background: radial-gradient(circle at 40% 60%, rgba(106,180,72,0.6), rgba(0,61,41,0.7) 50%, transparent 70%);
+    25% {
+      border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%;
     }
-    66% {
-      background: radial-gradient(circle at 60% 40%, rgba(94,50,78,0.8), rgba(106,180,72,0.4) 50%, transparent 70%);
+    50% {
+      border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%;
+      transform: translate(3%, -5%) rotate(8deg) scale(1.08);
+    }
+    75% {
+      border-radius: 60% 40% 50% 50% / 50% 55% 45% 50%;
     }
     100% {
-      transform: translate(-50%, -50%) scale(1.15);
+      border-radius: 50% 50% 55% 45% / 45% 50% 60% 40%;
+      transform: translate(-2%, 4%) rotate(-5deg) scale(0.95);
+    }
+  }
+
+  @keyframes c4-morph2 {
+    0% {
+      border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+      transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    33% {
+      border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%;
+      transform: translate(-4%, 3%) rotate(-6deg) scale(1.05);
+    }
+    66% {
+      border-radius: 50% 50% 45% 55% / 45% 50% 55% 50%;
+      transform: translate(2%, -3%) rotate(4deg) scale(0.97);
+    }
+    100% {
+      border-radius: 40% 60% 50% 50% / 50% 40% 50% 60%;
+      transform: translate(-1%, 5%) rotate(-8deg) scale(1.1);
+    }
+  }
+
+  @keyframes c4-morph3 {
+    0% {
+      border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+      transform: translate(0, 0) rotate(0deg) scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      border-radius: 45% 55% 55% 45% / 55% 40% 55% 45%;
+      transform: translate(5%, -2%) rotate(10deg) scale(1.12);
       opacity: 1;
-      background: radial-gradient(circle at 50% 50%, rgba(0,61,41,0.8), rgba(94,50,78,0.6) 50%, transparent 70%);
+    }
+    100% {
+      border-radius: 50% 50% 40% 60% / 60% 50% 45% 55%;
+      transform: translate(-3%, 3%) rotate(-4deg) scale(0.9);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes c4-morph4 {
+    0% {
+      border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%;
+      transform: translate(0, 0) rotate(0deg) scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      border-radius: 55% 45% 50% 50% / 50% 55% 45% 55%;
+      transform: translate(-4%, -3%) rotate(12deg) scale(1.15);
+      opacity: 0.9;
+    }
+    100% {
+      border-radius: 45% 55% 55% 45% / 50% 45% 55% 50%;
+      transform: translate(3%, 2%) rotate(-6deg) scale(1.05);
+      opacity: 0.7;
     }
   }
 
@@ -3637,7 +3736,12 @@ html { scroll-behavior: smooth; }
 
   <!-- ========== HERO ========== -->
   <section class="c4-hero">
-    <div class="c4-orb"></div>
+    <div class="c4-mesh">
+      <div class="c4-blob c4-blob-1"></div>
+      <div class="c4-blob c4-blob-2"></div>
+      <div class="c4-blob c4-blob-3"></div>
+      <div class="c4-blob c4-blob-4"></div>
+    </div>
     <div class="c4-hero-content">
       <div class="c4-hero-date c4-animate">MARCH 2026</div>
       <h1 class="c4-hero-title c4-animate c4-animate-delay-1">Product Updates</h1>
