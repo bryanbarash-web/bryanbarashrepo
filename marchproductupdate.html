@@ -85,101 +85,168 @@
 
 .march-update .mu-hero-bg.mu-bg-hidden { opacity: 0; }
 
-/* Variant B: Aurora Waves — MORE PROMINENT */
-.march-update .mu-aurora-band {
-  position: absolute;
-  width: 250%;
-  filter: blur(50px);
-}
-
-.march-update .mu-aurora-band-1 {
-  height: 50%;
-  top: 5%;
-  left: -60%;
-  background: linear-gradient(90deg, transparent 0%, #003D29 15%, #5E324E 40%, #6AB448 65%, #003D29 85%, transparent 100%);
-  animation: mu-aurora1 18s ease-in-out infinite alternate;
-  opacity: 0.6;
-}
-
-.march-update .mu-aurora-band-2 {
-  height: 45%;
-  top: 30%;
-  left: -40%;
-  background: linear-gradient(90deg, transparent 0%, #5E324E 20%, #FFC02A 45%, #6AB448 70%, #003D29 90%, transparent 100%);
-  animation: mu-aurora2 14s ease-in-out infinite alternate;
-  opacity: 0.4;
-}
-
-.march-update .mu-aurora-band-3 {
-  height: 35%;
-  bottom: 5%;
-  left: -50%;
-  background: linear-gradient(90deg, transparent 0%, #003D29 25%, #FFC02A 50%, #5E324E 75%, transparent 100%);
-  animation: mu-aurora3 22s ease-in-out infinite alternate;
-  opacity: 0.3;
-}
-
-@keyframes mu-aurora1 {
-  0% { transform: translateX(0) skewY(-3deg); }
-  100% { transform: translateX(15%) skewY(2deg); }
-}
-
-@keyframes mu-aurora2 {
-  0% { transform: translateX(0) skewY(2deg) scaleY(0.8); }
-  100% { transform: translateX(-10%) skewY(-4deg) scaleY(1.2); }
-}
-
-@keyframes mu-aurora3 {
-  0% { transform: translateX(0) skewY(1deg); }
-  100% { transform: translateX(20%) skewY(-2deg); }
-}
-
-/* Variant C: Constellation Grid — MORE PROMINENT */
-.march-update .mu-grid-lines {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(241,235,214,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(241,235,214,0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: mu-grid-fade 6s ease-in-out infinite alternate;
-}
-
-@keyframes mu-grid-fade {
-  0% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.march-update .mu-const-glow {
+/* Variant B: Nebula — dreamy layered color clouds */
+.march-update .mu-nebula-cloud {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(100px);
+  mix-blend-mode: screen;
 }
 
-.march-update .mu-const-glow-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0,61,41,0.7) 0%, transparent 65%);
-  top: 10%; left: 15%;
-  animation: mu-cpulse1 10s ease-in-out infinite alternate;
+.march-update .mu-nebula-1 {
+  width: 70vmax; height: 70vmax;
+  background: radial-gradient(ellipse at 40% 40%, rgba(0,61,41,0.7) 0%, rgba(0,61,41,0.2) 40%, transparent 65%);
+  top: -15%; left: -10%;
+  animation: mu-nebula-drift1 25s ease-in-out infinite alternate;
 }
 
-.march-update .mu-const-glow-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(94,50,78,0.6) 0%, transparent 65%);
-  top: 35%; right: 10%;
-  animation: mu-cpulse2 14s ease-in-out infinite alternate;
+.march-update .mu-nebula-2 {
+  width: 60vmax; height: 55vmax;
+  background: radial-gradient(ellipse at 60% 50%, rgba(94,50,78,0.65) 0%, rgba(94,50,78,0.15) 45%, transparent 65%);
+  top: 10%; right: -15%;
+  animation: mu-nebula-drift2 20s ease-in-out infinite alternate;
 }
 
-.march-update .mu-const-glow-3 {
+.march-update .mu-nebula-3 {
+  width: 50vmax; height: 50vmax;
+  background: radial-gradient(ellipse at 50% 60%, rgba(106,180,72,0.35) 0%, rgba(0,61,41,0.15) 40%, transparent 60%);
+  bottom: -10%; left: 20%;
+  animation: mu-nebula-drift3 18s ease-in-out infinite alternate;
+}
+
+.march-update .mu-nebula-4 {
+  width: 35vmax; height: 40vmax;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,192,42,0.2) 0%, rgba(94,50,78,0.1) 40%, transparent 60%);
+  top: 35%; left: 40%;
+  animation: mu-nebula-drift4 22s ease-in-out infinite alternate;
+  filter: blur(120px);
+}
+
+.march-update .mu-nebula-dust {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px 1px at 20% 30%, rgba(241,235,214,0.15), transparent),
+    radial-gradient(1px 1px at 40% 70%, rgba(241,235,214,0.1), transparent),
+    radial-gradient(1px 1px at 60% 20%, rgba(241,235,214,0.12), transparent),
+    radial-gradient(1px 1px at 80% 50%, rgba(241,235,214,0.08), transparent),
+    radial-gradient(1.5px 1.5px at 15% 60%, rgba(106,180,72,0.2), transparent),
+    radial-gradient(1.5px 1.5px at 70% 80%, rgba(255,192,42,0.15), transparent),
+    radial-gradient(1px 1px at 90% 15%, rgba(241,235,214,0.1), transparent),
+    radial-gradient(1px 1px at 50% 45%, rgba(241,235,214,0.08), transparent);
+  animation: mu-dust-twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes mu-dust-twinkle {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes mu-nebula-drift1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%; }
+  100% { transform: translate(5%, 3%) scale(1.1) rotate(5deg); border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; }
+}
+
+@keyframes mu-nebula-drift2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 55% 45% 50% 50% / 50% 55% 45% 50%; }
+  100% { transform: translate(-4%, 5%) scale(1.08) rotate(-8deg); border-radius: 45% 55% 60% 40% / 55% 40% 50% 50%; }
+}
+
+@keyframes mu-nebula-drift3 {
+  0% { transform: translate(0, 0) scale(1); border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%; }
+  100% { transform: translate(6%, -4%) scale(1.15); border-radius: 60% 40% 50% 50% / 40% 60% 45% 55%; }
+}
+
+@keyframes mu-nebula-drift4 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  100% { transform: translate(-5%, 3%) scale(1.2); opacity: 1; }
+}
+
+/* Variant C: Prism — diagonal light streaks */
+.march-update .mu-prism-streak {
+  position: absolute;
+  filter: blur(2px);
+  opacity: 0;
+  animation-fill-mode: both;
+}
+
+.march-update .mu-prism-streak-1 {
+  width: 200%;
+  height: 3px;
+  top: 25%;
+  left: -50%;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,61,41,0.6) 20%, rgba(106,180,72,0.4) 50%, transparent 80%);
+  transform: rotate(-15deg);
+  animation: mu-prism-sweep 8s ease-in-out infinite;
+  filter: blur(4px);
+}
+
+.march-update .mu-prism-streak-2 {
+  width: 180%;
+  height: 2px;
+  top: 45%;
+  left: -40%;
+  background: linear-gradient(90deg, transparent 0%, rgba(94,50,78,0.5) 30%, rgba(255,192,42,0.3) 60%, transparent 85%);
+  transform: rotate(-12deg);
+  animation: mu-prism-sweep 10s ease-in-out infinite 2s;
+  filter: blur(3px);
+}
+
+.march-update .mu-prism-streak-3 {
+  width: 220%;
+  height: 4px;
+  top: 65%;
+  left: -60%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,192,42,0.4) 25%, rgba(0,61,41,0.5) 55%, transparent 80%);
+  transform: rotate(-18deg);
+  animation: mu-prism-sweep 12s ease-in-out infinite 4s;
+  filter: blur(5px);
+}
+
+.march-update .mu-prism-streak-4 {
+  width: 160%;
+  height: 2px;
+  top: 35%;
+  left: -30%;
+  background: linear-gradient(90deg, transparent 0%, rgba(106,180,72,0.3) 35%, rgba(94,50,78,0.4) 65%, transparent 90%);
+  transform: rotate(-10deg);
+  animation: mu-prism-sweep 9s ease-in-out infinite 1s;
+  filter: blur(3px);
+}
+
+@keyframes mu-prism-sweep {
+  0% { opacity: 0; transform: rotate(-15deg) translateX(-10%); }
+  15% { opacity: 0.8; }
+  50% { opacity: 0.5; transform: rotate(-15deg) translateX(5%); }
+  85% { opacity: 0.8; }
+  100% { opacity: 0; transform: rotate(-15deg) translateX(10%); }
+}
+
+.march-update .mu-prism-flare {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.march-update .mu-prism-flare-1 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(255,192,42,0.25) 0%, transparent 65%);
-  bottom: 15%; left: 35%;
-  animation: mu-cpulse3 12s ease-in-out infinite alternate;
+  top: 20%; left: 25%;
+  background: radial-gradient(circle, rgba(0,61,41,0.5) 0%, transparent 60%);
+  filter: blur(60px);
+  animation: mu-flare-pulse 6s ease-in-out infinite alternate;
 }
 
-@keyframes mu-cpulse1 { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; } }
-@keyframes mu-cpulse2 { 0% { transform: scale(1.1); opacity: 0.5; } 100% { transform: scale(0.85); opacity: 0.9; } }
-@keyframes mu-cpulse3 { 0% { transform: scale(0.9); opacity: 0.4; } 100% { transform: scale(1.25); opacity: 0.7; } }
+.march-update .mu-prism-flare-2 {
+  width: 300px; height: 300px;
+  bottom: 20%; right: 20%;
+  background: radial-gradient(circle, rgba(94,50,78,0.4) 0%, transparent 60%);
+  filter: blur(50px);
+  animation: mu-flare-pulse 8s ease-in-out infinite alternate 2s;
+}
+
+@keyframes mu-flare-pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0.8; }
+}
 
 /* Variant D: Radial Pulse — MORE PROMINENT */
 .march-update .mu-radial-ring {
@@ -219,61 +286,68 @@
 
 /* Variant A (Mesh): Ghost text above, title below — default, no extra class needed */
 
-/* Variant B (Aurora): Stacked centered, title has gradient text */
-.march-update.mu-typo-aurora .mu-ghost-text {
-  font-size: clamp(60px, 10vw, 120px);
-  opacity: 0.08;
-  letter-spacing: 0.15em;
-  margin-bottom: -10px;
-}
-
-.march-update.mu-typo-aurora .mu-hero-title {
-  font-size: clamp(42px, 6vw, 80px);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #F1EBD6 0%, #6AB448 50%, #F1EBD6 100%);
+/* Variant B (Nebula): Ethereal — soft weight, wide spacing, light green accent */
+.march-update.mu-typo-nebula .mu-ghost-text {
+  font-size: clamp(70px, 11vw, 140px);
+  opacity: 0.1;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  margin-bottom: -15px;
+  background: linear-gradient(180deg, rgba(241,235,214,0.15) 0%, rgba(106,180,72,0.08) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  background-size: 200% 200%;
-  animation: mu-gradient-text 8s ease-in-out infinite alternate;
 }
 
-@keyframes mu-gradient-text {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+.march-update.mu-typo-nebula .mu-hero-title {
+  font-size: clamp(38px, 5.5vw, 72px);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: #F1EBD6;
 }
 
-.march-update.mu-typo-aurora .mu-divider-line { width: 100px; }
+.march-update.mu-typo-nebula .mu-divider-line { width: 120px; background: linear-gradient(90deg, transparent, rgba(106,180,72,0.3)); }
+.march-update.mu-typo-nebula .mu-divider-line:last-child { background: linear-gradient(90deg, rgba(106,180,72,0.3), transparent); }
+.march-update.mu-typo-nebula .mu-divider-dot { background: #6AB448; box-shadow: 0 0 16px rgba(106,180,72,0.6), 0 0 32px rgba(106,180,72,0.3); }
 
-/* Variant C (Grid): Monospace ghost, tight spacing, technical feel */
-.march-update.mu-typo-grid .mu-ghost-text {
-  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: clamp(50px, 8vw, 100px);
-  opacity: 0.06;
-  letter-spacing: 0.3em;
-  margin-bottom: -5px;
+.march-update.mu-typo-nebula .mu-hero-intro {
+  font-weight: 300;
+  font-size: clamp(16px, 2vw, 20px);
+  color: rgba(241,235,214,0.7);
 }
 
-.march-update.mu-typo-grid .mu-hero-title {
-  font-size: clamp(32px, 4.5vw, 56px);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* Variant C (Prism): Bold and energetic — tight title, colored accent word */
+.march-update.mu-typo-prism .mu-ghost-text {
+  font-size: clamp(90px, 13vw, 180px);
+  opacity: 0.04;
+  letter-spacing: -0.02em;
+  font-weight: 900;
+  margin-bottom: -30px;
 }
 
-.march-update.mu-typo-grid .mu-hero-intro {
-  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: clamp(13px, 1.5vw, 15px);
-  letter-spacing: 0.02em;
+.march-update.mu-typo-prism .mu-hero-title {
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
-.march-update.mu-typo-grid .mu-divider-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 0;
-  transform: rotate(45deg);
-  box-shadow: 0 0 8px rgba(255,192,42,0.4);
+.march-update.mu-typo-prism .mu-divider-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,192,42,0.5));
+}
+.march-update.mu-typo-prism .mu-divider-line:last-child {
+  background: linear-gradient(90deg, rgba(255,192,42,0.5), transparent);
+}
+.march-update.mu-typo-prism .mu-divider-dot {
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 20px rgba(255,192,42,0.8), 0 0 40px rgba(255,192,42,0.4);
+}
+
+.march-update.mu-typo-prism .mu-hero-intro {
+  font-weight: 500;
+  color: rgba(241,235,214,0.9);
 }
 
 /* Variant D (Radial): Big bold title, no ghost text, centered focus */
@@ -1379,8 +1453,8 @@
   <!-- Hero Background Selector -->
   <div class="mu-bg-selector">
     <button class="mu-bg-btn mu-bg-active" data-bg="mesh">Fluid Mesh</button>
-    <button class="mu-bg-btn" data-bg="aurora">Aurora</button>
-    <button class="mu-bg-btn" data-bg="grid">Constellation</button>
+    <button class="mu-bg-btn" data-bg="nebula">Nebula</button>
+    <button class="mu-bg-btn" data-bg="prism">Prism</button>
     <button class="mu-bg-btn" data-bg="radial">Radial Pulse</button>
   </div>
 
@@ -1393,19 +1467,23 @@
       <div class="mu-blob mu-blob-4"></div>
     </div>
 
-    <!-- BG B: Aurora Waves -->
-    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-aurora">
-      <div class="mu-aurora-band mu-aurora-band-1"></div>
-      <div class="mu-aurora-band mu-aurora-band-2"></div>
-      <div class="mu-aurora-band mu-aurora-band-3"></div>
+    <!-- BG B: Nebula -->
+    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-nebula">
+      <div class="mu-nebula-cloud mu-nebula-1"></div>
+      <div class="mu-nebula-cloud mu-nebula-2"></div>
+      <div class="mu-nebula-cloud mu-nebula-3"></div>
+      <div class="mu-nebula-cloud mu-nebula-4"></div>
+      <div class="mu-nebula-dust"></div>
     </div>
 
-    <!-- BG C: Constellation Grid -->
-    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-grid">
-      <div class="mu-grid-lines"></div>
-      <div class="mu-const-glow mu-const-glow-1"></div>
-      <div class="mu-const-glow mu-const-glow-2"></div>
-      <div class="mu-const-glow mu-const-glow-3"></div>
+    <!-- BG C: Prism -->
+    <div class="mu-hero-bg mu-bg-hidden" id="mu-bg-prism">
+      <div class="mu-prism-flare mu-prism-flare-1"></div>
+      <div class="mu-prism-flare mu-prism-flare-2"></div>
+      <div class="mu-prism-streak mu-prism-streak-1"></div>
+      <div class="mu-prism-streak mu-prism-streak-2"></div>
+      <div class="mu-prism-streak mu-prism-streak-3"></div>
+      <div class="mu-prism-streak mu-prism-streak-4"></div>
     </div>
 
     <!-- BG D: Radial Pulse -->
@@ -2044,7 +2122,7 @@
   /* ── Background + Typography Variant Switcher ────────────── */
   var bgBtns = root.querySelectorAll('.mu-bg-btn');
   var bgPanels = root.querySelectorAll('.mu-hero-bg');
-  var typoClasses = ['mu-typo-aurora', 'mu-typo-grid', 'mu-typo-radial'];
+  var typoClasses = ['mu-typo-nebula', 'mu-typo-prism', 'mu-typo-radial'];
 
   bgBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
