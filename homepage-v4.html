@@ -24,10 +24,11 @@
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-.hero-section { display: none; }
-.hero-section.active-section { display: flex; }
-.section-sep { display: none; }
-.section-sep.active-sep { display: flex; }
+.hero-section { display: none !important; }
+.hero-section.active-section { display: flex !important; }
+#option-c.active-section { display: block !important; }
+.section-sep { display: none !important; }
+.section-sep.active-sep { display: flex !important; }
 body { font-family: var(--font); color: var(--dark-green); background: var(--sand); -webkit-font-smoothing: antialiased; }
 
 /* ─── STICKY NAV ─── */
