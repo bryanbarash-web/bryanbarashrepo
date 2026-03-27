@@ -452,6 +452,10 @@
   box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 
+.april-update .au-card.au-clickable {
+  cursor: pointer;
+}
+
 .april-update .au-card.au-visible:hover {
   transform: translateY(-3px);
 }
@@ -1519,11 +1523,11 @@
       </div>
 
       <!-- Card 1 -->
-      <article class="au-card" id="card-1">
+      <article class="au-card au-clickable" id="card-1" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Merchandising</span>
-          <span class="au-badge au-badge-walkthrough" onclick="Storylane.Play({type: 'popup', demo_type: 'image', width: 2560, height: 1245, scale: '0.95', demo_url: 'https://app.storylane.io/demo/y55yo3uneqmj?embed=popup', padding_bottom: 'calc(48.63% + 25px)'})">&#9655; Walkthrough</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">Menu Tags &amp; Limited Categories</h2>
 
@@ -1640,11 +1644,11 @@
       </article>
 
       <!-- Card 3 -->
-      <article class="au-card" id="card-3">
+      <article class="au-card au-clickable" id="card-3" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Marketing</span>
-          <span class="au-badge au-badge-walkthrough" onclick="Storylane.Play({type: 'popup', demo_type: 'image', width: 2560, height: 1245, scale: '0.95', demo_url: 'https://app.storylane.io/demo/y55yo3uneqmj?embed=popup', padding_bottom: 'calc(48.63% + 25px)'})">&#9655; Walkthrough</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">Dynamic Content Blocks</h2>
         <p class="au-card-desc">
@@ -1738,11 +1742,11 @@
       </div>
 
       <!-- Card 5 -->
-      <article class="au-card" id="card-5">
+      <article class="au-card au-clickable" id="card-5" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
         <div class="au-card-accent au-accent-ecom-pro"></div>
         <div class="au-card-top">
           <span class="au-badge">Developer Tools</span>
-          <span class="au-badge au-badge-walkthrough" onclick="Storylane.Play({type: 'popup', demo_type: 'image', width: 2560, height: 1245, scale: '0.95', demo_url: 'https://app.storylane.io/demo/y55yo3uneqmj?embed=popup', padding_bottom: 'calc(48.63% + 25px)'})">&#9655; Walkthrough</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">E-Commerce Pro SDK Enhancements</h2>
         <p class="au-card-desc">
@@ -1804,11 +1808,11 @@
       </article>
 
       <!-- Card 9 -->
-      <article class="au-card" id="card-9">
+      <article class="au-card au-clickable" id="card-9" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
         <div class="au-card-accent au-accent-ecom"></div>
         <div class="au-card-top">
           <span class="au-badge">Shopping Experience</span>
-          <span class="au-badge au-badge-walkthrough" onclick="Storylane.Play({type: 'popup', demo_type: 'image', width: 2560, height: 1245, scale: '0.95', demo_url: 'https://app.storylane.io/demo/y55yo3uneqmj?embed=popup', padding_bottom: 'calc(48.63% + 25px)'})">&#9655; Walkthrough</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">One-Click Buy It Again</h2>
         <p class="au-card-desc">
@@ -2088,6 +2092,26 @@
   window.addEventListener('scroll', function() {
     requestAnimationFrame(updateMobileTOC);
   }, { passive: true });
+
+  /* ── Clickable cards → Storylane ─────────────────────────── */
+  root.querySelectorAll('.au-clickable[data-storylane-url]').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // Don't trigger if they clicked the setup guide link
+      if (e.target.closest('.au-setup-guide')) return;
+      var url = card.getAttribute('data-storylane-url');
+      if (typeof Storylane !== 'undefined' && url) {
+        Storylane.Play({
+          type: 'popup',
+          demo_type: 'image',
+          width: 2560,
+          height: 1245,
+          scale: '0.95',
+          demo_url: url,
+          padding_bottom: 'calc(48.63% + 25px)'
+        });
+      }
+    });
+  });
 })();
 </script>
 
