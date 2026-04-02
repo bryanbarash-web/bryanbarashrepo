@@ -97,7 +97,6 @@ body {
   display: block;
 }
 
-/* Fix v1 scroll snap to account for selector bar */
 #version-1 .v1-section {
   scroll-margin-top: 56px;
 }
@@ -124,20 +123,16 @@ body {
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════
-     VERSION SELECTOR BAR
-     ═══════════════════════════════════════════════════════════ -->
+<!-- VERSION SELECTOR BAR -->
 <div class="version-selector">
   <span class="selector-label">Layout</span>
   <button class="active" onclick="switchVersion(1)">Scroll Story</button>
-  <button onclick="switchVersion(2)">Bento Grid</button>
-  <button onclick="switchVersion(3)">Editorial</button>
+  <button onclick="switchVersion(2)">Cascade</button>
+  <button onclick="switchVersion(3)">Split Screen</button>
   <button onclick="switchVersion(4)">Command Center</button>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     VERSION 1: SCROLL STORY
-     ═══════════════════════════════════════════════════════════ -->
+<!-- VERSION 1: SCROLL STORY -->
 <div class="version-container active" data-version="1">
 <style>
 /* ============================================================
@@ -2963,3829 +2958,1481 @@ body {
 </script>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     VERSION 2: BENTO GRID
-     ═══════════════════════════════════════════════════════════ -->
+<!-- VERSION 2: CASCADE -->
 <div class="version-container" data-version="2">
 <div id="version-2">
 
-<style>
-/* ============================================================
-   VERSION 2: BENTO GRID
-   Prefix: v2-
-   Brand: Dark Green #042017 | Sand #F1EBD6 | Med Green #003D29
-          Purple #5E324E | Light Green #6AB448 | Yellow #FFC02A
-============================================================ */
-
-#version-2 *,
-#version-2 *::before,
-#version-2 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-#version-2 {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #042017;
-  color: #F1EBD6;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 20px;
-  overflow: hidden;
-  padding: 20px;
-}
-
-/* ── BENTO GRID CONTAINER ─────────────────────────── */
-.v2-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto;
-  gap: 12px;
-  grid-template-areas:
-    "hero hero hero hero hero hero hero hero hero hero hero hero"
-    "s1 s1 s1 s2 s2 s2 s3 s3 s3 s4 s4 s4"
-    "nexus nexus nexus nexus nexus pos pos pos pos ecom ecom ecom"
-    "nexus nexus nexus nexus nexus pos pos pos pos ecom ecom ecom"
-    "loyalty loyalty loyalty loyalty loyalty loyalty loyalty pay pay kiosk kiosk kiosk"
-    "loyalty loyalty loyalty loyalty loyalty loyalty loyalty pay pay kiosk kiosk kiosk"
-    "connect connect connect connect report report report report comply inv inv inv"
-    "connect connect connect connect report report report report comply inv inv inv"
-    "test1 test1 test1 test1 test2 test2 test2 test2 test3 test3 test3 test3"
-    "cta cta cta cta cta cta cta cta cta cta cta cta";
-}
-
-/* ── BASE TILE ────────────────────────────────────── */
-.v2-tile {
-  border-radius: 16px;
-  padding: 28px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 0.3s ease,
-              background 0.4s ease;
-  will-change: transform;
-  animation: v2-fadeInUp 0.6s ease both;
-}
-
-.v2-tile:hover {
-  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(106,180,72,0.3);
-}
-
-/* Staggered fade-in */
-.v2-tile:nth-child(1)  { animation-delay: 0.0s; }
-.v2-tile:nth-child(2)  { animation-delay: 0.05s; }
-.v2-tile:nth-child(3)  { animation-delay: 0.10s; }
-.v2-tile:nth-child(4)  { animation-delay: 0.15s; }
-.v2-tile:nth-child(5)  { animation-delay: 0.20s; }
-.v2-tile:nth-child(6)  { animation-delay: 0.25s; }
-.v2-tile:nth-child(7)  { animation-delay: 0.30s; }
-.v2-tile:nth-child(8)  { animation-delay: 0.35s; }
-.v2-tile:nth-child(9)  { animation-delay: 0.40s; }
-.v2-tile:nth-child(10) { animation-delay: 0.45s; }
-.v2-tile:nth-child(11) { animation-delay: 0.50s; }
-.v2-tile:nth-child(12) { animation-delay: 0.55s; }
-.v2-tile:nth-child(13) { animation-delay: 0.60s; }
-.v2-tile:nth-child(14) { animation-delay: 0.65s; }
-.v2-tile:nth-child(15) { animation-delay: 0.70s; }
-.v2-tile:nth-child(16) { animation-delay: 0.75s; }
-.v2-tile:nth-child(17) { animation-delay: 0.80s; }
-.v2-tile:nth-child(18) { animation-delay: 0.85s; }
-.v2-tile:nth-child(19) { animation-delay: 0.90s; }
-
-@keyframes v2-fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Breathing animation for idle tiles */
-@keyframes v2-breathe {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.008); }
-}
-
-/* ── HERO TILE ────────────────────────────────────── */
-.v2-hero {
-  grid-area: hero;
-  background: #003D29;
-  min-height: 380px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 60px 64px;
-  overflow: hidden;
-}
-
-/* Particle dots via radial gradients */
-.v2-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle 2px at 8% 20%, rgba(106,180,72,0.6) 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 18% 65%, rgba(255,192,42,0.5) 0%, transparent 100%),
-    radial-gradient(circle 2px at 28% 35%, rgba(241,235,214,0.3) 0%, transparent 100%),
-    radial-gradient(circle 1px at 35% 80%, rgba(106,180,72,0.4) 0%, transparent 100%),
-    radial-gradient(circle 2.5px at 45% 15%, rgba(255,192,42,0.4) 0%, transparent 100%),
-    radial-gradient(circle 1px at 52% 55%, rgba(241,235,214,0.2) 0%, transparent 100%),
-    radial-gradient(circle 2px at 60% 28%, rgba(106,180,72,0.5) 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 68% 72%, rgba(255,192,42,0.3) 0%, transparent 100%),
-    radial-gradient(circle 1px at 75% 44%, rgba(241,235,214,0.4) 0%, transparent 100%),
-    radial-gradient(circle 2px at 82% 18%, rgba(106,180,72,0.6) 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 88% 60%, rgba(255,192,42,0.4) 0%, transparent 100%),
-    radial-gradient(circle 2px at 93% 85%, rgba(106,180,72,0.3) 0%, transparent 100%),
-    radial-gradient(circle 3px at 12% 90%, rgba(106,180,72,0.2) 0%, transparent 100%),
-    radial-gradient(circle 1px at 40% 95%, rgba(255,192,42,0.3) 0%, transparent 100%),
-    radial-gradient(circle 2px at 70% 90%, rgba(241,235,214,0.2) 0%, transparent 100%);
-  animation: v2-particles 8s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-/* Glow orb behind text */
-.v2-hero::after {
-  content: '';
-  position: absolute;
-  top: -30%;
-  right: -5%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(106,180,72,0.18) 0%, transparent 65%);
-  animation: v2-orb 6s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes v2-particles {
-  0% { transform: translateY(0px) translateX(0px); opacity: 0.7; }
-  33% { transform: translateY(-8px) translateX(4px); opacity: 1; }
-  66% { transform: translateY(5px) translateX(-6px); opacity: 0.8; }
-  100% { transform: translateY(-3px) translateX(8px); opacity: 0.9; }
-}
-
-@keyframes v2-orb {
-  from { transform: scale(1) translateY(0); opacity: 0.8; }
-  to   { transform: scale(1.2) translateY(-30px); opacity: 1; }
-}
-
-.v2-hero-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #6AB448;
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.v2-hero-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 2px;
-  background: #6AB448;
-}
-
-.v2-hero-headline {
-  font-size: clamp(40px, 5vw, 72px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #F1EBD6;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-  max-width: 700px;
-}
-
-.v2-hero-headline span {
-  color: #6AB448;
-  position: relative;
-}
-
-.v2-hero-sub {
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(241,235,214,0.7);
-  max-width: 560px;
-  margin-bottom: 36px;
-  position: relative;
-  z-index: 1;
-}
-
-.v2-hero-actions {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  flex-wrap: wrap;
-}
-
-.v2-btn-primary {
-  background: #6AB448;
-  color: #042017;
-  border: none;
-  padding: 14px 28px;
-  border-radius: 50px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-  display: inline-block;
-  letter-spacing: -0.01em;
-}
-
-.v2-btn-primary:hover {
-  background: #7DD455;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(106,180,72,0.4);
-}
-
-.v2-btn-ghost {
-  background: transparent;
-  color: #F1EBD6;
-  border: 1.5px solid rgba(241,235,214,0.3);
-  padding: 13px 24px;
-  border-radius: 50px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.v2-btn-ghost:hover {
-  border-color: rgba(241,235,214,0.7);
-  background: rgba(241,235,214,0.05);
-}
-
-/* Animated dot grid pattern on hero */
-.v2-hero-dots {
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 14px;
-  opacity: 0.4;
-  z-index: 1;
-}
-
-.v2-hero-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #6AB448;
-  animation: v2-dotPulse 3s ease-in-out infinite;
-}
-
-.v2-hero-dot:nth-child(odd)  { animation-delay: 0.3s; background: #FFC02A; }
-.v2-hero-dot:nth-child(3n)   { animation-delay: 0.6s; background: #F1EBD6; }
-.v2-hero-dot:nth-child(5n)   { animation-delay: 0.9s; }
-
-@keyframes v2-dotPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.6); }
-}
-
-/* ── STAT TILES ───────────────────────────────────── */
-.v2-stat {
-  background: #003D29;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 120px;
-  animation: v2-breathe 5s ease-in-out infinite;
-}
-
-.v2-stat:nth-child(2) { animation-delay: 0.5s; }
-.v2-stat:nth-child(3) { animation-delay: 1.0s; }
-.v2-stat:nth-child(4) { animation-delay: 1.5s; }
-
-.v2-stat:hover { animation-play-state: paused; }
-
-.v2-stat-num {
-  font-size: 38px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #F1EBD6;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-
-.v2-stat-num .v2-accent { color: #6AB448; }
-
-.v2-stat-label {
-  font-size: 13px;
-  color: rgba(241,235,214,0.55);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-
-/* Stat area assignments */
-.v2-s1 { grid-area: s1; }
-.v2-s2 { grid-area: s2; }
-.v2-s3 { grid-area: s3; }
-.v2-s4 { grid-area: s4; }
-
-/* ── FEATURE TILES ────────────────────────────────── */
-.v2-nexus {
-  grid-area: nexus;
-  background: linear-gradient(135deg, #042017 0%, #003D29 100%);
-  border: 1px solid rgba(106,180,72,0.2);
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-nexus:hover {
-  border-color: rgba(106,180,72,0.5);
-}
-
-.v2-pos {
-  grid-area: pos;
-  background: #5E324E;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-ecom {
-  grid-area: ecom;
-  background: linear-gradient(135deg, #003D29, #042017);
-  border: 1px solid rgba(241,235,214,0.1);
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-loyalty {
-  grid-area: loyalty;
-  background: linear-gradient(145deg, #003D29 0%, #042017 60%, #5E324E 100%);
-  border: 1px solid rgba(94,50,78,0.4);
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-pay {
-  grid-area: pay;
-  background: #FFC02A;
-  color: #042017;
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-kiosk {
-  grid-area: kiosk;
-  background: #003D29;
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-connect {
-  grid-area: connect;
-  background: linear-gradient(135deg, #042017, #003D29);
-  border: 1px solid rgba(106,180,72,0.15);
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-report {
-  grid-area: report;
-  background: #5E324E;
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-comply {
-  grid-area: comply;
-  background: #003D29;
-  border: 1px solid rgba(106,180,72,0.2);
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.v2-inv {
-  grid-area: inv;
-  background: linear-gradient(145deg, #042017, #003D29);
-  border: 1px solid rgba(241,235,214,0.08);
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── TILE COMMON ELEMENTS ─────────────────────────── */
-.v2-tile-tag {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,0.45);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.v2-pay .v2-tile-tag { color: rgba(4,32,23,0.5); }
-
-.v2-tile-tag::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 1;
-}
-
-.v2-tile-title {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #F1EBD6;
-  margin-bottom: 10px;
-  letter-spacing: -0.02em;
-}
-
-.v2-pay .v2-tile-title { color: #042017; }
-
-.v2-tile-desc {
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(241,235,214,0.55);
-  flex: 1;
-}
-
-.v2-pay .v2-tile-desc { color: rgba(4,32,23,0.6); }
-
-.v2-tile-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #6AB448;
-  text-decoration: none;
-  margin-top: 18px;
-  transition: gap 0.2s;
-}
-
-.v2-pay .v2-tile-link { color: #042017; }
-
-.v2-tile-link:hover { gap: 10px; }
-
-.v2-tile-link::after { content: '→'; }
-
-/* ── NEXUS DASHBOARD ANIMATION ───────────────────── */
-.v2-nexus-dash {
-  margin-top: auto;
-  background: rgba(0,0,0,0.3);
-  border-radius: 10px;
-  padding: 14px;
-  border: 1px solid rgba(106,180,72,0.15);
-  position: relative;
-  overflow: hidden;
-}
-
-.v2-nexus-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 60px;
-  margin-bottom: 10px;
-}
-
-.v2-nexus-bar {
-  flex: 1;
-  border-radius: 4px 4px 0 0;
-  background: linear-gradient(to top, #6AB448, rgba(106,180,72,0.3));
-  animation: v2-barGrow 2s ease-in-out infinite alternate;
-}
-
-.v2-nexus-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
-.v2-nexus-bar:nth-child(2) { height: 70%; animation-delay: 0.1s; }
-.v2-nexus-bar:nth-child(3) { height: 55%; animation-delay: 0.2s; }
-.v2-nexus-bar:nth-child(4) { height: 85%; animation-delay: 0.3s; }
-.v2-nexus-bar:nth-child(5) { height: 60%; animation-delay: 0.4s; }
-.v2-nexus-bar:nth-child(6) { height: 75%; animation-delay: 0.5s; }
-.v2-nexus-bar:nth-child(7) { height: 50%; animation-delay: 0.6s; }
-.v2-nexus-bar:nth-child(8) { height: 90%; animation-delay: 0.7s; background: linear-gradient(to top, #FFC02A, rgba(255,192,42,0.3)); }
-
-@keyframes v2-barGrow {
-  from { transform: scaleY(0.7); }
-  to   { transform: scaleY(1); }
-}
-
-.v2-nexus-metrics {
-  display: flex;
-  gap: 12px;
-}
-
-.v2-nexus-metric {
-  flex: 1;
-  background: rgba(106,180,72,0.1);
-  border-radius: 6px;
-  padding: 8px 10px;
-  border: 1px solid rgba(106,180,72,0.2);
-}
-
-.v2-nexus-metric-val {
-  font-size: 16px;
-  font-weight: 700;
-  color: #6AB448;
-  line-height: 1;
-}
-
-.v2-nexus-metric-lbl {
-  font-size: 9px;
-  color: rgba(241,235,214,0.4);
-  margin-top: 3px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* ── POS ANIMATION ────────────────────────────────── */
-.v2-pos-visual {
-  margin-top: auto;
-  display: flex;
-  justify-content: center;
-  padding-top: 10px;
-}
-
-.v2-register {
-  width: 80px;
-  position: relative;
-}
-
-.v2-register-screen {
-  width: 80px;
-  height: 52px;
-  background: rgba(255,255,255,0.12);
-  border-radius: 6px 6px 0 0;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.v2-register-screen::after {
-  content: '$128.50';
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.9);
-  animation: v2-priceTick 2s step-end infinite;
-}
-
-@keyframes v2-priceTick {
-  0%  { content: '$128.50'; }
-  25% { content: '$74.20'; }
-  50% { content: '$218.90'; }
-  75% { content: '$42.00'; }
-  100%{ content: '$128.50'; }
-}
-
-.v2-register-base {
-  width: 80px;
-  height: 12px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 0 0 4px 4px;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  border-top: none;
-}
-
-.v2-receipt {
-  width: 50px;
-  height: 0;
-  background: rgba(255,255,255,0.85);
-  border-radius: 0 0 2px 2px;
-  margin: 0 auto;
-  animation: v2-receipt 2s ease-in-out infinite;
-}
-
-@keyframes v2-receipt {
-  0%, 40%  { height: 0; }
-  60%, 90% { height: 36px; }
-  100%     { height: 0; }
-}
-
-/* ── ECOM MOCKUP ──────────────────────────────────── */
-.v2-ecom-mockup {
-  margin-top: auto;
-  background: rgba(241,235,214,0.06);
-  border-radius: 8px;
-  padding: 10px;
-  border: 1px solid rgba(241,235,214,0.1);
-}
-
-.v2-ecom-bar {
-  height: 6px;
-  border-radius: 3px;
-  background: rgba(241,235,214,0.15);
-  margin-bottom: 6px;
-  animation: v2-shimmer 2s ease-in-out infinite;
-}
-
-.v2-ecom-bar:nth-child(1) { width: 70%; animation-delay: 0s; }
-.v2-ecom-bar:nth-child(2) { width: 100%; animation-delay: 0.1s; }
-.v2-ecom-bar:nth-child(3) { width: 85%; animation-delay: 0.2s; }
-.v2-ecom-bar:nth-child(4) { width: 60%; animation-delay: 0.3s; }
-
-.v2-ecom-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.v2-ecom-prod {
-  height: 40px;
-  border-radius: 5px;
-  background: rgba(106,180,72,0.15);
-  border: 1px solid rgba(106,180,72,0.2);
-  animation: v2-breathe 3s ease-in-out infinite;
-}
-
-.v2-ecom-prod:nth-child(2) { animation-delay: 0.5s; background: rgba(255,192,42,0.12); border-color: rgba(255,192,42,0.2); }
-.v2-ecom-prod:nth-child(3) { animation-delay: 1.0s; }
-
-@keyframes v2-shimmer {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 0.8; }
-}
-
-/* ── LOYALTY TILE ─────────────────────────────────── */
-.v2-loyalty-preview {
-  margin-top: auto;
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-}
-
-.v2-email-card {
-  flex: 1;
-  background: rgba(255,255,255,0.07);
-  border-radius: 10px;
-  padding: 14px;
-  border: 1px solid rgba(94,50,78,0.5);
-  min-height: 90px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  animation: v2-emailSlide 4s ease-in-out infinite;
-}
-
-.v2-email-card:nth-child(2) { animation-delay: 0.4s; opacity: 0.7; transform: scale(0.95); }
-.v2-email-card:nth-child(3) { animation-delay: 0.8s; opacity: 0.45; transform: scale(0.9); }
-
-@keyframes v2-emailSlide {
-  0%, 80%, 100% { transform: translateY(0); }
-  40%            { transform: translateY(-4px); }
-}
-
-.v2-email-line {
-  height: 5px;
-  border-radius: 3px;
-  background: rgba(241,235,214,0.2);
-}
-
-.v2-email-line:first-child { width: 60%; background: rgba(241,235,214,0.4); height: 7px; }
-.v2-email-line:nth-child(2){ width: 100%; }
-.v2-email-line:nth-child(3){ width: 80%; }
-.v2-email-line:last-child  { width: 40%; background: rgba(106,180,72,0.5); margin-top: 4px; height: 7px; border-radius: 10px; }
-
-/* ── PAY TILE ─────────────────────────────────────── */
-.v2-qr-wrap {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.v2-qr {
-  width: 72px;
-  height: 72px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 3px;
-  animation: v2-qrPulse 2s ease-in-out infinite;
-}
-
-@keyframes v2-qrPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.8; transform: scale(0.97); }
-}
-
-.v2-qr-cell {
-  border-radius: 1px;
-  background: #042017;
-}
-
-.v2-qr-cell.v2-empty { background: transparent; }
-
-.v2-pay-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(4,32,23,0.6);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* ── KIOSK TILE ───────────────────────────────────── */
-.v2-kiosk-visual {
-  margin-top: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.v2-kiosk-stand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.v2-kiosk-screen {
-  width: 54px;
-  height: 80px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 6px 6px 0 0;
-  border: 1.5px solid rgba(106,180,72,0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 8px;
-  animation: v2-kioskGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes v2-kioskGlow {
-  from { box-shadow: 0 0 8px rgba(106,180,72,0.2); border-color: rgba(106,180,72,0.3); }
-  to   { box-shadow: 0 0 20px rgba(106,180,72,0.5); border-color: rgba(106,180,72,0.7); }
-}
-
-.v2-kiosk-line {
-  width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(106,180,72,0.4);
-}
-
-.v2-kiosk-btn {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(106,180,72,0.5);
-  background: rgba(106,180,72,0.15);
-  margin-top: 2px;
-}
-
-.v2-kiosk-pole {
-  width: 6px;
-  height: 20px;
-  background: rgba(106,180,72,0.25);
-}
-
-.v2-kiosk-base {
-  width: 40px;
-  height: 8px;
-  background: rgba(106,180,72,0.2);
-  border-radius: 4px;
-}
-
-/* ── CONNECT FLOW ─────────────────────────────────── */
-.v2-supply-chain {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 16px;
-}
-
-.v2-supply-node {
-  flex: 1;
-  background: rgba(106,180,72,0.1);
-  border: 1px solid rgba(106,180,72,0.25);
-  border-radius: 8px;
-  padding: 10px 8px;
-  text-align: center;
-  font-size: 10px;
-  color: rgba(241,235,214,0.6);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-weight: 600;
-  position: relative;
-  animation: v2-nodeActive 3s ease-in-out infinite;
-}
-
-.v2-supply-node:nth-child(3) { animation-delay: 0.5s; }
-.v2-supply-node:nth-child(5) { animation-delay: 1.0s; }
-.v2-supply-node:nth-child(7) { animation-delay: 1.5s; }
-
-@keyframes v2-nodeActive {
-  0%, 80%, 100% { border-color: rgba(106,180,72,0.25); background: rgba(106,180,72,0.1); }
-  40%            { border-color: rgba(106,180,72,0.7); background: rgba(106,180,72,0.2); }
-}
-
-.v2-supply-arrow {
-  color: rgba(106,180,72,0.5);
-  font-size: 14px;
-  animation: v2-arrowPulse 1.5s ease-in-out infinite;
-}
-
-.v2-supply-arrow:nth-child(4) { animation-delay: 0.5s; }
-.v2-supply-arrow:nth-child(6) { animation-delay: 1.0s; }
-
-@keyframes v2-arrowPulse {
-  0%, 100% { opacity: 0.3; transform: translateX(0); }
-  50%       { opacity: 1; transform: translateX(3px); }
-}
-
-.v2-supply-icon {
-  font-size: 18px;
-  display: block;
-  margin-bottom: 4px;
-}
-
-/* ── CHART ANIMATION ──────────────────────────────── */
-.v2-chart-wrap {
-  margin-top: auto;
-  position: relative;
-  height: 80px;
-}
-
-.v2-chart-line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-}
-
-.v2-chart-svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.v2-chart-path {
-  fill: none;
-  stroke: #6AB448;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
-  animation: v2-drawLine 2s ease forwards 0.5s;
-}
-
-.v2-chart-area {
-  fill: url(#v2-chartGrad);
-  stroke: none;
-  opacity: 0;
-  animation: v2-areaFade 2s ease forwards 1s;
-}
-
-@keyframes v2-drawLine {
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes v2-areaFade {
-  to { opacity: 1; }
-}
-
-.v2-chart-dot {
-  fill: #FFC02A;
-  animation: v2-dotAppear 0.3s ease forwards;
-  opacity: 0;
-}
-
-.v2-chart-dot:nth-child(1) { animation-delay: 1.8s; }
-.v2-chart-dot:nth-child(2) { animation-delay: 2.0s; }
-.v2-chart-dot:nth-child(3) { animation-delay: 2.2s; }
-
-@keyframes v2-dotAppear {
-  to { opacity: 1; }
-}
-
-/* ── COMPLIANCE CHECKMARK ─────────────────────────── */
-.v2-check-anim {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 12px;
-}
-
-.v2-check-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: rgba(241,235,214,0.6);
-  animation: v2-checkIn 0.5s ease both;
-}
-
-.v2-check-item:nth-child(1) { animation-delay: 0.5s; }
-.v2-check-item:nth-child(2) { animation-delay: 0.8s; }
-.v2-check-item:nth-child(3) { animation-delay: 1.1s; }
-.v2-check-item:nth-child(4) { animation-delay: 1.4s; }
-
-@keyframes v2-checkIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-.v2-check-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(106,180,72,0.2);
-  border: 1.5px solid #6AB448;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 11px;
-  color: #6AB448;
-}
-
-/* ── INVENTORY TILE ───────────────────────────────── */
-.v2-inv-bars {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding-top: 12px;
-}
-
-.v2-inv-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.v2-inv-label {
-  font-size: 10px;
-  color: rgba(241,235,214,0.4);
-  width: 50px;
-  flex-shrink: 0;
-  letter-spacing: 0.05em;
-}
-
-.v2-inv-track {
-  flex: 1;
-  height: 6px;
-  background: rgba(241,235,214,0.08);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.v2-inv-fill {
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(to right, #6AB448, #FFC02A);
-  animation: v2-fillIn 1.5s ease both;
-  transform-origin: left;
-}
-
-.v2-inv-row:nth-child(1) .v2-inv-fill { width: 82%; animation-delay: 0.3s; }
-.v2-inv-row:nth-child(2) .v2-inv-fill { width: 58%; animation-delay: 0.5s; }
-.v2-inv-row:nth-child(3) .v2-inv-fill { width: 94%; animation-delay: 0.7s; }
-.v2-inv-row:nth-child(4) .v2-inv-fill { width: 41%; animation-delay: 0.9s; background: linear-gradient(to right, #FFC02A, #ff9e2a); }
-
-@keyframes v2-fillIn {
-  from { width: 0 !important; }
-}
-
-/* ── TESTIMONIAL TILES ────────────────────────────── */
-.v2-test1 { grid-area: test1; background: #003D29; border: 1px solid rgba(106,180,72,0.15); }
-.v2-test2 { grid-area: test2; background: #5E324E; }
-.v2-test3 { grid-area: test3; background: linear-gradient(135deg, #042017, #003D29); border: 1px solid rgba(241,235,214,0.08); }
-
-.v2-quote-mark {
-  font-size: 60px;
-  line-height: 0.8;
-  color: rgba(106,180,72,0.3);
-  font-family: Georgia, serif;
-  margin-bottom: 12px;
-  display: block;
-}
-
-.v2-test2 .v2-quote-mark { color: rgba(241,235,214,0.2); }
-
-.v2-quote-text {
-  font-size: 15px;
-  line-height: 1.65;
-  color: rgba(241,235,214,0.85);
-  margin-bottom: 20px;
-  font-style: italic;
-}
-
-.v2-quote-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.v2-author-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(106,180,72,0.2);
-  border: 2px solid rgba(106,180,72,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  font-weight: 700;
-  color: #6AB448;
-  flex-shrink: 0;
-}
-
-.v2-test2 .v2-author-avatar {
-  background: rgba(241,235,214,0.1);
-  border-color: rgba(241,235,214,0.3);
-  color: #F1EBD6;
-}
-
-.v2-author-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: #F1EBD6;
-  line-height: 1.2;
-}
-
-.v2-author-co {
-  font-size: 12px;
-  color: rgba(241,235,214,0.45);
-  margin-top: 2px;
-}
-
-/* ── CTA TILE ─────────────────────────────────────── */
-.v2-cta {
-  grid-area: cta;
-  background: #6AB448;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 140px;
-  flex-wrap: wrap;
-  overflow: hidden;
-}
-
-.v2-cta::before {
-  content: '';
-  position: absolute;
-  top: -60%;
-  right: -5%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
-  pointer-events: none;
-  animation: v2-orb 5s ease-in-out infinite alternate;
-}
-
-.v2-cta::after {
-  content: '';
-  position: absolute;
-  bottom: -40%;
-  left: 10%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(4,32,23,0.15) 0%, transparent 65%);
-  pointer-events: none;
-}
-
-.v2-cta-copy {
-  position: relative;
-  z-index: 1;
-}
-
-.v2-cta-headline {
-  font-size: clamp(26px, 3vw, 38px);
-  font-weight: 800;
-  color: #042017;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin-bottom: 8px;
-}
-
-.v2-cta-sub {
-  font-size: 15px;
-  color: rgba(4,32,23,0.65);
-  max-width: 460px;
-}
-
-.v2-cta-actions {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-}
-
-.v2-btn-cta-primary {
-  background: #042017;
-  color: #F1EBD6;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 50px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-  display: inline-block;
-  letter-spacing: -0.01em;
-}
-
-.v2-btn-cta-primary:hover {
-  background: #003D29;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(4,32,23,0.4);
-}
-
-.v2-btn-cta-ghost {
-  background: transparent;
-  color: #042017;
-  border: 2px solid rgba(4,32,23,0.25);
-  padding: 13px 24px;
-  border-radius: 50px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.v2-btn-cta-ghost:hover {
-  border-color: rgba(4,32,23,0.7);
-  background: rgba(4,32,23,0.06);
-}
-
-/* ── 3D TILT ON HOVER ─────────────────────────────── */
-.v2-tile.v2-tilt-active {
-  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-}
-
-/* ── RESPONSIVE ───────────────────────────────────── */
-@media (max-width: 1000px) {
-  .v2-grid {
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-areas:
-      "hero hero hero hero hero hero"
-      "s1 s1 s2 s2 s3 s3"
-      "s4 s4 s4 s4 s4 s4"
-      "nexus nexus nexus nexus nexus nexus"
-      "nexus nexus nexus nexus nexus nexus"
-      "pos pos pos ecom ecom ecom"
-      "pos pos pos ecom ecom ecom"
-      "loyalty loyalty loyalty loyalty loyalty loyalty"
-      "loyalty loyalty loyalty loyalty loyalty loyalty"
-      "pay pay pay kiosk kiosk kiosk"
-      "pay pay pay kiosk kiosk kiosk"
-      "connect connect connect connect connect connect"
-      "connect connect connect connect connect connect"
-      "report report report comply comply comply"
-      "report report report inv inv inv"
-      "test1 test1 test1 test2 test2 test2"
-      "test3 test3 test3 test3 test3 test3"
-      "cta cta cta cta cta cta";
-  }
-
-  .v2-hero { padding: 48px 40px; }
-  .v2-hero-dots { display: none; }
-}
-
-@media (max-width: 640px) {
-  #version-2 { padding: 12px; }
-
-  .v2-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "hero hero"
-      "s1 s2"
-      "s3 s4"
-      "nexus nexus"
-      "pos ecom"
-      "loyalty loyalty"
-      "pay kiosk"
-      "connect connect"
-      "report report"
-      "comply inv"
-      "test1 test1"
-      "test2 test2"
-      "test3 test3"
-      "cta cta";
-    gap: 8px;
-  }
-
-  .v2-hero { padding: 36px 24px; min-height: 300px; }
-  .v2-tile { padding: 20px; }
-  .v2-cta { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
-  .v2-hero-dots { display: none; }
-  .v2-supply-chain { flex-wrap: wrap; }
-  .v2-loyalty-preview { display: none; }
-}
-
-/* ── LOGO BAR ─────────────────────────────────────── */
-.v2-logo-strip {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  padding: 0;
-  flex-wrap: wrap;
-}
-
-.v2-logo-item {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,0.25);
-  transition: color 0.2s;
-}
-
-.v2-logo-item:hover { color: rgba(241,235,214,0.6); }
-</style>
-
-<!-- ══════════════════════════════════════════════════
-     BENTO GRID LAYOUT
-══════════════════════════════════════════════════ -->
-<div class="v2-grid">
-
-  <!-- ── HERO ───────────────────────────────────────── -->
-  <div class="v2-tile v2-hero">
-
-    <!-- Dot grid decoration -->
-    <div class="v2-hero-dots">
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-      <div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div><div class="v2-hero-dot"></div>
-    </div>
-
-    <div class="v2-hero-eyebrow">The #1 Cannabis Technology Platform</div>
-    <h1 class="v2-hero-headline">
-      Run your dispensary.<br>
-      <span>Own your growth.</span>
-    </h1>
-    <p class="v2-hero-sub">
-      Everything you need to operate, scale, and dominate your market — from POS to AI-driven insights, all in one connected platform built for cannabis.
-    </p>
-    <div class="v2-hero-actions">
-      <a href="#" class="v2-btn-primary">Book a Free Demo</a>
-      <a href="#" class="v2-btn-ghost">Explore the Platform</a>
-    </div>
-  </div>
-
-  <!-- ── STATS ──────────────────────────────────────── -->
-  <div class="v2-tile v2-stat v2-s1">
-    <div class="v2-stat-num"><span class="v2-counter" data-target="40">40</span><span class="v2-accent">+</span></div>
-    <div class="v2-stat-label">U.S. &amp; Canadian Markets</div>
-  </div>
-
-  <div class="v2-tile v2-stat v2-s2">
-    <div class="v2-stat-num"><span class="v2-counter" data-target="6500">6,500</span><span class="v2-accent">+</span></div>
-    <div class="v2-stat-label">Dispensary Partners</div>
-  </div>
-
-  <div class="v2-tile v2-stat v2-s3">
-    <div class="v2-stat-num"><span class="v2-accent">$</span><span class="v2-counter" data-target="22">22</span><span class="v2-accent">B</span></div>
-    <div class="v2-stat-label">Annual Sales Volume</div>
-  </div>
-
-  <div class="v2-tile v2-stat v2-s4">
-    <div class="v2-stat-num"><span class="v2-counter" data-target="1">1</span><span class="v2-accent">M+</span></div>
-    <div class="v2-stat-label">Transactions Per Day</div>
-  </div>
-
-  <!-- ── NEXUS AI ────────────────────────────────────── -->
-  <div class="v2-tile v2-nexus">
-    <div class="v2-tile-tag">AI-Powered</div>
-    <h2 class="v2-tile-title">Nexus AI Command Center</h2>
-    <p class="v2-tile-desc">
-      The intelligence layer across your entire operation. Nexus surfaces real-time insights, forecasts demand, flags compliance risks, and automates decisions — so you lead, not react.
-    </p>
-    <a href="#" class="v2-tile-link">Explore Nexus AI</a>
-
-    <div class="v2-nexus-dash">
-      <div class="v2-nexus-bars">
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-        <div class="v2-nexus-bar"></div>
-      </div>
-      <div class="v2-nexus-metrics">
-        <div class="v2-nexus-metric">
-          <div class="v2-nexus-metric-val">+18%</div>
-          <div class="v2-nexus-metric-lbl">Revenue</div>
-        </div>
-        <div class="v2-nexus-metric">
-          <div class="v2-nexus-metric-val">97.3%</div>
-          <div class="v2-nexus-metric-lbl">Accuracy</div>
-        </div>
-        <div class="v2-nexus-metric">
-          <div class="v2-nexus-metric-val">2.1s</div>
-          <div class="v2-nexus-metric-lbl">Insight</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── POINT OF SALE ──────────────────────────────── -->
-  <div class="v2-tile v2-pos">
-    <div class="v2-tile-tag">Hardware + Software</div>
-    <h2 class="v2-tile-title">Point of Sale</h2>
-    <p class="v2-tile-desc">
-      The fastest, most reliable cannabis POS. Purpose-built for high volume, designed for your budtenders — with offline mode, instant checkout, and compliance baked in.
-    </p>
-    <a href="#" class="v2-tile-link">See POS</a>
-
-    <div class="v2-pos-visual">
-      <div class="v2-register">
-        <div class="v2-register-screen"></div>
-        <div class="v2-register-base"></div>
-        <div class="v2-receipt"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── E-COMMERCE ─────────────────────────────────── -->
-  <div class="v2-tile v2-ecom">
-    <div class="v2-tile-tag">Online Ordering</div>
-    <h2 class="v2-tile-title">E-Commerce Pro</h2>
-    <p class="v2-tile-desc">
-      Convert browsers into buyers. Customizable menus, SEO-ready storefronts, and first-party ordering that drives revenue without the third-party fees.
-    </p>
-    <a href="#" class="v2-tile-link">Launch Your Menu</a>
-
-    <div class="v2-ecom-mockup">
-      <div class="v2-ecom-bar"></div>
-      <div class="v2-ecom-bar"></div>
-      <div class="v2-ecom-bar"></div>
-      <div class="v2-ecom-bar"></div>
-      <div class="v2-ecom-grid">
-        <div class="v2-ecom-prod"></div>
-        <div class="v2-ecom-prod"></div>
-        <div class="v2-ecom-prod"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── LOYALTY ────────────────────────────────────── -->
-  <div class="v2-tile v2-loyalty">
-    <div class="v2-tile-tag">CRM + Marketing</div>
-    <h2 class="v2-tile-title">Loyalty &amp; Marketing Suite</h2>
-    <p class="v2-tile-desc">
-      Build the customer relationships that last. Automated campaigns, points programs, segmented offers, and SMS/email flows that bring customers back — consistently.
-    </p>
-    <a href="#" class="v2-tile-link">Drive Retention</a>
-
-    <div class="v2-loyalty-preview">
-      <div class="v2-email-card">
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-      </div>
-      <div class="v2-email-card">
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-      </div>
-      <div class="v2-email-card">
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-        <div class="v2-email-line"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── PAYMENTS ───────────────────────────────────── -->
-  <div class="v2-tile v2-pay">
-    <div class="v2-tile-tag" style="color:rgba(4,32,23,0.5);">Cashless Payments</div>
-    <h2 class="v2-tile-title">Pay by Bank</h2>
-    <p class="v2-tile-desc">
-      Say goodbye to cash-only operations. Accept secure, bank-linked payments at the register or online — no card network, no chargebacks, no headaches.
-    </p>
-    <a href="#" class="v2-tile-link">Go Cashless</a>
-
-    <div class="v2-qr-wrap">
-      <!-- QR Code pattern -->
-      <div class="v2-qr">
-        <div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div>
-        <div class="v2-qr-cell"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell"></div>
-        <div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div>
-        <div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div>
-        <div class="v2-qr-cell"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell v2-empty"></div><div class="v2-qr-cell"></div><div class="v2-qr-cell"></div>
-      </div>
-      <div class="v2-pay-label">Scan to Pay</div>
-    </div>
-  </div>
-
-  <!-- ── KIOSK ──────────────────────────────────────── -->
-  <div class="v2-tile v2-kiosk">
-    <div class="v2-tile-tag">Self-Service</div>
-    <h2 class="v2-tile-title">Kiosk Pro</h2>
-    <p class="v2-tile-desc">Reduce wait times and free your staff. Self-service ordering kiosks that integrate directly with your POS and inventory in real time.</p>
-    <a href="#" class="v2-tile-link">See Kiosk</a>
-
-    <div class="v2-kiosk-visual">
-      <div class="v2-kiosk-stand">
-        <div class="v2-kiosk-screen">
-          <div class="v2-kiosk-line"></div>
-          <div class="v2-kiosk-line" style="width:70%"></div>
-          <div class="v2-kiosk-line" style="width:85%"></div>
-          <div class="v2-kiosk-btn"></div>
-        </div>
-        <div class="v2-kiosk-pole"></div>
-        <div class="v2-kiosk-base"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CONNECT ────────────────────────────────────── -->
-  <div class="v2-tile v2-connect">
-    <div class="v2-tile-tag">Supply Chain</div>
-    <h2 class="v2-tile-title">Connect for Retailers</h2>
-    <p class="v2-tile-desc">
-      Seamlessly connect with your licensed suppliers. Automate purchase orders, streamline receiving, sync catalog data, and eliminate manual entry — all within Dutchie.
-    </p>
-    <a href="#" class="v2-tile-link">Explore Connect</a>
-
-    <div class="v2-supply-chain">
-      <div class="v2-supply-node">
-        <span class="v2-supply-icon">🌿</span>
-        Grower
-      </div>
-      <div class="v2-supply-arrow">→</div>
-      <div class="v2-supply-node">
-        <span class="v2-supply-icon">🏭</span>
-        Processor
-      </div>
-      <div class="v2-supply-arrow">→</div>
-      <div class="v2-supply-node">
-        <span class="v2-supply-icon">📦</span>
-        Distrib.
-      </div>
-      <div class="v2-supply-arrow">→</div>
-      <div class="v2-supply-node">
-        <span class="v2-supply-icon">🏪</span>
-        Your Store
-      </div>
-    </div>
-  </div>
-
-  <!-- ── REPORTING ──────────────────────────────────── -->
-  <div class="v2-tile v2-report">
-    <div class="v2-tile-tag">Business Intelligence</div>
-    <h2 class="v2-tile-title">Reporting &amp; Analytics</h2>
-    <p class="v2-tile-desc">
-      See what's working. Real-time dashboards for sales, inventory turns, budtender performance, and customer trends — across every location.
-    </p>
-    <a href="#" class="v2-tile-link">View Analytics</a>
-
-    <div class="v2-chart-wrap">
-      <svg class="v2-chart-svg" viewBox="0 0 200 80" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="v2-chartGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#6AB448" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#6AB448" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path class="v2-chart-area" d="M 0 80 L 0 60 C 25 55, 30 30, 50 35 C 70 40, 80 20, 100 18 C 120 16, 140 25, 160 15 C 175 8, 190 5, 200 2 L 200 80 Z"/>
-        <path class="v2-chart-path" d="M 0 60 C 25 55, 30 30, 50 35 C 70 40, 80 20, 100 18 C 120 16, 140 25, 160 15 C 175 8, 190 5, 200 2"/>
-        <circle class="v2-chart-dot" cx="100" cy="18" r="4"/>
-        <circle class="v2-chart-dot" cx="160" cy="15" r="4"/>
-        <circle class="v2-chart-dot" cx="200" cy="2" r="4"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- ── COMPLIANCE ─────────────────────────────────── -->
-  <div class="v2-tile v2-comply">
-    <div class="v2-tile-tag">Regulatory</div>
-    <h2 class="v2-tile-title">Compliance</h2>
-    <p class="v2-tile-desc">
-      Stay audit-ready, every day. Automated Metrc/BioTrack reporting, purchase limits, age verification, and real-time state sync so you never face a violation.
-    </p>
-    <a href="#" class="v2-tile-link">Stay Compliant</a>
-
-    <div class="v2-check-anim">
-      <div class="v2-check-item">
-        <div class="v2-check-icon">✓</div>
-        <span>Metrc Integration</span>
-      </div>
-      <div class="v2-check-item">
-        <div class="v2-check-icon">✓</div>
-        <span>Purchase Limits</span>
-      </div>
-      <div class="v2-check-item">
-        <div class="v2-check-icon">✓</div>
-        <span>Age Verification</span>
-      </div>
-      <div class="v2-check-item">
-        <div class="v2-check-icon">✓</div>
-        <span>Audit Trail</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── INVENTORY ──────────────────────────────────── -->
-  <div class="v2-tile v2-inv">
-    <div class="v2-tile-tag">Stock Management</div>
-    <h2 class="v2-tile-title">Inventory Management</h2>
-    <p class="v2-tile-desc">
-      Never miss a sale from a stock-out again. Live inventory tracking, low-stock alerts, and automated reorder points across all your locations.
-    </p>
-    <a href="#" class="v2-tile-link">Control Inventory</a>
-
-    <div class="v2-inv-bars">
-      <div class="v2-inv-row">
-        <div class="v2-inv-label">Flower</div>
-        <div class="v2-inv-track"><div class="v2-inv-fill"></div></div>
-      </div>
-      <div class="v2-inv-row">
-        <div class="v2-inv-label">Edibles</div>
-        <div class="v2-inv-track"><div class="v2-inv-fill"></div></div>
-      </div>
-      <div class="v2-inv-row">
-        <div class="v2-inv-label">Vapes</div>
-        <div class="v2-inv-track"><div class="v2-inv-fill"></div></div>
-      </div>
-      <div class="v2-inv-row">
-        <div class="v2-inv-label">Tinctures</div>
-        <div class="v2-inv-track"><div class="v2-inv-fill"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── TESTIMONIALS ───────────────────────────────── -->
-  <div class="v2-tile v2-test1">
-    <span class="v2-quote-mark">"</span>
-    <p class="v2-quote-text">
-      Switching to Dutchie was the single best operational decision we've made. Our checkout time dropped 40%, compliance reporting is automated, and our team actually loves the system.
-    </p>
-    <div class="v2-quote-author">
-      <div class="v2-author-avatar">AW</div>
-      <div>
-        <div class="v2-author-name">Scott Melker</div>
-        <div class="v2-author-co">VP of Operations, Ascend Wellness</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="v2-tile v2-test2">
-    <span class="v2-quote-mark">"</span>
-    <p class="v2-quote-text">
-      Planet 13 runs the world's largest cannabis dispensary. We needed a platform that could match our scale — Dutchie is the only one that delivers at every level.
-    </p>
-    <div class="v2-quote-author">
-      <div class="v2-author-avatar">P13</div>
-      <div>
-        <div class="v2-author-name">Larry Scheffler</div>
-        <div class="v2-author-co">Co-CEO, Planet 13</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="v2-tile v2-test3">
-    <span class="v2-quote-mark">"</span>
-    <p class="v2-quote-text">
-      The analytics alone paid for the platform in the first quarter. We finally understand which products move, when they move, and which customers to target. It's a game changer.
-    </p>
-    <div class="v2-quote-author">
-      <div class="v2-author-avatar">SS</div>
-      <div>
-        <div class="v2-author-name">Amanda Torres</div>
-        <div class="v2-author-co">Director of Retail, Strain Stars</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CTA ────────────────────────────────────────── -->
-  <div class="v2-tile v2-cta">
-    <div class="v2-cta-copy">
-      <div class="v2-cta-headline">Ready to see Dutchie in action?</div>
-      <div class="v2-cta-sub">
-        Join 6,500+ cannabis operators who chose Dutchie to power their growth. Get a personalized demo from our team.
-      </div>
-    </div>
-    <div class="v2-cta-actions">
-      <a href="#" class="v2-btn-cta-primary">Book a Demo</a>
-      <a href="#" class="v2-btn-cta-ghost">Talk to Sales</a>
-    </div>
-  </div>
-
-</div>
-<!-- /v2-grid -->
-
-</div>
-<!-- /version-2 -->
-
-<script>
-/* ── 3D TILT EFFECT ───────────────────────────────────────────── */
-(function() {
-  const tiles = document.querySelectorAll('#version-2 .v2-tile');
-
-  tiles.forEach(function(tile) {
-    tile.addEventListener('mousemove', function(e) {
-      const rect = tile.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const dx = (x - cx) / cx;
-      const dy = (y - cy) / cy;
-      const tiltX = dy * -8;
-      const tiltY = dx * 8;
-      tile.style.transform = 'perspective(800px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(1.02)';
-      tile.style.transition = 'transform 0.1s ease-out';
-    });
-
-    tile.addEventListener('mouseleave', function() {
-      tile.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-      tile.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-    });
-  });
-})();
-
-/* ── ANIMATED COUNTERS ────────────────────────────────────────── */
-(function() {
-  var counters = document.querySelectorAll('#version-2 .v2-counter');
-  var started = false;
-
-  function animateCounters() {
-    if (started) return;
-    started = true;
-    counters.forEach(function(counter) {
-      var target = parseFloat(counter.getAttribute('data-target'));
-      var start = 0;
-      var duration = 1800;
-      var startTime = null;
-
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var progress = Math.min((timestamp - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        var current = start + (target - start) * eased;
-
-        if (target >= 1000) {
-          counter.textContent = Math.floor(current).toLocaleString();
-        } else {
-          counter.textContent = Math.round(current * 10) / 10;
-        }
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          if (target >= 1000) {
-            counter.textContent = Math.floor(target).toLocaleString();
-          } else {
-            counter.textContent = target;
-          }
-        }
-      }
-      requestAnimationFrame(step);
-    });
-  }
-
-  /* Intersection Observer for scroll trigger */
-  var statsSection = document.querySelector('#version-2 .v2-s1');
-  if (statsSection && 'IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          animateCounters();
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-    observer.observe(statsSection);
-  } else {
-    animateCounters();
-  }
-})();
-
-/* ── SCROLL FADE-IN ───────────────────────────────────────────── */
-(function() {
-  if (!('IntersectionObserver' in window)) return;
-
-  var tiles = document.querySelectorAll('#version-2 .v2-tile');
-  tiles.forEach(function(tile) {
-    tile.style.opacity = '0';
-    tile.style.transform = 'translateY(30px)';
-    tile.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    tile.style.animationPlayState = 'paused';
-  });
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var tile = entry.target;
-        var delay = Array.from(tiles).indexOf(tile) * 50;
-        setTimeout(function() {
-          tile.style.opacity = '1';
-          tile.style.transform = 'translateY(0)';
-          tile.style.animationPlayState = 'running';
-        }, delay);
-        observer.unobserve(tile);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  tiles.forEach(function(tile) {
-    observer.observe(tile);
-  });
-})();
-</script>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     VERSION 3: EDITORIAL MAGAZINE
-     ═══════════════════════════════════════════════════════════ -->
-<div class="version-container" data-version="3">
-<style>
-/* ============================================================
-   VERSION 3: EDITORIAL MAGAZINE
-   Prefix: v3-
-   Brand palette:
-     Dark Green  #042017
-     Sand        #F1EBD6
-     Medium Green #003D29
-     Purple      #5E324E
-     Light Green #6AB448
-     Yellow      #FFC02A
-   ============================================================ */
-
-/* ---------- reset & base ---------- */
-#version-3 *,
-#version-3 *::before,
-#version-3 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-#version-3 {
-  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-  background: #042017;
-  color: #F1EBD6;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* ---------- typography scale ---------- */
-.v3-serif { font-family: 'Playfair Display', Georgia, serif; }
-
-/* ---------- scroll-reveal base ---------- */
-.v3-reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1);
-}
-.v3-reveal.v3-visible {
-  opacity: 1;
-  transform: none;
-}
-.v3-reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1);
-}
-.v3-reveal-left.v3-visible {
-  opacity: 1;
-  transform: none;
-}
-.v3-reveal-right {
-  opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1);
-}
-.v3-reveal-right.v3-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* stagger siblings */
-.v3-stagger > *:nth-child(1) { transition-delay: 0s; }
-.v3-stagger > *:nth-child(2) { transition-delay: 0.12s; }
-.v3-stagger > *:nth-child(3) { transition-delay: 0.24s; }
-.v3-stagger > *:nth-child(4) { transition-delay: 0.36s; }
-.v3-stagger > *:nth-child(5) { transition-delay: 0.48s; }
-.v3-stagger > *:nth-child(6) { transition-delay: 0.60s; }
-
-/* ============================================================
-   SECTION 1: HERO
-   ============================================================ */
-.v3-hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  background: #042017;
-  padding: 0 6vw;
-}
-
-/* animated gradient backdrop */
-.v3-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 90% 70% at 85% 30%, rgba(106,180,72,.18) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 80% at 5% 90%, rgba(255,192,42,.08) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,61,41,.6) 0%, transparent 80%);
-  animation: v3HeroGlow 8s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes v3HeroGlow {
-  from { opacity: .8; }
-  to   { opacity: 1; }
-}
-
-/* fine grain texture overlay */
-.v3-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
-  background-size: 200px;
-  opacity: .5;
-  pointer-events: none;
-}
-
-.v3-hero-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1400px;
-  width: 100%;
-  padding-top: 100px;
-  padding-bottom: 80px;
-}
-
-.v3-hero-eyebrow {
-  font-size: clamp(10px, 1vw, 13px);
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: #FFC02A;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: v3FadeSlideUp .7s .3s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-/* Big stacked headline */
-.v3-hero-headline {
-  line-height: .92;
-  margin-bottom: 60px;
-}
-
-.v3-hero-headline .v3-headline-line {
-  display: block;
-  overflow: hidden;
-}
-
-.v3-headline-word {
-  display: inline-block;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 900;
-  font-size: clamp(52px, 10vw, 148px);
-  color: #F1EBD6;
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-  opacity: 0;
-  transform: translateY(100%);
-  animation: v3WordReveal 1s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-/* stagger each word line */
-.v3-hero-headline .v3-headline-line:nth-child(1) .v3-headline-word { animation-delay: .2s; }
-.v3-hero-headline .v3-headline-line:nth-child(2) .v3-headline-word { animation-delay: .4s; }
-.v3-hero-headline .v3-headline-line:nth-child(3) .v3-headline-word { animation-delay: .6s; }
-
-.v3-headline-italic {
-  font-style: italic;
-  color: #6AB448;
-}
-
-/* letter by letter for hero subline */
-.v3-hero-subline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 .3em;
-  margin-bottom: 56px;
-}
-
-.v3-letter {
-  display: inline-block;
-  font-size: clamp(14px, 1.6vw, 22px);
-  font-weight: 300;
-  color: rgba(241,235,214,.65);
-  letter-spacing: .03em;
-  opacity: 0;
-  animation: v3LetterIn .5s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-.v3-hero-meta {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: v3FadeSlideUp .8s 1.6s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-.v3-hero-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.v3-hero-stat-num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(28px, 3vw, 42px);
-  font-weight: 700;
-  color: #FFC02A;
-  line-height: 1;
-}
-
-.v3-hero-stat-label {
-  font-size: 11px;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,.5);
-}
-
-.v3-hero-divider {
-  width: 1px;
-  height: 48px;
-  background: rgba(241,235,214,.2);
-}
-
-.v3-hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: #FFC02A;
-  color: #042017;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  padding: 16px 32px;
-  text-decoration: none;
-  transition: background .2s, transform .2s;
-  margin-top: auto;
-}
-
-.v3-hero-cta:hover {
-  background: #FFD060;
-  transform: translateX(4px);
-}
-
-.v3-hero-cta svg {
-  transition: transform .2s;
-}
-.v3-hero-cta:hover svg {
-  transform: translateX(4px);
-}
-
-/* scroll cue */
-.v3-hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 1;
-  opacity: 0;
-  animation: v3FadeIn 1s 2s forwards;
-}
-
-.v3-hero-scroll span {
-  font-size: 10px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,.35);
-}
-
-.v3-scroll-line {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, rgba(241,235,214,.3), transparent);
-  animation: v3ScrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes v3ScrollPulse {
-  0%, 100% { transform: scaleY(1); opacity: .5; }
-  50%       { transform: scaleY(1.3); opacity: 1; }
-}
-
-/* ============================================================
-   HERO ANIMATIONS
-   ============================================================ */
-@keyframes v3WordReveal {
-  from { opacity: 0; transform: translateY(100%); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes v3FadeSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes v3LetterIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes v3FadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* ============================================================
-   SECTION 2: LEDE
-   ============================================================ */
-.v3-lede {
-  background: #F1EBD6;
-  color: #042017;
-  padding: clamp(80px, 10vw, 140px) 6vw;
-}
-
-.v3-lede-inner {
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.v3-lede-label {
-  font-size: 11px;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: rgba(4,32,23,.4);
-  margin-bottom: 40px;
-}
-
-.v3-lede-text {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(22px, 3.2vw, 46px);
-  font-weight: 400;
-  line-height: 1.4;
-  color: #042017;
-}
-
-.v3-lede-text .v3-highlight-yellow {
-  position: relative;
-  display: inline;
-  font-weight: 700;
-  color: #042017;
-  background: linear-gradient(to right, #FFC02A 0%, #FFC02A 100%);
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
-  background-position: left bottom;
-  padding: 0 4px;
-  transition: background-size 1s .3s cubic-bezier(.22,1,.36,1);
-}
-
-.v3-lede-text .v3-highlight-yellow.v3-visible {
-  background-size: 100% 100%;
-}
-
-.v3-lede-footer {
-  margin-top: 64px;
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  flex-wrap: wrap;
-  border-top: 1px solid rgba(4,32,23,.15);
-  padding-top: 32px;
-}
-
-.v3-lede-tag {
-  font-size: 12px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: rgba(4,32,23,.45);
-  padding: 6px 14px;
-  border: 1px solid rgba(4,32,23,.2);
-}
-
-/* ============================================================
-   CHAPTER LAYOUT HELPERS
-   ============================================================ */
-.v3-chapter-label {
-  font-size: 10px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: #FFC02A;
-  margin-bottom: 16px;
-}
-
-.v3-chapter-num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(100px, 16vw, 200px);
-  font-weight: 900;
-  color: rgba(241,235,214,.04);
-  line-height: 1;
-  position: absolute;
-  top: -20px;
-  right: 4vw;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* ============================================================
-   SECTION 3: CHAPTER 1 — INTELLIGENCE LAYER
-   ============================================================ */
-.v3-chapter1 {
-  background: #042017;
-  padding: clamp(80px, 10vw, 140px) 6vw;
-  position: relative;
-  overflow: hidden;
-}
-
-.v3-chapter1-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 60fr 40fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.v3-chapter1-left { position: relative; }
-
-.v3-chapter1-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(36px, 5vw, 76px);
-  font-weight: 900;
-  line-height: 1.05;
-  color: #F1EBD6;
-  margin-bottom: 40px;
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-}
-
-.v3-chapter1-heading em {
-  font-style: italic;
-  color: #6AB448;
-}
-
-.v3-chapter1-body {
-  font-size: clamp(15px, 1.4vw, 18px);
-  line-height: 1.75;
-  color: rgba(241,235,214,.7);
-  margin-bottom: 48px;
-  max-width: 520px;
-}
-
-.v3-products-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 56px;
-}
-
-.v3-product-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-  border: 1px solid rgba(241,235,214,.1);
-  background: rgba(241,235,214,.03);
-  transition: background .2s, border-color .2s;
-}
-
-.v3-product-item:hover {
-  background: rgba(241,235,214,.07);
-  border-color: rgba(106,180,72,.4);
-}
-
-.v3-product-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #6AB448;
-  flex-shrink: 0;
-}
-
-.v3-product-name {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  color: #F1EBD6;
-}
-
-.v3-product-desc {
-  font-size: 13px;
-  color: rgba(241,235,214,.5);
-  margin-left: auto;
-}
-
-/* Pull quote */
-.v3-pull-quote {
-  position: relative;
-  padding: 40px 40px 40px 0;
-  border-left: 3px solid #FFC02A;
-  padding-left: 32px;
-  margin-top: 16px;
-}
-
-.v3-pull-quote-mark {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 120px;
-  line-height: .5;
-  color: rgba(255,192,42,.18);
-  position: absolute;
-  top: 16px;
-  left: 8px;
-  pointer-events: none;
-}
-
-.v3-pull-quote-text {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(18px, 2vw, 26px);
-  font-style: italic;
-  line-height: 1.5;
-  color: #F1EBD6;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-.v3-pull-quote-attribution {
-  font-size: 12px;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,.45);
-}
-
-.v3-pull-quote-attribution strong {
-  color: #FFC02A;
-  font-weight: 600;
-}
-
-/* Data viz panel – right column */
-.v3-chapter1-right {
-  position: sticky;
-  top: 120px;
-}
-
-.v3-data-panel {
-  background: rgba(0,61,41,.5);
-  border: 1px solid rgba(106,180,72,.2);
-  padding: 40px 32px;
-}
-
-.v3-data-panel-title {
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: #6AB448;
-  margin-bottom: 32px;
-}
-
-.v3-data-bars {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.v3-data-bar-row {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.v3-data-bar-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: rgba(241,235,214,.6);
-  letter-spacing: .05em;
-}
-
-.v3-data-bar-label span:last-child {
-  color: #FFC02A;
-  font-weight: 600;
-}
-
-.v3-data-bar-track {
-  height: 4px;
-  background: rgba(241,235,214,.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.v3-data-bar-fill {
-  height: 100%;
-  background: linear-gradient(to right, #6AB448, #FFC02A);
-  border-radius: 2px;
-  width: 0;
-  transition: width 1.4s cubic-bezier(.22,1,.36,1);
-}
-
-.v3-data-bar-fill.v3-visible {
-  /* width set via data-width attr in JS */
-}
-
-.v3-data-stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.v3-data-stat-card {
-  padding: 20px;
-  background: rgba(241,235,214,.04);
-  border: 1px solid rgba(241,235,214,.08);
-}
-
-.v3-data-stat-num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: #6AB448;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-
-.v3-data-stat-lbl {
-  font-size: 11px;
-  color: rgba(241,235,214,.45);
-  letter-spacing: .08em;
-}
-
-/* ============================================================
-   SECTION 4: CHAPTER 2 — COMMERCE ENGINE
-   ============================================================ */
-.v3-chapter2 {
-  background: #003D29;
-  padding: clamp(80px, 10vw, 140px) 6vw;
-  position: relative;
-  overflow: hidden;
-}
-
-.v3-chapter2-header {
-  max-width: 1400px;
-  margin: 0 auto 64px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 40px;
-}
-
-.v3-chapter2-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(36px, 5vw, 76px);
-  font-weight: 900;
-  line-height: 1.05;
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-  color: #F1EBD6;
-}
-
-.v3-chapter2-heading em {
-  font-style: italic;
-  color: #FFC02A;
-}
-
-.v3-big-stat {
-  text-align: right;
-}
-
-.v3-big-stat-num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(48px, 6vw, 88px);
-  font-weight: 900;
-  color: #FFC02A;
-  line-height: 1;
-  display: block;
-}
-
-.v3-big-stat-label {
-  font-size: 12px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,.5);
-  display: block;
-  margin-top: 6px;
-}
-
-/* Horizontal scroll strip */
-.v3-hscroll-outer {
-  position: relative;
-  margin-bottom: 64px;
-  /* bleed to edges */
-  margin-left: -6vw;
-  margin-right: -6vw;
-}
-
-.v3-hscroll-track {
-  display: flex;
-  gap: 2px;
-  overflow-x: auto;
-  padding: 0 6vw;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  cursor: grab;
-  user-select: none;
-}
-
-.v3-hscroll-track::-webkit-scrollbar { display: none; }
-.v3-hscroll-track.v3-grabbing { cursor: grabbing; }
-
-.v3-feature-card {
-  flex: 0 0 clamp(240px, 28vw, 400px);
-  background: #042017;
-  padding: 48px 36px 56px;
-  position: relative;
-  overflow: hidden;
-  transition: background .2s;
-}
-
-.v3-feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(to right, #FFC02A, #6AB448);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .4s cubic-bezier(.22,1,.36,1);
-}
-
-.v3-feature-card:hover::before { transform: scaleX(1); }
-.v3-feature-card:hover { background: #062b1a; }
-
-.v3-feature-card-num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 72px;
-  font-weight: 900;
-  color: rgba(241,235,214,.05);
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  line-height: 1;
-  pointer-events: none;
-}
-
-.v3-feature-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(106,180,72,.15);
-  border: 1px solid rgba(106,180,72,.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-.v3-feature-icon svg { color: #6AB448; }
-
-.v3-feature-name {
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: #FFC02A;
-  margin-bottom: 12px;
-}
-
-.v3-feature-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(20px, 2vw, 28px);
-  font-weight: 700;
-  color: #F1EBD6;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-.v3-feature-body {
-  font-size: 14px;
-  line-height: 1.65;
-  color: rgba(241,235,214,.55);
-}
-
-/* scroll hint arrows */
-.v3-hscroll-controls {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 0 6vw;
-  margin-top: 16px;
-}
-
-.v3-scroll-btn {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(241,235,214,.2);
-  background: transparent;
-  color: #F1EBD6;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s, border-color .2s;
-}
-
-.v3-scroll-btn:hover {
-  background: rgba(241,235,214,.1);
-  border-color: rgba(241,235,214,.5);
-}
-
-.v3-chapter2-body {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(241,235,214,.1);
-}
-
-.v3-commerce-proof-item {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.v3-commerce-proof-num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 700;
-  color: #FFC02A;
-  line-height: 1;
-}
-
-.v3-commerce-proof-label {
-  font-size: 13px;
-  color: rgba(241,235,214,.55);
-  line-height: 1.4;
-}
-
-/* ============================================================
-   SECTION 5: CHAPTER 3 — OPERATIONS BACKBONE
-   ============================================================ */
-.v3-chapter3 {
-  background: #F1EBD6;
-  color: #042017;
-  padding: clamp(80px, 10vw, 140px) 6vw;
-  position: relative;
-  overflow: hidden;
-}
-
-.v3-chapter3-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.v3-chapter3-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(36px, 4.5vw, 66px);
-  font-weight: 900;
-  line-height: 1.05;
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-  color: #042017;
-  margin-bottom: 24px;
-}
-
-.v3-chapter3-heading em {
-  font-style: italic;
-  color: #5E324E;
-}
-
-.v3-chapter3-intro {
-  font-size: clamp(15px, 1.4vw, 18px);
-  line-height: 1.7;
-  color: rgba(4,32,23,.65);
-  margin-bottom: 48px;
-}
-
-/* Checklist */
-.v3-checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.v3-check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 24px 0;
-  border-bottom: 1px solid rgba(4,32,23,.1);
-}
-
-.v3-check-box {
-  width: 28px;
-  height: 28px;
-  border: 2px solid rgba(4,32,23,.2);
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-  position: relative;
-  transition: border-color .3s, background .3s;
-}
-
-.v3-check-box::after {
-  content: '';
-  width: 14px;
-  height: 14px;
-  background: #042017;
-  transform: scale(0);
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
-}
-
-.v3-check-item.v3-checked .v3-check-box {
-  border-color: #042017;
-  background: rgba(4,32,23,.06);
-}
-
-.v3-check-item.v3-checked .v3-check-box::after {
-  transform: scale(0); /* replaced by SVG checkmark */
-}
-
-.v3-checkmark-svg {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  opacity: 0;
-  transition: opacity .2s .1s;
-}
-
-.v3-check-item.v3-checked .v3-checkmark-svg { opacity: 1; }
-
-.v3-check-content {}
-
-.v3-check-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #042017;
-  margin-bottom: 4px;
-}
-
-.v3-check-desc {
-  font-size: 13px;
-  line-height: 1.55;
-  color: rgba(4,32,23,.55);
-}
-
-/* right: feature highlight cards */
-.v3-chapter3-right {
-  position: sticky;
-  top: 120px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.v3-ops-card {
-  padding: 32px;
-  background: rgba(4,32,23,.06);
-  border: 1px solid rgba(4,32,23,.1);
-  transition: background .3s;
-}
-
-.v3-ops-card:hover { background: rgba(4,32,23,.1); }
-
-.v3-ops-card-eyebrow {
-  font-size: 10px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: #5E324E;
-  margin-bottom: 10px;
-}
-
-.v3-ops-card-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: #042017;
-  margin-bottom: 10px;
-}
-
-.v3-ops-card-desc {
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(4,32,23,.55);
-}
-
-/* ============================================================
-   SECTION 6: CHAPTER 4 — PAYMENT REVOLUTION
-   ============================================================ */
-.v3-chapter4 {
-  background: #5E324E;
-  color: #F1EBD6;
-  padding: clamp(100px, 12vw, 180px) 6vw;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.v3-chapter4::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,192,42,.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.v3-chapter4-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.v3-chapter4-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(40px, 7vw, 100px);
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: -.03em;
-  color: #F1EBD6;
-  margin-bottom: 40px;
-}
-
-.v3-chapter4-heading .v3-gold {
-  color: #FFC02A;
-  display: block;
-}
-
-.v3-chapter4-sub {
-  font-size: clamp(16px, 1.8vw, 22px);
-  line-height: 1.6;
-  color: rgba(241,235,214,.7);
-  max-width: 640px;
-  margin: 0 auto 64px;
-}
-
-/* Payment flow animation */
-.v3-payment-flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  margin-bottom: 64px;
-  flex-wrap: wrap;
-  gap: 2px;
-}
-
-.v3-pay-node {
-  background: rgba(241,235,214,.1);
-  border: 1px solid rgba(241,235,214,.2);
-  padding: 16px 24px;
-  font-size: 13px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #F1EBD6;
-  position: relative;
-  opacity: 0;
-  transform: scale(.85);
-  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1), background .2s;
-}
-
-.v3-pay-node.v3-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.v3-pay-node:hover { background: rgba(241,235,214,.18); }
-
-.v3-pay-node:nth-child(1) { transition-delay: .0s; }
-.v3-pay-node:nth-child(2) { transition-delay: .15s; }
-.v3-pay-node:nth-child(3) { transition-delay: .3s; }
-.v3-pay-node:nth-child(4) { transition-delay: .45s; }
-.v3-pay-node:nth-child(5) { transition-delay: .6s; }
-
-.v3-pay-arrow {
-  color: rgba(241,235,214,.3);
-  font-size: 20px;
-  padding: 0 4px;
-  flex-shrink: 0;
-}
-
-.v3-pay-node.v3-pay-highlight {
-  background: #FFC02A;
-  border-color: #FFC02A;
-  color: #042017;
-  font-weight: 700;
-}
-
-.v3-pay-badges {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.v3-pay-badge {
-  padding: 10px 20px;
-  border: 1px solid rgba(241,235,214,.25);
-  font-size: 12px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(241,235,214,.7);
-}
-
-/* ============================================================
-   SECTION 7: VOICES / TESTIMONIALS
-   ============================================================ */
-.v3-voices {
-  background: #042017;
-  padding: clamp(80px, 10vw, 140px) 6vw;
-  position: relative;
-  overflow: hidden;
-}
-
-.v3-voices-header {
-  max-width: 1400px;
-  margin: 0 auto 80px;
-  display: flex;
-  align-items: baseline;
-  gap: 32px;
-}
-
-.v3-voices-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(40px, 5.5vw, 80px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-  color: #F1EBD6;
-}
-
-.v3-voices-rule {
-  flex: 1;
-  height: 1px;
-  background: rgba(241,235,214,.15);
-  margin-bottom: 8px;
-}
-
-.v3-testimonials {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.v3-testimonial {
-  padding: 56px 0;
-  border-bottom: 1px solid rgba(241,235,214,.08);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.v3-testimonial:nth-child(even) .v3-testi-quote { order: 2; }
-.v3-testimonial:nth-child(even) .v3-testi-meta  { order: 1; }
-
-.v3-testi-quote-mark {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 120px;
-  line-height: .6;
-  color: rgba(255,192,42,.15);
-  display: block;
-  margin-bottom: 8px;
-}
-
-.v3-testi-text {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(18px, 2.2vw, 30px);
-  font-style: italic;
-  line-height: 1.5;
-  color: #F1EBD6;
-}
-
-.v3-testi-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.v3-testi-company {
-  font-size: 10px;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: #FFC02A;
-}
-
-.v3-testi-name {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(28px, 3.5vw, 52px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-  color: rgba(241,235,214,.15);
-  line-height: 1;
-}
-
-.v3-testi-person {
-  font-size: 14px;
-  color: rgba(241,235,214,.5);
-}
-
-.v3-testi-person strong {
-  color: rgba(241,235,214,.85);
-  font-weight: 600;
-}
-
-.v3-testi-rating {
-  display: flex;
-  gap: 4px;
-}
-
-.v3-star {
-  color: #FFC02A;
-  font-size: 14px;
-}
-
-/* ============================================================
-   SECTION 8: CTA
-   ============================================================ */
-.v3-cta {
-  background: #F1EBD6;
-  padding: clamp(100px, 14vw, 200px) 6vw;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.v3-cta::before {
-  content: 'ACT';
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(200px, 30vw, 500px);
-  font-weight: 900;
-  color: rgba(4,32,23,.04);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-  pointer-events: none;
-  letter-spacing: -.05em;
-  line-height: 1;
-}
-
-.v3-cta-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.v3-cta-headline {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(48px, 7vw, 96px);
-  font-weight: 900;
-  color: #042017;
-  line-height: 1;
-  letter-spacing: -.03em;
-  margin-bottom: 24px;
-}
-
-.v3-cta-headline em {
-  font-style: italic;
-  color: #5E324E;
-}
-
-.v3-cta-sub {
-  font-size: clamp(15px, 1.5vw, 19px);
-  line-height: 1.6;
-  color: rgba(4,32,23,.55);
-  margin-bottom: 56px;
-}
-
-.v3-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  background: #042017;
-  color: #F1EBD6;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 22px 48px;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: color .3s;
-}
-
-.v3-cta-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #FFC02A;
-  transform: translateX(-101%);
-  transition: transform .4s cubic-bezier(.22,1,.36,1);
-}
-
-.v3-cta-btn:hover::before { transform: translateX(0); }
-.v3-cta-btn:hover { color: #042017; }
-
-.v3-cta-btn span { position: relative; z-index: 1; }
-.v3-cta-btn svg  { position: relative; z-index: 1; transition: transform .2s; }
-.v3-cta-btn:hover svg { transform: translateX(6px); }
-
-.v3-cta-footnote {
-  margin-top: 32px;
-  font-size: 12px;
-  letter-spacing: .08em;
-  color: rgba(4,32,23,.35);
-  text-transform: uppercase;
-}
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 900px) {
-  .v3-chapter1-inner,
-  .v3-chapter3-inner { grid-template-columns: 1fr; gap: 48px; }
-  .v3-chapter1-right,
-  .v3-chapter3-right { position: static; }
-  .v3-chapter2-header { grid-template-columns: 1fr; }
-  .v3-big-stat { text-align: left; }
-  .v3-chapter2-body { grid-template-columns: 1fr; }
-  .v3-testimonial { grid-template-columns: 1fr; gap: 32px; }
-  .v3-testimonial:nth-child(even) .v3-testi-quote { order: 0; }
-  .v3-testimonial:nth-child(even) .v3-testi-meta  { order: 0; }
-}
-
-@media (max-width: 600px) {
-  .v3-hero-meta { gap: 24px; }
-  .v3-payment-flow { flex-direction: column; }
-  .v3-pay-arrow { transform: rotate(90deg); }
-}
-
-/* ============================================================
-   UNDERLINE DRAW ANIMATION
-   ============================================================ */
-.v3-underline-draw {
-  position: relative;
-  display: inline;
-}
-
-.v3-underline-draw::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #FFC02A;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1s .4s cubic-bezier(.22,1,.36,1);
-}
-
-.v3-underline-draw.v3-visible::after { transform: scaleX(1); }
-
-/* scale-in for pull quote */
-.v3-scale-in {
-  transform: scale(.93);
-  opacity: 0;
-  transition: transform 1s cubic-bezier(.22,1,.36,1), opacity 1s cubic-bezier(.22,1,.36,1);
-}
-
-.v3-scale-in.v3-visible {
-  transform: scale(1);
-  opacity: 1;
-}
-
-</style>
-
-<!-- ============================================================
-     VERSION 3: EDITORIAL MAGAZINE
-     ============================================================ -->
-<div id="version-3">
-
-  <!-- ── 1. HERO ───────────────────────────────────────────── -->
-  <section class="v3-hero">
-    <div class="v3-hero-inner">
-      <p class="v3-hero-eyebrow">Dutchie — Platform Overview</p>
-
-      <h1 class="v3-hero-headline">
-        <span class="v3-headline-line"><span class="v3-headline-word">Cannabis</span></span>
-        <span class="v3-headline-line"><span class="v3-headline-word v3-headline-italic">Commerce.</span></span>
-        <span class="v3-headline-line"><span class="v3-headline-word">Reimagined.</span></span>
-      </h1>
-
-      <!-- letter-by-letter subline, populated by JS -->
-      <div class="v3-hero-subline" id="v3SublineContainer"></div>
-
-      <div class="v3-hero-meta">
-        <div class="v3-hero-stat">
-          <span class="v3-hero-stat-num">6,500+</span>
-          <span class="v3-hero-stat-label">Dispensaries</span>
-        </div>
-        <div class="v3-hero-divider"></div>
-        <div class="v3-hero-stat">
-          <span class="v3-hero-stat-num">40+</span>
-          <span class="v3-hero-stat-label">Markets</span>
-        </div>
-        <div class="v3-hero-divider"></div>
-        <div class="v3-hero-stat">
-          <span class="v3-hero-stat-num">$22B+</span>
-          <span class="v3-hero-stat-label">Processed</span>
-        </div>
-        <a href="#v3-cta" class="v3-hero-cta">
-          <span>See the Platform</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="v3-hero-scroll">
-      <div class="v3-scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <!-- ── 2. LEDE ───────────────────────────────────────────── -->
-  <section class="v3-lede">
-    <div class="v3-lede-inner">
-      <p class="v3-lede-label v3-reveal">The Dutchie story</p>
-      <p class="v3-lede-text v3-reveal">
-        Powering <span class="v3-highlight-yellow">6,500+ dispensaries</span> across
-        <span class="v3-highlight-yellow">40+ markets</span>, Dutchie is the end-to-end
-        commerce platform built for the specific demands of cannabis retail —
-        where compliance is non-negotiable, customer experience is everything,
-        and the operators who win are those with
-        <span class="v3-underline-draw">real intelligence</span> at their fingertips.
-      </p>
-      <div class="v3-lede-footer v3-reveal">
-        <span class="v3-lede-tag">E-Commerce</span>
-        <span class="v3-lede-tag">POS</span>
-        <span class="v3-lede-tag">Payments</span>
-        <span class="v3-lede-tag">Compliance</span>
-        <span class="v3-lede-tag">Analytics</span>
-        <span class="v3-lede-tag">AI</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 3. CHAPTER 1: INTELLIGENCE LAYER ─────────────────── -->
-  <section class="v3-chapter1">
-    <span class="v3-chapter-num" aria-hidden="true">01</span>
-    <div class="v3-chapter1-inner">
-
-      <!-- left -->
-      <div class="v3-chapter1-left">
-        <p class="v3-chapter-label v3-reveal">Chapter 01</p>
-        <h2 class="v3-chapter1-heading v3-reveal">
-          The<br><em>Intelligence</em><br>Layer
-        </h2>
-        <p class="v3-chapter1-body v3-reveal">
-          Every great dispensary decision starts with insight. Dutchie's AI-powered
-          layer surfaces the right information at the right moment — from predictive
-          inventory to real-time customer behavior, from automated compliance flags
-          to cross-channel attribution.
-        </p>
-
-        <ul class="v3-products-list v3-stagger">
-          <li class="v3-product-item v3-reveal">
-            <span class="v3-product-dot"></span>
-            <span class="v3-product-name">Nexus AI</span>
-            <span class="v3-product-desc">Predictive intelligence engine</span>
-          </li>
-          <li class="v3-product-item v3-reveal">
-            <span class="v3-product-dot"></span>
-            <span class="v3-product-name">Dutchie Connect</span>
-            <span class="v3-product-desc">Unified data platform</span>
-          </li>
-          <li class="v3-product-item v3-reveal">
-            <span class="v3-product-dot"></span>
-            <span class="v3-product-name">Analytics Suite</span>
-            <span class="v3-product-desc">Real-time reporting &amp; dashboards</span>
-          </li>
-        </ul>
-
-        <!-- pull quote -->
-        <blockquote class="v3-pull-quote v3-scale-in">
-          <span class="v3-pull-quote-mark" aria-hidden="true">"</span>
-          <p class="v3-pull-quote-text">
-            Dutchie's data insights changed the way we make purchasing decisions.
-            We went from gut-feel to data-driven in 90 days.
-          </p>
-          <footer class="v3-pull-quote-attribution">
-            <strong>Cana Craft Dispensary</strong> — Operations Director
-          </footer>
-        </blockquote>
-      </div>
-
-      <!-- right: data viz panel -->
-      <div class="v3-chapter1-right">
-        <div class="v3-data-panel v3-reveal-right">
-          <p class="v3-data-panel-title">Platform Intelligence — Live Metrics</p>
-
-          <div class="v3-data-bars">
-            <div class="v3-data-bar-row">
-              <div class="v3-data-bar-label">
-                <span>Inventory Accuracy</span>
-                <span>98.4%</span>
-              </div>
-              <div class="v3-data-bar-track">
-                <div class="v3-data-bar-fill" data-width="98"></div>
-              </div>
+  <!-- ════════════════════════════════════════
+       SECTION 1 — HERO
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s1">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-hero-card" data-v2-card="1">
+        <div class="v2-dot-grid"></div>
+        <div class="v2-hero-inner">
+          <div class="v2-eyebrow v2-anim">Dutchie Platform 2025</div>
+          <h1 class="v2-hero-headline v2-anim">See Every Insight.<br><span>Take Any Action.</span></h1>
+          <p class="v2-hero-sub v2-anim">Your AI-powered cannabis command center — from first click to final sale, every tool in one platform.</p>
+          <div class="v2-stats-row v2-anim">
+            <div class="v2-stat">
+              <span class="v2-stat-num" data-count="40" data-suffix="+">40+</span>
+              <span class="v2-stat-label">Markets Served</span>
             </div>
-            <div class="v3-data-bar-row">
-              <div class="v3-data-bar-label">
-                <span>Compliance Rate</span>
-                <span>99.9%</span>
-              </div>
-              <div class="v3-data-bar-track">
-                <div class="v3-data-bar-fill" data-width="99.9"></div>
-              </div>
+            <div class="v2-stat">
+              <span class="v2-stat-num" data-count="6500" data-suffix="+">6,500+</span>
+              <span class="v2-stat-label">Retail Partners</span>
             </div>
-            <div class="v3-data-bar-row">
-              <div class="v3-data-bar-label">
-                <span>Uptime SLA</span>
-                <span>99.95%</span>
-              </div>
-              <div class="v3-data-bar-track">
-                <div class="v3-data-bar-fill" data-width="99.95"></div>
-              </div>
+            <div class="v2-stat">
+              <span class="v2-stat-num" data-count="22" data-prefix="$" data-suffix="B">$22B</span>
+              <span class="v2-stat-label">Annual Volume</span>
             </div>
-            <div class="v3-data-bar-row">
-              <div class="v3-data-bar-label">
-                <span>AI Prediction Accuracy</span>
-                <span>94%</span>
-              </div>
-              <div class="v3-data-bar-track">
-                <div class="v3-data-bar-fill" data-width="94"></div>
-              </div>
+            <div class="v2-stat">
+              <span class="v2-stat-num" data-count="1" data-suffix="M+">1M+</span>
+              <span class="v2-stat-label">Daily Transactions</span>
             </div>
           </div>
+          <div class="v2-cta-row v2-anim">
+            <a href="#" class="v2-btn-primary">Schedule a Demo</a>
+            <a href="#" class="v2-btn-ghost">Explore Features</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <div class="v3-data-stat-grid">
-            <div class="v3-data-stat-card">
-              <div class="v3-data-stat-num">40M+</div>
-              <div class="v3-data-stat-lbl">Transactions analyzed monthly</div>
+  <!-- ════════════════════════════════════════
+       SECTION 2 — PLATFORM
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s2">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-platform-card" data-v2-card="2">
+        <div class="v2-platform-inner">
+          <div>
+            <div class="v2-section-tag v2-anim">The Full Stack</div>
+            <div class="v2-section-headline v2-anim" style="color:#042017;">One Platform. Every Angle.</div>
+          </div>
+          <div class="v2-platform-cols">
+            <!-- Col 1 -->
+            <div class="v2-platform-col v2-anim">
+              <div class="v2-col-title">Grow Your Business</div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.1s">
+                <div class="v2-feature-icon v2-icon-green">🛒</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">POS</div>
+                  <div class="v2-feature-desc">Fast, compliant point-of-sale for any volume</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.15s">
+                <div class="v2-feature-icon v2-icon-green">🌐</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">E-Commerce</div>
+                  <div class="v2-feature-desc">Menu-to-checkout online experience</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.2s">
+                <div class="v2-feature-icon v2-icon-green">⭐</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Loyalty</div>
+                  <div class="v2-feature-desc">Points, rewards, and retention tools</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.25s">
+                <div class="v2-feature-icon v2-icon-green">📱</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Mobile App</div>
+                  <div class="v2-feature-desc">Branded iOS & Android for your customers</div>
+                </div>
+              </div>
             </div>
-            <div class="v3-data-stat-card">
-              <div class="v3-data-stat-num">3.2s</div>
-              <div class="v3-data-stat-lbl">Avg. checkout time</div>
+            <!-- Col 2 -->
+            <div class="v2-platform-col v2-anim">
+              <div class="v2-col-title">Simplify Operations</div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.1s">
+                <div class="v2-feature-icon v2-icon-purple">🔗</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Connect</div>
+                  <div class="v2-feature-desc">Retailer-brand data sync at scale</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.15s">
+                <div class="v2-feature-icon v2-icon-purple">✅</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Compliance</div>
+                  <div class="v2-feature-desc">Metrc, BioTrack & state reporting built-in</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.2s">
+                <div class="v2-feature-icon v2-icon-purple">📦</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Inventory</div>
+                  <div class="v2-feature-desc">Real-time tracking across every SKU</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.25s">
+                <div class="v2-feature-icon v2-icon-purple">🏢</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Multi-Location</div>
+                  <div class="v2-feature-desc">Centralized control, local flexibility</div>
+                </div>
+              </div>
             </div>
-            <div class="v3-data-stat-card">
-              <div class="v3-data-stat-num">28%</div>
-              <div class="v3-data-stat-lbl">Revenue lift via AI recs</div>
-            </div>
-            <div class="v3-data-stat-card">
-              <div class="v3-data-stat-num">12h</div>
-              <div class="v3-data-stat-lbl">Avg onboarding time</div>
+            <!-- Col 3 -->
+            <div class="v2-platform-col v2-anim">
+              <div class="v2-col-title">Optimize Margins</div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.1s">
+                <div class="v2-feature-icon v2-icon-teal">💳</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Pay by Bank</div>
+                  <div class="v2-feature-desc">ACH payments, lower fees, no chargebacks</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.15s">
+                <div class="v2-feature-icon v2-icon-teal">🖥️</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Kiosk Pro</div>
+                  <div class="v2-feature-desc">Self-checkout that increases throughput</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.2s">
+                <div class="v2-feature-icon v2-icon-teal">🏷️</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Discount Engine</div>
+                  <div class="v2-feature-desc">Dynamic promos, BOGO, and bundle rules</div>
+                </div>
+              </div>
+              <div class="v2-feature-item v2-anim" style="transition-delay:0.25s">
+                <div class="v2-feature-icon v2-icon-teal">📊</div>
+                <div class="v2-feature-text">
+                  <div class="v2-feature-name">Reporting</div>
+                  <div class="v2-feature-desc">Revenue, inventory, and staff analytics</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ── 4. CHAPTER 2: COMMERCE ENGINE ─────────────────────── -->
-  <section class="v3-chapter2">
-    <span class="v3-chapter-num" aria-hidden="true" style="color:rgba(241,235,214,.03)">02</span>
-
-    <div class="v3-chapter2-header">
-      <div>
-        <p class="v3-chapter-label v3-reveal">Chapter 02</p>
-        <h2 class="v3-chapter2-heading v3-reveal">
-          The Commerce<br><em>Engine</em>
-        </h2>
-      </div>
-      <div class="v3-big-stat v3-reveal">
-        <span class="v3-big-stat-num">$22B</span>
-        <span class="v3-big-stat-label">Processed through Dutchie</span>
-      </div>
-    </div>
-
-    <!-- horizontal scroll strip -->
-    <div class="v3-hscroll-outer">
-      <div class="v3-hscroll-track" id="v3HscrollTrack">
-
-        <div class="v3-feature-card">
-          <span class="v3-feature-card-num" aria-hidden="true">01</span>
-          <div class="v3-feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            </svg>
+  <!-- ════════════════════════════════════════
+       SECTION 3 — INTELLIGENCE
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s3">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-intel-card" data-v2-card="3">
+        <div class="v2-intel-inner">
+          <div class="v2-intel-left">
+            <div>
+              <div class="v2-section-tag v2-anim">AI-Native</div>
+              <div class="v2-section-headline v2-section-headline-light v2-anim">Dutchie<br>Intelligence</div>
+            </div>
+            <div class="v2-intel-features">
+              <div class="v2-intel-feature v2-anim" style="transition-delay:0.1s">
+                <div class="v2-intel-dot"></div>
+                <div class="v2-intel-feat-text">Nexus AI Command Center — unified data across every touchpoint</div>
+              </div>
+              <div class="v2-intel-feature v2-anim" style="transition-delay:0.18s">
+                <div class="v2-intel-dot"></div>
+                <div class="v2-intel-feat-text">AI-powered email campaigns with automated segmentation</div>
+              </div>
+              <div class="v2-intel-feature v2-anim" style="transition-delay:0.26s">
+                <div class="v2-intel-dot"></div>
+                <div class="v2-intel-feat-text">Personalized product recommendations for every shopper</div>
+              </div>
+              <div class="v2-intel-feature v2-anim" style="transition-delay:0.34s">
+                <div class="v2-intel-dot"></div>
+                <div class="v2-intel-feat-text">Targeted upsells and cross-sells at the point of decision</div>
+              </div>
+              <div class="v2-intel-feature v2-anim" style="transition-delay:0.42s">
+                <div class="v2-intel-dot"></div>
+                <div class="v2-intel-feat-text">Customer behavior insights and predictive lifetime value</div>
+              </div>
+              <div class="v2-intel-feature v2-anim" style="transition-delay:0.5s">
+                <div class="v2-intel-dot"></div>
+                <div class="v2-intel-feat-text">Revenue attribution across all channels and campaigns</div>
+              </div>
+            </div>
           </div>
-          <p class="v3-feature-name">E-Commerce Pro</p>
-          <h3 class="v3-feature-title">Your storefront, built to convert</h3>
-          <p class="v3-feature-body">A fully customizable online menu with real-time inventory sync, age-gate, and loyalty integration baked in from day one.</p>
-        </div>
-
-        <div class="v3-feature-card">
-          <span class="v3-feature-card-num" aria-hidden="true">02</span>
-          <div class="v3-feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <path d="M8 21h8M12 17v4"/>
-            </svg>
-          </div>
-          <p class="v3-feature-name">Point of Sale</p>
-          <h3 class="v3-feature-title">The fastest POS in cannabis</h3>
-          <p class="v3-feature-body">Built for high-volume retail. Sub-4-second checkouts, offline mode, and compliance reporting that just works.</p>
-        </div>
-
-        <div class="v3-feature-card">
-          <span class="v3-feature-card-num" aria-hidden="true">03</span>
-          <div class="v3-feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="5" y="2" width="14" height="20" rx="2"/>
-              <path d="M12 18h.01"/>
-            </svg>
-          </div>
-          <p class="v3-feature-name">Kiosk</p>
-          <h3 class="v3-feature-title">Self-service that sells more</h3>
-          <p class="v3-feature-body">Free up your budtenders for high-value conversations while kiosks handle the queue and surface AI recommendations.</p>
-        </div>
-
-        <div class="v3-feature-card">
-          <span class="v3-feature-card-num" aria-hidden="true">04</span>
-          <div class="v3-feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-          </div>
-          <p class="v3-feature-name">Loyalty</p>
-          <h3 class="v3-feature-title">Retention built for cannabis</h3>
-          <p class="v3-feature-body">Points, tiers, personalized offers — all synced across every touchpoint so your best customers keep coming back.</p>
-        </div>
-
-        <div class="v3-feature-card">
-          <span class="v3-feature-card-num" aria-hidden="true">05</span>
-          <div class="v3-feature-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 8v4l3 3"/>
-            </svg>
-          </div>
-          <p class="v3-feature-name">Order Management</p>
-          <h3 class="v3-feature-title">From click to pickup in minutes</h3>
-          <p class="v3-feature-body">Unified order queue, real-time status updates, and driver dispatch for delivery operations at any scale.</p>
-        </div>
-
-      </div>
-      <div class="v3-hscroll-controls">
-        <button class="v3-scroll-btn" id="v3ScrollLeft" aria-label="Scroll left">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="v3-scroll-btn" id="v3ScrollRight" aria-label="Scroll right">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="v3-chapter2-body">
-      <div class="v3-commerce-proof-item v3-reveal">
-        <span class="v3-commerce-proof-num">3.2s</span>
-        <span class="v3-commerce-proof-label">Average checkout time across all Dutchie POS installs</span>
-      </div>
-      <div class="v3-commerce-proof-item v3-reveal">
-        <span class="v3-commerce-proof-num">47%</span>
-        <span class="v3-commerce-proof-label">Average increase in online orders in year 1</span>
-      </div>
-      <div class="v3-commerce-proof-item v3-reveal">
-        <span class="v3-commerce-proof-num">99.9%</span>
-        <span class="v3-commerce-proof-label">Platform uptime — because downtime costs dispensaries money</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 5. CHAPTER 3: OPERATIONS BACKBONE ─────────────────── -->
-  <section class="v3-chapter3">
-    <div class="v3-chapter3-inner">
-
-      <!-- left: checklist -->
-      <div>
-        <p class="v3-chapter-label v3-reveal" style="color:#5E324E">Chapter 03</p>
-        <h2 class="v3-chapter3-heading v3-reveal">
-          The<br>Operations<br><em>Backbone</em>
-        </h2>
-        <p class="v3-chapter3-intro v3-reveal">
-          The cannabis operators who scale are the ones who never let compliance
-          slow them down. Dutchie automates the operational complexity so your
-          team can focus on growth.
-        </p>
-
-        <ul class="v3-checklist" id="v3Checklist">
-          <li class="v3-check-item v3-reveal" data-check>
-            <div class="v3-check-box">
-              <svg class="v3-checkmark-svg" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8l3.5 3.5L13 5" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Mock Dashboard -->
+          <div class="v2-dashboard-mock v2-anim">
+            <div class="v2-dash-header">
+              <div class="v2-dash-title">Nexus AI Dashboard</div>
+              <div class="v2-dash-badge">● Live</div>
+            </div>
+            <div class="v2-dash-metric-row">
+              <div class="v2-dash-metric">
+                <div class="v2-dm-label">Revenue</div>
+                <div class="v2-dm-value" data-count="84" data-prefix="$" data-suffix="K">$84K</div>
+                <div class="v2-dm-delta">↑ 18.4%</div>
+              </div>
+              <div class="v2-dash-metric">
+                <div class="v2-dm-label">Avg Basket</div>
+                <div class="v2-dm-value" data-count="67" data-prefix="$">$67</div>
+                <div class="v2-dm-delta">↑ 6.2%</div>
+              </div>
+              <div class="v2-dash-metric">
+                <div class="v2-dm-label">Conversions</div>
+                <div class="v2-dm-value" data-count="73" data-suffix="%">73%</div>
+                <div class="v2-dm-delta">↑ 3.1%</div>
+              </div>
+            </div>
+            <div class="v2-chart-area">
+              <svg class="v2-chart-svg" viewBox="0 0 320 80" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="v2GradFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#6AB448" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="#6AB448" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path class="v2-chart-fill" d="M0,70 L40,55 L80,60 L120,35 L160,42 L200,20 L240,28 L280,15 L320,10 L320,80 L0,80 Z"/>
+                <path class="v2-chart-line" d="M0,70 L40,55 L80,60 L120,35 L160,42 L200,20 L240,28 L280,15 L320,10"/>
               </svg>
             </div>
-            <div class="v3-check-content">
-              <div class="v3-check-title">Automated Compliance Reporting</div>
-              <div class="v3-check-desc">Direct METRC integrations across all state markets. Zero manual filing.</div>
+            <div class="v2-bar-row" id="v2BarRow">
+              <div class="v2-bar" style="height:35%"></div>
+              <div class="v2-bar" style="height:50%"></div>
+              <div class="v2-bar" style="height:40%"></div>
+              <div class="v2-bar" style="height:70%"></div>
+              <div class="v2-bar" style="height:55%"></div>
+              <div class="v2-bar" style="height:80%"></div>
+              <div class="v2-bar" style="height:65%"></div>
+              <div class="v2-bar" style="height:90%"></div>
+              <div class="v2-bar" style="height:75%"></div>
+              <div class="v2-bar" style="height:100%"></div>
             </div>
-          </li>
-          <li class="v3-check-item v3-reveal" data-check>
-            <div class="v3-check-box">
-              <svg class="v3-checkmark-svg" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8l3.5 3.5L13 5" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="v3-check-content">
-              <div class="v3-check-title">Real-Time Inventory Tracking</div>
-              <div class="v3-check-desc">Seed-to-sale traceability with automated reorder triggers and variance alerts.</div>
-            </div>
-          </li>
-          <li class="v3-check-item v3-reveal" data-check>
-            <div class="v3-check-box">
-              <svg class="v3-checkmark-svg" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8l3.5 3.5L13 5" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="v3-check-content">
-              <div class="v3-check-title">Multi-Location Management</div>
-              <div class="v3-check-desc">One dashboard for 1 location or 100. Centralized menus, pricing rules, and staff management.</div>
-            </div>
-          </li>
-          <li class="v3-check-item v3-reveal" data-check>
-            <div class="v3-check-box">
-              <svg class="v3-checkmark-svg" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8l3.5 3.5L13 5" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="v3-check-content">
-              <div class="v3-check-title">Workforce & Scheduling</div>
-              <div class="v3-check-desc">Role-based permissions, time tracking, and shift management built into the platform.</div>
-            </div>
-          </li>
-          <li class="v3-check-item v3-reveal" data-check>
-            <div class="v3-check-box">
-              <svg class="v3-checkmark-svg" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8l3.5 3.5L13 5" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="v3-check-content">
-              <div class="v3-check-title">Financial Reporting</div>
-              <div class="v3-check-desc">P&amp;L by location, product category, and time period — exportable, auditable, actionable.</div>
-            </div>
-          </li>
-          <li class="v3-check-item v3-reveal" data-check>
-            <div class="v3-check-box">
-              <svg class="v3-checkmark-svg" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8l3.5 3.5L13 5" stroke="#042017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="v3-check-content">
-              <div class="v3-check-title">API & Integrations</div>
-              <div class="v3-check-desc">Open API and 100+ pre-built integrations with your existing tech stack.</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- right: ops cards -->
-      <div class="v3-chapter3-right">
-        <div class="v3-ops-card v3-reveal-right">
-          <p class="v3-ops-card-eyebrow">Compliance</p>
-          <h3 class="v3-ops-card-title">Never fail an audit</h3>
-          <p class="v3-ops-card-desc">Automated METRC sync, SOC 2 Type II certified infrastructure, and state-by-state regulatory monitoring built into every workflow.</p>
-        </div>
-        <div class="v3-ops-card v3-reveal-right" style="transition-delay:.15s">
-          <p class="v3-ops-card-eyebrow">Scale</p>
-          <h3 class="v3-ops-card-title">Built for multi-unit operators</h3>
-          <p class="v3-ops-card-desc">Planet 13, Ascend, and Good Chemistry manage 20-100+ locations from a single Dutchie instance without degradation in performance.</p>
-        </div>
-        <div class="v3-ops-card v3-reveal-right" style="transition-delay:.3s">
-          <p class="v3-ops-card-eyebrow">Support</p>
-          <h3 class="v3-ops-card-title">24/7 dedicated expertise</h3>
-          <p class="v3-ops-card-desc">A cannabis-specialist support team available around the clock. Average first-response time under 4 minutes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 6. CHAPTER 4: PAYMENT REVOLUTION ──────────────────── -->
-  <section class="v3-chapter4">
-    <div class="v3-chapter4-inner">
-      <p class="v3-chapter-label v3-reveal" style="color:rgba(241,235,214,.5)">Chapter 04</p>
-      <h2 class="v3-chapter4-heading v3-reveal">
-        The Payment
-        <span class="v3-gold">Revolution.</span>
-      </h2>
-      <p class="v3-chapter4-sub v3-reveal">
-        Cash-only is over. Dutchie Payments brings compliant card acceptance,
-        bank transfers, and gift cards to cannabis retail for the first time —
-        legally, reliably, at scale.
-      </p>
-
-      <div class="v3-payment-flow" id="v3PaymentFlow">
-        <div class="v3-pay-node">Customer</div>
-        <span class="v3-pay-arrow" aria-hidden="true">→</span>
-        <div class="v3-pay-node v3-pay-highlight">Dutchie Pay</div>
-        <span class="v3-pay-arrow" aria-hidden="true">→</span>
-        <div class="v3-pay-node">Compliance<br>Layer</div>
-        <span class="v3-pay-arrow" aria-hidden="true">→</span>
-        <div class="v3-pay-node">Settlement</div>
-        <span class="v3-pay-arrow" aria-hidden="true">→</span>
-        <div class="v3-pay-node">Your Bank</div>
-      </div>
-
-      <div class="v3-pay-badges v3-stagger">
-        <span class="v3-pay-badge v3-reveal">Pay by Bank</span>
-        <span class="v3-pay-badge v3-reveal">Debit &amp; Credit</span>
-        <span class="v3-pay-badge v3-reveal">Gift Cards</span>
-        <span class="v3-pay-badge v3-reveal">Digital Wallets</span>
-        <span class="v3-pay-badge v3-reveal">Cash Management</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 7. VOICES ─────────────────────────────────────────── -->
-  <section class="v3-voices">
-    <div class="v3-voices-header v3-reveal">
-      <h2 class="v3-voices-title">Voices</h2>
-      <div class="v3-voices-rule"></div>
-    </div>
-
-    <div class="v3-testimonials">
-
-      <div class="v3-testimonial">
-        <div class="v3-testi-quote v3-reveal-left">
-          <span class="v3-testi-quote-mark" aria-hidden="true">"</span>
-          <p class="v3-testi-text">Dutchie has been a game changer for our business. The platform's data capabilities have completely transformed how we approach purchasing and staffing decisions.</p>
-        </div>
-        <div class="v3-testi-meta v3-reveal-right">
-          <p class="v3-testi-company">Multi-state operator</p>
-          <p class="v3-testi-name">Ascend</p>
-          <p class="v3-testi-person"><strong>VP of Retail Operations</strong> — Ascend Wellness Holdings</p>
-          <div class="v3-testi-rating">
-            <span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span>
           </div>
         </div>
       </div>
-
-      <div class="v3-testimonial">
-        <div class="v3-testi-quote v3-reveal-right">
-          <span class="v3-testi-quote-mark" aria-hidden="true">"</span>
-          <p class="v3-testi-text">We've tried three other platforms. Nothing compares to Dutchie's reliability. On a busy 4/20, when every other system goes down, Dutchie keeps ringing.</p>
-        </div>
-        <div class="v3-testi-meta v3-reveal-left">
-          <p class="v3-testi-company">World-record dispensary</p>
-          <p class="v3-testi-name">Planet 13</p>
-          <p class="v3-testi-person"><strong>Chief Technology Officer</strong> — Planet 13 Las Vegas</p>
-          <div class="v3-testi-rating">
-            <span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="v3-testimonial">
-        <div class="v3-testi-quote v3-reveal-left">
-          <span class="v3-testi-quote-mark" aria-hidden="true">"</span>
-          <p class="v3-testi-text">The onboarding was shockingly smooth. Our team was fully operational in under two weeks across all three locations. The compliance automation alone saves us 20 hours a week.</p>
-        </div>
-        <div class="v3-testi-meta v3-reveal-right">
-          <p class="v3-testi-company">Boutique multi-location</p>
-          <p class="v3-testi-name">Strain Stars</p>
-          <p class="v3-testi-person"><strong>General Manager</strong> — Strain Stars Dispensary</p>
-          <div class="v3-testi-rating">
-            <span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="v3-testimonial">
-        <div class="v3-testi-quote v3-reveal-right">
-          <span class="v3-testi-quote-mark" aria-hidden="true">"</span>
-          <p class="v3-testi-text">We went from 4 locations to 22 in 18 months. Dutchie scaled right alongside us without a single operational hiccup. The multi-location tools are genuinely best-in-class.</p>
-        </div>
-        <div class="v3-testi-meta v3-reveal-left">
-          <p class="v3-testi-company">Rapid-growth operator</p>
-          <p class="v3-testi-name">Good Chemistry</p>
-          <p class="v3-testi-person"><strong>CEO &amp; Founder</strong> — Good Chemistry Nurseries</p>
-          <div class="v3-testi-rating">
-            <span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span><span class="v3-star">★</span>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </section>
+  </div>
 
-  <!-- ── 8. CTA ─────────────────────────────────────────────── -->
-  <section class="v3-cta" id="v3-cta">
-    <div class="v3-cta-inner">
-      <h2 class="v3-cta-headline v3-reveal">
-        See it<br><em>in action.</em>
-      </h2>
-      <p class="v3-cta-sub v3-reveal">
-        Join 6,500+ dispensaries who run on Dutchie.
-        Book a personalized demo and see what the platform can do for your business.
-      </p>
-      <a href="#" class="v3-cta-btn v3-reveal">
-        <span>Request a Demo</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <p class="v3-cta-footnote v3-reveal">No commitment required · Responses within 1 business day</p>
+  <!-- ════════════════════════════════════════
+       SECTION 4 — COMMERCE
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s4">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-commerce-card" data-v2-card="4">
+        <div class="v2-commerce-inner">
+          <div class="v2-commerce-top">
+            <div>
+              <div class="v2-section-tag v2-anim" style="color:#FFC02A;">Commerce Suite</div>
+              <div class="v2-section-headline v2-section-headline-light v2-anim">The Commerce<br>Engine</div>
+            </div>
+            <div class="v2-big-stat v2-anim">
+              <div class="v2-big-num" data-count="22" data-prefix="$" data-suffix="B+">$22B+</div>
+              <div class="v2-big-label">Annual Transaction Volume</div>
+            </div>
+          </div>
+          <div class="v2-feature-strip-wrap v2-anim">
+            <div class="v2-feature-strip" id="v2FeatureStrip">
+              <div class="v2-fstrip-card">
+                <div class="v2-fstrip-icon">🛍️</div>
+                <div class="v2-fstrip-name">E-Commerce Pro</div>
+                <div class="v2-fstrip-desc">Conversion-optimized menus with real-time inventory</div>
+              </div>
+              <div class="v2-fstrip-card">
+                <div class="v2-fstrip-icon">🖥️</div>
+                <div class="v2-fstrip-name">POS</div>
+                <div class="v2-fstrip-desc">Fastest cannabis POS on the market with compliance built-in</div>
+              </div>
+              <div class="v2-fstrip-card">
+                <div class="v2-fstrip-icon">⬜</div>
+                <div class="v2-fstrip-name">Kiosk Pro</div>
+                <div class="v2-fstrip-desc">Self-serve kiosks that reduce wait times and increase AOV</div>
+              </div>
+              <div class="v2-fstrip-card">
+                <div class="v2-fstrip-icon">🚗</div>
+                <div class="v2-fstrip-name">Delivery</div>
+                <div class="v2-fstrip-desc">Route optimization and compliance for last-mile delivery</div>
+              </div>
+              <div class="v2-fstrip-card">
+                <div class="v2-fstrip-icon">🔍</div>
+                <div class="v2-fstrip-name">SEO Suite</div>
+                <div class="v2-fstrip-desc">Rank locally and drive organic traffic to your menu</div>
+              </div>
+              <div class="v2-fstrip-card">
+                <div class="v2-fstrip-icon">📲</div>
+                <div class="v2-fstrip-name">Mobile App</div>
+                <div class="v2-fstrip-desc">White-label app for iOS & Android with push notifications</div>
+              </div>
+            </div>
+          </div>
+          <div class="v2-commerce-bottom">
+            <div class="v2-commerce-mini v2-anim" style="transition-delay:0.1s">
+              <div class="v2-mini-num" data-count="99" data-suffix="%">99%</div>
+              <div class="v2-mini-label">Uptime SLA</div>
+            </div>
+            <div class="v2-commerce-mini v2-anim" style="transition-delay:0.18s">
+              <div class="v2-mini-num" data-count="2" data-suffix="s">2s</div>
+              <div class="v2-mini-label">Avg Menu Load</div>
+            </div>
+            <div class="v2-commerce-mini v2-anim" style="transition-delay:0.26s">
+              <div class="v2-mini-num" data-count="35" data-suffix="%">35%</div>
+              <div class="v2-mini-label">Higher Conversion</div>
+            </div>
+            <div class="v2-commerce-mini v2-anim" style="transition-delay:0.34s">
+              <div class="v2-mini-num" data-count="500" data-suffix="M+">500M+</div>
+              <div class="v2-mini-label">Menu Pageviews / Yr</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
-</div><!-- #version-3 -->
+  <!-- ════════════════════════════════════════
+       SECTION 5 — OPERATIONS
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s5">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-ops-card" data-v2-card="5">
+        <div class="v2-ops-inner">
+          <div class="v2-ops-left">
+            <div>
+              <div class="v2-section-tag v2-anim">Back-of-House</div>
+              <div class="v2-section-headline v2-anim">Operations That<br>Run Themselves</div>
+            </div>
+            <div class="v2-ops-features">
+              <div class="v2-ops-feature v2-anim" style="transition-delay:0.1s">
+                <div class="v2-check">✓</div>
+                <div class="v2-ops-feat-label">Automated state compliance reporting</div>
+              </div>
+              <div class="v2-ops-feature v2-anim" style="transition-delay:0.18s">
+                <div class="v2-check">✓</div>
+                <div class="v2-ops-feat-label">Real-time inventory tracking & alerts</div>
+              </div>
+              <div class="v2-ops-feature v2-anim" style="transition-delay:0.26s">
+                <div class="v2-check">✓</div>
+                <div class="v2-ops-feat-label">Multi-location centralized management</div>
+              </div>
+              <div class="v2-ops-feature v2-anim" style="transition-delay:0.34s">
+                <div class="v2-check">✓</div>
+                <div class="v2-ops-feat-label">Advanced reporting & analytics dashboards</div>
+              </div>
+              <div class="v2-ops-feature v2-anim" style="transition-delay:0.42s">
+                <div class="v2-check">✓</div>
+                <div class="v2-ops-feat-label">Connect — seamless retailer & brand data sync</div>
+              </div>
+              <div class="v2-ops-feature v2-anim" style="transition-delay:0.5s">
+                <div class="v2-check">✓</div>
+                <div class="v2-ops-feat-label">Automated purchase order workflows</div>
+              </div>
+            </div>
+          </div>
+          <!-- Workflow diagram -->
+          <div class="v2-workflow v2-anim">
+            <div class="v2-workflow-step">
+              <div class="v2-step-num">1</div>
+              <div class="v2-step-content">
+                <div class="v2-step-title">Sale Recorded</div>
+                <div class="v2-step-desc">POS captures transaction, updates inventory instantly</div>
+              </div>
+            </div>
+            <div class="v2-workflow-step">
+              <div class="v2-step-num">2</div>
+              <div class="v2-step-content">
+                <div class="v2-step-title">Compliance Filed</div>
+                <div class="v2-step-desc">Auto-reported to Metrc or BioTrack in real-time</div>
+              </div>
+            </div>
+            <div class="v2-workflow-step">
+              <div class="v2-step-num">3</div>
+              <div class="v2-step-content">
+                <div class="v2-step-title">Inventory Synced</div>
+                <div class="v2-step-desc">All locations, channels, and brand partners updated</div>
+              </div>
+            </div>
+            <div class="v2-workflow-step">
+              <div class="v2-step-num">4</div>
+              <div class="v2-step-content">
+                <div class="v2-step-title">Insights Generated</div>
+                <div class="v2-step-desc">AI surfaces trends, anomalies, and opportunities</div>
+              </div>
+            </div>
+            <div class="v2-workflow-step">
+              <div class="v2-step-num">5</div>
+              <div class="v2-step-content">
+                <div class="v2-step-title">Action Recommended</div>
+                <div class="v2-step-desc">Nexus AI suggests reorder, promotions, or staffing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SECTION 6 — PAYMENTS
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s6">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-pay-card" data-v2-card="6">
+        <div class="v2-pay-inner">
+          <div class="v2-pay-left">
+            <div>
+              <div class="v2-section-tag v2-anim">Payments</div>
+              <div class="v2-section-headline v2-section-headline-light v2-anim">Your Ultimate<br>Payments Partner</div>
+              <p style="margin-top:12px; font-size:14px; color:rgba(241,235,214,0.6); line-height:1.6;" class="v2-anim">
+                Cannabis businesses deserve the same payment flexibility as any retailer. Dutchie delivers modern, compliant payment rails built for the industry.
+              </p>
+            </div>
+            <div class="v2-pay-options">
+              <div class="v2-pay-option v2-anim" style="transition-delay:0.1s">
+                <div class="v2-pay-icon">🏦</div>
+                <div class="v2-pay-option-content">
+                  <div class="v2-pay-option-title">Pay by Bank (ACH)</div>
+                  <div class="v2-pay-option-desc">Debit-free ACH payments with lower processing fees and zero chargebacks. Customers pay securely from their bank account.</div>
+                </div>
+              </div>
+              <div class="v2-pay-option v2-anim" style="transition-delay:0.2s">
+                <div class="v2-pay-icon">💳</div>
+                <div class="v2-pay-option-content">
+                  <div class="v2-pay-option-title">Card-Present Payments</div>
+                  <div class="v2-pay-option-desc">Compliant card acceptance at your POS with integrated terminals and full audit trails.</div>
+                </div>
+              </div>
+              <div class="v2-pay-option v2-anim" style="transition-delay:0.3s">
+                <div class="v2-pay-icon">🎁</div>
+                <div class="v2-pay-option-content">
+                  <div class="v2-pay-option-title">Gift Card Integration</div>
+                  <div class="v2-pay-option-desc">Physical and digital gift cards with seamless redemption across all sales channels.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Payment flow viz -->
+          <div class="v2-pay-flow v2-anim">
+            <div class="v2-flow-node">
+              <div class="v2-flow-node-icon">👤</div>
+              <div>
+                <div class="v2-flow-label">Customer Initiates Payment</div>
+                <div class="v2-flow-sub">Tap, swipe, or bank transfer</div>
+              </div>
+            </div>
+            <div class="v2-flow-arrow">↓</div>
+            <div class="v2-flow-node">
+              <div class="v2-flow-node-icon">🔒</div>
+              <div>
+                <div class="v2-flow-label">Compliance Check</div>
+                <div class="v2-flow-sub">Dutchie verifies eligibility in real-time</div>
+              </div>
+            </div>
+            <div class="v2-flow-arrow">↓</div>
+            <div class="v2-flow-node">
+              <div class="v2-flow-node-icon">⚡</div>
+              <div>
+                <div class="v2-flow-label">Instant Authorization</div>
+                <div class="v2-flow-sub">&lt; 300ms average processing time</div>
+              </div>
+            </div>
+            <div class="v2-flow-arrow">↓</div>
+            <div class="v2-flow-node">
+              <div class="v2-flow-node-icon">📋</div>
+              <div>
+                <div class="v2-flow-label">Auto-Reconciliation</div>
+                <div class="v2-flow-sub">Synced to reporting and compliance logs</div>
+              </div>
+            </div>
+            <div class="v2-flow-arrow">↓</div>
+            <div class="v2-flow-node" style="border-color:rgba(106,180,72,0.3);">
+              <div class="v2-flow-node-icon" style="background:rgba(106,180,72,0.25);">✅</div>
+              <div>
+                <div class="v2-flow-label" style="color:#6AB448;">Settlement Complete</div>
+                <div class="v2-flow-sub">Funds deposited, records filed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SECTION 7 — SOCIAL PROOF
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s7">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-proof-card" data-v2-card="7">
+        <div class="v2-proof-inner">
+          <div>
+            <div class="v2-section-tag v2-anim">Customer Stories</div>
+            <div class="v2-section-headline v2-anim" style="color:#042017;">Built for Cannabis.<br>Proven at Scale.</div>
+          </div>
+          <div class="v2-testimonials">
+            <div class="v2-testimonial v2-anim">
+              <div class="v2-quote-mark">"</div>
+              <div class="v2-quote-text">Dutchie transformed how we operate across all our locations. The compliance automation alone saved us 20 hours a week. Nexus AI gives our managers insights they never had before.</div>
+              <div class="v2-quote-source">
+                <div class="v2-quote-name">John Hartmann, COO</div>
+                <div class="v2-quote-company">Ascend Wellness Holdings · 37 Locations</div>
+              </div>
+            </div>
+            <div class="v2-testimonial v2-anim">
+              <div class="v2-quote-mark">"</div>
+              <div class="v2-quote-text">Our online conversion rate jumped 40% after switching to Dutchie E-Commerce Pro. The checkout experience is seamless and our customers love it. The SEO tools put us on the map.</div>
+              <div class="v2-quote-source">
+                <div class="v2-quote-name">Larry Scheffler, Co-CEO</div>
+                <div class="v2-quote-company">Planet 13 · World's Largest Dispensary</div>
+              </div>
+            </div>
+            <div class="v2-testimonial v2-anim">
+              <div class="v2-quote-mark">"</div>
+              <div class="v2-quote-text">Pay by Bank has been a game-changer. We're saving on fees every month, and our customers love the simplicity. Dutchie Payments just works — we don't have to think about it.</div>
+              <div class="v2-quote-source">
+                <div class="v2-quote-name">Maria Santos, Founder</div>
+                <div class="v2-quote-company">Cana Craft Cannabis · California</div>
+              </div>
+            </div>
+            <div class="v2-testimonial v2-anim">
+              <div class="v2-quote-mark">"</div>
+              <div class="v2-quote-text">The loyalty program and mobile app have driven incredible repeat business. Our average customer visits 2x more often since we launched with Dutchie. The data shows it all.</div>
+              <div class="v2-quote-source">
+                <div class="v2-quote-name">Jason Lee, VP Marketing</div>
+                <div class="v2-quote-company">Strain Stars · 12 Locations · Pacific NW</div>
+              </div>
+            </div>
+          </div>
+          <div class="v2-trust-row v2-anim">
+            <div class="v2-trust-logo">Ascend Wellness</div>
+            <div class="v2-trust-logo">Planet 13</div>
+            <div class="v2-trust-logo">Trulieve</div>
+            <div class="v2-trust-logo">Cresco Labs</div>
+            <div class="v2-trust-logo">Curaleaf</div>
+            <div class="v2-trust-logo">Green Thumb</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SECTION 8 — CTA
+  ════════════════════════════════════════ -->
+  <div class="v2-section v2-s8">
+    <div class="v2-card-wrap">
+      <div class="v2-card v2-cta-card" data-v2-card="8">
+        <div class="v2-cta-inner">
+          <div class="v2-cta-bg-text">DUTCHIE</div>
+          <div class="v2-cta-headline v2-anim">Ready to Transform<br>Your Dispensary?</div>
+          <p class="v2-cta-sub v2-anim">Join 6,500+ cannabis retailers running on Dutchie. See the full platform in action — no pressure, no obligation.</p>
+          <div class="v2-cta-buttons v2-anim">
+            <a href="#" class="v2-btn-dark">Schedule a Demo</a>
+            <a href="#" class="v2-btn-outline-dark">Talk to Sales</a>
+          </div>
+          <div class="v2-cta-note v2-anim">Average onboarding: under 2 weeks · Dedicated support included · SOC 2 compliant</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #version-2 -->
 
 <script>
 (function() {
   'use strict';
 
-  // ── Letter-by-letter hero subline ──────────────────────────
-  var sublineText = 'The operating system for modern cannabis retail.';
-  var container = document.getElementById('v3SublineContainer');
-  if (container) {
-    var words = sublineText.split(' ');
-    var delay = 1.0; // start after headline words
-    words.forEach(function(word, wi) {
-      var wordEl = document.createElement('span');
-      wordEl.style.display = 'inline-flex';
-      wordEl.style.gap = '0';
-      word.split('').forEach(function(letter, li) {
-        var span = document.createElement('span');
-        span.className = 'v3-letter';
-        span.textContent = letter;
-        span.style.animationDelay = delay + 's';
-        delay += 0.032;
-        wordEl.appendChild(span);
-      });
-      container.appendChild(wordEl);
-      // space between words
-      delay += 0.02;
+  // ── Intersection Observer for .v2-anim elements ──
+  const observerOpts = { threshold: 0.15, rootMargin: '0px 0px -40px 0px' };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('v2-visible');
+
+        // Trigger child stagger items inside this card
+        const card = entry.target.closest('[data-v2-card]');
+        if (card) triggerCardChildren(card);
+
+        io.unobserve(entry.target);
+      }
+    });
+  }, observerOpts);
+
+  // Observe top-level anim elements
+  document.querySelectorAll('#version-2 .v2-anim').forEach(el => io.observe(el));
+
+  function triggerCardChildren(card) {
+    // Feature items stagger
+    card.querySelectorAll('.v2-feature-item').forEach((item, i) => {
+      setTimeout(() => item.classList.add('v2-visible'), 100 + i * 60);
+    });
+    card.querySelectorAll('.v2-intel-feature').forEach((item, i) => {
+      setTimeout(() => item.classList.add('v2-visible'), 150 + i * 80);
+    });
+    card.querySelectorAll('.v2-pay-option').forEach((item, i) => {
+      setTimeout(() => item.classList.add('v2-visible'), 120 + i * 100);
+    });
+    card.querySelectorAll('.v2-ops-feature').forEach((item, i) => {
+      setTimeout(() => item.classList.add('v2-visible'), 100 + i * 70);
+    });
+    card.querySelectorAll('.v2-commerce-mini').forEach((item, i) => {
+      setTimeout(() => item.classList.add('v2-visible'), 300 + i * 80);
+    });
+    // Chart line
+    card.querySelectorAll('.v2-chart-line').forEach(line => {
+      setTimeout(() => line.classList.add('v2-visible'), 400);
+    });
+    // Bars
+    card.querySelectorAll('.v2-bar').forEach((bar, i) => {
+      setTimeout(() => bar.classList.add('v2-visible'), 600 + i * 60);
+    });
+    // Testimonials
+    card.querySelectorAll('.v2-testimonial').forEach((t, i) => {
+      setTimeout(() => t.classList.add('v2-visible'), 80 + i * 100);
+    });
+
+    // Kick off counters in this card
+    startCounters(card);
+  }
+
+  // ── Card-level IntersectionObserver (for child triggering) ──
+  const cardIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        triggerCardChildren(entry.target);
+        cardIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('#version-2 [data-v2-card]').forEach(card => cardIO.observe(card));
+
+  // ── Animated counters ──
+  function startCounters(scope) {
+    scope.querySelectorAll('[data-count]').forEach(el => {
+      if (el.dataset.counted) return;
+      el.dataset.counted = '1';
+
+      const target = parseInt(el.dataset.count, 10);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const duration = 1600;
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        const display = target >= 1000 ? current.toLocaleString() : current;
+        el.textContent = prefix + display + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     });
   }
 
-  // ── Intersection Observer for scroll reveals ───────────────
-  var revealObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('v3-visible');
-        revealObserver.unobserve(entry.target);
+  // ── Horizontal strip auto-scroll ──
+  const strip = document.getElementById('v2FeatureStrip');
+  if (strip) {
+    let scrollDir = 1;
+    let paused = false;
+    strip.addEventListener('mouseenter', () => paused = true);
+    strip.addEventListener('mouseleave', () => paused = false);
+
+    function autoScroll() {
+      if (!paused) {
+        strip.scrollLeft += scrollDir * 0.5;
+        if (strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 4) scrollDir = -1;
+        if (strip.scrollLeft <= 0) scrollDir = 1;
       }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      requestAnimationFrame(autoScroll);
+    }
+    requestAnimationFrame(autoScroll);
+  }
 
-  var selectors = [
-    '.v3-reveal', '.v3-reveal-left', '.v3-reveal-right',
-    '.v3-scale-in', '.v3-underline-draw', '.v3-highlight-yellow',
-    '.v3-pay-node'
-  ];
-  document.querySelectorAll(selectors.join(',')).forEach(function(el) {
-    revealObserver.observe(el);
-  });
-
-  // ── Animated data bars ─────────────────────────────────────
-  var barObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var fill = entry.target;
-        var w = fill.getAttribute('data-width') || '0';
-        fill.style.width = w + '%';
-        fill.classList.add('v3-visible');
-        barObserver.unobserve(fill);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  document.querySelectorAll('.v3-data-bar-fill').forEach(function(el) {
-    barObserver.observe(el);
-  });
-
-  // ── Scroll-triggered checklist checkmarks ──────────────────
-  var checkObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var item = entry.target;
-        setTimeout(function() {
-          item.classList.add('v3-checked');
-        }, 300);
-        checkObserver.unobserve(item);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.v3-check-item[data-check]').forEach(function(el) {
-    checkObserver.observe(el);
-  });
-
-  // ── Horizontal scroll strip (drag + buttons) ───────────────
-  var track = document.getElementById('v3HscrollTrack');
-  if (track) {
-    var isDown = false;
-    var startX, scrollLeft;
-
-    track.addEventListener('mousedown', function(e) {
-      isDown = true;
-      track.classList.add('v3-grabbing');
-      startX = e.pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
-    });
-    document.addEventListener('mouseup', function() {
-      isDown = false;
-      track.classList.remove('v3-grabbing');
-    });
-    track.addEventListener('mouseleave', function() {
-      isDown = false;
-      track.classList.remove('v3-grabbing');
-    });
-    track.addEventListener('mousemove', function(e) {
-      if (!isDown) return;
-      e.preventDefault();
-      var x = e.pageX - track.offsetLeft;
-      var walk = (x - startX) * 1.5;
-      track.scrollLeft = scrollLeft - walk;
-    });
-
-    // touch
-    var touchStartX = 0, touchScrollLeft = 0;
-    track.addEventListener('touchstart', function(e) {
-      touchStartX = e.touches[0].pageX;
-      touchScrollLeft = track.scrollLeft;
+  // ── Parallax dot grid on scroll ──
+  const dotGrid = document.querySelector('#version-2 .v2-dot-grid');
+  if (dotGrid) {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const offset = (scrollY * 0.04) % 36;
+      dotGrid.style.backgroundPosition = `${offset}px ${offset}px`;
     }, { passive: true });
-    track.addEventListener('touchmove', function(e) {
-      var x = e.touches[0].pageX;
-      track.scrollLeft = touchScrollLeft - (x - touchStartX);
-    }, { passive: true });
+  }
 
-    var cardWidth = 402; // approximate card+gap
-    var btnLeft  = document.getElementById('v3ScrollLeft');
-    var btnRight = document.getElementById('v3ScrollRight');
-    if (btnLeft)  btnLeft.addEventListener('click',  function() { track.scrollBy({ left: -cardWidth, behavior: 'smooth' }); });
-    if (btnRight) btnRight.addEventListener('click', function() { track.scrollBy({ left:  cardWidth, behavior: 'smooth' }); });
+  // ── Subtle hover tilt on cards ──
+  document.querySelectorAll('#version-2 .v2-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+      card.style.transform = `perspective(1200px) rotateY(${dx * 1.5}deg) rotateX(${-dy * 1.2}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ── Initial trigger for first card (already visible) ──
+  const firstCard = document.querySelector('#version-2 [data-v2-card="1"]');
+  if (firstCard) {
+    document.querySelectorAll('#version-2 .v2-card-wrap:first-child .v2-anim').forEach(el => {
+      setTimeout(() => el.classList.add('v2-visible'), 200);
+    });
+    setTimeout(() => triggerCardChildren(firstCard), 300);
   }
 
 })();
 </script>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     VERSION 4: COMMAND CENTER
-     ═══════════════════════════════════════════════════════════ -->
+<!-- VERSION 3: SPLIT SCREEN -->
+<div class="version-container" data-version="3">
+<div id="version-3">
+
+  <!-- NAV -->
+  <nav class="v3-nav">
+    <div class="v3-nav-logo">
+      <div class="v3-nav-logo-mark">D</div>
+      dutchie
+    </div>
+    <ul class="v3-nav-links">
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Solutions</a></li>
+      <li><a href="#">Integrations</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Resources</a></li>
+    </ul>
+    <a href="#" class="v3-nav-cta">Book a Demo</a>
+  </nav>
+
+  <!-- SPLIT LAYOUT -->
+  <div class="v3-split">
+
+    <!-- LEFT PANEL: STICKY VISUALS -->
+    <div class="v3-left">
+      <div class="v3-left-inner">
+
+        <!-- SLIDE 0: ORB HERO -->
+        <div class="v3-slide v3-active v3-mobile-show" data-slide="0">
+          <div class="v3-orb-container">
+            <div class="v3-orb"></div>
+            <div class="v3-orb-ring"></div>
+            <div class="v3-orb-ring v3-orb-ring-2"></div>
+            <div class="v3-float-stat">
+              <div class="v3-float-stat-val">6,500+</div>
+              <div class="v3-float-stat-label">Dispensaries</div>
+            </div>
+            <div class="v3-float-stat">
+              <div class="v3-float-stat-val">$22B+</div>
+              <div class="v3-float-stat-label">Processed</div>
+            </div>
+            <div class="v3-float-stat">
+              <div class="v3-float-stat-val">99.9%</div>
+              <div class="v3-float-stat-label">Uptime SLA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 1: DASHBOARD -->
+        <div class="v3-slide v3-mobile-show" data-slide="1">
+          <div class="v3-dashboard">
+            <div class="v3-dash-header">
+              <span class="v3-dash-title">Dutchie Nexus</span>
+              <span class="v3-dash-badge">Live</span>
+            </div>
+            <div class="v3-metric-row">
+              <div class="v3-metric-card">
+                <div class="v3-metric-num">$84.2K</div>
+                <div class="v3-metric-delta">+18.3%</div>
+                <div class="v3-metric-lbl">Today</div>
+              </div>
+              <div class="v3-metric-card">
+                <div class="v3-metric-num">1,247</div>
+                <div class="v3-metric-delta">+9.1%</div>
+                <div class="v3-metric-lbl">Orders</div>
+              </div>
+              <div class="v3-metric-card">
+                <div class="v3-metric-num">67.5</div>
+                <div class="v3-metric-delta">+$4.20</div>
+                <div class="v3-metric-lbl">Avg Basket</div>
+              </div>
+            </div>
+            <div class="v3-chart-area">
+              <div class="v3-chart-label">Revenue — Last 30 Days</div>
+              <div class="v3-bars">
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+                <div class="v3-bar"></div>
+              </div>
+            </div>
+            <div class="v3-insight-row">
+              <div class="v3-insight-chip">
+                <strong>Top Product</strong>
+                Blue Dream 3.5g
+              </div>
+              <div class="v3-insight-chip">
+                <strong>AI Insight</strong>
+                Reorder Gelato strain
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: STOREFRONT -->
+        <div class="v3-slide v3-mobile-show" data-slide="2">
+          <div class="v3-storefront">
+            <div class="v3-store-bar">
+              <div class="v3-store-dot"></div>
+              <div class="v3-store-dot"></div>
+              <div class="v3-store-dot"></div>
+              <div class="v3-store-url">shop.greenleafdispensary.com</div>
+              <div class="v3-store-search">Shop Now</div>
+            </div>
+            <div class="v3-store-hero-band">
+              <div class="v3-store-hero-text">
+                <h4>Flash Sale — 20% Off</h4>
+                <p>Concentrates &amp; Vapes Today Only</p>
+              </div>
+              <div class="v3-store-hero-btn">Shop Sale</div>
+            </div>
+            <div class="v3-product-grid">
+              <div class="v3-product-card">
+                <div class="v3-product-img" style="background:rgba(106,180,72,0.12)">🌿</div>
+                <div class="v3-product-type">Flower</div>
+                <div class="v3-product-name">Blue Dream</div>
+                <div class="v3-product-price">$38</div>
+              </div>
+              <div class="v3-product-card">
+                <div class="v3-product-img" style="background:rgba(94,50,78,0.2)">💨</div>
+                <div class="v3-product-type">Vape</div>
+                <div class="v3-product-name">OG Kush Cart</div>
+                <div class="v3-product-price">$44</div>
+              </div>
+              <div class="v3-product-card">
+                <div class="v3-product-img" style="background:rgba(255,192,42,0.12)">🍬</div>
+                <div class="v3-product-type">Edible</div>
+                <div class="v3-product-name">Mango Gummies</div>
+                <div class="v3-product-price">$22</div>
+              </div>
+              <div class="v3-product-card">
+                <div class="v3-product-img" style="background:rgba(0,61,41,0.5)">💎</div>
+                <div class="v3-product-type">Concentrate</div>
+                <div class="v3-product-name">Live Resin</div>
+                <div class="v3-product-price">$55</div>
+              </div>
+              <div class="v3-product-card">
+                <div class="v3-product-img" style="background:rgba(106,180,72,0.15)">🌱</div>
+                <div class="v3-product-type">Pre-Roll</div>
+                <div class="v3-product-name">Gorilla Glue</div>
+                <div class="v3-product-price">$14</div>
+              </div>
+              <div class="v3-product-card">
+                <div class="v3-product-img" style="background:rgba(94,50,78,0.15)">🧴</div>
+                <div class="v3-product-type">Topical</div>
+                <div class="v3-product-name">CBD Balm</div>
+                <div class="v3-product-price">$29</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: LOYALTY / EMAIL -->
+        <div class="v3-slide v3-mobile-show" data-slide="3">
+          <div class="v3-marketing-mock">
+            <div class="v3-loyalty-card">
+              <div class="v3-loyalty-label">Member Card</div>
+              <div class="v3-loyalty-name">Sarah M.</div>
+              <div class="v3-loyalty-tier">Gold Member</div>
+              <div class="v3-loyalty-points-row">
+                <div>
+                  <div class="v3-loyalty-pts">2,840</div>
+                  <div class="v3-loyalty-pts-label">points</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-size:11px;color:rgba(241,235,214,0.45);">Next reward</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--v3-yellow);">$10 off at 3,000</div>
+                </div>
+              </div>
+              <div class="v3-loyalty-progress">
+                <div class="v3-loyalty-bar-fill"></div>
+              </div>
+            </div>
+            <div class="v3-email-preview">
+              <div class="v3-email-header">
+                <div class="v3-email-avatar">D</div>
+                <div class="v3-email-meta">
+                  <div class="v3-email-from">Green Leaf Dispensary</div>
+                  <div class="v3-email-subj">You're 160 points away from a reward 🎉</div>
+                </div>
+                <div class="v3-email-ai-badge">AI ✦</div>
+              </div>
+              <div class="v3-email-body">
+                Hi Sarah! Based on your purchase history, we picked some favorites just for you. Your go-to Blue Dream is back in stock.
+              </div>
+              <div class="v3-email-cta">Shop Picks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: OPS FLOW -->
+        <div class="v3-slide v3-mobile-show" data-slide="4">
+          <div class="v3-flow-diagram">
+            <div class="v3-flow-title">Supply Chain Visibility</div>
+            <div class="v3-flow-nodes">
+              <div class="v3-flow-node">
+                <div class="v3-flow-icon v3-flow-icon-supplier">🏭</div>
+                <div class="v3-flow-label">Supplier</div>
+                <div class="v3-flow-sublabel">Brand Partner</div>
+              </div>
+              <div class="v3-flow-arrow">
+                <div class="v3-flow-arrow-line"></div>
+                <div class="v3-flow-arrow-head"></div>
+              </div>
+              <div class="v3-flow-node">
+                <div class="v3-flow-icon v3-flow-icon-store">🏪</div>
+                <div class="v3-flow-label">Dispensary</div>
+                <div class="v3-flow-sublabel">Your Store</div>
+              </div>
+              <div class="v3-flow-arrow">
+                <div class="v3-flow-arrow-line"></div>
+                <div class="v3-flow-arrow-head"></div>
+              </div>
+              <div class="v3-flow-node">
+                <div class="v3-flow-icon v3-flow-icon-customer">👤</div>
+                <div class="v3-flow-label">Customer</div>
+                <div class="v3-flow-sublabel">Verified Buyer</div>
+              </div>
+            </div>
+            <div class="v3-ops-stats">
+              <div class="v3-ops-stat">
+                <div class="v3-ops-stat-num">100%</div>
+                <div class="v3-ops-stat-lbl">Compliant</div>
+              </div>
+              <div class="v3-ops-stat">
+                <div class="v3-ops-stat-num">Real-time</div>
+                <div class="v3-ops-stat-lbl">Inventory Sync</div>
+              </div>
+              <div class="v3-ops-stat">
+                <div class="v3-ops-stat-num">50+</div>
+                <div class="v3-ops-stat-lbl">States Served</div>
+              </div>
+              <div class="v3-ops-stat">
+                <div class="v3-ops-stat-num">5,000+</div>
+                <div class="v3-ops-stat-lbl">Brand Partners</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: PAYMENTS / QR -->
+        <div class="v3-slide v3-mobile-show" data-slide="5">
+          <div class="v3-payments-mock">
+            <div class="v3-qr-container" id="v3QrGrid">
+              <!-- QR pixels injected by JS -->
+            </div>
+            <div class="v3-terminal">
+              <div class="v3-terminal-screen">
+                <div class="v3-terminal-amount">$67.50</div>
+                <div class="v3-terminal-label">Total Due</div>
+              </div>
+              <div class="v3-terminal-methods">
+                <div class="v3-terminal-method v3-active-method">Pay by Bank</div>
+                <div class="v3-terminal-method">Card</div>
+                <div class="v3-terminal-method">Gift Card</div>
+                <div class="v3-terminal-method">Cash</div>
+              </div>
+            </div>
+            <div class="v3-payment-stat-row">
+              <div class="v3-pay-stat">
+                <div class="v3-pay-stat-num">$22B+</div>
+                <div class="v3-pay-stat-lbl">Processed</div>
+              </div>
+              <div class="v3-pay-stat">
+                <div class="v3-pay-stat-num">ACH</div>
+                <div class="v3-pay-stat-lbl">Lowest Fees</div>
+              </div>
+              <div class="v3-pay-stat">
+                <div class="v3-pay-stat-num">SOC 2</div>
+                <div class="v3-pay-stat-lbl">Certified</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 6: TESTIMONIALS -->
+        <div class="v3-slide v3-mobile-show" data-slide="6">
+          <div class="v3-testimonials-stack">
+            <div class="v3-testi-card">
+              <div class="v3-testi-quote">"Dutchie has transformed how we operate across all 20 of our Ascend locations. The real-time data visibility alone is worth every penny."</div>
+              <div class="v3-testi-author">
+                <div class="v3-testi-avatar" style="background:var(--v3-light-green)">A</div>
+                <div>
+                  <div class="v3-testi-name">Jennifer Walsh</div>
+                  <div class="v3-testi-company">COO, Ascend Wellness Holdings</div>
+                </div>
+              </div>
+            </div>
+            <div class="v3-testi-card">
+              <div class="v3-testi-quote">"Our online revenue grew 340% in the first year with Dutchie eCommerce. The SEO tools and personalization are best-in-class."</div>
+              <div class="v3-testi-author">
+                <div class="v3-testi-avatar" style="background:var(--v3-purple)">P</div>
+                <div>
+                  <div class="v3-testi-name">Robert Hirsch</div>
+                  <div class="v3-testi-company">VP Digital, Planet 13</div>
+                </div>
+              </div>
+            </div>
+            <div class="v3-testi-card">
+              <div class="v3-testi-quote">"The loyalty program pays for itself. We see 3x more repeat visits from enrolled customers compared to our previous system."</div>
+              <div class="v3-testi-author">
+                <div class="v3-testi-avatar" style="background:var(--v3-yellow)">G</div>
+                <div>
+                  <div class="v3-testi-name">Maria Santos</div>
+                  <div class="v3-testi-company">Founder, Good Chemistry</div>
+                </div>
+              </div>
+            </div>
+            <div class="v3-testi-stats">
+              <div class="v3-testi-stat">
+                <div class="v3-testi-stat-num">4.9★</div>
+                <div class="v3-testi-stat-lbl">G2 Rating</div>
+              </div>
+              <div class="v3-testi-stat">
+                <div class="v3-testi-stat-num">97%</div>
+                <div class="v3-testi-stat-lbl">Retention</div>
+              </div>
+              <div class="v3-testi-stat">
+                <div class="v3-testi-stat-num">24/7</div>
+                <div class="v3-testi-stat-lbl">Support</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 7: LOGO GLOW -->
+        <div class="v3-slide v3-mobile-show" data-slide="7">
+          <div class="v3-logo-glow">
+            <div class="v3-logo-big">D</div>
+            <div class="v3-logo-wordmark">dutchie</div>
+            <div class="v3-logo-tagline">The Cannabis Industry's Operating System</div>
+            <div class="v3-trust-badges">
+              <div class="v3-trust-badge">SOC 1 Type II</div>
+              <div class="v3-trust-badge">SOC 2 Type II</div>
+              <div class="v3-trust-badge">HIPAA</div>
+              <div class="v3-trust-badge">PCI DSS</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /v3-left -->
+
+    <!-- RIGHT PANEL: SCROLLABLE CONTENT -->
+    <div class="v3-right">
+
+      <!-- SECTION 0: HERO -->
+      <section class="v3-section" data-section="0">
+        <div class="v3-section-label">The #1 Cannabis Platform</div>
+        <div class="v3-section-divider"></div>
+        <h1 class="v3-hero-headline">Power Your<br><span>Cannabis Business</span><br>at Every Level</h1>
+        <p class="v3-hero-sub">Dutchie's end-to-end platform handles eCommerce, POS, payments, marketing, and operations — so you can focus on what matters: your customers.</p>
+        <div class="v3-cta-group">
+          <a href="#" class="v3-btn-primary">Book a Demo</a>
+          <a href="#" class="v3-btn-secondary">See It In Action →</a>
+        </div>
+        <div class="v3-hero-proof">
+          <div class="v3-hero-proof-item">
+            <div class="v3-proof-num"><span class="v3-countup" data-target="6500">0</span><span>+</span></div>
+            <div class="v3-proof-lbl">Dispensaries Powered</div>
+          </div>
+          <div class="v3-hero-proof-item">
+            <div class="v3-proof-num">$<span class="v3-countup" data-target="22">0</span>B+</div>
+            <div class="v3-proof-lbl">Transactions Processed</div>
+          </div>
+          <div class="v3-hero-proof-item">
+            <div class="v3-proof-num"><span class="v3-countup" data-target="99" data-suffix=".9%">0</span></div>
+            <div class="v3-proof-lbl">Platform Uptime</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 1: DUTCHIE NEXUS -->
+      <section class="v3-section" data-section="1">
+        <div class="v3-section-label">AI Command Center</div>
+        <div class="v3-section-divider"></div>
+        <h2 class="v3-section-headline">Meet Dutchie Nexus</h2>
+        <p class="v3-section-sub">Your AI-powered operations center. See every insight, take any action — from a single dashboard built for cannabis retail.</p>
+        <ul class="v3-feature-list">
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">✦</div>
+            <div><strong>AI-Powered Insights.</strong> Predict demand, identify high-value customers, and surface reorder opportunities before you run out.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">📊</div>
+            <div><strong>Unified Analytics.</strong> Revenue, inventory, staff performance, and compliance all in one live view across every location.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">🎯</div>
+            <div><strong>Revenue Attribution.</strong> Know exactly which campaigns, channels, and SKUs are driving your bottom line.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">👤</div>
+            <div><strong>Customer Behavior Intelligence.</strong> Understand purchase patterns, lifetime value, and churn risk for every shopper.</div>
+          </li>
+        </ul>
+        <div class="v3-stat-callout">
+          <div class="v3-stat-callout-num">340%</div>
+          <div class="v3-stat-callout-text">average revenue lift with Nexus insights</div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: COMMERCE -->
+      <section class="v3-section" data-section="2">
+        <div class="v3-section-label v3-section-label-purple">eCommerce &amp; POS</div>
+        <div class="v3-section-divider v3-section-divider-purple"></div>
+        <h2 class="v3-section-headline">Commerce That Converts</h2>
+        <p class="v3-section-sub">From the first online browse to the final in-store checkout, Dutchie creates seamless buying experiences that keep customers coming back.</p>
+        <ul class="v3-feature-list">
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-purple">🛒</div>
+            <div><strong>E-Commerce Pro.</strong> SEO-optimized menus, lightning-fast loading, and conversion-focused UX that outperforms generic solutions.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-purple">💻</div>
+            <div><strong>Next-Gen POS.</strong> Purpose-built for cannabis with age verification, compliance checks, and flexible workflows baked in.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-purple">✉️</div>
+            <div><strong>Back-in-Stock Alerts &amp; Wishlists.</strong> Never lose a sale — automatically notify customers when their favorites are available.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-purple">🔐</div>
+            <div><strong>Social Login &amp; Personalization.</strong> One-click checkout with personalized product recommendations for every customer.</div>
+          </li>
+        </ul>
+        <div class="v3-product-tags">
+          <span class="v3-tag v3-tag-purple">E-Commerce Pro</span>
+          <span class="v3-tag v3-tag-purple">Dutchie POS</span>
+          <span class="v3-tag v3-tag-purple">Express Checkout</span>
+          <span class="v3-tag v3-tag-purple">SEO Tools</span>
+        </div>
+      </section>
+
+      <!-- SECTION 3: MARKETING -->
+      <section class="v3-section" data-section="3">
+        <div class="v3-section-label v3-section-label-yellow">Marketing &amp; Loyalty</div>
+        <div class="v3-section-divider v3-section-divider-yellow"></div>
+        <h2 class="v3-section-headline">Marketing on Autopilot</h2>
+        <p class="v3-section-sub">Build lasting relationships with AI-driven campaigns and loyalty programs that run while you focus on running the business.</p>
+        <ul class="v3-feature-list">
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">✦</div>
+            <div><strong>AI Email Campaigns.</strong> Personalized subject lines, send-time optimization, and dynamic content generated automatically.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">⭐</div>
+            <div><strong>Loyalty &amp; Rewards.</strong> Points, tiers, and custom rewards programs with in-store redemption directly at the register.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">📱</div>
+            <div><strong>Mobile App.</strong> Your brand, your app — push notifications, mobile ordering, and loyalty all in one branded experience.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">🎯</div>
+            <div><strong>Audience Segmentation.</strong> Target by purchase history, spend tier, favorite products, or last-visit date with precision.</div>
+          </li>
+        </ul>
+        <div class="v3-stat-callout" style="background:rgba(255,192,42,0.08);border-color:rgba(255,192,42,0.2)">
+          <div class="v3-stat-callout-num" style="color:var(--v3-yellow)">3x</div>
+          <div class="v3-stat-callout-text">more repeat visits from enrolled loyalty members</div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: OPERATIONS -->
+      <section class="v3-section" data-section="4">
+        <div class="v3-section-label">Operations &amp; Compliance</div>
+        <div class="v3-section-divider"></div>
+        <h2 class="v3-section-headline">Operations Simplified</h2>
+        <p class="v3-section-sub">Connect your entire supply chain — brands, distributors, and dispensaries — on one compliant, integrated platform.</p>
+        <ul class="v3-feature-list">
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">🔗</div>
+            <div><strong>Dutchie Connect.</strong> Direct integrations between retailers and brands — purchase orders, invoices, and catalog sync in real time.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">✅</div>
+            <div><strong>Built-in Compliance.</strong> Metrc, BioTrack, and state-specific reporting handled automatically so you never miss an audit.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">📦</div>
+            <div><strong>Smart Inventory.</strong> Real-time stock levels, automated low-stock alerts, and variance reporting across all locations.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">🏢</div>
+            <div><strong>Multi-Location Management.</strong> Manage 1 or 100 stores from one dashboard — pricing, menus, staff, and reporting unified.</div>
+          </li>
+        </ul>
+        <div class="v3-product-tags">
+          <span class="v3-tag">Dutchie Connect</span>
+          <span class="v3-tag">Metrc Integration</span>
+          <span class="v3-tag">Inventory Pro</span>
+          <span class="v3-tag">Multi-Location</span>
+        </div>
+      </section>
+
+      <!-- SECTION 5: PAYMENTS -->
+      <section class="v3-section" data-section="5">
+        <div class="v3-section-label v3-section-label-yellow">Payments</div>
+        <div class="v3-section-divider v3-section-divider-yellow"></div>
+        <h2 class="v3-section-headline">Payments Solved — Finally</h2>
+        <p class="v3-section-sub">The cannabis industry's most complete payment stack. Move money the right way with purpose-built solutions for every transaction type.</p>
+        <ul class="v3-feature-list">
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">🏦</div>
+            <div><strong>Pay by Bank (ACH).</strong> Industry-lowest fees. Let customers pay directly from their bank account — online and in-store.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">💳</div>
+            <div><strong>Card-Present Solutions.</strong> Compliant debit processing with PIN debit and cashless ATM at the point of sale.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">🎁</div>
+            <div><strong>Gift Cards.</strong> Digital and physical gift cards fully integrated with loyalty — drive new customer acquisition and retention.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">🔒</div>
+            <div><strong>Secure &amp; Compliant.</strong> PCI DSS certified, SOC 2 Type II, with end-to-end encryption on every transaction.</div>
+          </li>
+        </ul>
+        <div class="v3-stat-callout" style="background:rgba(255,192,42,0.08);border-color:rgba(255,192,42,0.2)">
+          <div class="v3-stat-callout-num" style="color:var(--v3-yellow)">$22B+</div>
+          <div class="v3-stat-callout-text">in cannabis transactions processed to date</div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: SOCIAL PROOF -->
+      <section class="v3-section" data-section="6">
+        <div class="v3-section-label">Trusted by Industry Leaders</div>
+        <div class="v3-section-divider"></div>
+        <h2 class="v3-section-headline">The Platform Cannabis Leaders Choose</h2>
+        <p class="v3-section-sub">From single-store operators to multi-state operators running 100+ locations, Dutchie powers the most trusted names in cannabis.</p>
+        <ul class="v3-feature-list">
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">🏆</div>
+            <div><strong>Ascend Wellness.</strong> Multi-state operator with 20+ dispensaries — "Dutchie gives us the visibility we need to scale."</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon" style="background:rgba(94,50,78,0.3);color:#c594b8">🌍</div>
+            <div><strong>Planet 13.</strong> World's largest cannabis entertainment complex — powered by Dutchie eCommerce and POS.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon v3-feature-icon-yellow">⭐</div>
+            <div><strong>Strain Stars &amp; Cana Craft.</strong> Independent dispensaries growing 200%+ with Dutchie's marketing and loyalty tools.</div>
+          </li>
+          <li class="v3-feature-item">
+            <div class="v3-feature-icon">🌱</div>
+            <div><strong>Good Chemistry.</strong> Colorado's iconic brand — "3x more repeat visits after launching Dutchie Loyalty."</div>
+          </li>
+        </ul>
+        <div class="v3-product-tags">
+          <span class="v3-tag">4.9★ on G2</span>
+          <span class="v3-tag">97% Retention Rate</span>
+          <span class="v3-tag">24/7 Support</span>
+        </div>
+      </section>
+
+      <!-- SECTION 7: FINAL CTA -->
+      <section class="v3-section v3-final-cta" data-section="7">
+        <div class="v3-section-label">Get Started</div>
+        <div class="v3-section-divider"></div>
+        <h2 class="v3-final-headline">Ready to Run Your<br>Best Dispensary?</h2>
+        <p class="v3-final-sub">Join 6,500+ dispensaries already operating smarter with Dutchie. Book a personalized demo and see the platform in action.</p>
+        <div class="v3-cta-group">
+          <a href="#" class="v3-btn-primary">Book a Demo</a>
+          <a href="#" class="v3-btn-secondary">See It In Action →</a>
+        </div>
+        <div class="v3-final-badges">
+          <div class="v3-final-badge">
+            <span class="v3-final-badge-icon">🛡️</span>
+            SOC 1 Type II Certified
+          </div>
+          <div class="v3-final-badge">
+            <span class="v3-final-badge-icon">🔒</span>
+            SOC 2 Type II Certified
+          </div>
+          <div class="v3-final-badge">
+            <span class="v3-final-badge-icon">🏥</span>
+            HIPAA Compliant
+          </div>
+          <div class="v3-final-badge">
+            <span class="v3-final-badge-icon">💳</span>
+            PCI DSS Certified
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /v3-right -->
+
+  </div><!-- /v3-split -->
+
+</div><!-- /#version-3 -->
+
+<script>
+(function() {
+  'use strict';
+
+  // ─── QR PIXEL GENERATION ───────────────────────────────────────────────────
+  const qrContainer = document.getElementById('v3QrGrid');
+  if (qrContainer) {
+    // Simple pseudo-QR pattern (10x10 grid)
+    const pattern = [
+      1,1,1,1,1,1,1,0,1,1,
+      1,0,0,0,0,0,1,0,0,1,
+      1,0,1,1,1,0,1,0,1,0,
+      1,0,1,1,1,0,1,0,0,1,
+      1,0,1,1,1,0,1,0,1,1,
+      1,0,0,0,0,0,1,1,0,0,
+      1,1,1,1,1,1,1,0,1,0,
+      0,0,0,0,0,1,0,1,0,1,
+      1,1,0,1,0,0,1,1,1,0,
+      1,0,1,0,0,1,0,1,0,1,
+    ];
+
+    pattern.forEach((filled, i) => {
+      const px = document.createElement('div');
+      px.classList.add('v3-qr-pixel');
+      if (!filled) px.classList.add('v3-qr-empty');
+      const delay = filled ? (i * 0.02) : 0;
+      px.style.animationDelay = delay + 's';
+      qrContainer.appendChild(px);
+    });
+  }
+
+  // ─── INTERSECTION OBSERVER: RIGHT SECTIONS → LEFT SLIDES ──────────────────
+  const slides = document.querySelectorAll('#version-3 .v3-slide');
+  const sections = document.querySelectorAll('#version-3 .v3-section');
+
+  function activateSlide(index) {
+    slides.forEach(s => s.classList.remove('v3-active'));
+    const target = document.querySelector(`#version-3 .v3-slide[data-slide="${index}"]`);
+    if (target) target.classList.add('v3-active');
+  }
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = entry.target.dataset.section;
+        activateSlide(idx);
+        // Trigger bar chart re-animation for dashboard
+        if (idx === '1') {
+          const bars = document.querySelectorAll('#version-3 .v3-bar');
+          bars.forEach(b => {
+            b.style.animation = 'none';
+            void b.offsetHeight;
+            b.style.animation = '';
+          });
+        }
+        // Trigger QR re-animation
+        if (idx === '5') {
+          const pixels = document.querySelectorAll('#version-3 .v3-qr-pixel:not(.v3-qr-empty)');
+          pixels.forEach(p => {
+            p.style.animation = 'none';
+            void p.offsetHeight;
+            p.style.animation = '';
+          });
+        }
+      }
+    });
+  }, {
+    threshold: 0.4,
+    rootMargin: '-10% 0px -10% 0px'
+  });
+
+  sections.forEach(section => sectionObserver.observe(section));
+
+  // ─── INTERSECTION OBSERVER: RIGHT SECTIONS FADE UP ────────────────────────
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('v3-visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => fadeObserver.observe(section));
+
+  // ─── COUNT-UP ANIMATION ───────────────────────────────────────────────────
+  function animateCountUp(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const start = performance.now();
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+      el.textContent = current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCountUp(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('#version-3 .v3-countup').forEach(el => {
+    countObserver.observe(el);
+  });
+
+  // ─── BAR CHART RESET ON SLIDE ACTIVATE ────────────────────────────────────
+  // Re-trigger bar grow when dashboard slide becomes active
+  const dashSlide = document.querySelector('#version-3 .v3-slide[data-slide="1"]');
+  if (dashSlide) {
+    const slideObserver = new MutationObserver(() => {
+      if (dashSlide.classList.contains('v3-active')) {
+        const bars = dashSlide.querySelectorAll('.v3-bar');
+        bars.forEach(b => {
+          b.style.animation = 'none';
+          void b.offsetHeight;
+          b.style.animation = '';
+        });
+      }
+    });
+    slideObserver.observe(dashSlide, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  // ─── MOBILE: show all slides stacked (no JS swapping) ─────────────────────
+  function handleResize() {
+    const isMobile = window.innerWidth <= 900;
+    slides.forEach(s => {
+      if (isMobile) {
+        s.classList.add('v3-active');
+      }
+    });
+  }
+
+  window.addEventListener('resize', handleResize);
+  handleResize();
+
+})();
+</script>
+</div>
+
+<!-- VERSION 4: COMMAND CENTER -->
 <div class="version-container" data-version="4">
 <head>
 <meta charset="UTF-8">
@@ -8735,43 +6382,28 @@ body {
 </script>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     VERSION SWITCHER LOGIC
-     ═══════════════════════════════════════════════════════════ -->
+<!-- VERSION SWITCHER LOGIC -->
 <script>
 function switchVersion(num) {
-  // Hide all versions
   document.querySelectorAll('.version-container').forEach(el => {
     el.classList.remove('active');
   });
-  // Deactivate all buttons
   document.querySelectorAll('.version-selector button').forEach(btn => {
     btn.classList.remove('active');
   });
-  // Show selected version
   const target = document.querySelector('.version-container[data-version="' + num + '"]');
-  if (target) {
-    target.classList.add('active');
-  }
-  // Activate button
+  if (target) target.classList.add('active');
   document.querySelectorAll('.version-selector button')[num - 1].classList.add('active');
-  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'instant' });
   
-  // Re-trigger animations for the newly visible version
   setTimeout(() => {
-    // Re-observe elements for intersection observer animations
     const version = document.querySelector('.version-container[data-version="' + num + '"]');
     if (version) {
-      // Reset animation states for elements that need re-triggering
-      const animElements = version.querySelectorAll('.v' + num + '-animate, [class*="v' + num + '-reveal"], [class*="v' + num + '-fade"]');
+      const animElements = version.querySelectorAll('[class*="-animate"], [class*="-reveal"], [class*="-fade"]');
       animElements.forEach(el => {
-        el.classList.remove('v' + num + '-visible', 'v' + num + '-in-view', 'visible');
-        // Force reflow
+        el.classList.remove('v1-visible', 'v2-visible', 'v3-visible', 'v4-visible', 'visible', 'in-view');
         void el.offsetHeight;
       });
-      
-      // Dispatch a scroll event to re-trigger observers
       window.dispatchEvent(new Event('scroll'));
       window.dispatchEvent(new Event('resize'));
     }
