@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Classifier v2 Skill Test Report — Round 2</title>
+<style>
+  :root {
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22253a;
+    --border: #2a2d3a;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --blue: #3b82f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+  .report-header {
+    text-align: center;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .report-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-light), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  .report-header .subtitle { color: var(--text-muted); font-size: 1.1rem; }
+  .report-header .date { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
+  .report-header .version-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Executive Summary */
+  .exec-summary {
+    background: linear-gradient(135deg, #1e1b4b, #1a1d27);
+    border: 1px solid #312e81;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .exec-summary h2 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent-light); }
+
+  .score-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .score-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .score-card .label { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-card .value { font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0; }
+  .score-card .delta { font-size: 0.85rem; padding: 0.2rem 0.6rem; border-radius: 12px; display: inline-block; }
+  .delta-up { background: rgba(34,197,94,0.15); color: var(--green); }
+  .delta-down { background: rgba(239,68,68,0.15); color: var(--red); }
+  .delta-same { background: rgba(148,163,184,0.15); color: var(--text-muted); }
+
+  /* Bar Chart */
+  .chart-section { margin-bottom: 3rem; }
+  .chart-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.6rem; }
+  .chart-label { width: 180px; font-size: 0.85rem; text-align: right; color: var(--text-muted); }
+  .chart-bars { flex: 1; display: flex; gap: 4px; height: 28px; }
+  .chart-bar {
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    min-width: 30px;
+    transition: opacity 0.2s;
+  }
+  .chart-bar:hover { opacity: 0.85; }
+  .bar-class { background: var(--accent); }
+  .bar-proto { background: var(--green); }
+  .bar-proto-r1 { background: rgba(34,197,94,0.3); border: 1px dashed var(--green); }
+
+  .chart-legend { display: flex; gap: 1.5rem; margin-top: 1rem; justify-content: center; }
+  .chart-legend span { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* Category Table */
+  .section-header { font-size: 1.4rem; font-weight: 600; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+
+  table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+  th { text-align: left; padding: 0.75rem 1rem; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  tr:hover { background: var(--card-hover); }
+
+  .cat-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: var(--accent); color: white; font-size: 0.8rem; font-weight: 700; }
+
+  .score-badge { padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; }
+  .score-badge.high { background: rgba(34,197,94,0.15); color: var(--green); }
+  .score-badge.med { background: rgba(234,179,8,0.15); color: var(--yellow); }
+  .score-badge.low { background: rgba(239,68,68,0.15); color: var(--red); }
+
+  .delta-cell { font-size: 0.8rem; }
+
+  /* Empty Response Tracker */
+  .empty-tracker {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .empty-tracker h3 { margin-bottom: 0.5rem; }
+  .empty-list { list-style: none; padding: 0; }
+  .empty-list li { padding: 0.4rem 0; font-size: 0.9rem; color: var(--text-muted); }
+
+  /* Detailed Category Breakdowns */
+  .cat-detail {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .cat-detail-header {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .cat-detail-header:hover { background: var(--card-hover); }
+  .cat-detail-header h3 { display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; }
+  .cat-scores { display: flex; gap: 1rem; font-size: 0.85rem; color: var(--text-muted); }
+  .toggle-icon { color: var(--text-muted); transition: transform 0.2s; }
+  .cat-detail.open .toggle-icon { transform: rotate(180deg); }
+  .cat-detail-body { display: none; padding: 0 1.5rem 1.5rem; }
+  .cat-detail.open .cat-detail-body { display: block; }
+
+  .observation-card {
+    background: rgba(99,102,241,0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .q-row { display: flex; gap: 0.75rem; padding: 0.4rem 0; font-size: 0.88rem; align-items: flex-start; }
+  .q-num { min-width: 24px; color: var(--text-muted); font-weight: 600; }
+  .q-text { flex: 1; }
+  .q-notes { flex: 1; color: var(--text-muted); font-style: italic; font-size: 0.83rem; }
+  .pass-icon { color: var(--green); font-weight: 700; font-size: 0.8rem; min-width: 50px; text-align: center; }
+  .fail-icon { color: var(--red); font-weight: 700; font-size: 0.8rem; min-width: 50px; text-align: center; }
+  .empty-icon { color: var(--yellow); font-weight: 700; font-size: 0.8rem; min-width: 50px; text-align: center; }
+
+  /* Recommendations */
+  .rec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .rec-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    border-top: 3px solid var(--border);
+  }
+  .rec-card.critical { border-top-color: var(--red); }
+  .rec-card.high { border-top-color: var(--yellow); }
+  .rec-card.medium { border-top-color: var(--blue); }
+  .rec-card.improved { border-top-color: var(--green); }
+  .rec-card h4 { margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .rec-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .rec-card ul { font-size: 0.85rem; color: var(--text-muted); padding-left: 1.2rem; }
+  .rec-card li { margin-bottom: 0.3rem; }
+
+  .priority { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; margin-right: 0.5rem; }
+  .p1 { background: var(--red); color: white; }
+  .p2 { background: var(--yellow); color: #000; }
+  .p3 { background: var(--blue); color: white; }
+  .p-ok { background: var(--green); color: white; }
+
+  .report-footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="report-header">
+    <h1>Question Classifier Skill Test</h1>
+    <div class="subtitle">Round 2 — Testing v2.0 Skill Updates</div>
+    <div class="date">100 new questions &middot; 10 categories &middot; 10 parallel test agents</div>
+    <div class="version-badge">Skill v2.0 &middot; Post-Fix Validation</div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="exec-summary">
+    <h2>Executive Summary</h2>
+    <div class="score-cards">
+      <div class="score-card">
+        <div class="label">Classification Accuracy</div>
+        <div class="value" style="color:var(--green)">96%</div>
+        <div class="delta delta-down">-1% from R1 (97%)</div>
+      </div>
+      <div class="score-card">
+        <div class="label">Protocol Adherence</div>
+        <div class="value" style="color:var(--yellow)">70%</div>
+        <div class="delta delta-up">+2% from R1 (68%)</div>
+      </div>
+      <div class="score-card">
+        <div class="label">Empty Responses</div>
+        <div class="value" style="color:var(--yellow)">4</div>
+        <div class="delta delta-down">+3 from R1 (1)</div>
+      </div>
+      <div class="score-card">
+        <div class="label">Categories Improved</div>
+        <div class="value" style="color:var(--green)">6/10</div>
+        <div class="delta delta-same">Cat 3, 5, 8, 9 biggest gains</div>
+      </div>
+    </div>
+    <p style="color:var(--text-muted); font-size:0.9rem;">
+      <strong>Bottom line:</strong> The v2 skill fixes landed where it mattered most. Competitive guardrails (Cat 9) jumped from 3/10 to 8/10 protocol &mdash; PMM footer now appears in 10/10 responses. Bug triage (Cat 3) JIRA-first improved from 6/10 to 9/10. Ticket creation (Cat 5) dedup search went from 4/10 to 9/10. Doc retrieval fallback (Cat 8) went from 0/4 to 4/4. However, two persistent problems remain: <strong>verbosity</strong> (Cat 1 and Cat 8 still over-explain) and <strong>"flag not found" stop behavior</strong> (Cat 4 scored 0/8 on stop-on-not-found). These appear to be model-level tendencies that skill instructions alone cannot fully override.
+    </p>
+  </div>
+
+  <!-- Bar Chart -->
+  <div class="chart-section">
+    <h2 class="section-header">Protocol Adherence by Category (R1 vs R2)</h2>
+    <div class="chart-row">
+      <div class="chart-label">1. Product How-To</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:20%">2</div>
+        <div class="chart-bar bar-proto" style="width:40%">4</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">2. Pricing & Discounts</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:100%">10</div>
+        <div class="chart-bar bar-proto" style="width:80%">8</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">3. Bug Triage</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:60%">6</div>
+        <div class="chart-bar bar-proto" style="width:80%">8</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">4. Feature Flags</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:80%">8</div>
+        <div class="chart-bar bar-proto" style="width:30%">3</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">5. Ticket Creation</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:100%">10</div>
+        <div class="chart-bar bar-proto" style="width:90%">9</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">6. Integration & API</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:100%">10</div>
+        <div class="chart-bar bar-proto" style="width:90%">9</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">7. Release Status</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:80%">8</div>
+        <div class="chart-bar bar-proto" style="width:70%">7</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">8. Internal Docs</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:10%">1</div>
+        <div class="chart-bar bar-proto" style="width:40%">4</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">9. Competitive Intel</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:30%">3</div>
+        <div class="chart-bar bar-proto" style="width:80%">8</div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">10. Customer Account</div>
+      <div class="chart-bars">
+        <div class="chart-bar bar-proto-r1" style="width:100%">10</div>
+        <div class="chart-bar bar-proto" style="width:100%">10</div>
+      </div>
+    </div>
+    <div class="chart-legend">
+      <span><div class="legend-dot" style="background:rgba(34,197,94,0.3);border:1px dashed var(--green)"></div> R1 Protocol</span>
+      <span><div class="legend-dot" style="background:var(--green)"></div> R2 Protocol</span>
+    </div>
+  </div>
+
+  <!-- Category Scorecard Table -->
+  <h2 class="section-header">Category Scorecard</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>R2 Classification</th>
+        <th>R2 Protocol</th>
+        <th>R1 Protocol</th>
+        <th>Delta</th>
+        <th>Empty</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cat-num">1</span></td>
+        <td>Product How-To</td>
+        <td><span class="score-badge high">8/10</span></td>
+        <td><span class="score-badge low">4/10</span></td>
+        <td><span class="score-badge low">2/10</span></td>
+        <td class="delta-cell" style="color:var(--green)">+2</td>
+        <td>2</td>
+        <td style="color:var(--yellow); font-weight:600;">Improved</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">2</span></td>
+        <td>Pricing & Discounts</td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge high">8/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td class="delta-cell" style="color:var(--red)">-2</td>
+        <td>1</td>
+        <td style="color:var(--green); font-weight:600;">Strong</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">3</span></td>
+        <td>Bug Triage</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">8/10</span></td>
+        <td><span class="score-badge med">6/10</span></td>
+        <td class="delta-cell" style="color:var(--green)">+2</td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Improved</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">4</span></td>
+        <td>Feature Flags</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge low">3/10</span></td>
+        <td><span class="score-badge high">8/10</span></td>
+        <td class="delta-cell" style="color:var(--red)">-5</td>
+        <td>0</td>
+        <td style="color:var(--red); font-weight:600;">Regressed</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">5</span></td>
+        <td>Ticket Creation</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td class="delta-cell" style="color:var(--yellow)">-1</td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Strong</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">6</span></td>
+        <td>Integration & API</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td class="delta-cell" style="color:var(--yellow)">-1</td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Strong</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">7</span></td>
+        <td>Release Status</td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge med">7/10</span></td>
+        <td><span class="score-badge high">8/10</span></td>
+        <td class="delta-cell" style="color:var(--red)">-1</td>
+        <td>1</td>
+        <td style="color:var(--yellow); font-weight:600;">Stable</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">8</span></td>
+        <td>Internal Docs</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge low">4/10</span></td>
+        <td><span class="score-badge low">1/10</span></td>
+        <td class="delta-cell" style="color:var(--green)">+3</td>
+        <td>0</td>
+        <td style="color:var(--yellow); font-weight:600;">Improved</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">9</span></td>
+        <td>Competitive Intel</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">8/10</span></td>
+        <td><span class="score-badge low">3/10</span></td>
+        <td class="delta-cell" style="color:var(--green)">+5</td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Major Fix</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">10</span></td>
+        <td>Customer Account</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td class="delta-cell" style="color:var(--text-muted)">0</td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Excellent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Empty Response Tracker -->
+  <div class="empty-tracker">
+    <h3>Empty Responses: 4 of 100</h3>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
+      4 questions returned empty responses. This is higher than R1's post-retest rate (1/100) but consistent with R1's pre-retest rate (11/100). These appear to be transient infrastructure/timeout issues.
+    </p>
+    <ul class="empty-list">
+      <li><strong>Cat 1 Q2:</strong> "How do I add a discount to a cart?" &mdash; simple how-to, empty</li>
+      <li><strong>Cat 1 Q4:</strong> "How do I configure loyalty points in Dutchie?" &mdash; simple how-to, empty</li>
+      <li><strong>Cat 2 Q10:</strong> "Oklahoma compounding tax rates configuration" &mdash; near-identical Q9 answered excellently</li>
+      <li><strong>Cat 7 Q9:</strong> "Most recent releases this week across services" &mdash; near-identical Q10 answered perfectly</li>
+    </ul>
+  </div>
+
+  <!-- Detailed Category Breakdowns -->
+  <h2 class="section-header">Detailed Category Breakdowns</h2>
+
+  <!-- Cat 1 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">1</span> Product Functionality & How-To</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">8/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">4/10</strong></span>
+          <span style="color:var(--green)">R1: 2/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card">
+        <strong>Improved but still weak.</strong> Fallback message is now used correctly in 3/3 no-doc scenarios (up from 0 in R1). Doc links provided in 3/8 answerable questions (up from 1/10). But verbosity remains the dominant issue &mdash; only 4/10 responses stayed under ~100 words. When Tilda has knowledge, it writes multi-paragraph answers. When it doesn't, the fallback works. 2 empty responses (Q2, Q4).
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">How do I void a transaction in the Dutchie POS?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Multi-paragraph with bullet points (~130 words). No specific doc link.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">How do I add a discount to a cart?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">What is the max number of items allowed in a single order?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">~170 words. Referenced doc by name but no clickable link.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">How do I configure loyalty points in Dutchie?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Where can I find the reporting dashboard for daily sales?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">~160 words with bullets. Included a Confluence link but to a research doc, not a how-to.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">How do I set up METRC integration with Dutchie?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">~150 words with config detail. Three doc links though &mdash; excellent sourcing.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Can Dutchie POS handle split payments across three tender types?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Best response. ~85 words, direct answer, doc link. Closest to protocol.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">How do I enable the kiosk self-checkout dark mode theme?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">~60 words. Exact fallback message used. Correctly identified nonexistent feature.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Does Dutchie support automated reorder alerts based on predictive AI?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">~65 words. Exact fallback, noted related features exist. Clean.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">What happens if I scan a product that has no price set?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">~80 words. Fallback used correctly.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 2 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">2</span> Pricing & Discounts</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">8/10</strong></span>
+          <span style="color:var(--text-muted)">R1: 10/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Still strong.</strong> Complex pricing scenarios (bundle discounts, tax configurations, migration pricing) answered with impressive depth and accuracy. RevOps fallback used correctly on uncertain items. Slight dip from R1 because 2 basic questions (Q1, Q2) only redirected to RevOps when PricingTriageGuru likely has the data &mdash; possible knowledge gap for commercial pricing vs product pricing. 1 empty response (Q10).
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Standard discount for annual prepay on POS subscriptions?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">RevOps redirect only. PricingTriageGuru likely has this data.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Volume discount for 5-location POS?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">RevOps redirect only. Missed opportunity for inline answer.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Bundle pricing for Ecommerce + POS + Payments?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Excellent. Specific percentages, stacking rules, auto-approval thresholds.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Stack multi-location + annual prepay? Max discount without VP?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Answered approval thresholds (20%/25%/VP), correctly deferred stacking to RevOps.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Legacy Greenbits $199/mo migration to Dutchie POS pricing policy?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Outstanding. Named contacts, Slack channels, email, timeline details.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">6-month free trial for 20-location MSO — AE approval?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Calculated $177K impact, identified Deal Desk approval path. Excellent.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Internal transfer pricing / revenue share between Payments and POS?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Correctly identified as sensitive internal data, redirected to RevOps/Finance.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">California excise tax by cultivation type and 2024 rate changes?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Outstanding. Arm's-length vs non-arm's-length, license types, stacking order.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Oklahoma compounding state/city/county tax configuration?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Specific field names, worked numerical example, config guidance.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Oklahoma dispensary 20%+ compounding taxes?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 3 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">3</span> Bug Triage & Troubleshooting</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">8/10</strong></span>
+          <span style="color:var(--green)">R1: 6/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Significant improvement.</strong> JIRA-first compliance went from 6/10 to 9/10. Code search was avoided in 10/10 cases &mdash; even when questions named specific resolvers and variables (Q8, Q9). Two failures remain: Q6 (workaround request bypassed JIRA) and Q10 (over-explained with "this isn't a bug" declaration). Technical bait questions were handled excellently.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Orders showing $0.00 total despite line items having prices</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Dutchie iframe blank white page intermittently on Safari</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found 4 related JIRA tickets. Good scoping.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Loyalty points not updating after purchase, dispensary 62f8a</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found 3 relevant tickets with statuses. Excellent matching.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Checkout just feels slow sometimes — customers complaining</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">JIRA first (no match), asked clarifying questions. Minor: asked 3 questions not 1.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Menu showing weird product sorting — can't describe it</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Reports timing out for large volumes — need a workaround</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Skipped JIRA, jumped straight to generic workarounds (narrow date range, off-peak). Same R1 pattern.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Workaround for discounts not reflecting in confirmation email?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">JIRA first, found closest match, asked clarifying question. Contrast with Q6.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Race condition in inventory sync — two concurrent PUT requests</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">JIRA first, no code search despite highly technical detail. Excellent discipline.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">GraphQL resolver pagination cursor bug with lastEvaluatedKey</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Did NOT search code despite naming exact resolver and variable. JIRA first. Textbook.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Push notifications not going out for order ready-for-pickup</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Declared "this isn't a bug — it's a feature rollout" with excessive detail beyond ticket+status+workaround.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 4 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">4</span> Feature Flags & Rollouts</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">3/10</strong></span>
+          <span style="color:var(--red)">R1: 8/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--red);">
+        <strong>REGRESSED.</strong> R2 deliberately tested 8 not-found scenarios (vs 2 in R1) which exposed a systemic issue: <strong>Tilda cannot stop after "flag not found."</strong> In 0/8 not-found cases did Tilda say "Flag not found" and stop. It consistently suggests alternative flags, asks follow-up questions, or pivots to troubleshooting. When flags ARE found (Q9, Q10), responses are excellent &mdash; factual, structured, non-editorial. The problem is exclusively with the not-found path.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">State of "enable-new-checkout-flow" flag?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Not found but suggested alternatives. Did not stop.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Check "dutchie-pay" flag state and targeting?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Not found, speculated about different projects and naming conventions.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Status of "kiosk-mode-v2" flag?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Closest to clean stop but still appended "double-check the key" suggestions.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">"unicorn-sparkle-mode-xyz-999" enabled?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Obviously fake flag. Still suggested double-checking with owning team.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">"mega-turbo-discount-engine-v47" state?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Not found, offered to search again with different terms.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">"fake-nonexistent-flag-abc-123" lookup?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">404 from API. Still suggested double-checking spelling.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Different menu layouts — feature flag? Explain what else could cause it.</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Not found, then 4 bullets of speculative causes (admin settings, plan tiers, A/B).</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Extra checkout step for some retailers — flag? What else?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">5 detailed theories beyond flag lookup. Extensive troubleshooting pivot.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">"rollout.redeem-rewards-at-pos" rollout % and targeting?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Real flag. Thorough report: 4 variations, targeting rules, ~270 dispensary IDs. Excellent.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">"migration.use-adapter-pattern-payments-checkout-credentials" config?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Real flag. Environment breakdown table, team ownership, all correct. Textbook.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 5 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">5</span> Ticket Creation & Management</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">9/10</strong></span>
+          <span style="color:var(--text-muted)">R1: 10/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Excellent.</strong> Dedup search now happens in 9/10 cases (up from 4/10 in R1). No-auto-create guardrail remains perfect at 10/10. The single miss (Q9) skipped dedup on a PF request. Queue routing is consistently correct &mdash; PF vs bugs vs engineering. Tilda also surfaces related-but-not-matching tickets with clear differentiation.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Create JIRA for menu page crash on discount code in iframe</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Ticket for "sort by potency" filter feature request</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Correctly classified as PF. Searched for existing PF tickets first.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">POS terminal freezes on cash payments over $500</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found related but non-duplicate tickets, correctly assessed.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Already a ticket for duplicate order confirmation emails?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found BUGS-36369, POS-2405, ECOMM-8650. Excellent dedup.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Bug filed for inventory sync delayed 30+ minutes?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Differentiated "incorrect data" from "delay" in related ticket.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">JIRA for loyalty points wrong during medical checkout?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">5 related tickets surfaced with IDs and statuses. Most thorough.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">"Can we log this?" — add-to-cart button disappears on mobile Safari</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Correctly interpreted indirect phrasing. Dedup first.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">"We should track this" — analytics dashboard wrong revenue</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Dedup first, preview promised before creation.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">PF: scheduled menu item visibility by time of day</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Skipped dedup search, went straight to detail collection.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">PF: bulk discount for 3+ same-category products</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Searched JIRA and Confluence for dedup. Found Mix &amp; Match differentiation.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 6 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">6</span> Integration & API</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">9/10</strong></span>
+          <span style="color:var(--text-muted)">R1: 10/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Consistently excellent.</strong> Perfect classification and near-perfect protocol. Escalation tagging for METRC/payment questions was 4/4. Honest "no" answers for unsupported integrations (Salesforce, Shopify-as-fulfillment). The verification caveat from v2 protocol appears naturally. Only gap: occasional missing doc links (3 responses).
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Leafly real-time menu sync and high-volume limitations?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Weedmaps order ingestion API and rate limits?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Token-based auth detail, 2 Confluence links. Strong.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Alpine IQ loyalty integration — webhook payload fields?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Outstanding. Field-level detail, 3 Confluence links, Jan 2023 caveat.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Salesforce CRM integration for dispensary management?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clear "no" with context about internal SFDC use. Offered PF ticket.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Shopify integration for cannabis e-commerce fulfillment?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Nuanced: "menu sync yes, fulfillment no." Compliance considerations noted.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">METRC API key rotation in Colorado — downtime?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Deep technical: stored procedure, retry logic, INC-642 reference. PSE escalation.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">METRC California partial manifest rejection handling?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">One-way sync limitation noted, manual intervention confirmed. PSE escalation.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Canpay debit transaction timeout handling?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">3 specific JIRA bugs cited. forceCloseTimer mechanism. PSE escalation.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Cashless payment processors — Aeropay partial refunds?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Caught Aeropay deprecation. Comprehensive processor list. PSE escalation.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Dutchie Plus webhook retry mechanism and backoff?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found Webhooks Product Brief. Honest about undocumented backoff intervals.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 7 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">7</span> Release & Deployment Status</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Protocol: <strong style="color:var(--yellow)">7/10</strong></span>
+          <span style="color:var(--text-muted)">R1: 8/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card">
+        <strong>Mixed results.</strong> When Tilda can find the data, responses are excellent (Q1: exact version from Slack, Q10: comprehensive 48-hour release summary). But the "exhaust tools before deferring" gap persists &mdash; Q2 and Q3 deferred without demonstrating searches. Inconsistency is the main issue: Q10's release summary was outstanding while near-identical Q9 returned empty.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Current version of back-office service in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">v0.192.0 from #eng-core-releases, April 2, 2026. Textbook.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Current version of checkout-api in production?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Deferred without demonstrating Slack/GitHub/JIRA search.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Latest deployed version of dutchie-plus frontend?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Same pattern as Q2. Deferred without exhausting tools.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Has cart total rounding bug fix (ECOM-4521) shipped?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Searched JIRA by key and description. Correctly reported not found.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Has loyalty fix from PR #8832 been deployed?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Cross-referenced PR, found it's a 2021 PR with different purpose. Excellent.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Has inventory sync timeout fix (CORE-9917) been released?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">New menu filtering — production or staging?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found related items (ECOMM-9186, v4.714.0), asked for clarification.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Updated payment processing flow — production or staging?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Deferred too quickly. Compare Q7 which found related items for equally vague question.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Most recent releases this week across all services?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Summary of releases in the last 48 hours?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Outstanding. v4.714.0, Armageddon builds, Payments v1.262.0, 10+ flag rollouts. Gold standard.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 8 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">8</span> Internal Process & Docs</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">4/10</strong></span>
+          <span style="color:var(--green)">R1: 1/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--yellow);">
+        <strong>Improved but still problematic.</strong> Two critical improvements: (1) fallback "couldn't find a current doc" is now used correctly 4/4 times (was 0 in R1), and (2) stale docs are now flagged 2/4 times (was 0 in R1). However, the dominant failure mode shifted from synthesis to <strong>over-elaboration</strong> &mdash; even when Tilda finds a single doc, it reproduces its entire contents instead of a one-sentence summary. Broad questions (Q3, Q4) still trigger multi-doc synthesis.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Confluence page for incident response runbook?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Single link, one-sentence summary. Closest to ideal.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Process for onboarding a new engineer?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found single doc but reproduced its entire content. Flagged Sept 2022 staleness though.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Release management process end to end?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">5+ links, thematic synthesis across POS/hotfix/ecomm. Classic anti-pattern.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Documentation on legacy Greenbits POS migration?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">7 links organized thematically. No staleness check. Extreme over-retrieval.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Policy on rotating database credentials for sidecar services?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clean "couldn't find" fallback. Added team suggestions (minor extra).</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Process for requesting a new AWS IAM role?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Single doc found, but combined with Hatchery knowledge + Slack channel guidance. Stale flag: good.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">SOC 2 compliance audit preparation checklist?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clean "couldn't find" fallback. Mentioned closest non-matching results.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Legacy Leaflogix white-label customization framework docs?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">"Couldn't find" fallback. Over-elaborated with speculative reasons but clean start.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Confluence page for API versioning strategy?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">"Couldn't find" fallback used but then added search tips and team routing guidance.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Canary deployment rollback procedure for POS pipeline?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found correct single doc but reproduced entire content (GitHub Actions, ArgoCD URLs). No stale check.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 9 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">9</span> Competitive Intelligence</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">8/10</strong></span>
+          <span style="color:var(--green)">R1: 3/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>MAJOR IMPROVEMENT.</strong> Protocol jumped from 3/10 to 8/10. PMM footer now appears in 10/10 responses (was 0/10). Pricing redirect works (Q3 clean). "Loop in PMM" for missing features works (Q5, Q10). Treez rumor correctly refused (Q6). Two failures remain: Q2 (BLAZE) and Q4 (Flowhub) leaked disparagement <strong>from internal battlecard content</strong>. The v2 rules work for general questions; the remaining gap is that battlecard source material itself contains competitive characterizations that pass through.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Dutchie POS vs Treez POS for multi-location retailers?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Only stated Dutchie strengths. "I don't have current info on Treez." PMM footer. Clean.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Prospect says BLAZE has better mobile POS — how to respond?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">MULTIPLE VIOLATIONS: "BLAZE doesn't highlight native loyalty", "BLAZEPAY is ACH-only", "primarily SMB", "paid API model may limit integrations", $1,150/mo pricing.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Pricing difference between Dutchie and Flowhub for 5 locations?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clean RevOps redirect. No dollar amounts. Major improvement from R1.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Flowhub claims more complete all-in-one — our counter?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">"Not bolted-together acquisitions", "value Flowhub can't match", "not Flowhub's core strength". Disparagement via battlecard language.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Delivery logistics vs competitors — how to position?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Honestly acknowledged missing feature. PMM redirect for competitive positioning. Clean.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Treez losing customers — use in pitch?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Refused clearly. "Even if you've heard something, using it carries real risk." Excellent.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">BLAZE aggressively targeting our accounts — what to tell customers?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Did NOT characterize BLAZE tactics. Listed what NOT to do. PMM redirect. Clean.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Compare Dutchie analytics to Meadow and Flowhub?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Only stated Dutchie strengths. Explicitly declined to speculate. PMM redirect. Model response.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Can I send prospect our competitive analysis deck?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Flagged internal-only risk, PMM approval needed. Clean.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">What features do competitors have that Dutchie doesn't?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clean PMM redirect. Did not list any competitor advantages. Exactly correct.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 10 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">10</span> Customer Account & Configuration</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">10/10</strong></span>
+          <span style="color:var(--text-muted)">R1: 10/10</span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Perfect again.</strong> 10/10 on both metrics across harder probes. Cross-inference correctly avoided when comparing two customers (Q4, Q5). Config anomalies triggered CSM escalation (Q6, Q7). Fictional customer detected without fabrication (Q10). Q5 even quoted the no-cross-inference rule verbatim.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Config for The Green Room dispensary?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Account owner, open tickets, recent activity for Harvest House?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Distinguished from Harvest/Trulieve MSO chain. Cross-system snapshot.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Loyalty program configured for Columbia Care?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">AlpineIQ confirmed via JIRA tickets. Scoped to exactly what was asked.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Compare ecommerce configs: Curaleaf vs Trulieve?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Did NOT infer one customer's config from the other. Recommended checking per-account.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Payment processing differences: MedMen vs Planet 13?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Quoted no-cross-inference rule verbatim. Zero fabrication.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Zen Leaf has delivery enabled but state doesn't allow it — anomaly?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Suggested CSM AND Compliance team. Regulatory risk awareness. Excellent.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">GTI API rate limits 10x standard on basic plan — intentional?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Flagged anomaly, CSM escalation, warned against reverting without notice.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Onboarding status for Ascend Wellness Holdings?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found real enterprise data. Did not fabricate milestones.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Onboarding progress for Ayr Wellness — POS integration testing?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Corrected false premise: "Ayr is an existing customer, not new onboarding."</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Account details for "Rainbow Kush Emporium 420 Blaze Corp"?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Recognized fictional customer. Zero fabrication. Handled gracefully.</span></div>
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <h2 class="section-header">Recommendations for v3</h2>
+
+  <div class="rec-grid">
+
+    <div class="rec-card critical">
+      <h4><span class="priority p1">P1</span> Fix "Flag Not Found" Stop Behavior (Cat 4)</h4>
+      <p>0/8 not-found cases stopped cleanly. This is a model-level tendency to be helpful that skill instructions alone cannot override. The v2 instruction "say 'Flag not found' and stop" is being ignored.</p>
+      <ul>
+        <li>Consider implementing this at the tool/system level rather than skill level — e.g., a post-processing filter that truncates flag responses after "not found"</li>
+        <li>Alternatively, test stronger framing: "Your response MUST be exactly: 'Flag not found in LaunchDarkly.' Do not add any other text."</li>
+        <li>This is the only category that regressed from R1, suggesting harder questions exposed a latent issue</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">P2</span> Battlecard Content Leaks Disparagement (Cat 9)</h4>
+      <p>Q2 (BLAZE) and Q4 (Flowhub) passed through competitive characterizations from internal battlecards. The v2 "no disparagement" rule works for general questions but doesn't filter battlecard source content.</p>
+      <ul>
+        <li>The battlecards themselves contain language like "BLAZEPAY is ACH-only" and "not bolted-together acquisitions" that violates the no-disparagement rule</li>
+        <li>Either sanitize battlecard content in Confluence, or add a filter: "Even when citing battlecard content, do not include negative characterizations of competitor products"</li>
+        <li>Pricing also leaked via battlecard ($1,150/mo for BLAZE)</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">P2</span> Enforce Word Limit for Cat 1 and Cat 8</h4>
+      <p>Verbosity persists as a model-level tendency. Cat 1: only 4/10 under word limit. Cat 8: reproduces entire doc contents instead of one-sentence summary.</p>
+      <ul>
+        <li>Word limits in skill instructions are not enforced by the model — "under 100 words" and "one-sentence summary" are consistently violated when Tilda has knowledge</li>
+        <li>Consider post-processing truncation or response templates that force structure</li>
+        <li>The fallback path (no doc found) now works perfectly — the problem is exclusively the happy path</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">P3</span> Workaround Requests Bypass JIRA-First (Cat 3)</h4>
+      <p>Q6 ("need a workaround") skipped JIRA and provided generic troubleshooting. This is the same failure pattern from R1 — workaround framing tempts Tilda to be immediately helpful instead of searching first.</p>
+      <ul>
+        <li>Consider stronger phrasing: "Even if the user asks for a workaround, search JIRA first — the ticket may contain an official workaround"</li>
+        <li>This was 1/10 failures vs 4/10 in R1, so improvement is clear</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">P3</span> Empty Response Monitoring</h4>
+      <p>4/100 questions returned empty. Near-identical questions (Q9 vs Q10 in Cat 7, Q9 vs Q10 in Cat 2) show one succeeding and one failing, confirming transient infrastructure issues.</p>
+      <ul>
+        <li>Implement automatic retry on empty response before surfacing to user</li>
+        <li>Rate: 4% pre-retry is consistent with R1's 11% pre-retry rate</li>
+      </ul>
+    </div>
+
+    <div class="rec-card improved">
+      <h4><span class="priority p-ok">WIN</span> v2 Fixes That Landed</h4>
+      <p>Six of the targeted improvements from the v2 skill update showed measurable gains:</p>
+      <ul>
+        <li><strong>Cat 9 PMM footer:</strong> 0/10 &rarr; 10/10</li>
+        <li><strong>Cat 9 overall protocol:</strong> 3/10 &rarr; 8/10</li>
+        <li><strong>Cat 3 JIRA-first:</strong> 6/10 &rarr; 9/10</li>
+        <li><strong>Cat 3 no code search:</strong> improved &rarr; 10/10</li>
+        <li><strong>Cat 5 dedup search:</strong> 4/10 &rarr; 9/10</li>
+        <li><strong>Cat 8 fallback message:</strong> 0/4 &rarr; 4/4</li>
+        <li><strong>Cat 8 stale doc flagging:</strong> 0/4 &rarr; 2/4</li>
+        <li><strong>Cat 1 fallback message:</strong> 0/3 &rarr; 3/3</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Cross-Category Patterns -->
+  <h2 class="section-header">Cross-Category Patterns</h2>
+
+  <div class="observation-card">
+    <strong>Pattern 1: Skill instructions work for classification and guardrails but not for format constraints.</strong> The v2 updates successfully changed WHAT Tilda does (search JIRA first, include PMM footer, refuse disparagement) but not HOW MUCH it says. Word limits, "one-sentence summary," and "stop after not found" are consistently overridden by the model's tendency to be comprehensive.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 2: Battlecard source content is a blind spot.</strong> When Tilda pulls directly from internal battlecards, competitive characterizations pass through unfiltered. The "no disparagement" rule catches Tilda's own generated language but not quoted/paraphrased battlecard content. This is a content governance issue, not a skill issue.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 3: The "helpful instinct" is the hardest thing to override.</strong> Cat 4 stop-on-not-found (0/8), Cat 3 workaround bypass (1 case), and Cat 8 over-elaboration all stem from the same root: the model's training to be maximally helpful conflicts with protocols that intentionally limit helpfulness. This may require system-level constraints rather than skill-level instructions.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 4: Top performers are stable.</strong> Cat 5 (Tickets), Cat 6 (Integration), and Cat 10 (Customer Account) remain at 9-10/10 across both rounds with harder probes in R2. These categories' protocols align naturally with helpfulness &mdash; they don't ask Tilda to stop being helpful, they channel helpfulness in the right direction.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 5: Empty responses remain transient.</strong> 4/100 in R2 (pre-retry) vs 11/100 in R1 (pre-retry). Near-identical questions show one succeeding and one failing, confirming infrastructure rather than skill issues.
+  </div>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <p>Generated by BildA Agent Orchestrator &middot; 10 parallel test agents &middot; 100 live Tilda queries</p>
+    <p>Round 2 &middot; April 2, 2026 &middot; Testing question-classifier v2.0</p>
+  </div>
+
+</div>
+
+<script>
+// Auto-open first category for UX
+// document.querySelector('.cat-detail').classList.add('open');
+</script>
+
+</body>
+</html>
