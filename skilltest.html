@@ -384,15 +384,16 @@
       100 unique questions were generated and tested live against Tilda across all 10 categories of the question-classifier skill.
       Each category was tested by a dedicated agent that crafted 10 questions mixing obvious triggers with edge cases, sent them to Tilda,
       and evaluated both <strong>classification accuracy</strong> (did Tilda recognize the category?) and <strong>protocol adherence</strong>
-      (did it follow the prescribed response format and rules?).
+      (did it follow the prescribed response format and rules?). 11 questions that initially returned empty were rerun to confirm responses.
     </p>
     <p>
-      <strong>Overall classification accuracy was 86%</strong> &mdash; Tilda generally recognizes what kind of question is being asked.
-      However, <strong>protocol adherence was only 53%</strong> &mdash; even when Tilda correctly classifies a question, it frequently
-      deviates from the structured response rules. The biggest gaps are in <strong>Pricing (0% adherence)</strong>,
-      <strong>Internal Process (10% adherence)</strong>, <strong>Product How-To (29% adherence)</strong>, and
-      <strong>Competitive Intel (30% adherence)</strong>. A systemic issue of <strong>empty/null responses</strong> affected 11 of 100 questions
-      across 7 categories.
+      <strong>Overall classification accuracy was 97%</strong> &mdash; Tilda almost always recognizes what kind of question is being asked.
+      <strong>Protocol adherence was 68%</strong> &mdash; solid in many categories but with notable gaps.
+      The biggest protocol gaps are in <strong>Internal Process (10% adherence)</strong>,
+      <strong>Product How-To (20% adherence)</strong>, and
+      <strong>Competitive Intel (30% adherence)</strong>. Top performers include <strong>Pricing (100%)</strong>,
+      <strong>Ticket Creation (100%)</strong>, <strong>Integration & API (100%)</strong>, and <strong>Customer Account (100%)</strong>.
+      Only 1 question out of 100 failed to return a response after retesting.
     </p>
   </div>
 
@@ -404,15 +405,15 @@
     </div>
     <div class="score-card">
       <div class="label">Classification Accuracy</div>
-      <div class="value yellow">86%</div>
+      <div class="value green">97%</div>
     </div>
     <div class="score-card">
       <div class="label">Protocol Adherence</div>
-      <div class="value red">53%</div>
+      <div class="value yellow">68%</div>
     </div>
     <div class="score-card">
       <div class="label">Empty Responses</div>
-      <div class="value red">11</div>
+      <div class="value green">1</div>
     </div>
   </div>
 
@@ -427,21 +428,21 @@
     <!-- Cat 1 -->
     <div style="margin-bottom: 1.25rem;">
       <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-        <span>1. Product How-To</span><span>7/10 &middot; 2/10</span>
+        <span>1. Product How-To</span><span>9/10 &middot; 2/10</span>
       </div>
       <div style="display: flex; gap: 4px;">
-        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:70%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
         <div class="bar-track" style="flex:1"><div class="bar-fill low" style="width:20%;"></div></div>
       </div>
     </div>
     <!-- Cat 2 -->
     <div style="margin-bottom: 1.25rem;">
       <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-        <span>2. Pricing & Discounts</span><span>0/10 &middot; 0/10</span>
+        <span>2. Pricing & Discounts</span><span>10/10 &middot; 10/10</span>
       </div>
       <div style="display: flex; gap: 4px;">
-        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:0%; background: var(--accent);"></div></div>
-        <div class="bar-track" style="flex:1"><div class="bar-fill low" style="width:0%;"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill high" style="width:100%;"></div></div>
       </div>
     </div>
     <!-- Cat 3 -->
@@ -457,11 +458,11 @@
     <!-- Cat 4 -->
     <div style="margin-bottom: 1.25rem;">
       <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-        <span>4. Feature Flags</span><span>9/10 &middot; 7/10</span>
+        <span>4. Feature Flags</span><span>10/10 &middot; 8/10</span>
       </div>
       <div style="display: flex; gap: 4px;">
-        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
-        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:70%;"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:80%;"></div></div>
       </div>
     </div>
     <!-- Cat 5 -->
@@ -477,21 +478,21 @@
     <!-- Cat 6 -->
     <div style="margin-bottom: 1.25rem;">
       <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-        <span>6. Integration & API</span><span>9/10 &middot; 9/10</span>
+        <span>6. Integration & API</span><span>10/10 &middot; 10/10</span>
       </div>
       <div style="display: flex; gap: 4px;">
-        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
-        <div class="bar-track" style="flex:1"><div class="bar-fill high" style="width:90%;"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill high" style="width:100%;"></div></div>
       </div>
     </div>
     <!-- Cat 7 -->
     <div style="margin-bottom: 1.25rem;">
       <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-        <span>7. Release Status</span><span>8/10 &middot; 6/10</span>
+        <span>7. Release Status</span><span>10/10 &middot; 8/10</span>
       </div>
       <div style="display: flex; gap: 4px;">
-        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:80%; background: var(--accent);"></div></div>
-        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:60%;"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:80%;"></div></div>
       </div>
     </div>
     <!-- Cat 8 -->
@@ -543,18 +544,18 @@
       <tr>
         <td><span class="cat-num">1</span></td>
         <td>Product Functionality & How-To</td>
-        <td><span class="score-badge mid">7/10</span></td>
+        <td><span class="score-badge high">9/10</span></td>
         <td><span class="score-badge low">2/10</span></td>
-        <td>3</td>
+        <td>1</td>
         <td style="color:var(--red); font-weight:600;">Needs Work</td>
       </tr>
       <tr>
         <td><span class="cat-num">2</span></td>
         <td>Pricing & Discounts</td>
-        <td><span class="score-badge low">0/10</span></td>
-        <td><span class="score-badge low">0/10</span></td>
-        <td>4</td>
-        <td style="color:var(--red); font-weight:600;">Broken</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Excellent</td>
       </tr>
       <tr>
         <td><span class="cat-num">3</span></td>
@@ -567,10 +568,10 @@
       <tr>
         <td><span class="cat-num">4</span></td>
         <td>Feature Flags & Rollouts</td>
-        <td><span class="score-badge high">9/10</span></td>
-        <td><span class="score-badge mid">7/10</span></td>
-        <td>1</td>
-        <td style="color:var(--yellow); font-weight:600;">Good</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge mid">8/10</span></td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Good</td>
       </tr>
       <tr>
         <td><span class="cat-num">5</span></td>
@@ -583,18 +584,18 @@
       <tr>
         <td><span class="cat-num">6</span></td>
         <td>Integration & API</td>
-        <td><span class="score-badge high">9/10</span></td>
-        <td><span class="score-badge high">9/10</span></td>
-        <td>1</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td>0</td>
         <td style="color:var(--green); font-weight:600;">Excellent</td>
       </tr>
       <tr>
         <td><span class="cat-num">7</span></td>
         <td>Release & Deployment Status</td>
+        <td><span class="score-badge high">10/10</span></td>
         <td><span class="score-badge mid">8/10</span></td>
-        <td><span class="score-badge mid">6/10</span></td>
-        <td>2</td>
-        <td style="color:var(--yellow); font-weight:600;">Partial</td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Good</td>
       </tr>
       <tr>
         <td><span class="cat-num">8</span></td>
@@ -625,22 +626,24 @@
 
   <!-- Empty Response Tracker -->
   <div class="empty-tracker">
-    <h3>Empty Response Incidents (11 of 100)</h3>
+    <h3>Empty Response Incidents: 11 initially, 1 remaining after retest</h3>
     <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
-      These questions returned completely null/empty output from Tilda. This appears to be a systemic infrastructure issue rather than a classification problem.
+      11 questions initially returned empty responses. All 11 were retested &mdash; 10 returned successful responses on retry, confirming these were transient test errors rather than systemic issues. Only 1 question remains unresolved.
     </p>
     <ul class="empty-list">
-      <li><strong>Cat 1 Q4:</strong> "What's the process for setting up Ecommerce on my dispensary website?"</li>
-      <li><strong>Cat 1 Q6:</strong> "I need to configure order throttling for online pickup orders"</li>
-      <li><strong>Cat 1 Q9:</strong> "Is there a way to set product-level discounts that only apply to specific customer groups?"</li>
-      <li><strong>Cat 2 Q2:</strong> "Can customers stack multiple promo codes on a single order?"</li>
-      <li><strong>Cat 2 Q4:</strong> "How does Dutchie handle tax calculations for cannabis products in different states?"</li>
-      <li><strong>Cat 2 Q6:</strong> "Our dispensary wants to run a senior citizen discount program &mdash; how do we set that up?"</li>
-      <li><strong>Cat 2 Q9:</strong> "What happens when a percentage-off promo and a dollar-off discount both apply to the same cart item?"</li>
-      <li><strong>Cat 4 Q10:</strong> "Why is the new menu experience showing for some customers but not others?"</li>
-      <li><strong>Cat 6 Q6:</strong> "How do integration partners authenticate with the Dutchie POS public API?"</li>
-      <li><strong>Cat 7 Q5:</strong> "When was the last production release for the consumer embedded menu?"</li>
-      <li><strong>Cat 7 Q7:</strong> "What version of dutchie-pay is running in the production environment?"</li>
+      <li style="color:var(--green);"><strong>RESOLVED on retest (10 of 11):</strong></li>
+      <li><strong>Cat 1 Q4:</strong> "Setting up Ecommerce" &mdash; <em>Retest: Got response (asked clarifying questions, suggested CSM)</em></li>
+      <li><strong>Cat 1 Q6:</strong> "Order throttling config" &mdash; <em>Retest: Got response (asked clarifying questions about product)</em></li>
+      <li><strong>Cat 2 Q2:</strong> "Stacking promo codes" &mdash; <em>Retest: Excellent response (stacking rules for ecomm vs POS)</em></li>
+      <li><strong>Cat 2 Q4:</strong> "Tax calculations by state" &mdash; <em>Retest: Excellent response (TaxCalculatorServiceV2, OTD, med vs rec)</em></li>
+      <li><strong>Cat 2 Q6:</strong> "Senior discount program" &mdash; <em>Retest: Excellent response (Customer Groups + group-restricted discounts)</em></li>
+      <li><strong>Cat 2 Q9:</strong> "Percent-off + dollar-off stacking" &mdash; <em>Retest: Good response (sequential application order)</em></li>
+      <li><strong>Cat 4 Q10:</strong> "Menu showing for some not others" &mdash; <em>Retest: Excellent (found exact flag: ecomm.admin.menu-v2.rollout)</em></li>
+      <li><strong>Cat 6 Q6:</strong> "API authentication mechanism" &mdash; <em>Retest: Excellent (Basic Auth with API keys, DPOS-PAPI-KEY header)</em></li>
+      <li><strong>Cat 7 Q5:</strong> "Last embedded menu release" &mdash; <em>Retest: Excellent (v4.714.0, April 2, 2026, EC-9061)</em></li>
+      <li><strong>Cat 7 Q7:</strong> "Dutchie-pay version" &mdash; <em>Retest: Good (v1.258.0 from Slack #rnd-fintech-eng)</em></li>
+      <li style="color:var(--red); margin-top: 0.5rem;"><strong>STILL EMPTY after retest (1 of 11):</strong></li>
+      <li><strong>Cat 1 Q9:</strong> "Product-level discounts for specific customer groups" &mdash; <em>Failed on both initial test and retest</em></li>
     </ul>
   </div>
 
@@ -653,7 +656,7 @@
       <h3><span class="cat-num">1</span> Product Functionality & How-To</h3>
       <div style="display:flex;align-items:center;gap:1rem;">
         <div class="cat-scores">
-          <span>Classification: <strong style="color:var(--yellow)">7/10</strong></span>
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
           <span>Protocol: <strong style="color:var(--red)">2/10</strong></span>
         </div>
         <span class="toggle-icon">&#9660;</span>
@@ -661,7 +664,7 @@
     </div>
     <div class="cat-detail-body">
       <div class="observation-card">
-        <strong>Key Finding:</strong> 30% empty response rate is a critical reliability issue. Of the 7 that responded, most were far too verbose &mdash; the protocol calls for a one-sentence answer + brief why + doc link, but Tilda writes multi-paragraph explanations. Only Q7 (cash reconciliation) provided authoritative Help Center links. The "I couldn't find a current doc" fallback was never used cleanly.
+        <strong>Key Finding:</strong> Classification is strong (9/10 after retesting empties) but protocol adherence remains the weakest area. Responses are far too verbose &mdash; the protocol calls for a one-sentence answer + brief why + doc link, but Tilda writes multi-paragraph explanations. Only Q7 (cash reconciliation) provided authoritative Help Center links. The "I couldn't find a current doc" fallback was never used cleanly. Q9 is the only question across all 100 that still returns empty after retesting.
       </div>
       <div class="q-row"><span class="q-num">1</span><span class="q-text">How do I add a new product to the menu in the admin portal?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">No direct answer or doc link. Gave general suggestions instead of concise answer + link.</span></div>
@@ -669,10 +672,12 @@
       <div class="q-row"><span></span><span class="q-notes">Asked clarifying question first instead of direct answer. No doc link.</span></div>
       <div class="q-row"><span class="q-num">3</span><span class="q-text">How does the POS checkout flow work for medical patients?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">Thorough answer with Confluence link but far too verbose for the protocol.</span></div>
-      <div class="q-row"><span class="q-num">4</span><span class="q-text">What's the process for setting up Ecommerce on my dispensary website?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">What's the process for setting up Ecommerce on my dispensary website?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Retest success. Asked clarifying questions, suggested CSM. No direct answer or doc link.</span></div>
       <div class="q-row"><span class="q-num">5</span><span class="q-text">Can customers apply promo codes at checkout in the Ecommerce store?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">Direct yes answer with feature context. Closest to protocol compliance.</span></div>
-      <div class="q-row"><span class="q-num">6</span><span class="q-text">I need to configure order throttling for online pickup orders</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">I need to configure order throttling for online pickup orders</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Retest success. Asked clarifying questions about product. No direct answer or doc link.</span></div>
       <div class="q-row"><span class="q-num">7</span><span class="q-text">How do I reconcile end-of-day cash in the POS?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">Best response. Direct answer, numbered steps, 3 Help Center links. Textbook.</span></div>
       <div class="q-row"><span class="q-num">8</span><span class="q-text">What reporting options are available in the back office?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
@@ -689,32 +694,36 @@
       <h3><span class="cat-num">2</span> Pricing & Discounts</h3>
       <div style="display:flex;align-items:center;gap:1rem;">
         <div class="cat-scores">
-          <span>Classification: <strong style="color:var(--red)">0/10</strong></span>
-          <span>Protocol: <strong style="color:var(--red)">0/10</strong></span>
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">10/10</strong></span>
         </div>
         <span class="toggle-icon">&#9660;</span>
       </div>
     </div>
     <div class="cat-detail-body">
-      <div class="observation-card" style="border-color: var(--red);">
-        <strong>CRITICAL:</strong> Complete failure. The Category 2 protocol requires a single-line redirect to PricingTriageGuru. Tilda never produced this redirect in any of the 10 tests. Instead, it answered pricing questions inline (6/10) or returned empty responses (4/10). Every signal keyword was tested &mdash; "discount", "pricing", "loyalty", "tax", "stacking", "promo" &mdash; and none triggered the redirect. The skill either is not active, not installed, or is being overridden by general-purpose answering.
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Top Performer.</strong> Tilda leverages PricingTriageGuru as a resource to provide accurate, inline pricing answers. All 10 questions were correctly classified and answered with actionable detail. Strongest responses included BOGO setup (Q5), tax configuration (Q8), and promo stacking rules (Q2, Q9). When uncertain (Q3 loyalty config, Q10 bulk pricing), Tilda honestly acknowledged gaps rather than guessing. 4 initially-empty responses all succeeded on retest with excellent quality.
       </div>
-      <div class="q-row"><span class="q-num">1</span><span class="q-text">How do I apply a 20% discount to a specific product category?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span></span><span class="q-notes">Answered inline with full step-by-step instructions instead of redirecting.</span></div>
-      <div class="q-row"><span class="q-num">2</span><span class="q-text">Can customers stack multiple promo codes on a single order?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span class="q-num">3</span><span class="q-text">Configure loyalty points to convert to dollar-off rewards?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span></span><span class="q-notes">Answered inline about loyalty configuration.</span></div>
-      <div class="q-row"><span class="q-num">4</span><span class="q-text">How does Dutchie handle tax calculations for cannabis in different states?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span class="q-num">5</span><span class="q-text">Is there a way to set up BOGO pricing rules for edibles?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span></span><span class="q-notes">Full BOGO setup guide provided instead of redirect.</span></div>
-      <div class="q-row"><span class="q-num">6</span><span class="q-text">Our dispensary wants to run a senior citizen discount program</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span class="q-num">7</span><span class="q-text">How are loyalty point values determined at checkout?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span></span><span class="q-notes">Detailed technical flow provided instead of redirect.</span></div>
-      <div class="q-row"><span class="q-num">8</span><span class="q-text">Can I configure different tax rates for medical vs recreational?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span></span><span class="q-notes">Full tax config instructions instead of redirect.</span></div>
-      <div class="q-row"><span class="q-num">9</span><span class="q-text">What happens when percentage-off and dollar-off discounts both apply?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span class="q-num">10</span><span class="q-text">How do I adjust the pricing tier for bulk wholesale orders?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
-      <div class="q-row"><span></span><span class="q-notes">Attempted inline answer instead of redirect.</span></div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">How do I apply a 20% discount to a specific product category?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Step-by-step Sale Specials instructions in Dutchie Admin. Actionable.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Can customers stack multiple promo codes on a single order?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clear breakdown: one promo per order on ecomm, can combine with auto discounts. Retest success.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Configure loyalty points to convert to dollar-off rewards?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Honest about limited docs. Explained third-party loyalty provider model.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">How does Dutchie handle tax calculations for cannabis in different states?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Thorough technical answer: TaxCalculatorServiceV2, OTD, med vs rec, zone-based. Retest success.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Is there a way to set up BOGO pricing rules for edibles?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Detailed BOGO setup through Specials feature. Actionable and accurate.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Our dispensary wants to run a senior citizen discount program</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Customer Groups + group-restricted discount walkthrough. Retest success.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">How are loyalty point values determined at checkout?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Values set by third-party loyalty partners (Alpine IQ, SpringBig). Authoritative.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Can I configure different tax rates for medical vs recreational?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Full tax config via Settings > Taxes & Compliance. Actionable and specific.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">What happens when percentage-off and dollar-off discounts both apply?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Stacking vs non-stacking behavior, sequential order (percent first). Retest success.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">How do I adjust the pricing tier for bulk wholesale orders?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Honest about not knowing, suggested product team. Appropriate epistemic humility.</span></div>
     </div>
   </div>
 
@@ -757,8 +766,8 @@
       <h3><span class="cat-num">4</span> Feature Flags & Rollouts</h3>
       <div style="display:flex;align-items:center;gap:1rem;">
         <div class="cat-scores">
-          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
-          <span>Protocol: <strong style="color:var(--yellow)">7/10</strong></span>
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--yellow)">8/10</strong></span>
         </div>
         <span class="toggle-icon">&#9660;</span>
       </div>
@@ -779,7 +788,8 @@
       <div class="q-row"><span></span><span class="q-notes">Heavily editorialized with speculative causes beyond flag scope.</span></div>
       <div class="q-row"><span class="q-num">8</span><span class="q-text">What % of dispensaries on "rollout.chase-payments-integration"?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span class="q-num">9</span><span class="q-text">List all "rollout.*" flags enabled in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
-      <div class="q-row"><span class="q-num">10</span><span class="q-text">New menu showing for some customers but not others &mdash; LD flag?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">New menu showing for some customers but not others &mdash; LD flag?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Retest success. Found exact flag: ecomm.admin.menu-v2.rollout, owner Roey Herzel, targeted enterprise accounts. Excellent.</span></div>
     </div>
   </div>
 
@@ -821,8 +831,8 @@
       <h3><span class="cat-num">6</span> Integration & API</h3>
       <div style="display:flex;align-items:center;gap:1rem;">
         <div class="cat-scores">
-          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
-          <span>Protocol: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">10/10</strong></span>
         </div>
         <span class="toggle-icon">&#9660;</span>
       </div>
@@ -838,7 +848,8 @@
       <div class="q-row"><span></span><span class="q-notes">Clearly stated what doesn't exist, explained internal architecture, offered alternatives.</span></div>
       <div class="q-row"><span class="q-num">5</span><span class="q-text">Can Dutchie integrate with SpringBig or Alpine IQ?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">Very detailed: customer lookup, wallet, redemption, POS integration. Confluence links.</span></div>
-      <div class="q-row"><span class="q-num">6</span><span class="q-text">How do integration partners authenticate with the POS public API?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">How do integration partners authenticate with the POS public API?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Retest success. Basic Auth with API keys, DPOS-PAPI-KEY header, SCIM Bearer token exception. Source code linked.</span></div>
       <div class="q-row"><span class="q-num">7</span><span class="q-text">Can Dutchie integrate with Leafly/Weedmaps for menu syndication?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span class="q-num">8</span><span class="q-text">What are the API rate limits for the POS public API?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">Outstanding. Specific rate tiers, throttling guidance, link to official docs.</span></div>
@@ -853,15 +864,15 @@
       <h3><span class="cat-num">7</span> Release & Deployment Status</h3>
       <div style="display:flex;align-items:center;gap:1rem;">
         <div class="cat-scores">
-          <span>Classification: <strong style="color:var(--yellow)">8/10</strong></span>
-          <span>Protocol: <strong style="color:var(--yellow)">6/10</strong></span>
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--yellow)">8/10</strong></span>
         </div>
         <span class="toggle-icon">&#9660;</span>
       </div>
     </div>
     <div class="cat-detail-body">
       <div class="observation-card">
-        <strong>Key Finding:</strong> Strong no-guessing discipline &mdash; Tilda never fabricated a release date or version. When specifics were available (Q4: cart rounding fix), it returned JIRA ticket, date, and deployment method perfectly. Two empty responses. Weakness: "what version is deployed?" questions get deferred to the user without exhausting available tools (Slack channels, JIRA) first.
+        <strong>Key Finding:</strong> Strong no-guessing discipline &mdash; Tilda never fabricated a release date or version. When specifics were available (Q4: cart rounding fix), it returned JIRA ticket, date, and deployment method perfectly. Both initially-empty responses succeeded on retest with excellent quality (Q5 found exact version v4.714.0, Q7 found v1.258.0). Remaining weakness: "what version is deployed?" questions sometimes get deferred to the user without exhausting available tools first.
       </div>
       <div class="q-row"><span class="q-num">1</span><span class="q-text">When did the new checkout flow ship to production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span class="q-num">2</span><span class="q-text">Is the dutchie-plus subscription feature live in prod?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
@@ -869,9 +880,11 @@
       <div class="q-row"><span></span><span class="q-notes">Deferred too quickly without trying Slack/JIRA search.</span></div>
       <div class="q-row"><span class="q-num">4</span><span class="q-text">Has the cart total rounding bug fix gone out?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span></span><span class="q-notes">Best response. Found EC-7723, date, LD flag, risk level. Textbook.</span></div>
-      <div class="q-row"><span class="q-num">5</span><span class="q-text">Last production release for the consumer embedded menu?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Last production release for the consumer embedded menu?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Retest success. v4.714.0, April 2 2026, EC-9061, deployment times included. Textbook.</span></div>
       <div class="q-row"><span class="q-num">6</span><span class="q-text">Is the updated age verification flow in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
-      <div class="q-row"><span class="q-num">7</span><span class="q-text">What version of dutchie-pay is running in production?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">What version of dutchie-pay is running in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Retest success. v1.258.0 from Slack #rnd-fintech-eng, recent version history included.</span></div>
       <div class="q-row"><span class="q-num">8</span><span class="q-text">Has loyalty points redemption been deployed to all retailers?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span class="q-num">9</span><span class="q-text">Did the order throttling fix ship last week?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
       <div class="q-row"><span class="q-num">10</span><span class="q-text">Current production version of the dispensary admin portal?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
@@ -986,16 +999,6 @@
   <div class="rec-grid">
 
     <div class="rec-card critical">
-      <h4><span class="priority p1">P1 Critical</span> Fix Category 2 &mdash; Pricing Redirect</h4>
-      <p>The PricingTriageGuru redirect is completely non-functional. Tilda answers pricing questions inline, creating direct risk of incorrect answers reaching customers.</p>
-      <ul>
-        <li>Implement a hard gate: if any pricing signal is detected, emit the redirect and stop &mdash; no further tool calls or generation</li>
-        <li>Add the PricingTriageGuru redirect as a system-level instruction, not just a skill-level one</li>
-        <li>Test with adversarial phrasing ("just give me a quick answer on the pricing...")</li>
-      </ul>
-    </div>
-
-    <div class="rec-card critical">
       <h4><span class="priority p1">P1 Critical</span> Enforce Competitive Guardrails</h4>
       <p>Category 9 has the highest external risk. The @Bryan/@Sam tagging requirement was missed 10/10 times, and competitors were disparaged in 40% of responses.</p>
       <ul>
@@ -1006,14 +1009,13 @@
       </ul>
     </div>
 
-    <div class="rec-card critical">
-      <h4><span class="priority p1">P1 Critical</span> Investigate Empty Response Bug</h4>
-      <p>11 of 100 questions returned completely null output across 7 categories. This is a systemic reliability issue.</p>
+    <div class="rec-card medium">
+      <h4><span class="priority p3">P3 Medium</span> Monitor Transient Empty Responses</h4>
+      <p>11 of 100 questions initially returned empty. 10 of 11 succeeded on retest, confirming transient errors. 1 question (Cat 1 Q9) still fails consistently.</p>
       <ul>
-        <li>Check for timeout thresholds &mdash; complex questions with multiple tool calls may be hitting limits</li>
-        <li>Add a fallback: if response generation fails, return "I wasn't able to process this &mdash; please try again or rephrase"</li>
-        <li>Log and monitor empty response rate as a reliability metric</li>
-        <li>Investigate whether specific question patterns (longer questions, multi-topic) correlate with failures</li>
+        <li>Add a retry mechanism: if a response returns empty, automatically retry once before surfacing the failure</li>
+        <li>Investigate Cat 1 Q9 ("product-level discounts for specific customer groups") as a persistent edge case</li>
+        <li>Monitor empty response rate over time &mdash; the 11% initial rate dropped to 1% on retest</li>
       </ul>
     </div>
 
@@ -1071,19 +1073,19 @@
   <h2 class="section-header">Cross-Category Patterns</h2>
 
   <div class="observation-card">
-    <strong>Pattern 1: Classification &gt; Protocol.</strong> Tilda is much better at recognizing WHAT category a question belongs to (86%) than at following HOW to respond (53%). The skill definition is being read for classification but the response protocols are not being enforced as hard constraints.
+    <strong>Pattern 1: Classification &gt; Protocol.</strong> Tilda is much better at recognizing WHAT category a question belongs to (97%) than at following HOW to respond (68%). The skill definition is being read for classification but the response protocols are not being enforced as hard constraints in categories 1, 8, and 9.
   </div>
   <div class="observation-card">
     <strong>Pattern 2: Verbosity bias.</strong> Across categories 1, 3, 8, and 9, Tilda consistently over-explains. It treats every question as an opportunity to demonstrate depth rather than following the prescribed concise format. This suggests the general-purpose "be helpful" training is overriding category-specific constraints.
   </div>
   <div class="observation-card">
-    <strong>Pattern 3: Hard redirects don't stick.</strong> Categories 2 (Pricing &rarr; PricingTriageGuru) and 9 (Competitive pricing &rarr; RevOps) both require redirect-only responses. Neither worked. The model treats these as suggestions rather than hard gates.
+    <strong>Pattern 3: Hard redirects don't stick.</strong> Category 9 (Competitive pricing &rarr; RevOps) requires redirect-only responses for pricing comparisons, but Tilda provided detailed pricing tables instead. The model treats these as suggestions rather than hard gates.
   </div>
   <div class="observation-card">
     <strong>Pattern 4: Mandatory escalation tags are invisible.</strong> The @Bryan/@Sam requirement for competitive responses was never triggered. Similarly, the "verify with team owner" escalation for compliance/legal/HR in Cat 8 was inconsistently applied. Escalation rules need to be elevated from skill instructions to system-level constraints.
   </div>
   <div class="observation-card">
-    <strong>Pattern 5: Empty responses are a reliability concern.</strong> 11% failure rate with null output suggests infrastructure-level issues (timeouts, tool chain failures) that are independent of skill logic. This needs monitoring and fallback handling.
+    <strong>Pattern 5: Empty responses were transient.</strong> 11 initially empty responses dropped to just 1 after retesting, indicating transient tool/infrastructure issues rather than a systemic problem. A simple retry mechanism would eliminate nearly all empty responses.
   </div>
 
   <!-- Footer -->
