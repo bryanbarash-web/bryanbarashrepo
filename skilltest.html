@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Classifier Skill Test Report</title>
+<style>
+  :root {
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22253a;
+    --border: #2a2d3a;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+  /* Header */
+  .report-header {
+    text-align: center;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .report-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-light), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  .report-header .subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+  .report-header .date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Executive Summary */
+  .exec-summary {
+    background: linear-gradient(135deg, #1e1b4b, #1a1d27);
+    border: 1px solid #312e81;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  .exec-summary h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-light);
+  }
+  .exec-summary p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  /* Score Cards */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .score-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .score-card .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .score-card .value {
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+  .score-card .value.green { color: var(--green); }
+  .score-card .value.yellow { color: var(--yellow); }
+  .score-card .value.red { color: var(--red); }
+
+  /* Category Table */
+  .category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 3rem;
+  }
+  .category-table th {
+    background: var(--card);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+  }
+  .category-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .category-table tr:hover td { background: var(--card-hover); }
+
+  .score-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 50px;
+    text-align: center;
+  }
+  .score-badge.high { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+  .score-badge.mid { background: rgba(234, 179, 8, 0.15); color: var(--yellow); }
+  .score-badge.low { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+
+  /* Bar Chart */
+  .bar-chart { margin-bottom: 3rem; }
+  .bar-chart h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-light);
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .bar-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .bar-track {
+    background: var(--card);
+    border-radius: 6px;
+    height: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+  }
+  .bar-fill.high { background: linear-gradient(90deg, #16a34a, #22c55e); }
+  .bar-fill.mid { background: linear-gradient(90deg, #ca8a04, #eab308); }
+  .bar-fill.low { background: linear-gradient(90deg, #dc2626, #ef4444); }
+  .bar-value {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: right;
+  }
+
+  /* Dual bars */
+  .dual-bar-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 80px;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .dual-bar-row .bar-track { height: 22px; }
+
+  /* Section headers */
+  .section-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 3rem 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    color: var(--accent-light);
+  }
+
+  /* Category Detail Cards */
+  .cat-detail {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cat-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .cat-detail-header h3 {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .cat-num {
+    background: var(--accent);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .cat-scores {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+  .cat-scores span { color: var(--text-muted); }
+  .cat-scores strong { margin-left: 0.25rem; }
+
+  .cat-detail-body { display: none; }
+  .cat-detail.open .cat-detail-body { display: block; }
+  .cat-detail.open .toggle-icon { transform: rotate(180deg); }
+  .toggle-icon {
+    transition: transform 0.3s;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  /* Question rows inside detail */
+  .q-row {
+    display: grid;
+    grid-template-columns: 30px 1fr 80px 80px;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+    font-size: 0.9rem;
+  }
+  .q-row:last-child { border-bottom: none; }
+  .q-num { color: var(--text-muted); font-weight: 600; }
+  .q-text { color: var(--text); }
+  .q-notes {
+    grid-column: 2 / -1;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+  .pass-icon { color: var(--green); font-weight: 700; }
+  .fail-icon { color: var(--red); font-weight: 700; }
+  .partial-icon { color: var(--yellow); font-weight: 700; }
+
+  /* Observations */
+  .observation-card {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* Recommendations */
+  .rec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .rec-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .rec-card.critical { border-left: 4px solid var(--red); }
+  .rec-card.high { border-left: 4px solid var(--yellow); }
+  .rec-card.medium { border-left: 4px solid var(--accent); }
+  .rec-card h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .rec-card .priority {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .priority.p1 { background: rgba(239,68,68,0.15); color: var(--red); }
+  .priority.p2 { background: rgba(234,179,8,0.15); color: var(--yellow); }
+  .priority.p3 { background: rgba(99,102,241,0.15); color: var(--accent-light); }
+  .rec-card p { color: var(--text-muted); font-size: 0.9rem; }
+  .rec-card ul {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .rec-card li { margin-bottom: 0.35rem; }
+
+  /* Empty response tracker */
+  .empty-tracker {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .empty-tracker h3 { color: var(--red); margin-bottom: 1rem; }
+  .empty-list { list-style: none; padding: 0; }
+  .empty-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(239, 68, 68, 0.1);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .empty-list li:last-child { border-bottom: none; }
+
+  /* Footer */
+  .report-footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+    .rec-grid { grid-template-columns: 1fr; }
+    .bar-row { grid-template-columns: 120px 1fr 50px; }
+    .q-row { grid-template-columns: 30px 1fr; }
+    .q-row .score-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="report-header">
+    <h1>Question Classifier Skill Test</h1>
+    <div class="subtitle">Comprehensive evaluation of Tilda's structured response orchestrator across all 10 categories</div>
+    <div class="date">Test Date: April 2, 2026 &middot; 100 Questions &middot; 10 Categories &middot; 10 Parallel Agents</div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="exec-summary">
+    <h2>Executive Summary</h2>
+    <p>
+      100 unique questions were generated and tested live against Tilda across all 10 categories of the question-classifier skill.
+      Each category was tested by a dedicated agent that crafted 10 questions mixing obvious triggers with edge cases, sent them to Tilda,
+      and evaluated both <strong>classification accuracy</strong> (did Tilda recognize the category?) and <strong>protocol adherence</strong>
+      (did it follow the prescribed response format and rules?).
+    </p>
+    <p>
+      <strong>Overall classification accuracy was 86%</strong> &mdash; Tilda generally recognizes what kind of question is being asked.
+      However, <strong>protocol adherence was only 53%</strong> &mdash; even when Tilda correctly classifies a question, it frequently
+      deviates from the structured response rules. The biggest gaps are in <strong>Pricing (0% adherence)</strong>,
+      <strong>Internal Process (10% adherence)</strong>, <strong>Product How-To (29% adherence)</strong>, and
+      <strong>Competitive Intel (30% adherence)</strong>. A systemic issue of <strong>empty/null responses</strong> affected 11 of 100 questions
+      across 7 categories.
+    </p>
+  </div>
+
+  <!-- Top-Level Scores -->
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="label">Questions Tested</div>
+      <div class="value" style="color: var(--accent-light);">100</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Classification Accuracy</div>
+      <div class="value yellow">86%</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Protocol Adherence</div>
+      <div class="value red">53%</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Empty Responses</div>
+      <div class="value red">11</div>
+    </div>
+  </div>
+
+  <!-- Classification vs Protocol Bar Chart -->
+  <div class="bar-chart">
+    <h2>Classification vs. Protocol Adherence by Category</h2>
+    <div style="display: flex; gap: 2rem; margin-bottom: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+      <span><span style="display:inline-block;width:12px;height:12px;background:var(--accent);border-radius:3px;margin-right:4px;"></span> Classification</span>
+      <span><span style="display:inline-block;width:12px;height:12px;background:var(--green);border-radius:3px;margin-right:4px;"></span> Protocol Adherence</span>
+    </div>
+
+    <!-- Cat 1 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>1. Product How-To</span><span>7/10 &middot; 2/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:70%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill low" style="width:20%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 2 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>2. Pricing & Discounts</span><span>0/10 &middot; 0/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:0%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill low" style="width:0%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 3 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>3. Bug Triage</span><span>10/10 &middot; 6/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:60%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 4 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>4. Feature Flags</span><span>9/10 &middot; 7/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:70%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 5 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>5. Ticket Creation</span><span>10/10 &middot; 10/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill high" style="width:100%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 6 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>6. Integration & API</span><span>9/10 &middot; 9/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill high" style="width:90%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 7 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>7. Release Status</span><span>8/10 &middot; 6/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:80%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill mid" style="width:60%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 8 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>8. Process & Docs</span><span>9/10 &middot; 1/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill low" style="width:10%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 9 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>9. Competitive Intel</span><span>9/10 &middot; 3/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:90%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill low" style="width:30%;"></div></div>
+      </div>
+    </div>
+    <!-- Cat 10 -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+        <span>10. Customer Account</span><span>10/10 &middot; 10/10</span>
+      </div>
+      <div style="display: flex; gap: 4px;">
+        <div class="bar-track" style="flex:1"><div class="bar-fill" style="width:100%; background: var(--accent);"></div></div>
+        <div class="bar-track" style="flex:1"><div class="bar-fill high" style="width:100%;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <h2 class="section-header">Category Scorecard</h2>
+  <table class="category-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>Classification</th>
+        <th>Protocol</th>
+        <th>Empty Responses</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cat-num">1</span></td>
+        <td>Product Functionality & How-To</td>
+        <td><span class="score-badge mid">7/10</span></td>
+        <td><span class="score-badge low">2/10</span></td>
+        <td>3</td>
+        <td style="color:var(--red); font-weight:600;">Needs Work</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">2</span></td>
+        <td>Pricing & Discounts</td>
+        <td><span class="score-badge low">0/10</span></td>
+        <td><span class="score-badge low">0/10</span></td>
+        <td>4</td>
+        <td style="color:var(--red); font-weight:600;">Broken</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">3</span></td>
+        <td>Bug Triage & Troubleshooting</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge mid">6/10</span></td>
+        <td>0</td>
+        <td style="color:var(--yellow); font-weight:600;">Partial</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">4</span></td>
+        <td>Feature Flags & Rollouts</td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge mid">7/10</span></td>
+        <td>1</td>
+        <td style="color:var(--yellow); font-weight:600;">Good</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">5</span></td>
+        <td>Ticket Creation & Management</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Excellent</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">6</span></td>
+        <td>Integration & API</td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td>1</td>
+        <td style="color:var(--green); font-weight:600;">Excellent</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">7</span></td>
+        <td>Release & Deployment Status</td>
+        <td><span class="score-badge mid">8/10</span></td>
+        <td><span class="score-badge mid">6/10</span></td>
+        <td>2</td>
+        <td style="color:var(--yellow); font-weight:600;">Partial</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">8</span></td>
+        <td>Internal Process & Docs</td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge low">1/10</span></td>
+        <td>1</td>
+        <td style="color:var(--red); font-weight:600;">Needs Work</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">9</span></td>
+        <td>Competitive Intelligence</td>
+        <td><span class="score-badge high">9/10</span></td>
+        <td><span class="score-badge low">3/10</span></td>
+        <td>1</td>
+        <td style="color:var(--red); font-weight:600;">Needs Work</td>
+      </tr>
+      <tr>
+        <td><span class="cat-num">10</span></td>
+        <td>Customer Account & Config</td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td><span class="score-badge high">10/10</span></td>
+        <td>0</td>
+        <td style="color:var(--green); font-weight:600;">Excellent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Empty Response Tracker -->
+  <div class="empty-tracker">
+    <h3>Empty Response Incidents (11 of 100)</h3>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
+      These questions returned completely null/empty output from Tilda. This appears to be a systemic infrastructure issue rather than a classification problem.
+    </p>
+    <ul class="empty-list">
+      <li><strong>Cat 1 Q4:</strong> "What's the process for setting up Ecommerce on my dispensary website?"</li>
+      <li><strong>Cat 1 Q6:</strong> "I need to configure order throttling for online pickup orders"</li>
+      <li><strong>Cat 1 Q9:</strong> "Is there a way to set product-level discounts that only apply to specific customer groups?"</li>
+      <li><strong>Cat 2 Q2:</strong> "Can customers stack multiple promo codes on a single order?"</li>
+      <li><strong>Cat 2 Q4:</strong> "How does Dutchie handle tax calculations for cannabis products in different states?"</li>
+      <li><strong>Cat 2 Q6:</strong> "Our dispensary wants to run a senior citizen discount program &mdash; how do we set that up?"</li>
+      <li><strong>Cat 2 Q9:</strong> "What happens when a percentage-off promo and a dollar-off discount both apply to the same cart item?"</li>
+      <li><strong>Cat 4 Q10:</strong> "Why is the new menu experience showing for some customers but not others?"</li>
+      <li><strong>Cat 6 Q6:</strong> "How do integration partners authenticate with the Dutchie POS public API?"</li>
+      <li><strong>Cat 7 Q5:</strong> "When was the last production release for the consumer embedded menu?"</li>
+      <li><strong>Cat 7 Q7:</strong> "What version of dutchie-pay is running in the production environment?"</li>
+    </ul>
+  </div>
+
+  <!-- Detailed Category Breakdowns -->
+  <h2 class="section-header">Detailed Category Breakdowns</h2>
+
+  <!-- Cat 1 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">1</span> Product Functionality & How-To</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--yellow)">7/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">2/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card">
+        <strong>Key Finding:</strong> 30% empty response rate is a critical reliability issue. Of the 7 that responded, most were far too verbose &mdash; the protocol calls for a one-sentence answer + brief why + doc link, but Tilda writes multi-paragraph explanations. Only Q7 (cash reconciliation) provided authoritative Help Center links. The "I couldn't find a current doc" fallback was never used cleanly.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">How do I add a new product to the menu in the admin portal?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">No direct answer or doc link. Gave general suggestions instead of concise answer + link.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Where do I find the inventory management settings?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Asked clarifying question first instead of direct answer. No doc link.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">How does the POS checkout flow work for medical patients?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Thorough answer with Confluence link but far too verbose for the protocol.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">What's the process for setting up Ecommerce on my dispensary website?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Can customers apply promo codes at checkout in the Ecommerce store?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Direct yes answer with feature context. Closest to protocol compliance.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">I need to configure order throttling for online pickup orders</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">How do I reconcile end-of-day cash in the POS?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Best response. Direct answer, numbered steps, 3 Help Center links. Textbook.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">What reporting options are available in the back office?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Comprehensive but too verbose. No doc link.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Is there a way to set product-level discounts for specific customer groups?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">How does Dutchie handle age verification for delivery orders?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Detailed and correct but too verbose. No doc link.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 2 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">2</span> Pricing & Discounts</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--red)">0/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">0/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--red);">
+        <strong>CRITICAL:</strong> Complete failure. The Category 2 protocol requires a single-line redirect to PricingTriageGuru. Tilda never produced this redirect in any of the 10 tests. Instead, it answered pricing questions inline (6/10) or returned empty responses (4/10). Every signal keyword was tested &mdash; "discount", "pricing", "loyalty", "tax", "stacking", "promo" &mdash; and none triggered the redirect. The skill either is not active, not installed, or is being overridden by general-purpose answering.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">How do I apply a 20% discount to a specific product category?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Answered inline with full step-by-step instructions instead of redirecting.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Can customers stack multiple promo codes on a single order?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Configure loyalty points to convert to dollar-off rewards?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Answered inline about loyalty configuration.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">How does Dutchie handle tax calculations for cannabis in different states?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Is there a way to set up BOGO pricing rules for edibles?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Full BOGO setup guide provided instead of redirect.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Our dispensary wants to run a senior citizen discount program</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">How are loyalty point values determined at checkout?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Detailed technical flow provided instead of redirect.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Can I configure different tax rates for medical vs recreational?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Full tax config instructions instead of redirect.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">What happens when percentage-off and dollar-off discounts both apply?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">How do I adjust the pricing tier for bulk wholesale orders?</span><span class="fail-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Attempted inline answer instead of redirect.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 3 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">3</span> Bug Triage & Troubleshooting</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--yellow)">6/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card">
+        <strong>Key Finding:</strong> Perfect classification &mdash; every question was recognized as bug/troubleshooting. The "never declare a bug without a JIRA ticket" rule held in all 10 cases (a critical guardrail). However, the "search JIRA first" step was skipped in 4 cases (Q2, Q4, Q6, Q9) where Tilda jumped to explaining probable causes or suggesting workarounds from code/general knowledge. Tilda is strongest when it finds matching tickets and weakest when it falls back to troubleshooting mode.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Discount calculation is broken &mdash; applying discount twice for medical patients</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Orders placed after midnight getting yesterday's date</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Jumped to timezone diagnosis without searching JIRA first.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Known bug with inventory sync failing silently for Leafly integrations?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">POS throws error scanning barcodes with leading zeros</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Searched code but not JIRA. Called it "known behavior" without a ticket.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Online orders not working &mdash; blank white screen after store selection</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Workaround for printed receipts cutting off the last line item?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Provided workarounds without checking JIRA for existing tickets.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Loyalty points calculating on tax amounts &mdash; shouldn't happen</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">500 error on /api/v2/orders with special characters in patient name</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Menu displaying incorrect THC percentages &mdash; mg instead of %</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Explained causes without JIRA search.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Backoffice crashes exporting 10,000+ transactions</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 4 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">4</span> Feature Flags & Rollouts</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Protocol: <strong style="color:var(--yellow)">7/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card">
+        <strong>Key Finding:</strong> Strong when flags exist (factual, non-editorial). When flags aren't found, Tilda tends to editorialize with troubleshooting suggestions (Q3 pulled incident tickets, Q7 suggested admin settings as causes). The LD search API pagination limitation was noted honestly. Best responses were Q6 ("rollout.redeem-rewards-at-pos") and Q8 ("rollout.chase-payments-integration") with clean factual reporting.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Is "enable-kiosk-mode" enabled for dispensary 12345?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Rollout status of the new checkout flow flag?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Why does loyalty behave differently for dispensary 67890 vs 11111?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Editorialized with incident tickets and speculated on causes.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Check "dutchie-pay-v2" flag state and targeting rules?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Which dispensaries are in the "embedded-menu-redesign" rollout?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Is "rollout.redeem-rewards-at-pos" on in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found real flag. Reported state, variations, targeting, team. Textbook.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Online ordering disabled for one customer but works for others &mdash; feature flag?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Heavily editorialized with speculative causes beyond flag scope.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">What % of dispensaries on "rollout.chase-payments-integration"?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">List all "rollout.*" flags enabled in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">New menu showing for some customers but not others &mdash; LD flag?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 5 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">5</span> Ticket Creation & Management</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">10/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Top Performer.</strong> Perfect classification and protocol adherence. Tilda never auto-created a ticket (10/10), always collected required fields, and correctly distinguished bugs from feature requests. Duplicate search was proactive in 4/10 cases &mdash; a minor gap, but the no-auto-create guardrail was rock-solid. Handled both direct ("create a JIRA") and indirect ("can we log that somewhere?") signals.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Create a JIRA for checkout crash when applying promo on mobile</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Log issue: staff can't see order notes after back-office update</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Is there already a PF for improving menu search filters?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Searched JIRA, found PF-46 and PF-26 as near matches. Textbook.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Open a bug report for inventory sync dropping items</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">PF: customers want to save favorite dispensaries in the app</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Check if ticket exists for loyalty points miscalculating on bulk</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found 6 related tickets, summarized each. Excellent dedup.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">PF: retailers want customizable order confirmation emails</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Create a ticket for analytics dashboard showing wrong revenue</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Age verification popup too aggressive &mdash; can we log that?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Open a JIRA for adding BOGO deal support to the menu</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found PF-14/PF-15 as near-matches, differentiated them correctly.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 6 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">6</span> Integration & API</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">9/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Top Performer.</strong> Excellent domain depth &mdash; Tilda consistently confirmed capabilities while clearly noting limitations (e.g., no public webhook system, no open third-party payment gateway). Provided doc links (api.pos.dutchie.com, Confluence pages) in several responses. High confidence bar maintained &mdash; hedged when uncertain. The API auth question (Q6) returned empty, a single infrastructure failure.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Does Dutchie have a public REST API for inventory and orders?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">How does Dutchie integrate with METRC for seed-to-sale tracking?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">What payment processors does Dutchie support for online orders?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Does Dutchie support webhooks for order status changes?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Clearly stated what doesn't exist, explained internal architecture, offered alternatives.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Can Dutchie integrate with SpringBig or Alpine IQ?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Very detailed: customer lookup, wallet, redemption, POS integration. Confluence links.</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">How do integration partners authenticate with the POS public API?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Can Dutchie integrate with Leafly/Weedmaps for menu syndication?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">What are the API rate limits for the POS public API?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Outstanding. Specific rate tiers, throttling guidance, link to official docs.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Does Dutchie support Onfleet or DoorDash for delivery logistics?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">How does METRC reconciliation work for inventory discrepancies?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 7 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">7</span> Release & Deployment Status</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--yellow)">8/10</strong></span>
+          <span>Protocol: <strong style="color:var(--yellow)">6/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card">
+        <strong>Key Finding:</strong> Strong no-guessing discipline &mdash; Tilda never fabricated a release date or version. When specifics were available (Q4: cart rounding fix), it returned JIRA ticket, date, and deployment method perfectly. Two empty responses. Weakness: "what version is deployed?" questions get deferred to the user without exhausting available tools (Slack channels, JIRA) first.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">When did the new checkout flow ship to production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Is the dutchie-plus subscription feature live in prod?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">What version of the back-office API is currently deployed?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Deferred too quickly without trying Slack/JIRA search.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Has the cart total rounding bug fix gone out?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Best response. Found EC-7723, date, LD flag, risk level. Textbook.</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Last production release for the consumer embedded menu?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Is the updated age verification flow in production?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">What version of dutchie-pay is running in production?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Has loyalty points redemption been deployed to all retailers?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Did the order throttling fix ship last week?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Current production version of the dispensary admin portal?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Deferred to user without exhausting tools.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 8 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">8</span> Internal Process & Docs</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">1/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--red);">
+        <strong>MAJOR GAP:</strong> Tilda detects process/doc questions perfectly but almost never follows the protocol. The rule is: return one Confluence page title + link + one-sentence summary. Instead, Tilda synthesizes across multiple docs, organizes results thematically, and adds operational guidance. Zero instances of flagging stale docs across all 10 tests. Only Q7 (code review standards) returned a single-doc retrieval response.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Where's the runbook for production database failovers?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">What's the process for escalating a P1 incident?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Synthesized a multi-step process instead of returning a doc link.</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Confluence page for on-call rotation and responsibilities?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Returned multiple docs organized thematically. Borders on synthesis.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">SLA for responding to customer-reported outages?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Doc for deployment rollback procedure?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Process for requesting access to production environments?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Code review standards and guidelines doc?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Single Confluence page + link + summary. Only passing response.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Runbook for troubleshooting the payments service?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">SLA for API uptime commitment to dispensary partners?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Synthesized operational stats from multiple sources.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Escalation matrix doc for tier 2 support issues?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 9 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">9</span> Competitive Intelligence</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">9/10</strong></span>
+          <span>Protocol: <strong style="color:var(--red)">3/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--red);">
+        <strong>HIGH RISK:</strong> This category has the most dangerous protocol failures. (1) <strong>@Bryan/@Sam tagging: 0/10</strong> &mdash; the mandatory external-use escalation was never triggered. (2) Competitor disparagement appeared in 4/10 responses (Treez job postings as "financial pressure signal", BLAZE careers page 404, Flowhub "all-in-one claim still maturing"). (3) Pricing comparison redirect to RevOps failed &mdash; Q3 provided a detailed competitive pricing table with dollar amounts. (4) "Loop in PMM" for missing features was not invoked. These failures have direct external/legal risk.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Dutchie vs Treez for POS &mdash; why should prospect switch?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Included "Where Treez May Push Back" section disparaging competitor.</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">Customer says Flowhub has better inventory &mdash; handle objection?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Pricing comparison vs Treez and Meadow for prospect?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">CRITICAL: Provided pricing table with dollar amounts instead of RevOps redirect.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Dutchie vs Flowhub key differentiators for competitive deal?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Subtly disparaged Flowhub ("all-in-one claim still maturing").</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Competitor offers integrated payments and we don't &mdash; positioning?</span><span class="fail-icon">EMPTY</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">Battlecard for deal against Blaze &mdash; Dutchie advantages?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Referenced real battlecard but included disparaging signals about BLAZE.</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">G2 says Treez has better support &mdash; how to respond?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Correctly deflected G2 as unreliable. Focused on Dutchie strengths.</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">Prospect evaluating BLAZE and Meadow &mdash; differentiation strategy?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Correctly redirected to battlecards and Sales Enablement.</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Can I share competitive analysis deck with a prospect externally?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Flagged external concern but missed @Bryan/@Sam tagging requirement.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">What features does Flowhub have that Dutchie is missing?</span><span class="pass-icon">CLASS</span><span class="fail-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Listed Flowhub strengths instead of "Loop in PMM" for missing features.</span></div>
+    </div>
+  </div>
+
+  <!-- Cat 10 -->
+  <div class="cat-detail">
+    <div class="cat-detail-header" onclick="this.parentElement.classList.toggle('open')">
+      <h3><span class="cat-num">10</span> Customer Account & Configuration</h3>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="cat-scores">
+          <span>Classification: <strong style="color:var(--green)">10/10</strong></span>
+          <span>Protocol: <strong style="color:var(--green)">10/10</strong></span>
+        </div>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+    </div>
+    <div class="cat-detail-body">
+      <div class="observation-card" style="border-color: var(--green);">
+        <strong>Top Performer.</strong> Perfect scores. Tilda never fabricated customer data, never inferred one customer's config from another, and always scoped responses to exactly what was asked. Best responses were MedMen (Q3, found real migration data) and Ascend Wellness (Q9, pulled JIRA tickets and Slack escalations). When data was unavailable, Tilda consistently suggested appropriate escalation paths.
+      </div>
+      <div class="q-row"><span class="q-num">1</span><span class="q-text">Who owns the account for The Green Room dispensary?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">2</span><span class="q-text">What plan is Curaleaf currently on?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">3</span><span class="q-text">Account configuration for customer MedMen?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Found real migration data (DB mapping, location IDs, dates). Excellent.</span></div>
+      <div class="q-row"><span class="q-num">4</span><span class="q-text">Onboarding status for Trulieve?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">5</span><span class="q-text">Who is the account manager for Harvest House of Cannabis?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">6</span><span class="q-text">What integrations does Columbia Care have enabled?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">7</span><span class="q-text">Account details for Green Thumb Industries &mdash; POS config?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">8</span><span class="q-text">What subscription tier is The Botanist on?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span class="q-num">9</span><span class="q-text">Open support tickets for Ascend Wellness?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+      <div class="q-row"><span></span><span class="q-notes">Pulled JIRA tickets + Slack escalations. Structured table output. Excellent.</span></div>
+      <div class="q-row"><span class="q-num">10</span><span class="q-text">Last activity on the Cresco Labs account?</span><span class="pass-icon">CLASS</span><span class="pass-icon">PROTO</span></div>
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <h2 class="section-header">Agent Orchestrator Recommendations</h2>
+
+  <div class="rec-grid">
+
+    <div class="rec-card critical">
+      <h4><span class="priority p1">P1 Critical</span> Fix Category 2 &mdash; Pricing Redirect</h4>
+      <p>The PricingTriageGuru redirect is completely non-functional. Tilda answers pricing questions inline, creating direct risk of incorrect answers reaching customers.</p>
+      <ul>
+        <li>Implement a hard gate: if any pricing signal is detected, emit the redirect and stop &mdash; no further tool calls or generation</li>
+        <li>Add the PricingTriageGuru redirect as a system-level instruction, not just a skill-level one</li>
+        <li>Test with adversarial phrasing ("just give me a quick answer on the pricing...")</li>
+      </ul>
+    </div>
+
+    <div class="rec-card critical">
+      <h4><span class="priority p1">P1 Critical</span> Enforce Competitive Guardrails</h4>
+      <p>Category 9 has the highest external risk. The @Bryan/@Sam tagging requirement was missed 10/10 times, and competitors were disparaged in 40% of responses.</p>
+      <ul>
+        <li>Inject a mandatory footer on all competitive responses: "Before sharing externally, tag @Bryan and @Sam for review"</li>
+        <li>Add a negative-sentiment filter: block responses that contain negative statements about competitor companies</li>
+        <li>Hard-redirect all pricing comparison questions to RevOps</li>
+        <li>For missing features, enforce "Loop in PMM" rather than listing competitor advantages</li>
+      </ul>
+    </div>
+
+    <div class="rec-card critical">
+      <h4><span class="priority p1">P1 Critical</span> Investigate Empty Response Bug</h4>
+      <p>11 of 100 questions returned completely null output across 7 categories. This is a systemic reliability issue.</p>
+      <ul>
+        <li>Check for timeout thresholds &mdash; complex questions with multiple tool calls may be hitting limits</li>
+        <li>Add a fallback: if response generation fails, return "I wasn't able to process this &mdash; please try again or rephrase"</li>
+        <li>Log and monitor empty response rate as a reliability metric</li>
+        <li>Investigate whether specific question patterns (longer questions, multi-topic) correlate with failures</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">P2 High</span> Fix Category 8 &mdash; Doc Retrieval Protocol</h4>
+      <p>Tilda synthesizes across multiple docs instead of returning single-doc retrieval. Never flags stale docs.</p>
+      <ul>
+        <li>Add explicit instruction: "Return at most 2 Confluence links. Do not combine content from multiple pages into one answer"</li>
+        <li>Implement date checking: flag any Confluence page older than 18 months with a staleness warning</li>
+        <li>When no doc is found, say so cleanly rather than synthesizing operational guidance from memory</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">P2 High</span> Enforce Conciseness for Category 1</h4>
+      <p>Product how-to responses are consistently too verbose. Protocol calls for one-sentence answer + brief why + doc link.</p>
+      <ul>
+        <li>Add a response length constraint: Category 1 responses should be under 150 words</li>
+        <li>Make doc linking mandatory &mdash; if no doc exists, use the fallback message cleanly</li>
+        <li>Reduce the tendency to provide exhaustive multi-paragraph explanations</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">P2 High</span> Strengthen "JIRA First" for Bug Triage</h4>
+      <p>Category 3 skipped the JIRA search in 40% of cases, jumping to troubleshooting from code or general knowledge.</p>
+      <ul>
+        <li>Make JIRA search the mandatory first action &mdash; no troubleshooting until JIRA results are back</li>
+        <li>If JIRA search returns nothing, only then ask a clarifying question</li>
+        <li>Block the tendency to search code or explain probable causes before checking JIRA</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">P3 Medium</span> Improve Duplicate Search Consistency (Cat 5)</h4>
+      <p>Ticket creation scored perfectly on classification and no-auto-create, but proactive duplicate searching only happened in 4/10 cases.</p>
+      <ul>
+        <li>Make duplicate search mandatory before field collection &mdash; even for obvious bug reports</li>
+        <li>Log when duplicate search is skipped so the pattern can be monitored</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">P3 Medium</span> Feature Flag Editorializing (Cat 4)</h4>
+      <p>When flags aren't found, Tilda fills the gap with speculative troubleshooting beyond flag scope.</p>
+      <ul>
+        <li>Constrain Cat 4 responses to LD data only &mdash; if flag not found, say "flag not found" and stop</li>
+        <li>Don't pull in incident tickets or suggest admin-level causes as part of a flag lookup</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Overall Findings Summary -->
+  <h2 class="section-header">Cross-Category Patterns</h2>
+
+  <div class="observation-card">
+    <strong>Pattern 1: Classification &gt; Protocol.</strong> Tilda is much better at recognizing WHAT category a question belongs to (86%) than at following HOW to respond (53%). The skill definition is being read for classification but the response protocols are not being enforced as hard constraints.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 2: Verbosity bias.</strong> Across categories 1, 3, 8, and 9, Tilda consistently over-explains. It treats every question as an opportunity to demonstrate depth rather than following the prescribed concise format. This suggests the general-purpose "be helpful" training is overriding category-specific constraints.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 3: Hard redirects don't stick.</strong> Categories 2 (Pricing &rarr; PricingTriageGuru) and 9 (Competitive pricing &rarr; RevOps) both require redirect-only responses. Neither worked. The model treats these as suggestions rather than hard gates.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 4: Mandatory escalation tags are invisible.</strong> The @Bryan/@Sam requirement for competitive responses was never triggered. Similarly, the "verify with team owner" escalation for compliance/legal/HR in Cat 8 was inconsistently applied. Escalation rules need to be elevated from skill instructions to system-level constraints.
+  </div>
+  <div class="observation-card">
+    <strong>Pattern 5: Empty responses are a reliability concern.</strong> 11% failure rate with null output suggests infrastructure-level issues (timeouts, tool chain failures) that are independent of skill logic. This needs monitoring and fallback handling.
+  </div>
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <p>Generated by BildA Agent Orchestrator &middot; 10 parallel test agents &middot; 100 live Tilda queries</p>
+    <p>Report date: April 2, 2026</p>
+  </div>
+
+</div>
+
+</body>
+</html>
