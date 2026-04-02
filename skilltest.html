@@ -1088,10 +1088,134 @@
     <strong>Pattern 5: Empty responses were transient.</strong> 11 initially empty responses dropped to just 1 after retesting, indicating transient tool/infrastructure issues rather than a systemic problem. A simple retry mechanism would eliminate nearly all empty responses.
   </div>
 
+  <!-- v2 Skill Update Summary -->
+  <h2 class="section-header">Skill Update: question-classifier v2.0</h2>
+
+  <div class="observation-card" style="border-color: var(--accent); background: linear-gradient(135deg, #1e1b4b, #1a1d27);">
+    <strong>Based on the 100-question test above, a v2 of the question-classifier skill was created (<code>question-classifier-v2.md</code>) addressing all identified protocol failures.</strong> Below is a summary of every change and the test finding that motivated it.
+  </div>
+
+  <div class="rec-grid">
+
+    <div class="rec-card critical">
+      <h4><span class="priority p1">Fix 1</span> New "Global Rules" Section</h4>
+      <p><strong>Problem:</strong> Protocols were treated as suggestions, not constraints. Classification scored 97% but protocol adherence only 68% &mdash; Tilda recognized categories correctly but didn't follow the rules.</p>
+      <p><strong>Fix:</strong> Added a new "Global Rules" section that sits above all categories and explicitly overrides individual protocols. Five hard rules:</p>
+      <ul>
+        <li><strong>Brevity over depth</strong> &mdash; answer the question asked, then stop</li>
+        <li><strong>Never speculate from absence</strong> &mdash; missing data is not data (fixes the Treez/BLAZE inference problem)</li>
+        <li><strong>Hard redirects are hard</strong> &mdash; redirect-only means redirect ONLY</li>
+        <li><strong>Mandatory tags are mandatory</strong> &mdash; @Bryan/@Sam must appear in every competitive response</li>
+        <li><strong>Protocol > helpfulness</strong> &mdash; follow the protocol even when a fuller answer feels more helpful</li>
+      </ul>
+    </div>
+
+    <div class="rec-card critical">
+      <h4><span class="priority p1">Fix 2</span> Category 9: Complete Competitive Guardrail Rewrite</h4>
+      <p><strong>Problems found in testing:</strong></p>
+      <ul>
+        <li>Treez: "0 job postings signals potential financial pressure"</li>
+        <li>BLAZE: "careers page has been 404 since Feb 2026&hellip; potential restructuring signal"</li>
+        <li>BLAZE: "BDR outreach is high-volume, low-touch with no value prop"</li>
+        <li>Flowhub: "all-in-one claim still maturing", "the grass isn't always greener"</li>
+        <li>Q3 provided specific competitor dollar pricing ($350/mo, $1,000/mo bundles, $499/$599/$899 tiers) instead of redirecting to RevOps</li>
+        <li>@Bryan/@Sam tagging: 0/10 responses included the mandatory tag</li>
+        <li>"Loop in PMM" for missing features: never invoked</li>
+      </ul>
+      <p><strong>Fix:</strong> Expanded from 3 rules to 5 hard rules with an explicit blocklist of prohibited statement types:</p>
+      <ul>
+        <li>Added explicit prohibition against referencing competitor job postings, careers pages, headcount, financial health, restructuring, sales tactics</li>
+        <li>Added prohibition against diminishing language ("still maturing", "limited", "lacking", "grass isn't always greener")</li>
+        <li>Added explicit rule: "If you cannot find information about a competitor, say 'I don't have current information' &mdash; do not infer anything from absence"</li>
+        <li>Pricing comparison redirect now explicitly prohibits all dollar amounts for any company (including Dutchie) in competitive context</li>
+        <li>Mandatory footer on every competitive response: "Before sharing externally, tag @Bryan and @Sam for review"</li>
+        <li>Source restriction expanded: explicitly blocks LinkedIn, job boards, and third-party sources</li>
+        <li>Fallback when battlecard doesn't cover it: "Loop in @Bryan or @Sam for current positioning"</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">Fix 3</span> Category 1: Enforced Brevity with Word Limit</h4>
+      <p><strong>Problem:</strong> Protocol calls for "one sentence + brief why + doc link" but responses were consistently multi-paragraph. Only 2/10 responses followed the format. Verbose explanations replaced concise answers.</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Added explicit word limit: "Total response under 100 words. If you're writing more, you're over-explaining."</li>
+        <li>Strengthened fallback message: must use exact phrasing when no doc exists instead of improvising a longer answer</li>
+        <li>Response format marked as "strict &mdash; follow this structure exactly"</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">Fix 4</span> Category 8: Retrieval-Only Enforcement</h4>
+      <p><strong>Problem:</strong> Scored 1/10 on protocol. Tilda synthesized across multiple docs, organized results thematically, and added operational guidance. Zero instances of flagging stale docs. Only 1/10 responses returned a single-doc retrieval.</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Added explicit "What NOT to do" section: no synthesizing, no thematic organizing, no operational guidance from memory</li>
+        <li>Hard cap: maximum 2 Confluence links per response</li>
+        <li>Stale doc check made explicit with age threshold (18 months) and exact warning text</li>
+        <li>When no doc found: "I couldn't find a current doc for this" &mdash; do not substitute synthesized knowledge</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">Fix 5</span> Category 3: "JIRA First" Made Non-Negotiable</h4>
+      <p><strong>Problem:</strong> JIRA search was skipped in 4/10 cases. Tilda jumped to explaining probable causes, searching code, or suggesting workarounds before checking JIRA.</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Step 1 now reads: "Search JIRA first. This is mandatory. Do not troubleshoot, explain probable causes, search code, or offer workarounds until you have JIRA results back."</li>
+        <li>Added code search to excluded sources: "not appropriate for customer-facing triage"</li>
+        <li>Added explicit validation: "'I don't know what's causing this' is a valid answer"</li>
+      </ul>
+    </div>
+
+    <div class="rec-card high">
+      <h4><span class="priority p2">Fix 6</span> Category 4: "Flag Not Found" Boundary</h4>
+      <p><strong>Problem:</strong> When flags weren't found, Tilda editorialized with incident tickets and speculative troubleshooting beyond flag scope (Q3 pulled incident tickets, Q7 suggested admin settings).</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Added rule 5: "If the flag is not found, say 'Flag not found in LaunchDarkly' and stop. Do not pivot to troubleshooting."</li>
+        <li>Added incident tickets and code search to excluded sources</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">Fix 7</span> Category 5: Mandatory Duplicate Search</h4>
+      <p><strong>Problem:</strong> Duplicate search only happened proactively in 4/10 cases despite being a protocol requirement.</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Step 1 now reads: "Search JIRA for a potential duplicate first &mdash; always. This is mandatory even when the user says 'create a ticket.' Check before creating."</li>
+        <li>Format marked as "strict order &mdash; do not skip step 1"</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">Fix 8</span> Category 7: Exhaust Tools Before Deferring</h4>
+      <p><strong>Problem:</strong> "What version is deployed?" questions were sometimes deferred to the user without checking all available sources (Q3, Q10).</p>
+      <p><strong>Fix:</strong></p>
+      <ul>
+        <li>Added instruction: "Before deferring to the user, exhaust available tools: check JIRA tickets, GitHub deployment history, LaunchDarkly release tracking, and Slack release channels."</li>
+        <li>Added Slack release channels to approved sources</li>
+      </ul>
+    </div>
+
+    <div class="rec-card medium">
+      <h4><span class="priority p3">Fix 9</span> Updated "Never Do" List</h4>
+      <p><strong>Problem:</strong> Original had 7 guardrails. Testing revealed additional failure modes not covered.</p>
+      <p><strong>Fix:</strong> Expanded to 10 guardrails, adding:</p>
+      <ul>
+        <li>"Never make negative statements about competitors &mdash; not about their product, finances, team, hiring, or anything else"</li>
+        <li>"Never infer meaning from missing data (absent careers page &ne; financial trouble, missing flag &ne; misconfiguration)"</li>
+        <li>"Never provide competitor pricing in any context &mdash; redirect to RevOps"</li>
+        <li>"Never skip a mandatory first step (JIRA search for Cat 3/5, LD lookup for Cat 4) to jump to troubleshooting"</li>
+      </ul>
+    </div>
+
+  </div>
+
   <!-- Footer -->
   <div class="report-footer">
     <p>Generated by BildA Agent Orchestrator &middot; 10 parallel test agents &middot; 100 live Tilda queries</p>
-    <p>Report date: April 2, 2026</p>
+    <p>Report date: April 2, 2026 &middot; v2 skill update: April 2, 2026</p>
   </div>
 
 </div>
