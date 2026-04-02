@@ -1078,6 +1078,72 @@
   color: rgba(4,32,23,0.6);
 }
 
+.april-update .au-card-case-study .au-setup-guide {
+  color: rgba(4,32,23,0.5);
+  border-color: rgba(4,32,23,0.15);
+}
+
+.april-update .au-card-case-study .au-setup-guide:hover {
+  color: #5E324E;
+  border-color: rgba(94,50,78,0.3);
+  background: rgba(94,50,78,0.06);
+}
+
+/* ── IMAGE GRID ───────────────────────────────────────────── */
+
+.april-update .au-image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0 8px;
+}
+
+.april-update .au-image-grid img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(241,235,214,0.08);
+}
+
+.april-update .au-image-single {
+  margin: 20px 0 8px;
+}
+
+.april-update .au-image-single img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  border: 1px solid rgba(241,235,214,0.08);
+}
+
+.april-update .au-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6AB448;
+  background: rgba(106,180,72,0.1);
+  border: 1px solid rgba(106,180,72,0.2);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+
+.april-update .au-video-link:hover {
+  background: rgba(106,180,72,0.2);
+  border-color: rgba(106,180,72,0.4);
+  box-shadow: 0 0 12px rgba(106,180,72,0.15);
+}
+
+@media (max-width: 600px) {
+  .april-update .au-image-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* ── RESPONSIVE ────────────────────────────────────────────── */
 
@@ -1397,25 +1463,28 @@
       </div>
 
       <p class="au-hero-intro">
-        This month brings AI-powered campaign intelligence, automated outlet menus, mobile-first reporting, and deeper e-commerce customization &mdash; all designed to help you sell smarter.
+        This month's updates bring AI-powered campaign timing, a unified shopping experience, and streamlined delivery operations to the Dutchie platform. From Smart Sending that predicts when each customer is most likely to shop, to a fully redesigned analytics dashboard you can check from your phone, here's what's new across Dutchie for April.
+      </p>
+      <p class="au-hero-intro" style="font-size:13px;opacity:0.6;margin-top:-32px;">
+        Stay up to date and ahead of the curve with all of Dutchie's product updates and system enhancements by subscribing to our <a href="https://updates.dutchie.com" style="color:#FFC02A;text-decoration:underline;">Product Release Notes</a>.
       </p>
 
       <div class="au-stats-grid">
         <div class="au-stat-box">
-          <div class="au-stat-number" data-target="13" data-suffix="">0</div>
+          <div class="au-stat-number" data-target="8" data-suffix="">0</div>
           <div class="au-stat-label">Updates</div>
         </div>
         <div class="au-stat-box">
-          <div class="au-stat-number" data-target="4" data-suffix="">0</div>
+          <div class="au-stat-number" data-target="3" data-suffix="">0</div>
           <div class="au-stat-label">Hero Features</div>
         </div>
         <div class="au-stat-box">
-          <div class="au-stat-number" data-target="0" data-suffix="" data-static="AI">AI</div>
-          <div class="au-stat-label">Smart Sending</div>
+          <div class="au-stat-number" data-target="3" data-suffix="">0</div>
+          <div class="au-stat-label">E-Commerce</div>
         </div>
         <div class="au-stat-box">
-          <div class="au-stat-number" data-target="0" data-suffix="" data-static="V2">V2</div>
-          <div class="au-stat-label">E-Com Pro</div>
+          <div class="au-stat-number" data-target="2" data-suffix="">0</div>
+          <div class="au-stat-label">Delivery</div>
         </div>
       </div>
     </div>
@@ -1439,7 +1508,7 @@
         <div class="au-toc-group-label">Hero Features</div>
         <a class="au-toc-item" href="#card-1" data-toc="card-1">
           <span class="au-toc-dot"></span>
-          <span class="au-toc-label">Menu Tags &amp; Limited Categories</span>
+          <span class="au-toc-label">L&amp;M Dashboard</span>
         </a>
         <a class="au-toc-item" href="#card-2" data-toc="card-2">
           <span class="au-toc-dot"></span>
@@ -1447,59 +1516,35 @@
         </a>
         <a class="au-toc-item" href="#card-3" data-toc="card-3">
           <span class="au-toc-dot"></span>
-          <span class="au-toc-label">Dynamic Content Blocks</span>
-        </a>
-        <a class="au-toc-item" href="#card-4" data-toc="card-4">
-          <span class="au-toc-dot"></span>
           <span class="au-toc-label">Mobile Responsive Reporting</span>
         </a>
       </div>
 
       <div class="au-toc-group">
-        <div class="au-toc-group-label">E-Commerce Pro</div>
-        <a class="au-toc-item" href="#card-5" data-toc="card-5">
-          <span class="au-toc-dot"></span>
-          <span class="au-toc-label">SDK Enhancements</span>
-        </a>
-        <a class="au-toc-item" href="#card-6" data-toc="card-6">
-          <span class="au-toc-dot"></span>
-          <span class="au-toc-label">Dynamic Marketing URLs</span>
-        </a>
-        <a class="au-toc-item" href="#card-7" data-toc="card-7">
-          <span class="au-toc-dot"></span>
-          <span class="au-toc-label">E-Com Pro Case Study</span>
-        </a>
-      </div>
-
-      <div class="au-toc-group">
         <div class="au-toc-group-label">E-Commerce</div>
-        <a class="au-toc-item" href="#card-8" data-toc="card-8">
+        <a class="au-toc-item" href="#card-4" data-toc="card-4">
           <span class="au-toc-dot"></span>
           <span class="au-toc-label">Holistic Order History</span>
         </a>
-        <a class="au-toc-item" href="#card-9" data-toc="card-9">
+        <a class="au-toc-item" href="#card-5" data-toc="card-5">
           <span class="au-toc-dot"></span>
-          <span class="au-toc-label">One-Click Buy It Again</span>
+          <span class="au-toc-label">Express Re-Ordering</span>
+        </a>
+        <a class="au-toc-item" href="#card-6" data-toc="card-6">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Total Terpenes</span>
         </a>
       </div>
 
       <div class="au-toc-group">
         <div class="au-toc-group-label">Delivery</div>
-        <a class="au-toc-item" href="#card-10" data-toc="card-10">
+        <a class="au-toc-item" href="#card-7" data-toc="card-7">
           <span class="au-toc-dot"></span>
           <span class="au-toc-label">Route Optimization</span>
         </a>
-        <a class="au-toc-item" href="#card-11" data-toc="card-11">
+        <a class="au-toc-item" href="#card-8" data-toc="card-8">
           <span class="au-toc-dot"></span>
           <span class="au-toc-label">Separate Delivery Fees</span>
-        </a>
-      </div>
-
-      <div class="au-toc-group">
-        <div class="au-toc-group-label">Other</div>
-        <a class="au-toc-item" href="#card-12" data-toc="card-12">
-          <span class="au-toc-dot"></span>
-          <span class="au-toc-label">Time-Based Discount Limits</span>
         </a>
       </div>
 
@@ -1521,89 +1566,32 @@
         <span class="au-section-divider-line au-line-hero"></span>
       </div>
 
-      <!-- Card 1 -->
-      <article class="au-card au-clickable" id="card-1" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
+      <!-- Card 1: L&M Dashboard -->
+      <article class="au-card" id="card-1">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
-          <span class="au-badge">Merchandising</span>
-          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
+          <span class="au-badge">Loyalty &amp; Marketing</span>
+          <a href="video/L&M Dashboard (1).mp4" target="_blank" class="au-video-link">&#9655; Watch Video</a>
         </div>
-        <h2 class="au-card-title">Menu Tags &amp; Limited Categories</h2>
-
-        <!-- Product Mockup: Outlet Menu -->
-        <div class="au-mockup au-mock-menu">
-          <div class="au-mock-menu-bar">
-            <span class="au-mock-menu-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
-            <span class="au-mock-menu-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
-            <span class="au-mock-menu-bar-dot" style="background:rgba(241,235,214,0.15);"></span>
-            <span class="au-mock-menu-tab">All Products</span>
-            <span class="au-mock-menu-tab">Flower</span>
-            <span class="au-mock-menu-tab active">Flash Sale</span>
-          </div>
-          <div class="au-mock-menu-body">
-            <div class="au-mock-menu-header">
-              <div class="au-mock-menu-title">
-                <span class="au-mock-outlet-badge">Outlet</span>
-                Flash Sale — Expiring Stock
-              </div>
-              <div class="au-mock-countdown">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                2h 14m left
-              </div>
-            </div>
-            <div class="au-mock-product">
-              <div class="au-mock-product-img"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" stroke="currentColor" opacity=".3"/><path d="M12 8c-2 0-3.5 1.5-3.5 3.5S10 15 12 17c2-2 3.5-3 3.5-5.5S14 8 12 8z" stroke="currentColor"/></svg></div>
-              <div class="au-mock-product-info">
-                <div class="au-mock-product-name">Blue Dream 3.5g</div>
-                <div class="au-mock-product-meta">THC 24.1% · Exp in 18 days</div>
-                <span class="au-mock-product-timer">&#9201; Timer active</span>
-              </div>
-              <div class="au-mock-product-price">$28<span class="au-mock-original">$42</span></div>
-            </div>
-            <div class="au-mock-product">
-              <div class="au-mock-product-img"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" stroke="currentColor" opacity=".3"/><path d="M12 8c-2 0-3.5 1.5-3.5 3.5S10 15 12 17c2-2 3.5-3 3.5-5.5S14 8 12 8z" stroke="currentColor"/></svg></div>
-              <div class="au-mock-product-info">
-                <div class="au-mock-product-name">GSC Live Resin 1g</div>
-                <div class="au-mock-product-meta">THC 78.3% · Low stock (4 left)</div>
-                <span class="au-mock-product-timer">&#9201; Timer active</span>
-              </div>
-              <div class="au-mock-product-price">$31<span class="au-mock-original">$48</span></div>
-            </div>
-            <div class="au-mock-product">
-              <div class="au-mock-product-img"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" stroke="currentColor" opacity=".3"/><path d="M12 8c-2 0-3.5 1.5-3.5 3.5S10 15 12 17c2-2 3.5-3 3.5-5.5S14 8 12 8z" stroke="currentColor"/></svg></div>
-              <div class="au-mock-product-info">
-                <div class="au-mock-product-name">Sour Diesel Pre-Roll 5pk</div>
-                <div class="au-mock-product-meta">THC 20.7% · Exp in 12 days</div>
-              </div>
-              <div class="au-mock-product-price">$18<span class="au-mock-original">$25</span></div>
-            </div>
-          </div>
-        </div>
-
+        <h2 class="au-card-title">Loyalty &amp; Marketing Dashboard</h2>
         <p class="au-card-desc">
-          Transform your menu into a dynamic sales engine by automating the way you clear aging inventory. Using a combination of Menu Tags and Smart Tags, you can now create Limited Categories, also known as Outlet Menus, that automatically feature products based on specific rules like approaching expiration dates or low stock levels. These categories include native countdown timers on the product page and in the cart to create urgency and drive immediate conversions for your clearance items.
+          The new Loyalty and Marketing Dashboard serves as your marketing mission control, providing a unified view of customer retention and campaign ROI. Move beyond basic stats to track total points liability in real time, compare membership tiers, and see exactly which automated workflows, such as Welcome Series and Win-Back campaigns, are driving the most revenue. The e-commerce funnel provides a clear look at the entire shopper journey from the first click to the final purchase across both your mobile app and web menu.
         </p>
-        <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-        </div>
       </article>
 
-      <!-- Card 2 -->
-      <article class="au-card au-card-with-phone" id="card-2">
+      <!-- Card 2: Smart Sending -->
+      <article class="au-card au-clickable au-card-with-phone" id="card-2" data-storylane-url="https://app.storylane.io/share/lp6l2xh2044x">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Marketing AI</span>
-          <span class="au-badge au-badge-loom">&#9654; Loom</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
         <h2 class="au-card-title">Smart Sending</h2>
         <div class="au-card-body-wrap">
           <div class="au-card-text">
             <p class="au-card-desc">
-              Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time. Instead of a one-size-fits-all blast, your messages deploy throughout the day to match your customers' habits, increasing open rates and driving more immediate sales.
+              Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time.
             </p>
-            <div class="au-card-footer">
-              <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-            </div>
           </div>
           <div class="au-card-phone-col">
             <div class="au-mock-phone">
@@ -1619,12 +1607,12 @@
                 </div>
                 <div class="au-mock-sms">
                   <div class="au-mock-sms-from">Green Leaf Dispensary</div>
-                  <div class="au-mock-sms-body">Hey Sarah! Your favorites are restocked 🌿 Use <strong>FRIDAY15</strong> for 15% off your next order. One tap to reorder ↗</div>
+                  <div class="au-mock-sms-body">Hey Sarah! Your favorites are restocked. Use <strong>FRIDAY15</strong> for 15% off your next order. One tap to reorder</div>
                   <div class="au-mock-sms-time">Delivered 2:47 PM · Opened 2:49 PM</div>
                 </div>
                 <div class="au-mock-engagement">
                   <div class="au-mock-eng-stat">
-                    <div class="au-mock-eng-num">3.2×</div>
+                    <div class="au-mock-eng-num">3.2&times;</div>
                     <div class="au-mock-eng-label">Open Rate</div>
                   </div>
                   <div class="au-mock-eng-stat">
@@ -1642,145 +1630,16 @@
         </div>
       </article>
 
-      <!-- Card 3 -->
-      <article class="au-card au-clickable" id="card-3" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
-        <div class="au-card-accent au-accent-hero"></div>
-        <div class="au-card-top">
-          <span class="au-badge">Marketing</span>
-          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
-        </div>
-        <h2 class="au-card-title">Dynamic Content Blocks</h2>
-        <p class="au-card-desc">
-          Boost conversions by adding dynamic content blocks to your marketing messages. Drag and drop personalized "Buy It Again" recommendations, segment-specific discounts, and real-time loyalty data directly into your campaigns. These blocks automatically show each customer their available rewards and the exact spend needed to reach the next tier, making every message feel tailored to their shopping habits.
-        </p>
-        <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-        </div>
-      </article>
-
-      <!-- Card 4 -->
-      <article class="au-card au-card-with-phone" id="card-4">
+      <!-- Card 3: Mobile Responsive Reporting -->
+      <article class="au-card" id="card-3">
         <div class="au-card-accent au-accent-hero"></div>
         <div class="au-card-top">
           <span class="au-badge">Analytics</span>
-          <span class="au-badge au-badge-loom">&#9654; Loom</span>
+          <a href="video/Mobile Responsive Reports.mp4" target="_blank" class="au-video-link">&#9655; Watch Video</a>
         </div>
         <h2 class="au-card-title">Mobile Responsive Reporting</h2>
-        <div class="au-card-body-wrap">
-          <div class="au-card-text">
-            <p class="au-card-desc">
-              Keep an eye on your business from anywhere. We have redesigned our highest-priority reports &mdash; Sales Overview, Closing Report, and Inventory Overview &mdash; to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
-            </p>
-            <div class="au-card-footer">
-              <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-            </div>
-          </div>
-          <div class="au-card-phone-col">
-            <div class="au-mock-report-phone">
-              <div class="au-mock-report-screen">
-                <div class="au-mock-report-header">
-                  <div class="au-mock-report-nav">
-                    <span>&#8592; Reports</span>
-                    <span>&#8943;</span>
-                  </div>
-                  <div class="au-mock-report-title-bar">Sales Overview</div>
-                  <div class="au-mock-report-period">Mar 21 – Mar 27, 2026</div>
-                </div>
-                <div class="au-mock-report-body">
-                  <div class="au-mock-report-stats">
-                    <div class="au-mock-report-stat">
-                      <div class="au-mock-report-stat-num">$47.2k</div>
-                      <div class="au-mock-report-stat-label">Revenue</div>
-                    </div>
-                    <div class="au-mock-report-stat">
-                      <div class="au-mock-report-stat-num" style="color:#6AB448;">+12%</div>
-                      <div class="au-mock-report-stat-label">vs Last Week</div>
-                    </div>
-                    <div class="au-mock-report-stat">
-                      <div class="au-mock-report-stat-num">812</div>
-                      <div class="au-mock-report-stat-label">Transactions</div>
-                    </div>
-                    <div class="au-mock-report-stat">
-                      <div class="au-mock-report-stat-num">$58</div>
-                      <div class="au-mock-report-stat-label">Avg Ticket</div>
-                    </div>
-                  </div>
-                  <div class="au-mock-report-chart">
-                    <div class="au-mock-chart-label">Daily Revenue</div>
-                    <div class="au-mock-chart-bars">
-                      <div class="au-mock-chart-bar" style="height:55%;background:#003D29;"></div>
-                      <div class="au-mock-chart-bar" style="height:70%;background:#003D29;"></div>
-                      <div class="au-mock-chart-bar" style="height:45%;background:#003D29;"></div>
-                      <div class="au-mock-chart-bar" style="height:80%;background:#003D29;"></div>
-                      <div class="au-mock-chart-bar" style="height:65%;background:#003D29;"></div>
-                      <div class="au-mock-chart-bar" style="height:90%;background:#6AB448;"></div>
-                      <div class="au-mock-chart-bar" style="height:100%;background:#6AB448;"></div>
-                    </div>
-                    <div class="au-mock-chart-days">
-                      <span class="au-mock-chart-day">M</span>
-                      <span class="au-mock-chart-day">T</span>
-                      <span class="au-mock-chart-day">W</span>
-                      <span class="au-mock-chart-day">T</span>
-                      <span class="au-mock-chart-day">F</span>
-                      <span class="au-mock-chart-day">S</span>
-                      <span class="au-mock-chart-day">S</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- SECTION: E-Commerce Pro -->
-      <div class="au-section-divider">
-        <span class="au-section-divider-line au-line-ecom-pro"></span>
-        <span class="au-section-divider-text">E-Commerce Pro</span>
-        <span class="au-section-divider-line au-line-ecom-pro"></span>
-      </div>
-
-      <!-- Card 5 -->
-      <article class="au-card au-clickable" id="card-5" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
-        <div class="au-card-accent au-accent-ecom-pro"></div>
-        <div class="au-card-top">
-          <span class="au-badge">Developer Tools</span>
-          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
-        </div>
-        <h2 class="au-card-title">E-Commerce Pro SDK Enhancements</h2>
         <p class="au-card-desc">
-          Three powerful updates: New Developer CLI for local storefront preview with hot reload and latency simulation. Global Styles &amp; Design Tokens to control 120+ CSS tokens for brand colors, fonts, and spacing. Custom Product Cards to replace default views with bespoke components while the SDK handles pricing, badges, and data.
-        </p>
-        <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-        </div>
-      </article>
-
-      <!-- Card 6 -->
-      <article class="au-card" id="card-6">
-        <div class="au-card-accent au-accent-ecom-pro"></div>
-        <div class="au-card-top">
-          <span class="au-badge">Marketing</span>
-        </div>
-        <h2 class="au-card-title">Dynamic Marketing URLs</h2>
-        <p class="au-card-desc">
-          Reduce friction from message to checkout. Marketing links can automatically log customers into their preferred local menu and surface their usual order for faster checkout.
-        </p>
-        <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
-        </div>
-      </article>
-
-      <!-- Card 7 — Case Study (special treatment) -->
-      <article class="au-card au-card-case-study" id="card-7">
-        <div class="au-card-accent au-accent-ecom-pro"></div>
-        <div class="au-card-top">
-          <span class="au-badge">Case Study</span>
-          <span class="au-badge au-badge-coming-soon">Coming Soon</span>
-        </div>
-        <h2 class="au-card-title">E-Commerce Pro Case Study</h2>
-        <p class="au-card-desc">
-          See how PVP leveraged E-Commerce Pro to transform their digital storefront. Full case study coming soon.
+          Keep an eye on your business from anywhere. We have redesigned our highest-priority reports, including the Sales Overview, Closing Report, and Inventory Overview, to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
         </p>
       </article>
 
@@ -1791,34 +1650,46 @@
         <span class="au-section-divider-line au-line-ecom"></span>
       </div>
 
-      <!-- Card 8 -->
-      <article class="au-card" id="card-8">
+      <!-- Card 4: Holistic Customer Order History -->
+      <article class="au-card" id="card-4">
         <div class="au-card-accent au-accent-ecom"></div>
         <div class="au-card-top">
           <span class="au-badge">Customer Data</span>
         </div>
         <h2 class="au-card-title">Holistic Customer Order History</h2>
         <p class="au-card-desc">
-          In-store orders are now attached to customer profiles at POS, ensuring every walk-in visit is captured in the customer's unified history. This allows for more accurate segmenting and ensures budtenders have the full context of a customer's lifetime value the moment they check in.
+          Close the gap between your physical and digital storefronts. Every in-store purchase is now automatically reflected in a customer's unified purchase history, allowing them to see their complete transaction record whether they shop online, on the app, or at the register. By centralizing this data, you provide shoppers with a single, clear view of their favorite products and total spend across every channel.
         </p>
-        <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+        <div class="au-image-grid">
+          <img src="images/instore-order-history-mobile.png" alt="In-store order history - mobile app view">
+          <img src="images/instore-order-history-online.png" alt="In-store order history - online view">
         </div>
       </article>
 
-      <!-- Card 9 -->
-      <article class="au-card au-clickable" id="card-9" data-storylane-url="https://app.storylane.io/demo/y55yo3uneqmj?embed=popup">
+      <!-- Card 5: Express Re-Ordering -->
+      <article class="au-card" id="card-5">
         <div class="au-card-accent au-accent-ecom"></div>
         <div class="au-card-top">
           <span class="au-badge">Shopping Experience</span>
-          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
         </div>
-        <h2 class="au-card-title">One-Click Buy It Again</h2>
+        <h2 class="au-card-title">Express Re-Ordering</h2>
         <p class="au-card-desc">
-          Customers can instantly re-order their favorite products directly from their profile or previous order history without navigating the full menu. Removes checkout friction, increases order frequency, and rewards repeat customers with a faster experience.
+          Simplify the shopping journey for your loyal customers with Express Re-Ordering. Instead of hunting down individual items one by one, shoppers can now instantly rebuild an entire previous order and add it to their cart in a single action. This removes the friction of starting from scratch and ensures your repeat customers can get exactly what they love without the manual effort of rebuilding their cart.
         </p>
-        <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+      </article>
+
+      <!-- Card 6: Total Terpenes -->
+      <article class="au-card" id="card-6">
+        <div class="au-card-accent au-accent-ecom"></div>
+        <div class="au-card-top">
+          <span class="au-badge">Product Data</span>
+        </div>
+        <h2 class="au-card-title">Total Terpenes on Product Cards &amp; Details Pages</h2>
+        <p class="au-card-desc">
+          Help your shoppers find exactly what they are looking for by bringing lab-verified terpene data directly to your menu. You can now display the Total Terpenes percentage on both product cards and Product Detail Pages. This data syncs automatically from your Dutchie POS lab results, giving flavor-focused consumers the transparency they need to shop by effect and aroma rather than just potency alone.
+        </p>
+        <div class="au-image-single">
+          <img src="images/total-terpenes.png" alt="Total terpenes displayed on product detail page">
         </div>
       </article>
 
@@ -1829,55 +1700,55 @@
         <span class="au-section-divider-line au-line-delivery"></span>
       </div>
 
-      <!-- Card 10 -->
-      <article class="au-card" id="card-10">
+      <!-- Card 7: Route Optimization -->
+      <article class="au-card" id="card-7">
         <div class="au-card-accent au-accent-delivery"></div>
         <div class="au-card-top">
           <span class="au-badge">Delivery Operations</span>
         </div>
         <h2 class="au-card-title">Route Optimization for Dynamic Delivery</h2>
         <p class="au-card-desc">
-          Deep bidirectional integration between Onfleet and Dutchie enables real-time route synchronization and automated manifest updates while maintaining full Metrc compliance. Orders intelligently auto-assign to the nearest driver based on proximity, inventory, and current workload.
+          Streamline your delivery operations with a deep, bidirectional integration between Onfleet and Dutchie. This update enables real-time route synchronization and automated manifest updates while maintaining full Metrc compliance. Orders now intelligently auto-assign to the nearest driver based on proximity, inventory, and current workload, ensuring your fleet operates at peak efficiency rather than just following chronological order.
         </p>
         <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+          <a href="https://support.onfleet.com/hc/en-us/articles/360023910351-Route-Optimization-Operatin" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Onfleet Route Optimization</a>
         </div>
       </article>
 
-      <!-- Card 11 -->
-      <article class="au-card" id="card-11">
+      <!-- Card 8: Separate Delivery Fees -->
+      <article class="au-card" id="card-8">
         <div class="au-card-accent au-accent-delivery"></div>
         <div class="au-card-top">
           <span class="au-badge">Delivery Pricing</span>
         </div>
-        <h2 class="au-card-title">Separate Delivery Fees (ASAP vs Scheduled)</h2>
+        <h2 class="au-card-title">Separate Delivery Fees for ASAP vs. Scheduled Delivery</h2>
         <p class="au-card-desc">
-          Set separate delivery fees for ASAP orders versus Scheduled windows, allowing you to charge a premium for immediate service or offer incentives for pre-planned orders.
+          Tailor your delivery service to match customer demand. You can now set separate delivery fees for "ASAP" orders versus "Scheduled" windows, allowing you to charge a premium for immediate service or offer incentives for pre-planned orders.
         </p>
         <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+          <a href="https://updates.dutchie.com/announcements/dutchie-pos-1-179-real-life-events-separate-fees-for-asap-and-scheduled-delivery-group-and-segment-specific-discounts-now-available-online-fixes" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Release Notes</a>
         </div>
       </article>
 
-      <!-- SECTION: Other -->
+      <!-- Case Study Callout -->
       <div class="au-section-divider">
-        <span class="au-section-divider-line au-line-other"></span>
-        <span class="au-section-divider-text">Other</span>
-        <span class="au-section-divider-line au-line-other"></span>
+        <span class="au-section-divider-line au-line-ecom-pro"></span>
+        <span class="au-section-divider-text">Case Study</span>
+        <span class="au-section-divider-line au-line-ecom-pro"></span>
       </div>
 
-      <!-- Card 12 -->
-      <article class="au-card" id="card-12">
-        <div class="au-card-accent au-accent-other"></div>
+      <article class="au-card au-card-case-study" id="card-case-study">
+        <div class="au-card-accent au-accent-ecom-pro"></div>
         <div class="au-card-top">
-          <span class="au-badge">Promotions</span>
+          <span class="au-badge">Case Study</span>
+          <span class="au-badge">Pecos Valley Productions</span>
         </div>
-        <h2 class="au-card-title">Time-Based Discount Limits</h2>
+        <h2 class="au-card-title">See How Pecos Valley Productions Unified 17 Dispensaries on Dutchie</h2>
         <p class="au-card-desc">
-          Set Cooldown periods (rolling windows) or Refresh schedules (fixed dates) for specific offers, moving beyond simple lifetime caps. Define exactly how often a customer can redeem a specific deal &mdash; whether once every 24 hours or once per calendar month.
+          Learn how Pecos Valley Productions consolidated operations across 17 locations onto the Dutchie platform to streamline workflows, improve reporting, and deliver a consistent experience for every customer.
         </p>
         <div class="au-card-footer">
-          <a href="#" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full Setup Guide</a>
+          <a href="https://business.dutchie.com/case-study/how-pecos-valley-productions-unified-17-dispensaries-on-dutchie" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Read Full Case Study</a>
         </div>
       </article>
 
@@ -1893,22 +1764,16 @@
     <div class="au-mobile-toc-handle"></div>
     <div class="au-mobile-toc-heading">Contents</div>
     <div class="au-mobile-toc-group-label">Hero Features</div>
-    <a class="au-mobile-toc-link" href="#card-1" data-mtoc="card-1"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Menu Tags &amp; Limited Categories</span></a>
+    <a class="au-mobile-toc-link" href="#card-1" data-mtoc="card-1"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">L&amp;M Dashboard</span></a>
     <a class="au-mobile-toc-link" href="#card-2" data-mtoc="card-2"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Smart Sending</span></a>
-    <a class="au-mobile-toc-link" href="#card-3" data-mtoc="card-3"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Dynamic Content Blocks</span></a>
-    <a class="au-mobile-toc-link" href="#card-4" data-mtoc="card-4"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Mobile Responsive Reporting</span></a>
-    <div class="au-mobile-toc-group-label">E-Commerce Pro</div>
-    <a class="au-mobile-toc-link" href="#card-5" data-mtoc="card-5"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">SDK Enhancements</span></a>
-    <a class="au-mobile-toc-link" href="#card-6" data-mtoc="card-6"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Dynamic Marketing URLs</span></a>
-    <a class="au-mobile-toc-link" href="#card-7" data-mtoc="card-7"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">E-Com Pro Case Study</span></a>
+    <a class="au-mobile-toc-link" href="#card-3" data-mtoc="card-3"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Mobile Responsive Reporting</span></a>
     <div class="au-mobile-toc-group-label">E-Commerce</div>
-    <a class="au-mobile-toc-link" href="#card-8" data-mtoc="card-8"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Holistic Order History</span></a>
-    <a class="au-mobile-toc-link" href="#card-9" data-mtoc="card-9"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">One-Click Buy It Again</span></a>
+    <a class="au-mobile-toc-link" href="#card-4" data-mtoc="card-4"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Holistic Order History</span></a>
+    <a class="au-mobile-toc-link" href="#card-5" data-mtoc="card-5"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Express Re-Ordering</span></a>
+    <a class="au-mobile-toc-link" href="#card-6" data-mtoc="card-6"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Total Terpenes</span></a>
     <div class="au-mobile-toc-group-label">Delivery</div>
-    <a class="au-mobile-toc-link" href="#card-10" data-mtoc="card-10"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Route Optimization</span></a>
-    <a class="au-mobile-toc-link" href="#card-11" data-mtoc="card-11"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Separate Delivery Fees</span></a>
-    <div class="au-mobile-toc-group-label">Other</div>
-    <a class="au-mobile-toc-link" href="#card-12" data-mtoc="card-12"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Time-Based Discount Limits</span></a>
+    <a class="au-mobile-toc-link" href="#card-7" data-mtoc="card-7"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Route Optimization</span></a>
+    <a class="au-mobile-toc-link" href="#card-8" data-mtoc="card-8"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Separate Delivery Fees</span></a>
   </div>
 </div>
 
