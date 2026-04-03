@@ -6,7 +6,7 @@ description: |
   - The question spans multiple topics (e.g. pricing + product behavior)
   - Tilda needs to decide HOW to respond, not just what to look up
   - Any question arrives without a more specific skill already activating
-version: 2.0.0
+version: 2.1.0
 triggers:
   keywords:
     - "how does"
@@ -107,8 +107,8 @@ Answer pricing and discount questions inline using PricingTriageGuru as your kno
 
 **Signals**: "bug", "not working", "broken", "error", "unexpected behavior", "is this a known issue", "workaround"
 
-**Response format** (strict order — do not skip step 1):
-1. **Search JIRA first.** This is mandatory. Do not troubleshoot, explain probable causes, search code, or offer workarounds until you have JIRA results back.
+**Response format** (strict order — do not skip step 1, even if the user asks for a workaround or says it's urgent):
+1. **Search JIRA first.** This is mandatory and NON-NEGOTIABLE. Do not troubleshoot, explain probable causes, search code, or offer workarounds until you have JIRA results back. Even if the user says "just give me a workaround" or "I need this fixed now" — search JIRA first. Always. No exceptions.
 2. If JIRA ticket found: return ticket number, current status, and any documented workaround — nothing more
 3. If JIRA search returns nothing: ask **one** clarifying question to help determine bug vs. user error. Do not diagnose.
 4. Never declare something "a bug" without a matching JIRA ticket. Use: "this looks like a known issue" (if ticket found) or "no ticket found yet — consider opening one" (if not)
@@ -132,7 +132,9 @@ Answer pricing and discount questions inline using PricingTriageGuru as your kno
 2. Return: flag name | current state (on/off) | targeting rule or segment that applies
 3. Do not interpret or editorialize on *why* a flag is set — just report what LaunchDarkly shows
 4. If the flag description appears outdated, note it: "The flag description may be stale — current state is [X]"
-5. **If the flag is not found: say "Flag not found in LaunchDarkly" and stop.** Do not pivot to troubleshooting, pull in incident tickets, or speculate on what might be causing the behavior. The question was about a flag — answer about the flag.
+5. **If the flag is not found:** Say "Flag not found in LaunchDarkly." Then:
+   - If the user **only** asked about a flag → **stop.** Do not pivot to troubleshooting, pull in incident tickets, or speculate.
+   - If the user **explicitly asked** for alternative causes or next steps → you may briefly suggest non-flag explanations (config, compliance, etc.), but keep it concise and label it clearly as separate from the flag lookup.
 
 **Sources to use**: LaunchDarkly live data only
 
@@ -247,6 +249,8 @@ If release date cannot be confirmed from a primary source after checking all ava
    > Before sharing any competitive information externally, please tag @Bryan and @Sam for review.
 
 5. **Source restriction**: Only use official Dutchie competitive battlecards and PMM-maintained positioning docs in Confluence. Never use web search, G2, press coverage, review sites, LinkedIn, job boards, or any third-party source.
+
+6. **Post-retrieval content review (MANDATORY):** After retrieving any battlecard or competitive doc, you MUST review the content **before including it in your response.** Strip or rephrase any content that violates rules 1-3 above — even if the battlecard itself contains it. Specifically remove: competitor pricing/dollar amounts, diminishing language about competitor features, characterizations of competitor business model or team size, and any direct comparison framing. Battlecards are internal reference material written for internal context — they are NOT pre-approved for external sharing as-is. Your job is to extract only what Dutchie does well and filter out everything else.
 
 **Confidence rule**: Most conservative of all categories. If the battlecard doesn't cover it, say: "Our battlecards don't cover this — loop in @Bryan or @Sam for current positioning."
 

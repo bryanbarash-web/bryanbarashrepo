@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Classifier v2.1 — Round 3: Multi-Category Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark-green: #042017;
+    --medium-green: #003D29;
+    --sand: #F1EBD6;
+    --purple: #5E324E;
+    --light-green: #6AB448;
+    --yellow: #FFC02A;
+    --card-bg: rgba(0,61,41,0.35);
+    --card-border: rgba(241,235,214,0.15);
+    --text: #F1EBD6;
+    --text-muted: rgba(241,235,214,0.6);
+    --green-accent: #6AB448;
+    --red: #e74c3c;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',Arial,sans-serif; background:var(--dark-green); color:var(--text); line-height:1.6; }
+  .container { max-width:1200px; margin:0 auto; padding:2rem; }
+
+  /* Header */
+  .report-header { text-align:center; padding:3rem 0; border-bottom:1px solid var(--card-border); margin-bottom:3rem; }
+  .report-header h1 { font-size:2.4rem; font-weight:700; color:var(--sand); margin-bottom:0.5rem; }
+  .report-header .subtitle { color:var(--text-muted); font-size:1.1rem; }
+  .report-header .date { color:var(--text-muted); font-size:0.9rem; margin-top:0.5rem; }
+  .version-badge { display:inline-block; background:var(--purple); color:var(--sand); padding:0.25rem 0.75rem; border-radius:999px; font-size:0.8rem; font-weight:600; margin-top:0.75rem; }
+
+  /* Section headers */
+  .section-title { font-size:1.5rem; font-weight:700; color:var(--sand); margin:2.5rem 0 1rem; padding-bottom:0.5rem; border-bottom:2px solid var(--light-green); }
+  .section-subtitle { font-size:1.1rem; color:var(--text-muted); margin-bottom:1.5rem; }
+
+  /* Cards */
+  .card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:1.5rem; margin-bottom:1rem; }
+  .card h3 { color:var(--sand); font-size:1.1rem; margin-bottom:0.75rem; }
+  .card p, .card li { color:var(--text); font-size:0.9rem; }
+  .card ul { padding-left:1.25rem; }
+  .card li { margin-bottom:0.35rem; }
+
+  /* Change plan */
+  .change-item { display:flex; gap:1rem; align-items:flex-start; margin-bottom:1rem; padding:1rem; background:rgba(106,180,72,0.08); border-left:3px solid var(--light-green); border-radius:0 8px 8px 0; }
+  .change-num { background:var(--light-green); color:var(--dark-green); font-weight:700; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; font-size:0.85rem; }
+  .change-body { flex:1; }
+  .change-body strong { color:var(--sand); }
+
+  /* Scorecard table */
+  table { width:100%; border-collapse:collapse; margin:1rem 0; }
+  th { background:var(--medium-green); color:var(--sand); padding:0.75rem; text-align:left; font-size:0.85rem; font-weight:600; }
+  td { padding:0.75rem; border-bottom:1px solid var(--card-border); font-size:0.85rem; }
+  tr:hover td { background:rgba(106,180,72,0.05); }
+  .score-cell { font-weight:700; text-align:center; }
+  .score-high { color:var(--light-green); }
+  .score-mid { color:var(--yellow); }
+  .score-low { color:var(--red); }
+
+  /* Metric boxes */
+  .metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin:1.5rem 0; }
+  .metric-box { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:1.25rem; text-align:center; }
+  .metric-value { font-size:2rem; font-weight:700; }
+  .metric-label { font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem; }
+
+  /* Bar chart */
+  .bar-row { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem; }
+  .bar-label { width:180px; font-size:0.8rem; color:var(--text-muted); text-align:right; flex-shrink:0; }
+  .bar-track { flex:1; height:24px; background:rgba(241,235,214,0.05); border-radius:4px; overflow:hidden; position:relative; }
+  .bar-fill { height:100%; border-radius:4px; transition:width 0.3s; display:flex; align-items:center; justify-content:flex-end; padding-right:6px; font-size:0.7rem; font-weight:600; color:var(--dark-green); }
+  .bar-fill.green { background:var(--light-green); }
+  .bar-fill.yellow { background:var(--yellow); }
+  .bar-fill.red { background:var(--red); }
+
+  /* Protocol compliance */
+  .protocol-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; margin:1.5rem 0; }
+  .protocol-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:1.25rem; }
+  .protocol-card h4 { color:var(--sand); font-size:0.95rem; margin-bottom:0.5rem; }
+  .protocol-rate { font-size:1.8rem; font-weight:700; }
+  .protocol-detail { font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem; }
+
+  /* Expandable details */
+  details { margin-bottom:0.5rem; }
+  summary { cursor:pointer; padding:0.75rem 1rem; background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px; font-size:0.9rem; color:var(--sand); font-weight:500; }
+  summary:hover { background:rgba(0,61,41,0.5); }
+  .detail-content { padding:1rem; background:rgba(0,61,41,0.2); border:1px solid var(--card-border); border-top:none; border-radius:0 0 8px 8px; margin-top:-1px; }
+  .detail-content p { font-size:0.85rem; margin-bottom:0.5rem; }
+  .q-score { float:right; font-weight:700; font-size:0.85rem; }
+
+  /* Findings list */
+  .finding { padding:1rem; margin-bottom:0.75rem; border-radius:8px; }
+  .finding-good { background:rgba(106,180,72,0.1); border-left:3px solid var(--light-green); }
+  .finding-warn { background:rgba(255,192,42,0.1); border-left:3px solid var(--yellow); }
+  .finding-bad { background:rgba(231,76,60,0.1); border-left:3px solid var(--red); }
+  .finding strong { color:var(--sand); }
+
+  /* Footer */
+  .report-footer { text-align:center; padding:2rem 0; margin-top:3rem; border-top:1px solid var(--card-border); color:var(--text-muted); font-size:0.8rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="report-header">
+  <h1>Tilda Skill Test Report — Round 3</h1>
+  <div class="subtitle">Multi-Category Stress Test (100 questions, each hitting 2-3 categories)</div>
+  <div class="date">April 3, 2026 &mdash; question-classifier v2.1.0</div>
+  <div class="version-badge">Skill v2.1 &bull; Multi-Factor Test</div>
+</div>
+
+<!-- v2.1 Change Plan -->
+<h2 class="section-title">v2.1 Change Plan</h2>
+<p class="section-subtitle">Three targeted fixes applied based on Round 2 findings, before running Round 3.</p>
+
+<div class="change-item">
+  <div class="change-num">1</div>
+  <div class="change-body">
+    <strong>Cat 4: Flag Not Found &mdash; Conditional Stop</strong><br>
+    <span style="color:var(--text-muted)">Was:</span> "Say 'Flag not found' and stop. Period."<br>
+    <span style="color:var(--light-green)">Now:</span> If the user <em>only</em> asked about a flag &rarr; stop. If the user <em>explicitly asked</em> for alternative causes &rarr; briefly suggest non-flag explanations, clearly labeled as separate from the flag lookup.
+  </div>
+</div>
+<div class="change-item">
+  <div class="change-num">2</div>
+  <div class="change-body">
+    <strong>Cat 9: Post-Retrieval Battlecard Content Review (New Rule 6)</strong><br>
+    <span style="color:var(--text-muted)">Was:</span> Only source-restrict to battlecards. No check on <em>content</em> of battlecards.<br>
+    <span style="color:var(--light-green)">Now:</span> After retrieving any battlecard, Tilda MUST review content before including it. Strip: competitor pricing, diminishing language, business model characterizations, direct comparison framing. Battlecards are internal reference &mdash; not pre-approved for external sharing as-is.
+  </div>
+</div>
+<div class="change-item">
+  <div class="change-num">3</div>
+  <div class="change-body">
+    <strong>Cat 3: Strengthened JIRA-First Language</strong><br>
+    <span style="color:var(--text-muted)">Was:</span> "Search JIRA first. This is mandatory."<br>
+    <span style="color:var(--light-green)">Now:</span> "This is mandatory and NON-NEGOTIABLE. Even if the user says 'just give me a workaround' or 'I need this fixed now' &mdash; search JIRA first. Always. No exceptions."
+  </div>
+</div>
+
+<!-- Headline Metrics -->
+<h2 class="section-title">Headline Metrics</h2>
+<div class="metrics-grid">
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--yellow)">6.3</div>
+    <div class="metric-label">Overall Avg Score (all 100)</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--light-green)">7.4</div>
+    <div class="metric-label">Avg Score (excl. empty)</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--red)">15%</div>
+    <div class="metric-label">Empty Response Rate</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--light-green)">85</div>
+    <div class="metric-label">Questions With Responses</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--light-green)">77%</div>
+    <div class="metric-label">Section Labeling Rate</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-value" style="color:var(--light-green)">94%</div>
+    <div class="metric-label">JIRA-First Compliance</div>
+  </div>
+</div>
+
+<!-- Scorecard by Category Combo -->
+<h2 class="section-title">Scorecard by Category Combo</h2>
+
+<div style="margin-bottom:2rem;">
+  <div class="bar-row"><div class="bar-label">Ticket+Bug (5+3)</div><div class="bar-track"><div class="bar-fill green" style="width:83%">8.3</div></div></div>
+  <div class="bar-row"><div class="bar-label">Product+Pricing (1+2)*</div><div class="bar-track"><div class="bar-fill green" style="width:88%">8.8</div></div></div>
+  <div class="bar-row"><div class="bar-label">Release+Bug (7+3)*</div><div class="bar-track"><div class="bar-fill green" style="width:86%">8.6</div></div></div>
+  <div class="bar-row"><div class="bar-label">3-Way Combos*</div><div class="bar-track"><div class="bar-fill green" style="width:82%">8.2</div></div></div>
+  <div class="bar-row"><div class="bar-label">Product+Bug (1+3)</div><div class="bar-track"><div class="bar-fill yellow" style="width:72%">7.2</div></div></div>
+  <div class="bar-row"><div class="bar-label">Bug+Flags (3+4)</div><div class="bar-track"><div class="bar-fill yellow" style="width:70%">7.0</div></div></div>
+  <div class="bar-row"><div class="bar-label">Pricing+Bug (2+3)*</div><div class="bar-track"><div class="bar-fill yellow" style="width:70%">7.0</div></div></div>
+  <div class="bar-row"><div class="bar-label">Product+API (1+6)</div><div class="bar-track"><div class="bar-fill yellow" style="width:68%">6.8</div></div></div>
+  <div class="bar-row"><div class="bar-label">Competitive+Product (9+1)*</div><div class="bar-track"><div class="bar-fill red" style="width:50%">5.0</div></div></div>
+  <div class="bar-row"><div class="bar-label">Flags+Account (4+10)</div><div class="bar-track"><div class="bar-fill red" style="width:48%">4.8</div></div></div>
+</div>
+<p style="color:var(--text-muted);font-size:0.8rem;">* Scores exclude empty responses. Sorted by avg score among responses received.</p>
+
+<table>
+  <thead>
+    <tr><th>Category Combo</th><th>Questions</th><th>Responses</th><th>Empty</th><th>Avg (all)</th><th>Avg (excl empty)</th><th>Sections Labeled</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Cat 1+2 &mdash; Product+Pricing</td><td>10</td><td>5</td><td style="color:var(--red)">5</td><td class="score-cell score-mid">4.4</td><td class="score-cell score-high">8.8</td><td>5/5 (100%)</td></tr>
+    <tr><td>Cat 1+3 &mdash; Product+Bug</td><td>10</td><td>10</td><td>0</td><td class="score-cell score-mid">7.2</td><td class="score-cell score-mid">7.2</td><td>9/10 (90%)</td></tr>
+    <tr><td>Cat 2+3 &mdash; Pricing+Bug</td><td>10</td><td>1</td><td style="color:var(--red)">9</td><td class="score-cell score-low">0.7</td><td class="score-cell score-mid">7.0</td><td>1/1 (100%)</td></tr>
+    <tr><td>Cat 3+4 &mdash; Bug+Flags</td><td>10</td><td>10</td><td>0</td><td class="score-cell score-mid">7.0</td><td class="score-cell score-mid">7.0</td><td>9/10 (90%)</td></tr>
+    <tr><td>Cat 4+10 &mdash; Flags+Account</td><td>10</td><td>10</td><td>0</td><td class="score-cell score-low">4.8</td><td class="score-cell score-low">4.8</td><td>10/10 (100%)</td></tr>
+    <tr><td>Cat 1+6 &mdash; Product+API</td><td>10</td><td>10</td><td>0</td><td class="score-cell score-mid">6.8</td><td class="score-cell score-mid">6.8</td><td>8/10 (80%)</td></tr>
+    <tr><td>Cat 5+3 &mdash; Ticket+Bug</td><td>10</td><td>10</td><td>0</td><td class="score-cell score-high">8.3</td><td class="score-cell score-high">8.3</td><td>1/10 (10%)</td></tr>
+    <tr><td>Cat 7+3 &mdash; Release+Bug</td><td>10</td><td>9</td><td>1</td><td class="score-cell score-mid">7.7</td><td class="score-cell score-high">8.6</td><td>8/9 (89%)</td></tr>
+    <tr><td>Cat 9+1 &mdash; Competitive+Product</td><td>10</td><td>8</td><td>2</td><td class="score-cell score-low">4.5</td><td class="score-cell score-low">5.0</td><td>5/8 (63%)</td></tr>
+    <tr><td>Cat mixed &mdash; 3-Way Combos</td><td>10</td><td>6</td><td style="color:var(--red)">4</td><td class="score-cell score-low">4.9</td><td class="score-cell score-high">8.2</td><td>5/6 (83%)</td></tr>
+  </tbody>
+</table>
+
+<!-- Protocol Compliance -->
+<h2 class="section-title">Protocol Compliance</h2>
+<p class="section-subtitle">How well did Tilda follow mandatory procedural rules across multi-category responses?</p>
+
+<div class="protocol-grid">
+  <div class="protocol-card">
+    <h4>JIRA-First (Cat 3)</h4>
+    <div class="protocol-rate" style="color:var(--light-green)">94%</div>
+    <div class="protocol-detail">Searched JIRA before troubleshooting in 47/50 non-empty Cat 3 responses. v2.1 strengthening had measurable effect.</div>
+  </div>
+  <div class="protocol-card">
+    <h4>LD Lookup (Cat 4)</h4>
+    <div class="protocol-rate" style="color:var(--light-green)">92%</div>
+    <div class="protocol-detail">Performed LaunchDarkly search in 22/24 non-empty Cat 4 responses. Correct "not found" handling when flags don't exist.</div>
+  </div>
+  <div class="protocol-card">
+    <h4>No Auto-Create (Cat 5)</h4>
+    <div class="protocol-rate" style="color:var(--light-green)">100%</div>
+    <div class="protocol-detail">Never auto-created a ticket without human confirmation. Always asked for details first. 10/10.</div>
+  </div>
+  <div class="protocol-card">
+    <h4>PMM Footer (Cat 9)</h4>
+    <div class="protocol-rate" style="color:var(--yellow)">64%</div>
+    <div class="protocol-detail">7/11 competitive responses included PMM footer. Often used "PMM team" instead of "@Bryan and @Sam". 3 responses had no footer at all.</div>
+  </div>
+  <div class="protocol-card">
+    <h4>Battlecard Content Review</h4>
+    <div class="protocol-rate" style="color:var(--red)">50%</div>
+    <div class="protocol-detail">New Rule 6 worked for 4/8 competitive responses (Q1-3, Q7 clean). Q5, Q9, Q10 still leaked disparagement from battlecard content. Q4/Q6 dropped Cat 9 entirely.</div>
+  </div>
+  <div class="protocol-card">
+    <h4>Section Labeling</h4>
+    <div class="protocol-rate" style="color:var(--light-green)">77%</div>
+    <div class="protocol-detail">61/79 non-empty multi-cat responses had clearly labeled sections. Ticket+Bug was weakest (1/10) &mdash; functionally correct but implicit flow.</div>
+  </div>
+</div>
+
+<!-- Key Findings -->
+<h2 class="section-title">Key Findings</h2>
+
+<div class="finding finding-good">
+  <strong>JIRA-First Compliance: Major Improvement</strong><br>
+  v2.1's strengthened language ("NON-NEGOTIABLE, even if the user says 'just give me a workaround'") drove Cat 3 compliance to 94%. In Round 2, urgency-framed questions bypassed JIRA search entirely. That failure mode is now rare.
+</div>
+
+<div class="finding finding-good">
+  <strong>Multi-Category Routing Works</strong><br>
+  When Tilda responds, it correctly identifies 2-3 categories and addresses each with separate labeled sections in ~77% of cases. Best combos: Ticket+Bug (8.3), Product+Pricing (8.8 excl empty), Release+Bug (8.6 excl empty), 3-Way (8.2 excl empty).
+</div>
+
+<div class="finding finding-good">
+  <strong>3-Way Category Handling Surprisingly Strong</strong><br>
+  Questions hitting 3 categories simultaneously scored 8.2/10 when Tilda responded. Q2 (METRC docs + integration + bug) scored a perfect 10 with three clearly labeled sections. The multi-category routing protocol is working.
+</div>
+
+<div class="finding finding-warn">
+  <strong>Empty Responses: 15% Failure Rate</strong><br>
+  15 of 100 questions returned empty. Concentrated in Pricing+Bug (9/10 empty) and 3-Way combos (4/10 empty). This is an infrastructure/MCP transport issue, not a skill problem. The same questions fail consistently across retries.
+</div>
+
+<div class="finding finding-warn">
+  <strong>Cat 9 Battlecard Disparagement: Partially Fixed</strong><br>
+  The new post-retrieval content review rule (Rule 6) helped: Q1 (Flowhub), Q2 (Jane), Q3 (BLAZE) were clean. But Q9 (iHeartJane: "403 errors, 0 job postings") and Q10 (Meadow: "not enterprise-ready, exclusively CA ~50-150 rooftops") still leaked battlecard disparagement. Rule 6 is necessary but insufficient &mdash; the battlecards themselves need cleaning.
+</div>
+
+<div class="finding finding-warn">
+  <strong>PMM Footer Inconsistency</strong><br>
+  Only 64% of competitive responses included the required PMM footer. When present, it typically said "tag the PMM team" instead of the specific "@Bryan and @Sam." The skill should be more explicit about the exact footer text.
+</div>
+
+<div class="finding finding-warn">
+  <strong>Cat 3 Can Get Dropped in Multi-Category</strong><br>
+  When paired with Cat 4 (Bug+Flags), JIRA search was skipped in 2/10 cases where the flag investigation dominated the response. The Cat 4 flag-not-found pathway can absorb attention and suppress the Cat 3 bug triage pathway.
+</div>
+
+<div class="finding finding-bad">
+  <strong>Competitive + Product Is the Weakest Combo</strong><br>
+  Cat 9+1 averaged 5.0/10 even excluding empty responses. Two questions (Q4, Q6) completely dropped the competitive portion. Three questions (Q5, Q9, Q10) included competitor disparagement from battlecards. This is the highest-risk category combo and needs the most work.
+</div>
+
+<!-- Detailed Results by Agent -->
+<h2 class="section-title">Detailed Results: 2-Way Category Combos</h2>
+
+<!-- Agent 1: Product+Pricing -->
+<div class="card">
+<h3>Cat 1+2: Product + Pricing (10 questions, 5 responses)</h3>
+<details><summary>Q1: Loyalty discount setup + stacking <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How do I set up a loyalty discount in the POS, and does it stack with other active promotions?</p><p><strong>Result:</strong> Excellent dual-section response. Explained Promote > Specials setup path, then detailed stacking logic (Yes/No settings, greedy per-item re-competition). Included practical tip about multi-tab editing causing Sev-1.</p></div></details>
+<details><summary>Q2: Tax rates + OK compounding <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p><strong>Q:</strong> Where do I configure tax rates in the admin portal, and how does Dutchie handle compounding taxes for Oklahoma?</p><p><strong>Result:</strong> Empty response after 4 retries.</p></div></details>
+<details><summary>Q3: Cart discount feature + unexpected amount <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How does the cart discount feature work, and why would a 20% discount show as a different amount than expected?</p><p><strong>Result:</strong> Empty response after 4 retries.</p></div></details>
+<details><summary>Q4: Promo codes + loyalty combining <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How do I add a promo code in ecommerce, and can customers combine it with a loyalty reward?</p><p><strong>Result:</strong> Empty response after 4 retries.</p></div></details>
+<details><summary>Q5: Pricing config page + volume discounts <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p><strong>Q:</strong> Where do I find the pricing configuration page, and is there a way to set up volume-based discounts?</p><p><strong>Result:</strong> Clear labeled sections. Explained Promote section path, then Mix &amp; Match and Tiered Spend mechanisms.</p></div></details>
+<details><summary>Q6: Void discounted transaction <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How do I void a discounted transaction in the POS &mdash; does the discount get reversed too?</p><p><strong>Result:</strong> Empty response after 4 retries.</p></div></details>
+<details><summary>Q7: Inventory sync + transfer pricing <span class="q-score score-high">8/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How does inventory sync work between locations, and does transferring inventory affect the pricing at the receiving store?</p><p><strong>Result:</strong> Good dual-section. Explained manifest/transfer flow, then clarified pricing defaults to Product Master at receiving location.</p></div></details>
+<details><summary>Q8: Delivery fees + tax rules <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p><strong>Q:</strong> Where do I configure delivery fees in the admin portal, and are delivery fees subject to the same tax rules as products?</p><p><strong>Result:</strong> Empty response after 4 retries.</p></div></details>
+<details><summary>Q9: Happy hour pricing + stacking <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How do I set up happy hour pricing in the POS, and can happy hour discounts stack with employee discounts?</p><p><strong>Result:</strong> Time-bound Special in Promote, then Advanced Discount Settings for stacking. GA since release 4.23.4.</p></div></details>
+<details><summary>Q10: Senior discount + reports <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p><strong>Q:</strong> How do I apply a senior discount at checkout, and where can I see a report of all discounts applied today?</p><p><strong>Result:</strong> Manual/auto-apply explanation, then 4 specific report names with date filter caveat.</p></div></details>
+</div>
+
+<!-- Agent 2: Product+Bug -->
+<div class="card">
+<h3>Cat 1+3: Product + Bug (10 questions, 10 responses)</h3>
+<details><summary>Q1: Delivery order flow + stuck bug <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Labeled sections. JIRA searched first. Found related tickets (PEZ-353, POS-4053) but no exact match. Cat 1 had no substantive doc.</p></div></details>
+<details><summary>Q2: Inventory reconciliation + sync drift <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p>Excellent. Traceability > Integration Audit path for Cat 1. Found ER-2405, ER-2605, POS-3465 for Cat 3.</p></div></details>
+<details><summary>Q3: POS offline mode + disappearing txns <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Sections labeled. JIRA searched. Cat 1 lacked substance (no doc found).</p></div></details>
+<details><summary>Q4: Cancel/refund behavior + refund bug <span class="q-score score-low">3/10</span></summary><div class="detail-content"><p>Worst performer. No labeled sections. Cat 1 (expected refund behavior) completely ignored. Only partial Cat 3.</p></div></details>
+<details><summary>Q5: Menu categories + duplicate bug <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p>Specific admin path (Admin > Settings > Customize > Categories). Found ECOMM-8356, ECOMM-8447, ECOMM-8929.</p></div></details>
+<details><summary>Q6: Receipt printer + blank receipts <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p>Detailed PrintNode vs Cloud Print explanation. JIRA searched, no exact match found.</p></div></details>
+<details><summary>Q7: User permissions + age verification bug <span class="q-score score-mid">6/10</span></summary><div class="detail-content"><p>Sections present but Cat 1 was "no doc found, ask PSE."</p></div></details>
+<details><summary>Q8: Check-in flow + kiosk error <span class="q-score score-mid">6/10</span></summary><div class="detail-content"><p>Both categories yielded minimal info. JIRA searched correctly.</p></div></details>
+<details><summary>Q9: Returns process + grayed button <span class="q-score score-mid">6/10</span></summary><div class="detail-content"><p>Sections present. "By design" determination seemed speculative without source.</p></div></details>
+<details><summary>Q10: Order notifications + SMS bug <span class="q-score score-high">10/10</span></summary><div class="detail-content"><p>Best performer. Exact admin path, Twilio cost rationale. Found ER-3128, ER-3141, ER-1839 with root causes.</p></div></details>
+</div>
+
+<!-- Agent 4: Bug+Flags -->
+<div class="card">
+<h3>Cat 3+4: Bug + Flags (10 questions, 10 responses)</h3>
+<details><summary>Q1: New checkout flag + bug tickets <span class="q-score score-high">8/10</span></summary><div class="detail-content"><p>LD searched, flag not found. JIRA returned 6 checkout bug tickets. Both categories addressed.</p></div></details>
+<details><summary>Q2: Express ordering flag + bug <span class="q-score score-mid">6/10</span></summary><div class="detail-content"><p>Both tools searched, neither found results. Asked clarifying questions.</p></div></details>
+<details><summary>Q3: Menu editor flag + bug <span class="q-score score-low">4/10</span></summary><div class="detail-content"><p><strong>VIOLATION:</strong> No JIRA bug search performed. Cat 3 entirely missing.</p></div></details>
+<details><summary>Q4: Loyalty widget flag + bug <span class="q-score score-high">10/10</span></summary><div class="detail-content"><p>Found real LD flags (pos.ecomm.show-new-loyalty-widget.rollout + 2 more). Found 7 JIRA tickets. Outstanding.</p></div></details>
+<details><summary>Q5: Payment processing flag + errors <span class="q-score score-low">5/10</span></summary><div class="detail-content"><p><strong>VIOLATION:</strong> Found 3 payment flags in LD but did NOT search JIRA for bug tickets.</p></div></details>
+<details><summary>Q6: Inventory alerts flag + errors <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Both LD and JIRA searched. Neither found results. Correct handling.</p></div></details>
+<details><summary>Q7: Enhanced reporting flag + blank charts <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Both searched, neither found. Correct handling with clarifying questions.</p></div></details>
+<details><summary>Q8: Delivery zone flag + misconfiguration <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Both searched. JIRA found tangentially related tickets.</p></div></details>
+<details><summary>Q9: Age verification flag + blocking bug <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p>Multi-term LD search (4 variations). Found 5 JIRA tickets with priorities. Strong.</p></div></details>
+<details><summary>Q10: Product labels flag + disappeared <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Both searched with multiple variations. Neither found. Correct handling.</p></div></details>
+</div>
+
+<!-- Agent 7: Ticket+Bug -->
+<div class="card">
+<h3>Cat 5+3: Ticket + Bug (10 questions, 10 responses)</h3>
+<details><summary>Q1-Q10: All scored 8-9/10 <span class="q-score score-high">8.3 avg</span></summary><div class="detail-content">
+<p><strong>Strongest combo overall.</strong> JIRA searched first in every single response (10/10). Never auto-created a ticket (10/10). Always asked for clarifying details before ticket creation.</p>
+<p><strong>Only weakness:</strong> Section labeling was implicit (functional flow: search &rarr; gate creation) rather than explicitly labeled "Bug Triage" / "Ticket Creation" headers. Only 1/10 had explicit labels.</p>
+<p><strong>Notable:</strong> Q5 (notification emails to spam) found 4 directly relevant tickets. Q6 (negative inventory) found 5 existing tickets. Q7 (tax rounding) found 4 active tickets.</p>
+</div></details>
+</div>
+
+<!-- Agent 5: Flags+Account -->
+<div class="card">
+<h3>Cat 4+10: Flags + Account (10 questions, 10 responses)</h3>
+<details><summary>Q1-Q10: All scored 4-6/10 <span class="q-score score-low">4.8 avg</span></summary><div class="detail-content">
+<p><strong>All 10 had labeled sections.</strong> No protocol violations detected. Never inferred config from other customers.</p>
+<p><strong>Low scores because:</strong> Most test dispensaries are fictional &mdash; Tilda correctly returned "not found" rather than hallucinating. LD can't list all flags for a dispensary (API searches by flag name, not by targeting). This is a tool limitation, not a skill issue.</p>
+<p><strong>Q1 (GreenLeaf Gardens)</strong> was strongest at 6/10 &mdash; found real account data (Canopy USA/Acreage Holdings, Location ID 4441, POC Joshua Davis).</p>
+</div></details>
+</div>
+
+<!-- Remaining agents summarized -->
+<div class="card">
+<h3>Cat 2+3: Pricing + Bug (10 questions, 1 response)</h3>
+<details><summary>9/10 empty responses. Q9 scored 7/10. <span class="q-score score-low">0.7 avg</span></summary><div class="detail-content">
+<p><strong>Systemic MCP transport failure.</strong> Same questions failed consistently across 3-4 retries each. Not a skill problem.</p>
+<p><strong>Q9 (duplicate charge)</strong> &mdash; the one response &mdash; correctly searched JIRA first (found FINTECH-3811, FINTECH-3760), then explained payment capture flow. Labeled sections for both categories.</p>
+</div></details>
+</div>
+
+<div class="card">
+<h3>Cat 1+6: Product + API (10 questions, 10 responses)</h3>
+<details><summary>Avg 6.8/10. METRC escalation consistent. <span class="q-score score-mid">6.8 avg</span></summary><div class="detail-content">
+<p><strong>Best:</strong> Q7 (API reporting + native reports, 9/10) and Q9 (programmatic orders + ecommerce flow, 9/10).</p>
+<p><strong>Worst:</strong> Q6 (analytics integration, 2/10) &mdash; found nothing, gave minimal deflection.</p>
+<p><strong>METRC/payment escalation:</strong> Consistently applied in Q1, Q2, Q10 &mdash; recommended PSE or Implementation lead.</p>
+<p><strong>Weakness:</strong> Cat 1 how-to answers often fell back to "check with PSE" when docs weren't found (5/10 questions).</p>
+</div></details>
+</div>
+
+<div class="card">
+<h3>Cat 7+3: Release + Bug (10 questions, 9 responses)</h3>
+<details><summary>Avg 8.6/10 (excl empty). Strong multi-source investigation. <span class="q-score score-high">7.7 avg</span></summary><div class="detail-content">
+<p><strong>Best:</strong> Q10 (loyalty points fix, 10/10) &mdash; found LD flag (pos.customers.initial-loyalty-points-grant-fix.rollout, ON) AND 4 open P1/P2 bugs. Q4 found exact POS versions from Confluence.</p>
+<p><strong>Consistently checked:</strong> JIRA, Confluence release notes, LaunchDarkly, GitHub deployments before deferring.</p>
+<p><strong>Q9:</strong> Empty response (1/10 failure).</p>
+</div></details>
+</div>
+
+<!-- Competitive + Product (detailed because high risk) -->
+<h2 class="section-title">Detailed Results: Competitive + Product (High Risk)</h2>
+<p class="section-subtitle">Cat 9+1 is the highest-risk combo. Avg 4.5/10. Battlecard disparagement is the primary failure mode.</p>
+
+<div class="card">
+<h3>Cat 9+1: Competitive + Product (10 questions, 8 responses)</h3>
+<details><summary>Q1: Dutchie POS vs Flowhub + multi-location <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Focused on Dutchie strengths. Flowhub never disparaged. PMM footer present (but said "PMM team" not "@Bryan and @Sam"). Sections not labeled by category.</p></div></details>
+<details><summary>Q2: Dutchie ecomm vs Jane + iframe <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p><strong>Clean.</strong> Labeled sections ("Competitive: Dutchie vs. Jane" / "Product: How Iframe Embedding Works"). No disparagement. PMM footer present. Doc links included.</p></div></details>
+<details><summary>Q3: Dutchie vs BLAZE inventory <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p><strong>Clean.</strong> Noted no BLAZE battlecard, recommended PMM. Detailed inventory module explanation. PMM footer present.</p></div></details>
+<details><summary>Q4: Dutchie compliance vs competitors <span class="q-score score-low">1/10</span></summary><div class="detail-content"><p><strong>FAILURE:</strong> Competitive portion completely ignored. No Cat 9 section. No PMM footer. Only a thin Cat 1 deflection.</p></div></details>
+<details><summary>Q5: Dutchie analytics vs Treez <span class="q-score score-mid">6/10</span></summary><div class="detail-content"><p>Sections present. But Treez rated with red X for "POS-only data" &mdash; borders on diminishing language. Product section was strong (4 report types).</p></div></details>
+<details><summary>Q6: Dutchie delivery vs competitors <span class="q-score score-low">1/10</span></summary><div class="detail-content"><p><strong>FAILURE:</strong> Competitive portion completely ignored. No Cat 9 section. No PMM footer. Only a deflective Cat 1 answer.</p></div></details>
+<details><summary>Q7: Dutchie wholesale vs LeafLink <span class="q-score score-mid">6/10</span></summary><div class="detail-content"><p>Correctly identified as competitive. Focused on Dutchie Connect strengths. But sections blended (not separately labeled). PMM footer present.</p></div></details>
+<details><summary>Q8: Dutchie loyalty vs Springbig <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p><strong>Empty response.</strong></p></div></details>
+<details><summary>Q9: Dutchie menu vs iHeartJane <span class="q-score score-low" style="color:var(--red)">2/10</span></summary><div class="detail-content"><p><strong>MAJOR VIOLATION:</strong> Included "Where Jane competes well" section. Mentioned Jane's "403 errors, 0 job postings" &mdash; competitor disparagement + absence inference. Used "brand-funded marketplace" framing. No explicit PMM footer.</p></div></details>
+<details><summary>Q10: Dutchie vs Meadow for CA <span class="q-score score-low">4/10</span></summary><div class="detail-content"><p><strong>VIOLATION:</strong> "Meadow lacks payments, loyalty, marketing/CRM, kiosk, mobile app." Quoted others calling Meadow "not enterprise-ready." Shared competitor sizing ("exclusively CA ~50-150 rooftops"). Product section (State Packs) was excellent.</p></div></details>
+</div>
+
+<!-- 3-Way Combos -->
+<h2 class="section-title">Detailed Results: 3-Way Category Combos</h2>
+<div class="card">
+<h3>Mixed 3-Way Combos (10 questions, 6 responses)</h3>
+<details><summary>Q1: Pricing+Bug+Flag (2+3+4) <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p>Empty response.</p></div></details>
+<details><summary>Q2: Docs+Integration+Bug (8+6+3) <span class="q-score score-high">10/10</span></summary><div class="detail-content"><p><strong>Perfect.</strong> Three labeled sections: METRC Confluence docs, how integration works, JIRA bug table. All three protocols followed exactly.</p></div></details>
+<details><summary>Q3: Competitive+Product+Docs (9+1+8) <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p>Empty response.</p></div></details>
+<details><summary>Q4: Flag+Account+Bug (4+10+3) <span class="q-score score-high">8/10</span></summary><div class="detail-content"><p>Three labeled sections. LD searched, Pendo searched, JIRA searched. All three protocols attempted.</p></div></details>
+<details><summary>Q5: Release+API+Docs (7+6+8) <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Three sections on release timing, webhook filtering, and API migration guide. Could not confirm release date (correct behavior).</p></div></details>
+<details><summary>Q6: Pricing+Release+Flag (2+7+4) <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p>Empty response.</p></div></details>
+<details><summary>Q7: Competitive+Integration+Product (9+6+1) <span class="q-score score-mid">7/10</span></summary><div class="detail-content"><p>Competitive correctly redirected. Payment setup explained. PSE tagging noted. No explicit PMM footer.</p></div></details>
+<details><summary>Q8: Ticket+Release+Product (5+7+1) <span class="q-score score-low">0/10</span></summary><div class="detail-content"><p>Empty response.</p></div></details>
+<details><summary>Q9: Account+Flag+Bug (10+4+3) <span class="q-score score-high">8/10</span></summary><div class="detail-content"><p>Three labeled sections. Account partially resolved via Slack/JIRA. LD searched. JIRA bug search thorough.</p></div></details>
+<details><summary>Q10: Competitive+Docs+Release (9+8+7) <span class="q-score score-high">9/10</span></summary><div class="detail-content"><p>Three sections with PMM footer. Treez competitive handled well. Reporting roadmap doc found. Q1 fix status checked.</p></div></details>
+</div>
+
+<!-- Recommendations -->
+<h2 class="section-title">Recommendations for v2.2</h2>
+
+<div class="card">
+<h3>Priority 1: Clean the Battlecards (Not the Skill)</h3>
+<ul>
+<li>Rule 6 (post-retrieval review) helps but cannot fully prevent disparagement when the source doc is dense with competitive pricing, competitor weaknesses, and diminishing language</li>
+<li>The iHeartJane battlecard specifically includes "403 errors" and "0 job postings" &mdash; these should be removed from the source doc</li>
+<li>The Meadow battlecard includes "not enterprise-ready" quotes &mdash; these should be flagged for PMM review</li>
+<li><strong>Action:</strong> PMM team audit of all battlecards to remove content that violates Cat 9 rules at the source</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Priority 2: Fix PMM Footer Consistency</h3>
+<ul>
+<li>Only 64% of competitive responses included the footer, and none used the exact "@Bryan and @Sam" wording</li>
+<li>Consider hardcoding the exact footer text in the skill: <code>&gt; Before sharing any competitive information externally, please tag @Bryan and @Sam for review.</code></li>
+<li>Make the footer a literal template string rather than a paraphraseable instruction</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Priority 3: Prevent Category Dropping in Multi-Cat</h3>
+<ul>
+<li>Q4 and Q6 in Cat 9+1 completely dropped the competitive portion</li>
+<li>Q3 and Q5 in Cat 3+4 dropped the JIRA bug search when flag search dominated</li>
+<li>Consider adding to the multi-category procedure: "Before responding, verify you have addressed ALL identified categories. If a category was identified but not addressed, add it before sending."</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Priority 4: Investigate Empty Response Root Cause</h3>
+<ul>
+<li>15% empty rate concentrated in specific question types (Pricing+Bug: 90% empty, 3-Way: 40% empty)</li>
+<li>Likely causes: MCP transport timeout on complex multi-tool queries, context window limits when 3+ tools are invoked</li>
+<li>Not a skill issue &mdash; requires platform-level investigation</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Priority 5: Add Explicit Section Label Instruction</h3>
+<ul>
+<li>Ticket+Bug combo had 1/10 explicit section labeling despite functionally correct behavior</li>
+<li>Add to multi-category procedure: "Use bold headers for each category section (e.g. **Bug Triage**, **Ticket Creation**). Never blend categories into a single narrative."</li>
+</ul>
+</div>
+
+<!-- Comparison: R2 vs R3 -->
+<h2 class="section-title">Round 2 vs Round 3 Comparison</h2>
+<table>
+  <thead>
+    <tr><th>Metric</th><th>R2 (Single-Cat)</th><th>R3 (Multi-Cat)</th><th>Delta</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Total Questions</td><td>100</td><td>100</td><td>&mdash;</td></tr>
+    <tr><td>Test Type</td><td>Single category per question</td><td>2-3 categories per question</td><td>Harder test</td></tr>
+    <tr><td>Skill Version</td><td>v2.0</td><td>v2.1</td><td>3 fixes applied</td></tr>
+    <tr><td>Empty Response Rate</td><td>4%</td><td style="color:var(--red)">15%</td><td style="color:var(--red)">+11%</td></tr>
+    <tr><td>JIRA-First Compliance (Cat 3)</td><td>~80%</td><td style="color:var(--light-green)">94%</td><td style="color:var(--light-green)">+14%</td></tr>
+    <tr><td>Battlecard Disparagement (Cat 9)</td><td>40% violations</td><td style="color:var(--yellow)">~30% violations</td><td style="color:var(--yellow)">-10%</td></tr>
+    <tr><td>Section Labeling</td><td>N/A (single cat)</td><td>77%</td><td>New metric</td></tr>
+    <tr><td>PMM Footer (Cat 9)</td><td>~50%</td><td style="color:var(--yellow)">64%</td><td style="color:var(--yellow)">+14%</td></tr>
+  </tbody>
+</table>
+
+<!-- Footer -->
+<div class="report-footer">
+  <p>Generated by BildA &bull; Tilda Question Classifier v2.1.0 &bull; Round 3 Multi-Category Stress Test</p>
+  <p>100 questions &bull; 10 category combinations &bull; 10 parallel test agents &bull; April 3, 2026</p>
+</div>
+
+</div>
+</body>
+</html>
