@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutchie AI Risk Register & Mitigation Strategy</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232736;
+    --border: #2e3347;
+    --text: #e1e4ed;
+    --text-muted: #8b90a0;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --urgent: #ff4757;
+    --urgent-bg: rgba(255,71,87,0.12);
+    --high: #ff6b35;
+    --high-bg: rgba(255,107,53,0.12);
+    --medium: #ffa502;
+    --medium-bg: rgba(255,165,2,0.12);
+    --low: #2ed573;
+    --low-bg: rgba(46,213,115,0.12);
+    --green: #2ed573;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Lock Screen */
+  #lock-screen {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  #lock-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .lock-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+  .lock-icon {
+    width: 64px; height: 64px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 28px;
+  }
+  .lock-box h2 { font-size: 22px; margin-bottom: 8px; }
+  .lock-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+  .lock-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .lock-input:focus { border-color: var(--accent); }
+  .lock-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+  }
+  .lock-btn:hover { background: #5a4bd1; }
+  .lock-error {
+    color: var(--urgent);
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* Main Content */
+  #main-content { display: none; }
+  #main-content.visible { display: block; }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 0;
+  }
+  .header-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--urgent-bg); color: var(--urgent);
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 12px;
+  }
+  header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+  header p { color: var(--text-muted); margin-top: 6px; font-size: 15px; }
+  .header-meta {
+    display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-muted); font-size: 13px;
+  }
+  .meta-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .stat-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 32px; font-weight: 700; margin-top: 4px; }
+  .stat-sub { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+
+  /* Tool sections */
+  .tool-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .tool-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .tool-header:hover { background: var(--surface2); }
+  .tool-info { display: flex; align-items: center; gap: 14px; }
+  .tool-icon {
+    width: 44px; height: 44px;
+    background: var(--surface2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .tool-name { font-size: 17px; font-weight: 600; }
+  .tool-desc { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+  .form-factors {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .ff-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .risk-badges { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+  .chevron {
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  .tool-section.open .chevron { transform: rotate(180deg); }
+
+  .tool-body {
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+  .tool-section.open .tool-body { display: block; }
+
+  /* Risk rows */
+  .risk-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 1fr;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .risk-row:last-child { border-bottom: none; }
+  .risk-row-header {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    background: var(--surface2);
+    padding: 10px 24px;
+  }
+
+  .risk-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .risk-urgent { background: var(--urgent-bg); color: var(--urgent); }
+  .risk-high { background: var(--high-bg); color: var(--high); }
+  .risk-medium { background: var(--medium-bg); color: var(--medium); }
+  .risk-low { background: var(--low-bg); color: var(--low); }
+
+  .risk-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .risk-desc { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
+  .mitigation-status {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; margin-bottom: 6px; font-weight: 600;
+  }
+  .mit-implemented { color: var(--green); }
+  .mit-partial { color: var(--medium); }
+  .mit-none { color: var(--urgent); }
+
+  /* Recommendations */
+  .recs-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    margin: 40px 0 60px;
+  }
+  .recs-section h2 {
+    font-size: 22px;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rec-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 40px 1fr 100px;
+    gap: 16px;
+    align-items: start;
+  }
+  .rec-num {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px;
+  }
+  .rec-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .rec-body { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+  .rec-priority { text-align: right; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .risk-row { grid-template-columns: 1fr; }
+    .risk-row-header { display: none; }
+    .rec-card { grid-template-columns: 1fr; }
+    header h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-box">
+    <div class="lock-icon">&#128274;</div>
+    <h2>Restricted Access</h2>
+    <p>This document contains sensitive security risk assessments. Enter the access password to continue.</p>
+    <input type="password" id="pw-input" class="lock-input" placeholder="Enter password" autofocus>
+    <button class="lock-btn" onclick="unlock()">Unlock</button>
+    <div class="lock-error" id="pw-error">Incorrect password. Access denied.</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+
+<header>
+  <div class="container">
+    <div class="header-top">
+      <div>
+        <div class="header-badge">&#9888; Confidential</div>
+        <h1>Dutchie AI Risk Register</h1>
+        <p>Comprehensive risk assessment and mitigation strategy for all AI tools and form factors</p>
+        <div class="header-meta">
+          <div class="meta-item"><span class="meta-dot" style="background:var(--green)"></span> Last Updated: April 3, 2026</div>
+          <div class="meta-item"><span class="meta-dot" style="background:var(--accent)"></span> 8 AI Tools Assessed</div>
+          <div class="meta-item"><span class="meta-dot" style="background:var(--urgent)"></span> 24 Risks Identified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-label">Urgent Risks</div>
+      <div class="stat-value" style="color:var(--urgent)">4</div>
+      <div class="stat-sub">Require immediate action</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">High Risks</div>
+      <div class="stat-value" style="color:var(--high)">8</div>
+      <div class="stat-sub">Active mitigation needed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Medium Risks</div>
+      <div class="stat-value" style="color:var(--medium)">7</div>
+      <div class="stat-sub">Monitoring required</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Low Risks</div>
+      <div class="stat-value" style="color:var(--low)">5</div>
+      <div class="stat-sub">Acceptable with controls</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Mitigations In Place</div>
+      <div class="stat-value" style="color:var(--accent-light)">18</div>
+      <div class="stat-sub">Of 24 risks addressed</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 1: TILDA -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section open">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#129302;</div>
+        <div>
+          <div class="tool-name">Tilda (Internal AI Assistant)</div>
+          <div class="tool-desc">Dutchie's custom AI assistant with access to GitHub, JIRA, Slack, Datadog, Confluence, and more</div>
+          <div class="form-factors">
+            <span class="ff-tag">Slack Bot</span>
+            <span class="ff-tag">Web App (tilda.dev.dexus.io)</span>
+            <span class="ff-tag">MCP in Claude Code</span>
+            <span class="ff-tag">MCP in Cursor</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-urgent">1 Urgent</span>
+        <span class="risk-badge risk-high">1 High</span>
+        <span class="risk-badge risk-medium">1 Medium</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-urgent">Urgent</span></div>
+        <div>
+          <div class="risk-title">Broad System Access & Privilege Escalation</div>
+          <div class="risk-desc">Tilda has integrated access to GitHub, JIRA, Slack, Datadog, and Confluence. A prompt injection or model exploit could chain these tools to exfiltrate data, modify tickets, or post messages as the user across multiple systems simultaneously.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Cloudflare WARP required for access. Server-side credential management (no local API keys). User attribution via $USER header on Datadog queries.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No per-tool permission scoping. No rate limiting on cross-system actions. No approval workflow for destructive operations (e.g., posting to Slack channels, closing JIRA tickets).</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">Sensitive Data Exposure via Conversational Interface</div>
+          <div class="risk-desc">Slack bot and web interfaces allow any employee to query internal systems conversationally. Users may inadvertently surface PII, credentials, or compliance-sensitive data (dispensary financials, customer records) and share it in Slack channels.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Private conversation mode (isPrivate: true by default). Model routing allows selection of appropriate model tier.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No DLP (Data Loss Prevention) filters on output. No content classification on responses. Slack messages may persist in channel history even when containing sensitive data.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Audit Trail Gaps Across Form Factors</div>
+          <div class="risk-desc">Tilda operates across Slack, web, and MCP contexts. Queries and actions may not have unified logging, making it difficult to trace who accessed what information across all surfaces during an incident investigation.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">X-User attribution header on Datadog MCP. Slack has native message logging. Web interface served over HTTPS.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No centralized audit log aggregating activity across all Tilda form factors. No alerting on anomalous query patterns.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 2: CLAUDE CODE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#128187;</div>
+        <div>
+          <div class="tool-name">Claude Code (CLI Agent)</div>
+          <div class="tool-desc">Anthropic's official CLI for Claude with full filesystem, shell, and tool access</div>
+          <div class="form-factors">
+            <span class="ff-tag">CLI (Terminal)</span>
+            <span class="ff-tag">VS Code Extension</span>
+            <span class="ff-tag">JetBrains Extension</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-urgent">1 Urgent</span>
+        <span class="risk-badge risk-high">1 High</span>
+        <span class="risk-badge risk-medium">1 Medium</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-urgent">Urgent</span></div>
+        <div>
+          <div class="risk-title">Unrestricted Shell Execution & Code Modification</div>
+          <div class="risk-desc">Claude Code has full shell access and can execute arbitrary commands, edit any file, and install packages. A prompt injection via a malicious CLAUDE.md or dependency could lead to supply chain compromise, credential theft, or destructive file operations.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-implemented">&#9679; Implemented</div>
+          <div class="risk-desc">Permission mode system (user approval for risky actions). Git safety restrictions (no force push, no push to main/master/develop). Sandbox mode for bash commands. Prompt injection detection with user flagging.</div>
+        </div>
+        <div>
+          <div class="risk-desc">Bypass possible via "bypassPermissions" mode. No network egress filtering. Users can approve dangerous actions without full understanding of implications.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">Plugin & MCP Supply Chain Risk</div>
+          <div class="risk-desc">The Dutchie Claude plugins marketplace allows installing plugins with MCP servers, hooks, and skills. A compromised or malicious plugin could inject instructions, intercept data, or establish persistence via hooks that execute on every tool call.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Internal marketplace with CODEOWNERS review. Plugin validation CI workflow. Two release channels (main/edge) with promotion process. MCP audit skill available.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No code signing for plugins. No runtime sandboxing of MCP servers. Edge channel plugins may bypass thorough review. No automated security scanning of plugin code.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Intellectual Property Leakage to Model Provider</div>
+          <div class="risk-desc">All code context, file contents, and terminal output sent to Claude Code is transmitted to Anthropic's API. Proprietary business logic, database schemas, and internal architecture details are exposed to the model provider.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Anthropic's data usage policy (no training on API data). Enterprise agreements likely in place. VAPE environments are ephemeral and isolated.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No on-premise model option in production use. No content filtering for outbound API calls. No classification system to prevent highly sensitive code from being sent.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 3: VAPE / BildA -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#9729;&#65039;</div>
+        <div>
+          <div class="tool-name">VAPE + BildA (Cloud Dev Environment)</div>
+          <div class="tool-desc">Virtual AI Programming Environment with autonomous coding agent, running in Kubernetes with database sidecars</div>
+          <div class="form-factors">
+            <span class="ff-tag">Web Terminal</span>
+            <span class="ff-tag">Kubernetes Pod</span>
+            <span class="ff-tag">MCP Proc Manager</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-high">2 High</span>
+        <span class="risk-badge risk-medium">1 Medium</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">Container Escape & Lateral Movement</div>
+          <div class="risk-desc">VAPE environments run as Kubernetes pods with database sidecars (Postgres, Redis, SQL Server, MongoDB) on localhost. A container escape or misconfigured network policy could allow access to other pods, cluster services, or cloud metadata endpoints.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-implemented">&#9679; Implemented</div>
+          <div class="risk-desc">Filesystem restricted to /root/. Ephemeral environments. Isolated K8s pods. Database sidecars use default credentials only accessible within the pod.</div>
+        </div>
+        <div>
+          <div class="risk-desc">Default database credentials (postgres/postgres, sa/LLX-admin). Outbound internet access enabled. No pod security policies documented. Cloud metadata endpoint access not confirmed blocked.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">Autonomous Agent Code Execution Without Boundaries</div>
+          <div class="risk-desc">BildA operates as a fully autonomous coding agent with shell access, file editing, git operations, and process management. It can add/remove procs, restart services, and push code to GitHub with pre-authenticated credentials.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Git branch restrictions (no push to main/master/develop). Feature branch workflow enforced. Permission mode for risky operations. Pre-authenticated gh CLI with scoped tokens.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No resource consumption limits on agent actions. No time-boxed sessions. No maximum operation count per session. Agent can install arbitrary packages from the internet.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Sensitive Data in Ephemeral Environments</div>
+          <div class="risk-desc">VAPE environments clone full repositories and inject database connection strings and credentials as environment variables. If environment cleanup fails or snapshots persist, credentials and code may remain accessible.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Environments designed as ephemeral. Credentials injected via env vars (not stored in files). Isolated per-user pods.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No confirmed TTL or auto-cleanup for stale environments. Database sidecar credentials are static and well-known. No secrets rotation policy documented.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 4: CURSOR -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#9998;&#65039;</div>
+        <div>
+          <div class="tool-name">Cursor (AI Code Editor)</div>
+          <div class="tool-desc">AI-powered IDE with Claude integration, plugin support, and MCP server connections</div>
+          <div class="form-factors">
+            <span class="ff-tag">Desktop IDE</span>
+            <span class="ff-tag">MCP Plugin Host</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-high">1 High</span>
+        <span class="risk-badge risk-medium">1 Medium</span>
+        <span class="risk-badge risk-low">1 Low</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">Uncontrolled AI-Generated Code in Production Pipelines</div>
+          <div class="risk-desc">Cursor enables rapid AI-assisted code generation directly in the IDE. Developers may commit AI-generated code without sufficient review, introducing vulnerabilities (OWASP Top 10), logic errors, or backdoors into production codebases.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">PR review process via GitHub. CI/CD pipeline with automated checks. Branch protection rules. CODEOWNERS enforcement.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No AI-specific code review checklist. No automated detection of AI-generated code. No security scanning targeted at common AI code generation patterns (e.g., hardcoded secrets, SQL injection).</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Third-Party Data Routing via Cursor</div>
+          <div class="risk-desc">Cursor routes code context through its own servers in addition to model providers. Source code, file contents, and project structure are transmitted to both Cursor Inc. and the underlying model provider, expanding the data exposure surface.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-none">&#9679; None</div>
+          <div class="risk-desc">No documented mitigations specific to Cursor's data handling.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No DPA (Data Processing Agreement) status confirmed with Cursor. No option to self-host Cursor's AI backend. No content filtering on what's sent to Cursor servers.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-low">Low</span></div>
+        <div>
+          <div class="risk-title">Plugin Compatibility & Configuration Drift</div>
+          <div class="risk-desc">Dutchie plugins installed in Cursor may behave differently than in Claude Code. MCP server configurations, permission models, and tool availability may diverge, leading to inconsistent security posture across developer environments.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">MCP audit skill (/mcp-audit) available for detecting duplicates and misconfigurations. Centralized marketplace for plugin distribution.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No enforced configuration management across developer machines. No telemetry on plugin versions in use across the org.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 5: DATADOG AI / MCP -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#128202;</div>
+        <div>
+          <div class="tool-name">Datadog MCP (Observability AI Access)</div>
+          <div class="tool-desc">AI-powered querying of monitors, dashboards, logs, spans, metrics, and synthetic tests via MCP</div>
+          <div class="form-factors">
+            <span class="ff-tag">MCP in Claude Code</span>
+            <span class="ff-tag">MCP in Cursor</span>
+            <span class="ff-tag">Via Tilda (Slack/Web)</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-high">1 High</span>
+        <span class="risk-badge risk-medium">1 Medium</span>
+        <span class="risk-badge risk-low">1 Low</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">Shared Server-Side Credentials</div>
+          <div class="risk-desc">The Datadog MCP server uses shared server-side API keys at mcp.dev.dexus.io. All users access Datadog through the same credentials, meaning individual access cannot be revoked without affecting all users. A compromise of the MCP server exposes full Datadog API access.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Cloudflare WARP required (Zero Trust network). X-User header for attribution. Server deployed in K8s with ArgoCD (controlled deployment pipeline).</div>
+        </div>
+        <div>
+          <div class="risk-desc">No per-user API key scoping. No granular permission model (read-only vs. write). Users can create/delete monitors, dashboards, and synthetic tests via MCP.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Log & Trace Data Exfiltration via AI Queries</div>
+          <div class="risk-desc">AI tools can search logs, spans, and metrics programmatically. An attacker or curious employee could use natural language queries to systematically extract sensitive data from logs (PII, tokens, internal IPs) faster than through the Datadog UI.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Datadog's built-in sensitive data scanner. Log pipeline redaction rules. Attribution header tracks who queried what.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No query volume alerting specific to MCP access. No restrictions on query scope or time range. AI can aggregate and correlate data across services more efficiently than manual access.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-low">Low</span></div>
+        <div>
+          <div class="risk-title">Accidental Monitor/Dashboard Modification</div>
+          <div class="risk-desc">The MCP exposes create, update, and delete operations for monitors, dashboards, notebooks, and synthetic tests. An AI agent acting on ambiguous instructions could accidentally modify or delete critical monitoring infrastructure.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-implemented">&#9679; Implemented</div>
+          <div class="risk-desc">Claude Code permission system requires user approval for tool calls. Datadog has dashboard/monitor version history. Changes are audited in Datadog's event stream.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No "read-only" mode for the MCP. Approval fatigue may lead users to auto-approve destructive operations.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 6: LAUNCHDARKLY AI ACCESS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#127988;</div>
+        <div>
+          <div class="tool-name">LaunchDarkly (Feature Flag AI Access)</div>
+          <div class="tool-desc">AI-powered feature flag inspection, targeting analysis, and rollout status via ldcli</div>
+          <div class="form-factors">
+            <span class="ff-tag">CLI (ldcli) in Claude Code</span>
+            <span class="ff-tag">CLI in VAPE</span>
+            <span class="ff-tag">Via Tilda (Slack/Web)</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-medium">2 Medium</span>
+        <span class="risk-badge risk-low">1 Low</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Feature Flag State Reconnaissance</div>
+          <div class="risk-desc">AI tools can rapidly enumerate all feature flags, their states, targeting rules, and variations across environments. This creates a comprehensive map of unreleased features, A/B tests, and gradual rollouts that could be leaked or exploited.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">LaunchDarkly project-scoped access. CLI requires authenticated session. Read-only access documented in skill.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No restriction on bulk flag enumeration. No alerting when all flags in a project are queried. Feature flag names may reveal business strategy.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-medium">Medium</span></div>
+        <div>
+          <div class="risk-title">Compliance Flag Misconfiguration Exposure</div>
+          <div class="risk-desc">AI-assisted triage workflows (escalation triage skill) automatically query LaunchDarkly flags during incident investigation. If compliance-related flags (age verification, geo-restrictions) are misconfigured, AI may surface this broadly before it's remediated.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-none">&#9679; None</div>
+          <div class="risk-desc">No specific mitigations for compliance-flag exposure through AI tools.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No classification of flags by sensitivity level. No restricted access for compliance-critical flags. Triage output may be shared in Slack channels.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-low">Low</span></div>
+        <div>
+          <div class="risk-title">Stale Flag Analysis Leading to Incorrect Decisions</div>
+          <div class="risk-desc">AI may analyze flag states that are cached or stale, leading to incorrect triage recommendations or deployment decisions based on outdated targeting rules.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-implemented">&#9679; Implemented</div>
+          <div class="risk-desc">CLI queries LaunchDarkly API directly (real-time). Triage skill designed to check current state. Human review step in triage workflow.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No timestamp validation on flag query results presented to users.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 7: SNOWFLAKE AI ACCESS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#10052;&#65039;</div>
+        <div>
+          <div class="tool-name">Snowflake (Data Warehouse AI Access)</div>
+          <div class="tool-desc">AI-powered SQL queries against production data warehouse containing products, orders, customers, and dispensary data</div>
+          <div class="form-factors">
+            <span class="ff-tag">CLI (snow) in Claude Code</span>
+            <span class="ff-tag">CLI in VAPE</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-urgent">1 Urgent</span>
+        <span class="risk-badge risk-high">1 High</span>
+        <span class="risk-badge risk-low">1 Low</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-urgent">Urgent</span></div>
+        <div>
+          <div class="risk-title">Mass PII & Regulated Data Extraction</div>
+          <div class="risk-desc">Snowflake contains customer records, order histories, dispensary financials, and inventory data for a cannabis industry company. AI can generate and execute SQL queries to extract large volumes of regulated PII (medical/recreational purchase history) far faster than manual access.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Okta SSO authentication required (externalbrowser flow). Snowflake role-based access control. Credential caching with chmod 0600. Per-user session tokens.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No query result size limits enforced by AI tools. No DLP scanning on query results before display. No alerting on bulk data extraction patterns via AI. Cannabis purchase data subject to state-specific regulations.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">AI-Generated SQL Injection & Data Corruption</div>
+          <div class="risk-desc">AI may generate malicious or malformed SQL that modifies, deletes, or corrupts production data warehouse tables if write access is available. Even SELECT queries with complex JOINs could cause performance degradation on production workloads.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Snowflake role-based permissions likely restrict write access. Query history audit in Snowflake. Resource monitors available.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No confirmed read-only role enforcement for AI-generated queries. No query cost/resource limits specific to AI tool access. No SQL review step before execution.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-low">Low</span></div>
+        <div>
+          <div class="risk-title">Schema & Business Logic Exposure</div>
+          <div class="risk-desc">AI tools can inspect database schemas, table structures, and column names which reveal business domain modeling and internal data relationships. This metadata could inform competitive intelligence if leaked.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-implemented">&#9679; Implemented</div>
+          <div class="risk-desc">Snowflake RBAC limits schema visibility. SSO with org-scoped access. Standard data governance policies.</div>
+        </div>
+        <div>
+          <div class="risk-desc">Schema information transmitted to AI model providers as part of query context.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOOL 8: RETOOL DB / GITHUB COPILOT / CLOUDFLARE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="tool-section">
+    <div class="tool-header" onclick="toggle(this)">
+      <div class="tool-info">
+        <div class="tool-icon">&#128295;</div>
+        <div>
+          <div class="tool-name">Retool DB + Cloudflare MCP (Admin & Infrastructure AI)</div>
+          <div class="tool-desc">AI access to user/org administration database and full Cloudflare API for DNS, Workers, WAF, and Zero Trust</div>
+          <div class="form-factors">
+            <span class="ff-tag">Retool CLI in Claude Code</span>
+            <span class="ff-tag">Cloudflare MCP in Claude Code</span>
+            <span class="ff-tag">Cloudflare MCP in Cursor</span>
+          </div>
+        </div>
+      </div>
+      <div class="risk-badges">
+        <span class="risk-badge risk-urgent">1 Urgent</span>
+        <span class="risk-badge risk-high">1 High</span>
+        <span class="risk-badge risk-low">1 Low</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+    </div>
+    <div class="tool-body">
+      <div class="risk-row risk-row-header">
+        <div>Severity</div><div>Risk</div><div>Existing Mitigations</div><div>Gaps</div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-urgent">Urgent</span></div>
+        <div>
+          <div class="risk-title">AI-Driven Infrastructure Modification (Cloudflare)</div>
+          <div class="risk-desc">The Cloudflare MCP provides full API access including DNS record modification, WAF rule changes, Worker deployments, and Zero Trust policy updates. An AI agent acting on vague instructions could misconfigure DNS (causing outages), disable WAF rules (exposing vulnerabilities), or modify Zero Trust policies (bypassing access controls).</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">OAuth-based authentication. Claude Code permission prompts for tool calls. Cloudflare audit logs. Changes reversible in Cloudflare dashboard.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No read-only mode for Cloudflare MCP. No change approval workflow. No blast radius analysis before infrastructure changes. Single OAuth token grants full API access.</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-high">High</span></div>
+        <div>
+          <div class="risk-title">User Admin Privilege Escalation (Retool DB)</div>
+          <div class="risk-desc">Retool DB plugin provides direct PostgreSQL access to user administration tables including admin role assignments, org/space management, and group memberships. AI-assisted queries could grant unauthorized admin access or modify user permissions at scale.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-partial">&#9679; Partial</div>
+          <div class="risk-desc">Database constraints (users and groups must be in same org). Pulumi-managed infrastructure. Standard PostgreSQL access controls.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No write-operation approval workflow. No separation of read vs. write access for AI tools. No alerting on privilege escalation patterns (e.g., admin role grants).</div>
+        </div>
+      </div>
+      <div class="risk-row">
+        <div><span class="risk-badge risk-low">Low</span></div>
+        <div>
+          <div class="risk-title">Configuration Drift Between AI-Managed and Manual Resources</div>
+          <div class="risk-desc">When AI tools modify Cloudflare configurations or Retool database records, these changes may not be reflected in infrastructure-as-code (Pulumi, Terraform) or documentation, leading to drift between actual and documented state.</div>
+        </div>
+        <div>
+          <div class="mitigation-status mit-none">&#9679; None</div>
+          <div class="risk-desc">No specific mitigations for IaC drift from AI-initiated changes.</div>
+        </div>
+        <div>
+          <div class="risk-desc">No automated drift detection for AI-made changes. No requirement to update IaC after AI-assisted modifications.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOP 5 RECOMMENDATIONS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="recs-section">
+    <h2>&#128640; Top 5 Recommendations</h2>
+
+    <div class="rec-card">
+      <div class="rec-num">1</div>
+      <div>
+        <div class="rec-title">Implement AI-Specific DLP (Data Loss Prevention) Layer</div>
+        <div class="rec-body">
+          <strong>Addresses:</strong> Tilda sensitive data exposure, Snowflake mass PII extraction, Datadog log exfiltration<br><br>
+          Deploy a DLP proxy layer between AI tools and data sources that classifies and redacts sensitive data (PII, PHI, financial records, cannabis purchase history) before it reaches model providers or is displayed in chat interfaces. This is the single highest-impact control given Dutchie's position in a regulated industry where customer purchase data carries elevated compliance obligations. Implement query result size limits, PII detection on outputs, and alerting on bulk extraction patterns. Priority targets: Snowflake query results, Datadog log searches, and Tilda Slack responses.
+        </div>
+      </div>
+      <div class="rec-priority"><span class="risk-badge risk-urgent">Urgent</span></div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">2</div>
+      <div>
+        <div class="rec-title">Enforce Read-Only Defaults with Explicit Write Escalation</div>
+        <div class="rec-body">
+          <strong>Addresses:</strong> Cloudflare infrastructure modification, Retool privilege escalation, Datadog monitor deletion, accidental destructive operations<br><br>
+          All MCP servers and AI tool integrations should default to read-only access. Write operations (creating monitors, modifying DNS, granting admin roles, updating WAF rules) should require an explicit escalation step: either a separate authentication challenge, a mandatory approval from a second team member, or a time-limited write token. This follows the principle of least privilege and dramatically reduces the blast radius of prompt injection attacks, model hallucinations, or user error. Implement this first for Cloudflare MCP and Retool DB, then extend to Datadog.
+        </div>
+      </div>
+      <div class="rec-priority"><span class="risk-badge risk-urgent">Urgent</span></div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">3</div>
+      <div>
+        <div class="rec-title">Centralized AI Audit Log & Anomaly Detection</div>
+        <div class="rec-body">
+          <strong>Addresses:</strong> Tilda cross-surface audit gaps, attribution gaps, insider threat detection, compliance reporting<br><br>
+          Build a unified audit log that aggregates all AI tool interactions across every form factor: Tilda (Slack, web, MCP), Claude Code (CLI, IDE), Cursor, VAPE/BildA, and all MCP servers. Each log entry should capture: user identity, tool invoked, query/action performed, data accessed, and timestamp. Feed this into Datadog with anomaly detection monitors that alert on: unusual query volumes, after-hours access patterns, bulk data retrieval, privilege escalation attempts, and cross-system action chains. This is essential for incident response and regulatory compliance in the cannabis industry.
+        </div>
+      </div>
+      <div class="rec-priority"><span class="risk-badge risk-high">High</span></div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">4</div>
+      <div>
+        <div class="rec-title">Plugin Security Hardening & Supply Chain Controls</div>
+        <div class="rec-body">
+          <strong>Addresses:</strong> Plugin supply chain risk, MCP server compromise, hook-based persistence, configuration drift<br><br>
+          Harden the Dutchie Claude plugins marketplace with: (a) code signing for all published plugins using a Dutchie-controlled signing key, (b) automated security scanning (SAST/SBom) in the plugin validation CI workflow, (c) runtime sandboxing for MCP servers (restrict network access, filesystem access, and available system calls), (d) mandatory security review for any plugin that registers hooks (which execute on every tool call), and (e) enforced plugin version management with automatic alerts when developers run outdated versions. Move the edge channel behind an explicit security review gate.
+        </div>
+      </div>
+      <div class="rec-priority"><span class="risk-badge risk-high">High</span></div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">5</div>
+      <div>
+        <div class="rec-title">Per-User Credential Scoping & Token Rotation</div>
+        <div class="rec-body">
+          <strong>Addresses:</strong> Datadog shared credentials, VAPE default database passwords, GitHub token scope, Cloudflare single OAuth token<br><br>
+          Replace shared server-side credentials with per-user scoped tokens wherever possible. For the Datadog MCP, implement per-user API keys or a token-brokering service that issues short-lived, scoped tokens. Rotate VAPE sidecar database credentials per-session instead of using static defaults (postgres/postgres, sa/LLX-admin). Scope GitHub CLI tokens to the minimum required permissions for each user's role. For Cloudflare, implement token scoping by zone/service rather than granting full API access. This ensures that compromising one user's session doesn't grant access to all systems, and enables precise revocation during incidents.
+        </div>
+      </div>
+      <div class="rec-priority"><span class="risk-badge risk-high">High</span></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <div class="container">
+    Dutchie AI Risk Register &mdash; Confidential &mdash; Generated April 3, 2026 &mdash; Classification: Internal Use Only
+  </div>
+</footer>
+
+</div><!-- /main-content -->
+
+<script>
+  // Password: DutchAISecTilda
+  const PASS_HASH = 'DutchAISecTilda';
+
+  function unlock() {
+    const input = document.getElementById('pw-input');
+    const error = document.getElementById('pw-error');
+    if (input.value === PASS_HASH) {
+      document.getElementById('lock-screen').classList.add('hidden');
+      document.getElementById('main-content').classList.add('visible');
+    } else {
+      error.style.display = 'block';
+      input.value = '';
+      input.focus();
+      setTimeout(() => { error.style.display = 'none'; }, 3000);
+    }
+  }
+
+  document.getElementById('pw-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') unlock();
+  });
+
+  function toggle(header) {
+    header.closest('.tool-section').classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
