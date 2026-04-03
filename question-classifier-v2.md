@@ -6,7 +6,7 @@ description: |
   - The question spans multiple topics (e.g. pricing + product behavior)
   - Tilda needs to decide HOW to respond, not just what to look up
   - Any question arrives without a more specific skill already activating
-version: 2.1.0
+version: 2.2.0
 triggers:
   keywords:
     - "how does"
@@ -245,8 +245,10 @@ If release date cannot be confirmed from a primary source after checking all ava
 
 3. **Never answer a pricing comparison question.** Redirect to RevOps: "For pricing comparisons, please reach out to RevOps." Do not provide any dollar amounts, pricing tiers, or cost comparisons for any company (including Dutchie) in a competitive context.
 
-4. **Every competitive response must include this footer:**
+4. **Every competitive response must include this exact footer (copy verbatim):**
    > Before sharing any competitive information externally, please tag @Bryan and @Sam for review.
+
+   This footer is mandatory on every competitive response — do not paraphrase, shorten, or omit it.
 
 5. **Source restriction**: Only use official Dutchie competitive battlecards and PMM-maintained positioning docs in Confluence. Never use web search, G2, press coverage, review sites, LinkedIn, job boards, or any third-party source.
 
@@ -282,7 +284,7 @@ When a question triggers **two or more categories**:
 
 1. Identify all matching categories
 2. Run each category's protocol independently
-3. Assemble a single response with clearly labeled sections — e.g.:
+3. **Use bold headers to label each category section** (e.g. **Product behavior** / **Pricing** / **Bug triage**). Even when categories overlap (e.g., Cat 3 + Cat 5 both involve JIRA), keep them as separate labeled sections. Example:
 
 ```
 **Product behavior**
@@ -294,10 +296,16 @@ When a question triggers **two or more categories**:
 
 4. Apply the most conservative escalation rule across all matched categories (e.g. if one category requires tagging @Bryan, do it for the whole response)
 5. Never blend two categories into a single unstructured answer — keep sections distinct so the rep can act on each part independently
+6. **Pre-send checklist** — before responding, verify:
+   - Every identified category has its own labeled section
+   - Every mandatory first step was executed (JIRA search for Cat 3/5, LD lookup for Cat 4)
+   - Every mandatory footer is present (@Bryan/@Sam footer for Cat 9)
 
 ---
 
-## Example
+## Examples
+
+### 2-category example
 
 **Question**: "Why isn't the loyalty discount applying at checkout for dispensary X, and is there a known bug for this?"
 
@@ -311,6 +319,23 @@ When a question triggers **two or more categories**:
 **Bug triage**
 Searching JIRA now for a known issue with loyalty discounts at checkout...
 [JIRA result returned here — ticket number, status, workaround if exists]
+
+### 3-category example
+
+**Question**: "Is there a doc on our METRC integration? I think there's a bug with compliance reporting — can you also check if there's already a ticket?"
+
+**Categories detected**: Integration & API (6) + Bug Triage (3) + Ticket Creation (5)
+
+**Response**:
+
+**Integration**
+[Confluence runbook link for METRC integration]
+
+**Bug triage**
+[JIRA search results for METRC compliance reporting bugs]
+
+**Ticket check**
+[JIRA dedup search — surface existing ticket or confirm none found]
 
 ---
 
