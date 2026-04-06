@@ -1,0 +1,2128 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  DUTCHIE — APRIL 2026 PRODUCT UPDATES                         ║
+  ║  Webflow Custom Code Conversion                                ║
+  ║                                                                ║
+  ║  This file contains 3 sections to paste into Webflow:          ║
+  ║                                                                ║
+  ║  SECTION 1: CSS        → Page Settings > Custom Code > Head    ║
+  ║  SECTION 2: HTML BODY  → Embed element on the page             ║
+  ║  SECTION 3: JAVASCRIPT → Page Settings > Custom Code > Footer  ║
+  ║                                                                ║
+  ║  Source: https://vape-pages.dutchie.dev/april-update-v15/      ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 1: HEAD CUSTOM CODE
+     Paste into: Page Settings > Custom Code > Inside <head> tag
+     
+     This includes:
+     - Google Fonts (Inter)
+     - Storylane SDK
+     - All scoped CSS (.april-update prefix prevents style leaks)
+     
+     NOTE: The global CSS reset (*, *::before, *::after) has been
+     removed to avoid breaking Webflow's built-in styles.
+
+     SIDEBAR NOTE: The sidebar uses position:fixed with top:0.
+     If your Webflow nav overlaps it, add this override after the
+     main <style> block:
+
+       .april-update .au-sidebar { top: 80px; height: calc(100vh - 80px); }
+       .april-update .au-hero { padding-top: 120px; }
+
+     Replace 80px with your actual Webflow nav height.
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script async src="https://js.storylane.io/js/v2/storylane.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   APRIL 2026 PRODUCT UPDATE — SCOPED STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Global reset removed for Webflow compatibility */
+
+.april-update {
+  font-family: 'Inter', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #042017;
+  color: #F1EBD6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+
+.april-update .au-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  margin-left: 260px;
+}
+
+.april-update .au-hero-mesh {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.april-update .au-blob {
+  position: absolute;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: border-radius, transform;
+}
+
+.april-update .au-blob-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #003D29 0%, transparent 70%);
+  top: -10%; left: -5%;
+  animation: au-morph1 12s ease-in-out infinite alternate;
+}
+
+.april-update .au-blob-2 {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, #5E324E 0%, transparent 70%);
+  top: 20%; right: -8%;
+  animation: au-morph2 14s ease-in-out infinite alternate;
+}
+
+.april-update .au-blob-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #6AB448 0%, transparent 70%);
+  bottom: -5%; left: 30%;
+  opacity: 0.3;
+  animation: au-morph3 10s ease-in-out infinite alternate;
+}
+
+.april-update .au-blob-4 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #FFC02A 0%, transparent 70%);
+  bottom: 15%; right: 20%;
+  opacity: 0.2;
+  animation: au-morph4 16s ease-in-out infinite alternate;
+}
+
+@keyframes au-morph1 {
+  0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1); }
+  33%  { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: translate(30px, -20px) scale(1.05); }
+  66%  { border-radius: 50% 50% 30% 70% / 60% 40% 70% 30%; transform: translate(-20px, 30px) scale(0.95); }
+  100% { border-radius: 30% 70% 60% 40% / 50% 70% 30% 60%; transform: translate(15px, 15px) scale(1.02); }
+}
+
+@keyframes au-morph2 {
+  0%   { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; transform: translate(0, 0) rotate(0deg) scale(1); }
+  50%  { border-radius: 30% 70% 60% 40% / 70% 30% 50% 50%; transform: translate(-40px, 20px) rotate(10deg) scale(1.08); }
+  100% { border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%; transform: translate(20px, -30px) rotate(-5deg) scale(0.95); }
+}
+
+@keyframes au-morph3 {
+  0%   { border-radius: 70% 30% 50% 50% / 60% 40% 60% 40%; transform: translate(0, 0) scale(1); }
+  50%  { border-radius: 40% 60% 60% 40% / 50% 50% 40% 60%; transform: translate(40px, -15px) scale(1.1); }
+  100% { border-radius: 55% 45% 35% 65% / 45% 55% 65% 35%; transform: translate(-25px, 25px) scale(0.92); }
+}
+
+@keyframes au-morph4 {
+  0%   { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: translate(0, 0) scale(1); }
+  33%  { border-radius: 65% 35% 45% 55% / 35% 65% 55% 45%; transform: translate(-30px, -25px) scale(1.06); }
+  66%  { border-radius: 35% 65% 55% 45% / 65% 35% 45% 55%; transform: translate(25px, 20px) scale(0.94); }
+  100% { border-radius: 45% 55% 65% 35% / 55% 45% 35% 65%; transform: translate(10px, -10px) scale(1.03); }
+}
+
+.april-update .au-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 760px;
+  padding: 0 24px;
+}
+
+.april-update .au-ghost-text {
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 900;
+  color: #F1EBD6;
+  opacity: 0.15;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  user-select: none;
+  margin-bottom: -20px;
+}
+
+.april-update .au-hero-title {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  color: #F1EBD6;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.april-update .au-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px auto;
+}
+
+.april-update .au-divider-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(241,235,214,0.3));
+}
+
+.april-update .au-divider-line:last-child {
+  background: linear-gradient(90deg, rgba(241,235,214,0.3), transparent);
+}
+
+.april-update .au-divider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFC02A;
+  box-shadow: 0 0 12px rgba(255,192,42,0.6), 0 0 24px rgba(255,192,42,0.3);
+  animation: au-pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes au-pulse-dot {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,192,42,0.6), 0 0 24px rgba(255,192,42,0.3); }
+  50%      { box-shadow: 0 0 18px rgba(255,192,42,0.8), 0 0 36px rgba(255,192,42,0.4); }
+}
+
+.april-update .au-hero-intro {
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.7;
+  color: rgba(241,235,214,0.85);
+  max-width: 720px;
+  margin: 0 auto 48px;
+  font-weight: 400;
+}
+
+.april-update .au-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.april-update .au-stat-box {
+  background: rgba(241,235,214,0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 14px;
+  padding: 24px 12px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.april-update .au-stat-box:hover {
+  border-color: rgba(241,235,214,0.2);
+  transform: translateY(-2px);
+}
+
+.april-update .au-stat-number {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: #FFC02A;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.april-update .au-stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(241,235,214,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.april-update .au-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+  animation: au-bounce-hint 2s ease-in-out infinite;
+}
+
+.april-update .au-scroll-hint span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.april-update .au-scroll-hint svg {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes au-bounce-hint {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── BELOW THE FOLD LAYOUT ─────────────────────────────────── */
+
+.april-update .au-body {
+  display: block;
+  position: relative;
+  min-height: 100vh;
+  margin-left: 260px;
+}
+
+/* ── SIDEBAR TOC ───────────────────────────────────────────── */
+
+.april-update .au-sidebar {
+  width: 260px;
+  min-width: 260px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: rgba(4,32,23,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(241,235,214,0.08);
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.april-update .au-toc-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(241,235,214,0.35);
+  margin-bottom: 24px;
+}
+
+.april-update .au-toc-group {
+  margin-bottom: 20px;
+}
+
+.april-update .au-toc-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.3);
+  margin-bottom: 8px;
+  padding-left: 18px;
+}
+
+.april-update .au-toc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0 6px 6px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.april-update .au-toc-item:hover {
+  background: rgba(241,235,214,0.04);
+}
+
+.april-update .au-toc-dot {
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.15);
+  transition: all 0.25s;
+}
+
+.april-update .au-toc-label {
+  font-size: 12px;
+  color: rgba(241,235,214,0.6);
+  font-weight: 400;
+  transition: color 0.25s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.april-update .au-toc-item.au-active .au-toc-dot {
+  background: #6AB448;
+  box-shadow: 0 0 8px rgba(106,180,72,0.4);
+}
+
+.april-update .au-toc-item.au-active .au-toc-label {
+  color: #F1EBD6;
+  font-weight: 500;
+}
+
+.april-update .au-progress-wrap {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.april-update .au-progress-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.3);
+  margin-bottom: 8px;
+}
+
+.april-update .au-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(241,235,214,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.april-update .au-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #6AB448, #FFC02A);
+  border-radius: 2px;
+  transition: width 0.15s;
+}
+
+/* ── MAIN CONTENT ──────────────────────────────────────────── */
+
+.april-update .au-main {
+  min-width: 0;
+  padding: 60px 24px 120px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ── SECTION DIVIDERS ──────────────────────────────────────── */
+
+.april-update .au-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 64px 0 36px;
+}
+
+.april-update .au-section-divider:first-child {
+  margin-top: 0;
+}
+
+.april-update .au-section-divider-line {
+  flex: 1;
+  height: 1px;
+}
+
+.april-update .au-section-divider-line.au-line-hero { background: linear-gradient(90deg, transparent, #003D29); }
+.april-update .au-section-divider-line.au-line-hero:last-child { background: linear-gradient(90deg, #003D29, transparent); }
+.april-update .au-section-divider-line.au-line-ecom-pro { background: linear-gradient(90deg, transparent, #5E324E); }
+.april-update .au-section-divider-line.au-line-ecom-pro:last-child { background: linear-gradient(90deg, #5E324E, transparent); }
+.april-update .au-section-divider-line.au-line-ecom { background: linear-gradient(90deg, transparent, #FFC02A); }
+.april-update .au-section-divider-line.au-line-ecom:last-child { background: linear-gradient(90deg, #FFC02A, transparent); }
+.april-update .au-section-divider-line.au-line-delivery { background: linear-gradient(90deg, transparent, #6AB448); }
+.april-update .au-section-divider-line.au-line-delivery:last-child { background: linear-gradient(90deg, #6AB448, transparent); }
+.april-update .au-section-divider-line.au-line-other { background: linear-gradient(90deg, transparent, rgba(241,235,214,0.3)); }
+.april-update .au-section-divider-line.au-line-other:last-child { background: linear-gradient(90deg, rgba(241,235,214,0.3), transparent); }
+
+.april-update .au-section-divider-text {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(241,235,214,0.5);
+  white-space: nowrap;
+}
+
+/* ── CARDS ─────────────────────────────────────────────────── */
+
+.april-update .au-card {
+  background: rgba(241,235,214,0.04);
+  border: 1px solid rgba(241,235,214,0.08);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.april-update .au-card.au-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s;
+}
+
+.april-update .au-card:hover {
+  border-color: rgba(241,235,214,0.18);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.april-update .au-card.au-clickable {
+  cursor: pointer;
+}
+
+.april-update .au-card.au-visible:hover {
+  transform: translateY(-3px);
+}
+
+.april-update .au-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.april-update .au-accent-hero    { background: #003D29; }
+.april-update .au-accent-ecom-pro { background: #5E324E; }
+.april-update .au-accent-ecom    { background: #FFC02A; }
+.april-update .au-accent-delivery { background: #6AB448; }
+.april-update .au-accent-other   { background: rgba(241,235,214,0.3); }
+
+.april-update .au-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.april-update .au-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(241,235,214,0.08);
+  color: rgba(241,235,214,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.april-update .au-badge-loom {
+  background: rgba(94,50,78,0.2);
+  color: #9e6d8e;
+}
+
+.april-update .au-badge-coming-soon {
+  background: rgba(255,192,42,0.15);
+  color: #FFC02A;
+}
+
+.april-update .au-badge-walkthrough {
+  background: rgba(106,180,72,0.15);
+  color: #6AB448;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.april-update .au-badge-walkthrough:hover {
+  background: rgba(106,180,72,0.25);
+  box-shadow: 0 0 12px rgba(106,180,72,0.2);
+}
+
+.april-update .au-card-footer {
+  margin-top: 20px;
+}
+
+.april-update .au-setup-guide {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.5);
+  background: transparent;
+  border: 1px solid rgba(241,235,214,0.1);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.april-update .au-setup-guide:hover {
+  color: #FFC02A;
+  border-color: rgba(255,192,42,0.3);
+  background: rgba(255,192,42,0.06);
+}
+
+.april-update .au-setup-guide svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.april-update .au-card-case-study .au-setup-guide {
+  color: rgba(4,32,23,0.35);
+  border-color: rgba(4,32,23,0.1);
+}
+
+.april-update .au-card-case-study .au-setup-guide:hover {
+  color: #5E324E;
+  border-color: rgba(94,50,78,0.3);
+  background: rgba(94,50,78,0.06);
+}
+
+/* Focus-visible for keyboard accessibility */
+.april-update .au-toc-item:focus-visible,
+.april-update .au-setup-guide:focus-visible,
+.april-update .au-mobile-toc-link:focus-visible,
+.april-update .au-mobile-toc-btn:focus-visible {
+  outline: 2px solid #FFC02A;
+  outline-offset: 2px;
+}
+
+/* ── L&M DASHBOARD MOCKUP ────────────────────────────────── */
+
+.april-update .au-lm-mockup-wrap {
+  margin: 20px 0 4px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,61,41,0.15);
+  border: 1px solid rgba(241,235,214,0.06);
+  position: relative;
+  height: 280px;
+}
+
+.april-update .au-lm-mockup-wrap *,
+.april-update .au-lm-mockup-wrap *::before,
+.april-update .au-lm-mockup-wrap *::after {
+  box-sizing: border-box;
+}
+
+.april-update .au-lm-mockup {
+  --color-background-secondary: rgba(241,235,214,0.03);
+  --color-background-primary: rgba(241,235,214,0.06);
+  --color-border-tertiary: rgba(241,235,214,0.1);
+  --color-text-primary: #F1EBD6;
+  --color-text-secondary: rgba(241,235,214,0.45);
+  --border-radius-lg: 12px;
+  --border-radius-md: 8px;
+  background: transparent;
+  padding: 12px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  transform: scale(0.52);
+  transform-origin: top center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.april-update .au-lm-mockup p {
+  color: inherit;
+  line-height: 1.4;
+}
+
+/* ── CARD WITH FLOATED IMAGE ──────────────────────────────── */
+
+.april-update .au-card-with-phone {
+  position: relative;
+}
+
+.april-update .au-card-with-phone .au-card-phone-col {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  z-index: 2;
+}
+
+.april-update .au-card-with-phone .au-card-phone-col img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(241,235,214,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.april-update .au-card-with-phone .au-card-phone-col.au-img-wide {
+  width: 380px;
+}
+
+.april-update .au-card-with-phone .au-card-phone-col.au-img-tall {
+  width: 220px;
+}
+
+.april-update .au-card-with-phone .au-card-top,
+.april-update .au-card-with-phone .au-card-title,
+.april-update .au-card-with-phone .au-card-body-wrap {
+  margin-right: 340px;
+}
+
+.april-update .au-card-with-phone.au-wide-img .au-card-top,
+.april-update .au-card-with-phone.au-wide-img .au-card-title,
+.april-update .au-card-with-phone.au-wide-img .au-card-body-wrap {
+  margin-right: 410px;
+}
+
+.april-update .au-card-with-phone .au-card-body-wrap {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .april-update .au-card-with-phone .au-card-phone-col,
+  .april-update .au-card-with-phone .au-card-phone-col.au-img-wide,
+  .april-update .au-card-with-phone .au-card-phone-col.au-img-tall {
+    position: static;
+    margin: 16px auto 0;
+    width: 100%;
+    max-width: 380px;
+  }
+  .april-update .au-card-with-phone .au-card-top,
+  .april-update .au-card-with-phone .au-card-title,
+  .april-update .au-card-with-phone .au-card-body-wrap,
+  .april-update .au-card-with-phone.au-wide-img .au-card-top,
+  .april-update .au-card-with-phone.au-wide-img .au-card-title,
+  .april-update .au-card-with-phone.au-wide-img .au-card-body-wrap {
+    margin-right: 0;
+  }
+}
+
+/* ── PRODUCT MOCKUPS ──────────────────────────────────────── */
+
+.april-update .au-mockup {
+  margin: 20px 0 4px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,61,41,0.15);
+  border: 1px solid rgba(241,235,214,0.06);
+  position: relative;
+}
+
+/* ── Mockup 1: Menu Tags / Outlet Menu ───────────────────── */
+
+.april-update .au-mock-menu {
+  padding: 0;
+}
+
+.april-update .au-mock-menu-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(0,61,41,0.4);
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+}
+
+.april-update .au-mock-menu-bar-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.april-update .au-mock-menu-tab {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.4);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+}
+
+.april-update .au-mock-menu-tab.active {
+  background: rgba(255,192,42,0.15);
+  color: #FFC02A;
+}
+
+.april-update .au-mock-menu-body {
+  padding: 16px;
+}
+
+.april-update .au-mock-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.april-update .au-mock-menu-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F1EBD6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.april-update .au-mock-outlet-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(255,192,42,0.15);
+  color: #FFC02A;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.april-update .au-mock-countdown {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFC02A;
+  font-variant-numeric: tabular-nums;
+}
+
+.april-update .au-mock-countdown svg {
+  width: 12px;
+  height: 12px;
+}
+
+.april-update .au-mock-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(241,235,214,0.04);
+  border: 1px solid rgba(241,235,214,0.06);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+
+.april-update .au-mock-product:hover {
+  border-color: rgba(241,235,214,0.12);
+}
+
+.april-update .au-mock-product-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(106,180,72,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.april-update .au-mock-product-img svg {
+  width: 20px;
+  height: 20px;
+  stroke: #6AB448;
+  opacity: 0.6;
+}
+
+.april-update .au-mock-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.april-update .au-mock-product-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #F1EBD6;
+  margin-bottom: 2px;
+}
+
+.april-update .au-mock-product-meta {
+  font-size: 10px;
+  color: rgba(241,235,214,0.35);
+}
+
+.april-update .au-mock-product-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6AB448;
+  flex-shrink: 0;
+}
+
+.april-update .au-mock-product-price .au-mock-original {
+  font-size: 10px;
+  color: rgba(241,235,214,0.25);
+  text-decoration: line-through;
+  margin-left: 4px;
+  font-weight: 500;
+}
+
+.april-update .au-mock-product-timer {
+  font-size: 9px;
+  font-weight: 600;
+  color: #FFC02A;
+  background: rgba(255,192,42,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 3px;
+  display: inline-block;
+}
+
+/* ── Mockup 2: Smart Sending Phone ───────────────────────── */
+
+.april-update .au-mock-phone {
+  width: 310px;
+  background: #021a10;
+  border-radius: 32px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  border: 1px solid rgba(241,235,214,0.06);
+}
+
+.april-update .au-mock-phone-screen {
+  background: #042017;
+  border-radius: 22px;
+  overflow: hidden;
+  padding: 20px 16px 16px;
+}
+
+.april-update .au-mock-phone-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.4);
+}
+
+.april-update .au-mock-phone-time-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(106,180,72,0.6);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.april-update .au-mock-ai-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(106,180,72,0.08);
+  border: 1px solid rgba(106,180,72,0.15);
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.april-update .au-mock-ai-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6AB448;
+  box-shadow: 0 0 8px rgba(106,180,72,0.5);
+  animation: au-ai-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes au-ai-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.april-update .au-mock-ai-text {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(106,180,72,0.8);
+  line-height: 1.3;
+}
+
+.april-update .au-mock-sms {
+  background: rgba(241,235,214,0.06);
+  border-radius: 14px 14px 14px 4px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.april-update .au-mock-sms-from {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6AB448;
+  margin-bottom: 6px;
+}
+
+.april-update .au-mock-sms-body {
+  font-size: 12px;
+  color: rgba(241,235,214,0.75);
+  line-height: 1.5;
+}
+
+.april-update .au-mock-sms-body strong {
+  color: #FFC02A;
+  font-weight: 600;
+}
+
+.april-update .au-mock-sms-time {
+  font-size: 9px;
+  color: rgba(241,235,214,0.25);
+  margin-top: 6px;
+}
+
+.april-update .au-mock-engagement {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.april-update .au-mock-eng-stat {
+  flex: 1;
+  text-align: center;
+  padding: 8px 4px;
+  background: rgba(241,235,214,0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(241,235,214,0.05);
+}
+
+.april-update .au-mock-eng-num {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFC02A;
+  line-height: 1;
+}
+
+.april-update .au-mock-eng-label {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(241,235,214,0.3);
+  margin-top: 3px;
+}
+
+/* ── Mockup 3: Mobile Reporting ──────────────────────────── */
+
+.april-update .au-mock-report-phone {
+  width: 240px;
+  background: #021a10;
+  border-radius: 32px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  border: 1px solid rgba(241,235,214,0.06);
+}
+
+.april-update .au-mock-report-screen {
+  background: #042017;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.april-update .au-mock-report-header {
+  padding: 16px 16px 12px;
+  background: rgba(0,61,41,0.3);
+  border-bottom: 1px solid rgba(241,235,214,0.06);
+}
+
+.april-update .au-mock-report-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.april-update .au-mock-report-nav span {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.35);
+}
+
+.april-update .au-mock-report-title-bar {
+  font-size: 14px;
+  font-weight: 700;
+  color: #F1EBD6;
+}
+
+.april-update .au-mock-report-period {
+  font-size: 10px;
+  color: rgba(241,235,214,0.4);
+  margin-top: 2px;
+}
+
+.april-update .au-mock-report-body {
+  padding: 14px 16px 16px;
+}
+
+.april-update .au-mock-report-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.april-update .au-mock-report-stat {
+  padding: 10px;
+  background: rgba(241,235,214,0.04);
+  border-radius: 8px;
+  border: 1px solid rgba(241,235,214,0.05);
+}
+
+.april-update .au-mock-report-stat-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: #F1EBD6;
+  line-height: 1;
+}
+
+.april-update .au-mock-report-stat-label {
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(241,235,214,0.35);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.april-update .au-mock-report-chart {
+  background: rgba(241,235,214,0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(241,235,214,0.05);
+  padding: 12px;
+}
+
+.april-update .au-mock-chart-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(241,235,214,0.4);
+  margin-bottom: 10px;
+}
+
+.april-update .au-mock-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 64px;
+}
+
+.april-update .au-mock-chart-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  min-height: 6px;
+  transition: opacity 0.2s;
+}
+
+.april-update .au-mock-chart-bar:hover {
+  opacity: 0.8;
+}
+
+.april-update .au-mock-chart-days {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.april-update .au-mock-chart-day {
+  flex: 1;
+  font-size: 8px;
+  font-weight: 500;
+  color: rgba(241,235,214,0.2);
+  text-align: center;
+}
+
+.april-update .au-card-title {
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  color: #F1EBD6;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.april-update .au-card-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(241,235,214,0.78);
+  margin-bottom: 20px;
+}
+
+
+/* ── CASE STUDY CARD (special treatment) ───────────────────── */
+
+.april-update .au-card-case-study {
+  background: #F1EBD6;
+  border: 1px solid rgba(4,32,23,0.1);
+}
+
+.april-update .au-card-case-study:hover {
+  border-color: rgba(4,32,23,0.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.april-update .au-card-case-study .au-card-title {
+  color: #042017;
+}
+
+.april-update .au-card-case-study .au-card-desc {
+  color: rgba(4,32,23,0.65);
+}
+
+.april-update .au-card-case-study .au-badge {
+  background: rgba(4,32,23,0.08);
+  color: rgba(4,32,23,0.6);
+}
+
+.april-update .au-card-case-study .au-setup-guide {
+  color: rgba(4,32,23,0.5);
+  border-color: rgba(4,32,23,0.15);
+}
+
+.april-update .au-card-case-study .au-setup-guide:hover {
+  color: #5E324E;
+  border-color: rgba(94,50,78,0.3);
+  background: rgba(94,50,78,0.06);
+}
+
+/* ── IMAGE GRID ───────────────────────────────────────────── */
+
+.april-update .au-image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0 8px;
+}
+
+.april-update .au-image-grid img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(241,235,214,0.08);
+}
+
+.april-update .au-image-single {
+  margin: 20px 0 8px;
+}
+
+.april-update .au-image-single img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(241,235,214,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.april-update .au-image-single.au-img-phone {
+  max-width: 240px;
+}
+
+.april-update .au-image-single.au-img-phone.au-img-float-right {
+  float: right;
+  margin: 0 0 16px 24px;
+}
+
+.april-update .au-phone-mockup-float {
+  float: right;
+  margin: 0 0 16px 24px;
+  width: 200px;
+  max-height: 320px;
+  overflow: hidden;
+}
+
+.april-update .au-phone-mockup-float > div {
+  transform-origin: top right;
+  transform: scale(0.58);
+  width: 340px;
+  margin-left: -140px;
+}
+
+.april-update .au-image-single.au-img-phone img {
+  border-radius: 16px;
+}
+
+.april-update .au-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6AB448;
+  background: rgba(106,180,72,0.1);
+  border: 1px solid rgba(106,180,72,0.2);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+
+.april-update .au-video-link:hover {
+  background: rgba(106,180,72,0.2);
+  border-color: rgba(106,180,72,0.4);
+  box-shadow: 0 0 12px rgba(106,180,72,0.15);
+}
+
+@media (max-width: 600px) {
+  .april-update .au-image-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+
+/* ── MOBILE TOC ───────────────────────────────────────────── */
+
+.april-update .au-mobile-toc-btn {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(4,32,23,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(241,235,214,0.12);
+  color: #F1EBD6;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.april-update .au-mobile-toc-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(106,180,72,0.3);
+}
+
+.april-update .au-mobile-toc-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #F1EBD6;
+  opacity: 0.8;
+}
+
+.april-update .au-mobile-toc-drawer {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 199;
+  background: rgba(4,32,23,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(241,235,214,0.1);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 32px;
+  max-height: 60vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.4);
+}
+
+.april-update .au-mobile-toc-drawer.au-open {
+  transform: translateY(0);
+}
+
+.april-update .au-mobile-toc-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(241,235,214,0.15);
+  margin: 0 auto 16px;
+}
+
+.april-update .au-mobile-toc-heading {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(241,235,214,0.35);
+  margin-bottom: 12px;
+}
+
+.april-update .au-mobile-toc-group-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(241,235,214,0.25);
+  margin: 12px 0 6px;
+  padding-left: 4px;
+}
+
+.april-update .au-mobile-toc-group-label:first-of-type {
+  margin-top: 0;
+}
+
+.april-update .au-mobile-toc-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.april-update .au-mobile-toc-link:active {
+  background: rgba(241,235,214,0.06);
+}
+
+.april-update .au-mobile-toc-link .au-mtoc-dot {
+  width: 5px;
+  height: 5px;
+  min-width: 5px;
+  border-radius: 50%;
+  background: rgba(241,235,214,0.15);
+  transition: all 0.2s;
+}
+
+.april-update .au-mobile-toc-link.au-active .au-mtoc-dot {
+  background: #6AB448;
+  box-shadow: 0 0 6px rgba(106,180,72,0.4);
+}
+
+.april-update .au-mobile-toc-link .au-mtoc-label {
+  font-size: 13px;
+  color: rgba(241,235,214,0.5);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.april-update .au-mobile-toc-link.au-active .au-mtoc-label {
+  color: #F1EBD6;
+  font-weight: 500;
+}
+
+.april-update .au-mobile-toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 198;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.april-update .au-mobile-toc-overlay.au-open {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .april-update .au-mobile-toc-btn {
+    display: flex;
+  }
+  .april-update .au-mobile-toc-drawer {
+    display: block;
+  }
+  .april-update .au-mobile-toc-overlay {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .april-update .au-sidebar {
+    display: none;
+  }
+
+  .april-update .au-hero {
+    margin-left: 0;
+  }
+
+  .april-update .au-body {
+    margin-left: 0;
+  }
+
+  .april-update .au-main {
+    padding: 40px 20px 80px;
+  }
+
+  .april-update .au-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .april-update .au-card {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .april-update .au-hero {
+    padding: 40px 16px;
+  }
+
+  .april-update .au-ghost-text {
+    font-size: clamp(48px, 15vw, 80px);
+    letter-spacing: 0;
+  }
+
+  .april-update .au-hero-intro {
+    font-size: 14px;
+  }
+
+  .april-update .au-stats-grid {
+    gap: 8px;
+  }
+
+  .april-update .au-stat-box {
+    padding: 16px 8px;
+  }
+
+  .april-update .au-stat-number {
+    font-size: 20px;
+  }
+
+  .april-update .au-stat-label {
+    font-size: 10px;
+  }
+
+  .april-update .au-main {
+    padding: 28px 16px 60px;
+  }
+
+  .april-update .au-section-divider {
+    margin: 40px 0 24px;
+    gap: 12px;
+  }
+
+  .april-update .au-section-divider-text {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .april-update .au-card {
+    padding: 20px 16px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+
+  .april-update .au-card-title {
+    font-size: 18px;
+  }
+
+  .april-update .au-card-desc {
+    font-size: 14px;
+  }
+
+
+  .april-update .au-badge {
+    font-size: 10px;
+    padding: 3px 9px;
+  }
+
+  .april-update .au-setup-guide {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* Menu mockup mobile */
+  .april-update .au-mock-menu-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .april-update .au-mock-menu-title {
+    font-size: 11px;
+    flex-wrap: wrap;
+  }
+
+  .april-update .au-mock-product {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .april-update .au-mock-product-name {
+    font-size: 11px;
+  }
+
+  .april-update .au-mock-product-meta {
+    font-size: 9px;
+  }
+
+  /* Blobs smaller on mobile */
+  .april-update .au-blob {
+    filter: blur(60px);
+  }
+
+  .april-update .au-blob-1 { width: 300px; height: 300px; }
+  .april-update .au-blob-2 { width: 280px; height: 280px; }
+  .april-update .au-blob-3 { width: 250px; height: 250px; }
+  .april-update .au-blob-4 { width: 200px; height: 200px; }
+
+  .april-update .au-divider-line {
+    width: 40px;
+  }
+}
+</style>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 2: HTML BODY
+     Paste into: An Embed element (Add Elements > Components > Embed)
+     
+     Place this embed where you want the update page to appear.
+     The .april-update wrapper scopes all styles to prevent conflicts
+     with Webflow's header, footer, and navigation.
+     
+     NOTE: Images and videos point to the VAPE hosting server.
+     If you want to self-host assets, upload them to Webflow and
+     update the URLs below.
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<div class="april-update">
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO — Full Viewport
+       ════════════════════════════════════════════════════════════ -->
+  <section class="au-hero">
+    <div class="au-hero-mesh">
+      <div class="au-blob au-blob-1"></div>
+      <div class="au-blob au-blob-2"></div>
+      <div class="au-blob au-blob-3"></div>
+      <div class="au-blob au-blob-4"></div>
+    </div>
+
+    <div class="au-hero-content">
+      <div class="au-ghost-text">APRIL 2026</div>
+      <h1 class="au-hero-title">Product Updates</h1>
+
+      <div class="au-divider">
+        <span class="au-divider-line"></span>
+        <span class="au-divider-dot"></span>
+        <span class="au-divider-line"></span>
+      </div>
+
+      <p class="au-hero-intro">
+        This month's updates bring AI-powered campaign timing, a unified shopping experience, and streamlined delivery operations to the Dutchie platform. From Smart Sending that predicts when each customer is most likely to shop, to a fully redesigned analytics dashboard you can check from your phone, here's what's new across Dutchie for April.
+      </p>
+      <p class="au-hero-intro" style="font-size:13px;opacity:0.6;margin-top:-32px;">
+        Stay up to date and ahead of the curve with all of Dutchie's product updates and system enhancements by subscribing to our <a href="https://updates.dutchie.com" style="color:#FFC02A;text-decoration:underline;">Product Release Notes</a>.
+      </p>
+
+      <div class="au-stats-grid">
+        <div class="au-stat-box">
+          <div class="au-stat-number" data-target="7" data-suffix="">0</div>
+          <div class="au-stat-label">Updates</div>
+        </div>
+        <div class="au-stat-box">
+          <div class="au-stat-number" data-target="3" data-suffix="">0</div>
+          <div class="au-stat-label">Hero Features</div>
+        </div>
+        <div class="au-stat-box">
+          <div class="au-stat-number" data-target="3" data-suffix="">0</div>
+          <div class="au-stat-label">E-Commerce</div>
+        </div>
+        <div class="au-stat-box">
+          <div class="au-stat-number" data-target="2" data-suffix="">0</div>
+          <div class="au-stat-label">Delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="au-scroll-hint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       BELOW THE FOLD — Sidebar + Cards
+       ════════════════════════════════════════════════════════════ -->
+  <div class="au-body">
+
+    <!-- ── Sidebar TOC ─────────────────────────────────────── -->
+    <aside class="au-sidebar">
+      <div class="au-toc-title">Contents</div>
+
+      <div class="au-toc-group">
+        <div class="au-toc-group-label">Hero Features</div>
+        <a class="au-toc-item" href="#card-1" data-toc="card-1">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">L&amp;M Dashboard</span>
+        </a>
+        <a class="au-toc-item" href="#card-2" data-toc="card-2">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Smart Sending</span>
+        </a>
+        <a class="au-toc-item" href="#card-3" data-toc="card-3">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Mobile Responsive Reporting</span>
+        </a>
+      </div>
+
+      <div class="au-toc-group">
+        <div class="au-toc-group-label">E-Commerce</div>
+        <a class="au-toc-item" href="#card-4" data-toc="card-4">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Holistic Order History</span>
+        </a>
+
+        <a class="au-toc-item" href="#card-6" data-toc="card-6">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Total Terpenes</span>
+        </a>
+      </div>
+
+      <div class="au-toc-group">
+        <div class="au-toc-group-label">Delivery</div>
+        <a class="au-toc-item" href="#card-7" data-toc="card-7">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Route Optimization</span>
+        </a>
+        <a class="au-toc-item" href="#card-8" data-toc="card-8">
+          <span class="au-toc-dot"></span>
+          <span class="au-toc-label">Separate Delivery Fees</span>
+        </a>
+      </div>
+
+      <div class="au-progress-wrap">
+        <div class="au-progress-label">Progress</div>
+        <div class="au-progress-track">
+          <div class="au-progress-fill"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main Content ────────────────────────────────────── -->
+    <main class="au-main">
+
+      <!-- SECTION: Hero Features -->
+      <div class="au-section-divider">
+        <span class="au-section-divider-line au-line-hero"></span>
+        <span class="au-section-divider-text">Hero Features</span>
+        <span class="au-section-divider-line au-line-hero"></span>
+      </div>
+
+      <!-- Card 1: L&M Dashboard -->
+      <article class="au-card" id="card-1">
+        <div class="au-card-accent au-accent-hero"></div>
+        <div class="au-card-top">
+          <span class="au-badge">Loyalty &amp; Marketing</span>
+          <a href="https://vape-pages.dutchie.dev/april-update-v15/video/L&M Dashboard (1).mp4" target="_blank" class="au-video-link">&#9655; Watch Video</a>
+        </div>
+        <h2 class="au-card-title">Loyalty &amp; Marketing Dashboard</h2>
+        <p class="au-card-desc">
+          The new Loyalty and Marketing Dashboard serves as your marketing mission control, providing a unified view of customer retention and campaign ROI. Move beyond basic stats to track total points liability in real time, compare membership tiers, and see exactly which automated workflows, such as Welcome Series and Win-Back campaigns, are driving the most revenue. The e-commerce funnel provides a clear look at the entire shopper journey from the first click to the final purchase across both your mobile app and web menu.
+        </p>
+        <div class="au-image-single">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/lm-dashboard.png" alt="Loyalty & Marketing Dashboard">
+        </div>
+      </article>
+
+      <!-- Card 2: Smart Sending -->
+      <article class="au-card au-clickable" id="card-2" data-storylane-url="https://app.storylane.io/share/lp6l2xh2044x">
+        <div class="au-card-accent au-accent-hero"></div>
+        <div class="au-card-top">
+          <span class="au-badge">Marketing AI</span>
+          <span class="au-badge au-badge-walkthrough">&#9655; Walkthrough</span>
+        </div>
+        <h2 class="au-card-title">Smart Sending</h2>
+        <p class="au-card-desc">
+          Maximize your campaign impact by reaching customers exactly when they are most likely to shop. Our new AI-driven Smart Sending uses individual purchase history to predict each customer's unique "shopping window" and automatically delivers your SMS or email within two hours of that peak time.
+        </p>
+        <div class="au-image-single">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/smart-sending.png" alt="Smart Sending campaign configuration">
+        </div>
+      </article>
+
+      <!-- Card 3: Mobile Responsive Reporting -->
+      <article class="au-card" id="card-3">
+        <div class="au-card-accent au-accent-hero"></div>
+        <div class="au-image-single au-img-phone au-img-float-right">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/mobile-reports.png" alt="Mobile responsive closing report">
+        </div>
+        <div class="au-card-top">
+          <span class="au-badge">Analytics</span>
+          <a href="https://vape-pages.dutchie.dev/april-update-v15/video/Mobile Responsive Reports.mp4" target="_blank" class="au-video-link">&#9655; Watch Video</a>
+        </div>
+        <h2 class="au-card-title">Mobile Responsive Reporting</h2>
+        <p class="au-card-desc">
+          Keep an eye on your business from anywhere. We have redesigned our highest-priority reports, including the Sales Overview, Closing Report, and Inventory Overview, to be fully mobile-responsive. Charts, tables, and interactive filters now adapt to your screen, providing clear visibility into your store's performance without horizontal scrolling or zooming.
+        </p>
+      </article>
+
+      <!-- SECTION: E-Commerce -->
+      <div class="au-section-divider">
+        <span class="au-section-divider-line au-line-ecom"></span>
+        <span class="au-section-divider-text">E-Commerce</span>
+        <span class="au-section-divider-line au-line-ecom"></span>
+      </div>
+
+      <!-- Card 4: Holistic Customer Order History -->
+      <article class="au-card" id="card-4">
+        <div class="au-card-accent au-accent-ecom"></div>
+        <div class="au-image-single au-img-phone au-img-float-right">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/order-history-mobile.png" alt="In-store order history - mobile view">
+        </div>
+        <div class="au-card-top">
+          <span class="au-badge">Customer Data</span>
+        </div>
+        <h2 class="au-card-title">Holistic Customer Order History</h2>
+        <p class="au-card-desc">
+          Close the gap between your physical and digital storefronts. Every in-store purchase is now automatically reflected in a customer's unified purchase history, allowing them to see their complete transaction record whether they shop online, on the app, or at the register. By centralizing this data, you provide shoppers with a single, clear view of their favorite products and total spend across every channel.
+        </p>
+      </article>
+
+
+      <!-- Card 6: Total Terpenes -->
+      <article class="au-card" id="card-6">
+        <div class="au-card-accent au-accent-ecom"></div>
+        <div class="au-card-top">
+          <span class="au-badge">Product Data</span>
+        </div>
+        <h2 class="au-card-title">Total Terpenes on Product Cards &amp; Details Pages</h2>
+        <p class="au-card-desc">
+          Help your shoppers find exactly what they are looking for by bringing lab-verified terpene data directly to your menu. You can now display the Total Terpenes percentage on both product cards and Product Detail Pages. This data syncs automatically from your Dutchie POS lab results, giving flavor-focused consumers the transparency they need to shop by effect and aroma rather than just potency alone.
+        </p>
+        <div class="au-image-single">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/terpenes-new.png" alt="Total terpenes on product detail page">
+        </div>
+        <div class="au-card-footer">
+          <a href="https://updates.dutchie.com/announcements/dutchie-e-commerce-view-and-sort-by-total-terpenes-expanded-lead-time-options-for-next-available-time-windows-fixes" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Release Notes</a>
+        </div>
+      </article>
+
+      <!-- SECTION: Delivery -->
+      <div class="au-section-divider">
+        <span class="au-section-divider-line au-line-delivery"></span>
+        <span class="au-section-divider-text">Delivery</span>
+        <span class="au-section-divider-line au-line-delivery"></span>
+      </div>
+
+      <!-- Card 7: Route Optimization -->
+      <article class="au-card" id="card-7">
+        <div class="au-card-accent au-accent-delivery"></div>
+        <div class="au-card-top">
+          <span class="au-badge">Delivery Operations</span>
+        </div>
+        <h2 class="au-card-title">Route Optimization for Dynamic Delivery</h2>
+        <p class="au-card-desc">
+          Streamline your delivery operations with a deep, bidirectional integration between Onfleet and Dutchie. This update enables real-time route synchronization and automated manifest updates while maintaining full Metrc compliance. Orders now intelligently auto-assign to the nearest driver based on proximity, inventory, and current workload, ensuring your fleet operates at peak efficiency rather than just following chronological order.
+        </p>
+        <div class="au-image-single">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/route-optimization.png" alt="Route optimization map showing delivery routes across Toronto">
+        </div>
+        <div class="au-card-footer">
+          <a href="https://support.onfleet.com/hc/en-us/articles/360023910351-Route-Optimization-Operatin" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Onfleet Route Optimization</a>
+        </div>
+      </article>
+
+      <!-- Card 8: Separate Delivery Fees -->
+      <article class="au-card" id="card-8">
+        <div class="au-card-accent au-accent-delivery"></div>
+        <div class="au-card-top">
+          <span class="au-badge">Delivery Pricing</span>
+        </div>
+        <h2 class="au-card-title">Separate Delivery Fees for ASAP vs. Scheduled Delivery</h2>
+        <p class="au-card-desc">
+          Tailor your delivery service to match customer demand. You can now set separate delivery fees for "ASAP" orders versus "Scheduled" windows, allowing you to charge a premium for immediate service or offer incentives for pre-planned orders.
+        </p>
+        <div class="au-image-single">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/delivery-fees.png" alt="Delivery fee configuration with online delivery type selection">
+        </div>
+        <div class="au-card-footer">
+          <a href="https://updates.dutchie.com/announcements/dutchie-pos-1-179-real-life-events-separate-fees-for-asap-and-scheduled-delivery-group-and-segment-specific-discounts-now-available-online-fixes" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Release Notes</a>
+        </div>
+      </article>
+
+      <!-- Case Study Callout -->
+      <div class="au-section-divider">
+        <span class="au-section-divider-line au-line-ecom-pro"></span>
+        <span class="au-section-divider-text">Case Study</span>
+        <span class="au-section-divider-line au-line-ecom-pro"></span>
+      </div>
+
+      <article class="au-card au-card-case-study" id="card-case-study">
+        <div class="au-card-accent au-accent-ecom-pro"></div>
+        <div style="float:right;margin:0 0 16px 24px;width:340px;">
+          <img src="https://vape-pages.dutchie.dev/april-update-v15/images/pecos-valley-team.png" alt="Pecos Valley Productions team in front of their dispensary" style="width:100%;border-radius:12px;border:1px solid rgba(4,32,23,0.1);box-shadow:0 4px 16px rgba(0,0,0,0.12);">
+        </div>
+        <div class="au-card-top">
+          <span class="au-badge">Case Study</span>
+          <span class="au-badge">Pecos Valley Productions</span>
+        </div>
+        <h2 class="au-card-title">See How Pecos Valley Productions Unified 17 Dispensaries on Dutchie</h2>
+        <p class="au-card-desc">
+          Learn how Pecos Valley Productions consolidated operations across 17 locations onto the Dutchie platform to streamline workflows, improve reporting, and deliver a consistent experience for every customer.
+        </p>
+        <div style="display:flex;gap:24px;margin:20px 0 8px;text-align:center;">
+          <div style="flex:1;">
+            <div style="font-size:32px;font-weight:800;color:#042017;line-height:1;">36%</div>
+            <div style="font-size:13px;color:rgba(4,32,23,0.55);margin-top:4px;">Faster customer check-in times</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:32px;font-weight:800;color:#042017;line-height:1;">26%</div>
+            <div style="font-size:13px;color:rgba(4,32,23,0.55);margin-top:4px;">Reduction in transaction time</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:32px;font-weight:800;color:#042017;line-height:1;">32%</div>
+            <div style="font-size:13px;color:rgba(4,32,23,0.55);margin-top:4px;">Increase in inventory accuracy</div>
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="au-card-footer">
+          <a href="https://business.dutchie.com/case-study/how-pecos-valley-productions-unified-17-dispensaries-on-dutchie" target="_blank" class="au-setup-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Read Full Case Study</a>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- Mobile TOC -->
+  <div class="au-mobile-toc-overlay" id="au-mtoc-overlay"></div>
+  <button class="au-mobile-toc-btn" id="au-mtoc-btn" aria-label="Table of contents">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+  </button>
+  <div class="au-mobile-toc-drawer" id="au-mtoc-drawer">
+    <div class="au-mobile-toc-handle"></div>
+    <div class="au-mobile-toc-heading">Contents</div>
+    <div class="au-mobile-toc-group-label">Hero Features</div>
+    <a class="au-mobile-toc-link" href="#card-1" data-mtoc="card-1"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">L&amp;M Dashboard</span></a>
+    <a class="au-mobile-toc-link" href="#card-2" data-mtoc="card-2"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Smart Sending</span></a>
+    <a class="au-mobile-toc-link" href="#card-3" data-mtoc="card-3"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Mobile Responsive Reporting</span></a>
+    <div class="au-mobile-toc-group-label">E-Commerce</div>
+    <a class="au-mobile-toc-link" href="#card-4" data-mtoc="card-4"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Holistic Order History</span></a>
+    <a class="au-mobile-toc-link" href="#card-6" data-mtoc="card-6"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Total Terpenes</span></a>
+    <div class="au-mobile-toc-group-label">Delivery</div>
+    <a class="au-mobile-toc-link" href="#card-7" data-mtoc="card-7"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Route Optimization</span></a>
+    <a class="au-mobile-toc-link" href="#card-8" data-mtoc="card-8"><span class="au-mtoc-dot"></span><span class="au-mtoc-label">Separate Delivery Fees</span></a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SECTION 3: FOOTER CUSTOM CODE
+     Paste into: Page Settings > Custom Code > Before </body> tag
+     
+     This includes:
+     - Animated counters (hero stats)
+     - Sidebar TOC scroll tracking & active state
+     - Scroll progress bar
+     - Mobile TOC drawer toggle
+     - Storylane embed initialization
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<script>
+(function() {
+  var root = document.querySelector('.april-update');
+  if (!root) return;
+
+  /* ── Animated Counters ──────────────────────────────────── */
+  function animateCounters() {
+    var counters = root.querySelectorAll('.au-stat-number');
+    counters.forEach(function(el) {
+      if (el.dataset.static) return;
+      var target = parseInt(el.dataset.target, 10);
+      if (isNaN(target) || target === 0) return;
+      var duration = 1200;
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + (el.dataset.suffix || '');
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  var heroObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        animateCounters();
+        heroObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  var statsGrid = root.querySelector('.au-stats-grid');
+  if (statsGrid) heroObserver.observe(statsGrid);
+
+  /* ── Card Scroll Reveal ─────────────────────────────────── */
+  var cardObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('au-visible');
+        cardObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  root.querySelectorAll('.au-card').forEach(function(card) {
+    cardObserver.observe(card);
+  });
+
+  /* ── TOC Active Detection + Progress Bar ────────────────── */
+  var tocItems = root.querySelectorAll('.au-toc-item');
+  var cards = [];
+  tocItems.forEach(function(item) {
+    var id = item.getAttribute('data-toc');
+    var el = root.querySelector('#' + id);
+    if (el) cards.push({ id: id, el: el, toc: item });
+  });
+
+  var progressFill = root.querySelector('.au-progress-fill');
+  var auBody = root.querySelector('.au-body');
+
+  function updateTOC() {
+    var scrollY = window.scrollY;
+    var winH = window.innerHeight;
+    var activeId = null;
+
+    for (var i = cards.length - 1; i >= 0; i--) {
+      var rect = cards[i].el.getBoundingClientRect();
+      if (rect.top <= winH * 0.4) {
+        activeId = cards[i].id;
+        break;
+      }
+    }
+
+    tocItems.forEach(function(item) {
+      if (item.getAttribute('data-toc') === activeId) {
+        item.classList.add('au-active');
+      } else {
+        item.classList.remove('au-active');
+      }
+    });
+
+    /* Progress bar */
+    if (progressFill && auBody) {
+      var bodyRect = auBody.getBoundingClientRect();
+      var bodyTop = bodyRect.top + scrollY;
+      var bodyHeight = bodyRect.height;
+      var scrolled = scrollY + winH - bodyTop;
+      var pct = Math.max(0, Math.min(1, scrolled / bodyHeight));
+      progressFill.style.width = (pct * 100) + '%';
+    }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateTOC();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  /* Smooth scroll for TOC clicks */
+  tocItems.forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = item.getAttribute('data-toc');
+      var target = root.querySelector('#' + id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  /* Initial call */
+  updateTOC();
+
+  /* ── Mobile TOC ──────────────────────────────────────────── */
+  var mtocBtn = root.querySelector('#au-mtoc-btn');
+  var mtocDrawer = root.querySelector('#au-mtoc-drawer');
+  var mtocOverlay = root.querySelector('#au-mtoc-overlay');
+  var mtocLinks = root.querySelectorAll('.au-mobile-toc-link');
+
+  function openMtoc() {
+    mtocDrawer.classList.add('au-open');
+    mtocOverlay.classList.add('au-open');
+    mtocBtn.style.display = 'none';
+  }
+
+  function closeMtoc() {
+    mtocDrawer.classList.remove('au-open');
+    mtocOverlay.classList.remove('au-open');
+    setTimeout(function() { mtocBtn.style.display = ''; }, 350);
+  }
+
+  if (mtocBtn) mtocBtn.addEventListener('click', openMtoc);
+  if (mtocOverlay) mtocOverlay.addEventListener('click', closeMtoc);
+
+  mtocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('data-mtoc');
+      var target = root.querySelector('#' + id);
+      closeMtoc();
+      if (target) {
+        setTimeout(function() {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    });
+  });
+
+  /* Update mobile TOC active state on scroll */
+  function updateMobileTOC() {
+    var winH = window.innerHeight;
+    var activeId = null;
+    for (var i = cards.length - 1; i >= 0; i--) {
+      var rect = cards[i].el.getBoundingClientRect();
+      if (rect.top <= winH * 0.4) {
+        activeId = cards[i].id;
+        break;
+      }
+    }
+    mtocLinks.forEach(function(link) {
+      if (link.getAttribute('data-mtoc') === activeId) {
+        link.classList.add('au-active');
+      } else {
+        link.classList.remove('au-active');
+      }
+    });
+  }
+
+  /* Patch scroll handler to also update mobile TOC */
+  window.addEventListener('scroll', function() {
+    requestAnimationFrame(updateMobileTOC);
+  }, { passive: true });
+
+  /* ── Clickable cards → Storylane ─────────────────────────── */
+  root.querySelectorAll('.au-clickable[data-storylane-url]').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // Don't trigger if they clicked the setup guide link
+      if (e.target.closest('.au-setup-guide')) return;
+      var url = card.getAttribute('data-storylane-url');
+      if (typeof Storylane !== 'undefined' && url) {
+        Storylane.Play({
+          type: 'popup',
+          demo_type: 'image',
+          width: 2560,
+          height: 1245,
+          scale: '0.95',
+          demo_url: url,
+          padding_bottom: 'calc(48.63% + 25px)'
+        });
+      }
+    });
+  });
+})();
+</script>
