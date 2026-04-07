@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dutchie — Market Share Analysis | March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark-green:#042017;
+  --sand:#F1E8D6;
+  --medium-green:#003D29;
+  --purple:#5E324E;
+  --light-green:#6ABA48;
+  --yellow:#FFC02A;
+  --font:Inter,Arial,sans-serif;
+}
+body{background:#F4EFE4;font-family:var(--font);color:var(--dark-green);min-height:100vh}
+
+/* ===== LOCK SCREEN ===== */
+#lock-screen {
+  position:fixed;inset:0;z-index:1000;
+  background:var(--dark-green);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.5s,visibility 0.5s;
+}
+#lock-screen.unlocked{opacity:0;visibility:hidden;pointer-events:none}
+.lock-logo{height:32px;width:auto;margin-bottom:48px;opacity:0.6}
+.lock-box{text-align:center;max-width:360px;width:100%;padding:0 24px}
+.lock-box h2{font-size:1.25rem;font-weight:600;color:var(--sand);margin-bottom:8px}
+.lock-box p{font-size:0.85rem;color:var(--sand);opacity:0.5;margin-bottom:32px}
+.lock-input-wrap{position:relative}
+.lock-input-wrap input{
+  width:100%;padding:14px 20px;font-family:inherit;font-size:0.95rem;
+  background:rgba(255,255,255,0.06);border:1.5px solid rgba(241,235,214,0.15);
+  border-radius:10px;color:var(--sand);outline:none;text-align:center;
+  letter-spacing:0.1em;transition:border-color 0.2s;
+}
+.lock-input-wrap input::placeholder{color:var(--sand);opacity:0.3;letter-spacing:0.05em}
+.lock-input-wrap input:focus{border-color:var(--light-green)}
+.lock-input-wrap.error input{border-color:#ef4444;animation:shake 0.4s ease}
+.lock-error-msg{font-size:0.75rem;color:#ef4444;margin-top:12px;opacity:0;transition:opacity 0.2s}
+.lock-input-wrap.error + .lock-error-msg{opacity:1}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}
+}
+
+/* ===== MAIN CONTENT ===== */
+#main-content{display:none}
+#main-content.visible{display:block}
+
+/* HEADER */
+.header{background:var(--dark-green);padding:36px 48px 32px;position:relative}
+.header-inner{width:100%}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.logo-mark{width:32px;height:32px}
+.logo-text{font-size:20px;font-weight:600;color:var(--sand);letter-spacing:-0.3px}
+.eyebrow{font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--light-green);text-transform:uppercase;margin-bottom:10px}
+.header h1{font-size:32px;font-weight:600;color:var(--sand);line-height:1.2;letter-spacing:-0.5px;max-width:600px}
+.header-line{width:52px;height:2px;background:var(--sand);margin:14px 0}
+.header-sub{font-size:13px;color:rgba(241,232,214,0.65);font-weight:400}
+.header-meta{position:absolute;top:36px;right:48px;text-align:right}
+.header-meta .date{font-size:11px;color:rgba(241,232,214,0.5);font-weight:400}
+
+/* SUMMARY CARDS */
+.summary-band{background:var(--medium-green);padding:20px 48px}
+.summary-inner{width:100%;display:flex;gap:0}
+.sum-card{flex:1;padding:0 24px;border-right:1px solid rgba(241,232,214,0.15)}
+.sum-card:first-child{padding-left:0}
+.sum-card:last-child{border-right:none}
+.sum-lbl{font-size:10px;font-weight:600;letter-spacing:1px;color:rgba(241,232,214,0.55);text-transform:uppercase;margin-bottom:5px}
+.sum-val{font-size:22px;font-weight:600;color:var(--sand);letter-spacing:-0.5px}
+.sum-val.accent{color:var(--light-green)}
+
+/* MAIN CONTENT */
+.main{width:100%;padding:32px 48px 48px}
+
+/* CONTROLS */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
+.controls input,.controls select{font-family:var(--font);font-size:12px;padding:7px 12px;border:1px solid rgba(4,32,23,0.2);border-radius:6px;background:#fff;color:var(--dark-green);outline:none}
+.controls input:focus,.controls select:focus{border-color:var(--medium-green)}
+.controls input{width:160px}
+.filter-label{font-size:11px;font-weight:600;color:rgba(4,32,23,0.45);letter-spacing:0.5px;text-transform:uppercase}
+.count-lbl{font-size:11px;color:rgba(4,32,23,0.45);margin-left:auto}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:rgba(4,32,23,0.6);margin-bottom:16px;padding:10px 14px;background:rgba(4,32,23,0.04);border-radius:6px;border:1px solid rgba(4,32,23,0.08)}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.legend-title{font-weight:600;color:var(--dark-green);margin-right:4px}
+
+/* TABLE */
+.tbl-wrap{border:1px solid rgba(4,32,23,0.12);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 1px 4px rgba(4,32,23,0.06);width:100%}
+table{width:100%;border-collapse:collapse;min-width:1100px}
+.tbl-scroll{overflow-x:auto;width:100%;-webkit-overflow-scrolling:touch}
+.tbl-scroll::-webkit-scrollbar{height:6px}
+.tbl-scroll::-webkit-scrollbar-track{background:rgba(4,32,23,0.05);border-radius:3px}
+.tbl-scroll::-webkit-scrollbar-thumb{background:rgba(4,32,23,0.25);border-radius:3px}
+.tbl-scroll::-webkit-scrollbar-thumb:hover{background:rgba(4,32,23,0.4)}
+thead{background:var(--dark-green)}
+th{padding:10px 12px;font-size:10.5px;font-weight:600;letter-spacing:0.6px;color:rgba(241,232,214,0.7);text-transform:uppercase;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;border-right:1px solid rgba(241,232,214,0.07)}
+th:last-child{border-right:none}
+th:hover{color:var(--sand)}
+th.sort-asc::after{content:" ↑";font-size:9px;color:var(--light-green)}
+th.sort-desc::after{content:" ↓";font-size:9px;color:var(--light-green)}
+td{padding:8px 12px;border-bottom:1px solid rgba(4,32,23,0.06);font-size:12.5px;color:var(--dark-green);border-right:1px solid rgba(4,32,23,0.04);vertical-align:middle}
+td:last-child{border-right:none}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(106,186,72,0.04)}
+.st{font-weight:600;font-size:13px;letter-spacing:0.2px}
+
+/* PHASE BADGE */
+.phase-cell{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.phase-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.phase-txt{font-size:11px;font-weight:500}
+
+/* BAR + SHARE */
+.share-cell{min-width:160px}
+.bar-row{display:flex;align-items:center;gap:8px}
+.bar-bg{flex:1;height:5px;background:rgba(4,32,23,0.08);border-radius:3px;min-width:55px;overflow:hidden}
+.bar-fg{height:5px;border-radius:3px}
+.share-val{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.ci-range{font-size:10px;color:rgba(4,32,23,0.4);font-variant-numeric:tabular-nums;margin-top:1px}
+.no-data{color:rgba(4,32,23,0.3);font-size:12px}
+
+/* NUM CELLS */
+.num{text-align:right;font-variant-numeric:tabular-nums;font-size:12px}
+
+/* CONF BADGE */
+.conf-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:0.3px;white-space:nowrap}
+.conf-H{background:rgba(106,186,72,0.15);color:#2a6014}
+.conf-M{background:rgba(255,192,42,0.18);color:#7a5200}
+.conf-L{background:rgba(200,60,60,0.12);color:#8a2020}
+
+/* FLAG */
+.flag-txt{font-size:10px;color:rgba(4,32,23,0.45);font-style:italic;margin-top:2px;max-width:220px;line-height:1.3}
+.src-count{font-size:11.5px;color:rgba(4,32,23,0.5)}
+
+/* SOURCE BADGES */
+.src-badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.sb{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;letter-spacing:0.3px;white-space:nowrap}
+.sb-CRB{background:#E6F1FB;color:#0C447C}
+.sb-EM{background:#EAF3DE;color:#27500A}
+.sb-OFF{background:#FAEEDA;color:#633806}
+.sb-MJB{background:#EEEDFE;color:#3C3489}
+.sb-HS{background:#042017;color:#F1E8D6}
+.sb-OVR{background:#FCEBEB;color:#791F1F}
+
+/* METHODOLOGY */
+.methodology{margin-top:36px;background:var(--dark-green);border-radius:10px;padding:32px 36px}
+.meth-eyebrow{font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--light-green);text-transform:uppercase;margin-bottom:10px}
+.meth-title{font-size:18px;font-weight:600;color:var(--sand);margin-bottom:18px}
+.meth-body p{font-size:13px;color:rgba(241,232,214,0.75);line-height:1.75;margin-bottom:14px}
+.meth-body p:last-child{margin-bottom:0}
+.meth-body strong{color:var(--sand);font-weight:600}
+
+/* FOOTER */
+.footer{background:var(--medium-green);padding:16px 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-inner{width:100%;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-size:13px;font-weight:600;color:rgba(241,232,214,0.5);letter-spacing:-0.2px}
+.footer-note{font-size:11px;color:rgba(241,232,214,0.35)}
+
+@media(max-width:768px){
+  .header,.summary-band,.main{padding-left:20px;padding-right:20px}
+  .summary-inner{flex-wrap:wrap;gap:16px}
+  .sum-card{flex:1 1 40%;border-right:none;padding:0}
+  .header-meta{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <img class="lock-logo" src="images/logo-light.png" alt="dutchie">
+  <div class="lock-box">
+    <h2>Restricted Access</h2>
+    <p>Enter the password to continue.</p>
+    <div class="lock-input-wrap" id="lock-input-wrap">
+      <input type="password" id="lock-password" placeholder="Password" autocomplete="off" autofocus>
+    </div>
+    <div class="lock-error-msg" id="lock-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <svg fill="none" height="26" viewBox="0 0 107 24" width="120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.7416 16.8747C21.4717 17.5299 20.0921 18.0213 18.7673 18.3116C17.2545 18.6392 15.7024 18.7509 14.1582 18.6392C11.5636 18.4308 9.04733 17.2991 7.31497 15.4378C7.10333 15.2144 6.93087 14.9389 6.60165 14.8645C6.07645 14.7528 5.70804 15.0953 5.58262 15.5494C4.30491 20.0538 8.64755 24.3497 13.4057 23.9775C17.6856 23.7318 21.6363 21.3567 23.6822 17.7756C23.8076 17.5671 23.7998 17.3289 23.6744 17.1278C23.4863 16.8151 23.0708 16.696 22.7416 16.8747Z" fill="#F1E8D6"/>
+        <path d="M12.0339 1.2248C13.2646 1.94699 14.409 2.83298 15.334 3.77852C16.3922 4.85808 17.2702 6.0791 17.9443 7.40435C19.0496 9.64537 19.2691 12.2735 18.446 14.6337C18.3441 14.924 18.1795 15.1995 18.2814 15.5048C18.446 15.9887 18.932 16.1227 19.418 16.0036C24.1683 14.7975 25.9085 9.08698 23.1884 5.35691C20.8211 1.95444 16.6823 -0.100448 12.3945 0.00378545C12.1437 0.0112307 11.9242 0.130356 11.8066 0.331378C11.6106 0.636632 11.7125 1.04612 12.0339 1.2248Z" fill="#F1E8D6"/>
+        <path d="M13.1705 8.55086C12.2063 8.41685 11.2343 8.6402 10.4504 9.19115C10.0428 9.47407 9.70573 9.83144 9.4549 10.2484C8.72589 11.4471 8.81212 12.9435 9.68222 14.0529C10.2623 14.7974 11.1167 15.2888 12.0809 15.4228C13.045 15.5568 14.017 15.3335 14.8009 14.7825C15.2085 14.4996 15.5456 14.1422 15.7964 13.7253C16.5254 12.5266 16.4392 11.0301 15.5691 9.92078C14.9969 9.17626 14.1425 8.68487 13.1705 8.55086Z" fill="#F1E8D6"/>
+        <path d="M12.1436 5.88549C12.4572 5.82593 12.7942 5.81849 13.0215 5.58768C13.3821 5.20798 13.2645 4.73893 12.904 4.40389C9.43141 1.09821 3.34856 2.52769 1.31049 6.63002C-0.602154 10.2782 -0.414021 14.7081 1.82785 18.185C1.96111 18.3935 2.17276 18.5052 2.42359 18.5052C2.79985 18.5052 3.1134 18.2222 3.1134 17.8649C3.1526 16.495 3.38776 15.1101 3.78753 13.8742C4.24218 12.4671 4.91631 11.1344 5.79424 9.91336C7.29144 7.88081 9.58035 6.38432 12.1436 5.88549Z" fill="#F1E8D6"/>
+        <path d="M31.3719 12.8847C31.3719 9.43011 33.4727 7.05507 36.9923 7.05507C38.4817 7.05507 39.7515 7.6358 40.4413 8.49201V2.98998C40.4413 2.81129 40.5903 2.66983 40.7784 2.66983H43.0673C43.2555 2.66983 43.4044 2.81129 43.4044 2.98998V18.2155C43.4044 18.3942 43.2555 18.5356 43.0673 18.5356H40.7784C40.5903 18.5356 40.4413 18.3942 40.4413 18.2155V17.2402C39.8534 18.1336 38.5287 18.7218 37.0393 18.7218C33.4727 18.7143 31.3719 16.3393 31.3719 12.8847ZM40.6216 12.8847C40.6216 10.8447 39.3674 9.49711 37.4548 9.49711C35.5657 9.49711 34.3115 10.8447 34.3115 12.8847C34.3115 14.9247 35.5657 16.2723 37.4548 16.2723C39.3674 16.2723 40.6216 14.9247 40.6216 12.8847Z" fill="#F1E8D6"/>
+        <path d="M55.7661 18.535H53.4771C53.289 18.535 53.1401 18.3936 53.1401 18.2149V16.8375C52.3876 17.9394 51.0393 18.7212 49.3618 18.7212C46.7907 18.7212 45.0192 17.1055 45.0192 14.6412V7.56819C45.0192 7.38951 45.1681 7.24805 45.3562 7.24805H47.6451C47.8333 7.24805 47.9822 7.38951 47.9822 7.56819V13.9934C47.9822 15.2145 49.0248 16.2345 50.3103 16.2121C52.1132 16.1823 53.1322 14.7082 53.1322 12.1991V7.56819C53.1322 7.38951 53.2812 7.24805 53.4693 7.24805H55.7582C55.9463 7.24805 56.0953 7.38951 56.0953 7.56819V18.2223C56.1031 18.3936 55.9542 18.535 55.7661 18.535Z" fill="#F1E8D6"/>
+        <path d="M63.3069 18.7141C60.9004 18.7141 59.1053 17.4782 59.1053 14.8351V9.61602H57.4435C57.2554 9.61602 57.1064 9.47456 57.1064 9.29588V7.56858C57.1064 7.3899 57.2554 7.24844 57.4435 7.24844H59.1053V4.25545C59.1053 4.07676 59.2543 3.9353 59.4424 3.9353H61.7313C61.9194 3.9353 62.0683 4.07676 62.0683 4.25545V7.24844H64.7257C64.9138 7.24844 65.0627 7.3899 65.0627 7.56858V9.29588C65.0627 9.47456 64.9138 9.61602 64.7257 9.61602H62.0683V14.5745C62.0683 15.6541 62.6798 16.2348 63.6047 16.2348C63.9183 16.2348 64.271 16.2051 64.6003 16.1083C64.8041 16.0487 65.0157 16.1827 65.0314 16.3837L65.1882 18.1706C65.2038 18.3269 65.1019 18.4684 64.9452 18.5056C64.4356 18.6471 63.8869 18.7141 63.3069 18.7141Z" fill="#F1E8D6"/>
+        <path d="M65.5723 12.884C65.5723 9.42945 68.0493 7.05441 71.616 7.05441C74.5241 7.05441 76.6092 8.42434 77.1423 10.6281C77.1815 10.8068 77.0639 10.9855 76.8758 11.0153L74.626 11.4322C74.4536 11.462 74.289 11.3652 74.2419 11.2014C73.9284 10.174 72.9877 9.49645 71.7179 9.49645C69.8758 9.49645 68.6764 10.8217 68.6764 12.884C68.6764 14.9464 69.8836 16.2716 71.7179 16.2716C72.9956 16.2716 73.8814 15.6686 74.2341 14.6262C74.289 14.4699 74.4536 14.3656 74.626 14.4029L76.8758 14.8347C77.0639 14.8719 77.1893 15.0506 77.1423 15.2293C76.5622 17.4107 74.4771 18.7137 71.6238 18.7137C68.0493 18.7137 65.5723 16.3386 65.5723 12.884Z" fill="#F1E8D6"/>
+        <path d="M78.71 2.6618H80.9989C81.187 2.6618 81.3359 2.80326 81.3359 2.98195V8.98281C82.112 7.7469 83.4602 7.0545 85.1142 7.0545C87.7794 7.0545 89.551 8.67011 89.551 11.1345V18.2075C89.551 18.3861 89.402 18.5276 89.2139 18.5276H86.925C86.7368 18.5276 86.5879 18.3861 86.5879 18.2075V11.8269C86.5879 10.5984 85.5532 9.57099 84.2598 9.56354C82.402 9.54865 81.3516 11.0526 81.3516 13.6212V18.2075C81.3516 18.3861 81.2027 18.5276 81.0146 18.5276H78.7256C78.5375 18.5276 78.3886 18.3861 78.3886 18.2075V2.9894C78.3651 2.81071 78.5218 2.6618 78.71 2.6618Z" fill="#F1E8D6"/>
+        <path d="M90.6406 4.01678C90.6406 3.05635 91.4166 2.28949 92.4827 2.28949C93.5723 2.28949 94.3718 3.0489 94.3718 4.01678C94.3718 4.99956 93.5723 5.76642 92.4827 5.76642C91.4245 5.76642 90.6406 5.007 90.6406 4.01678ZM91.3383 7.23313H93.6272C93.8153 7.23313 93.9642 7.37459 93.9642 7.55327V18.2074C93.9642 18.3861 93.8153 18.5276 93.6272 18.5276H91.3383C91.1501 18.5276 91.0012 18.3861 91.0012 18.2074V7.56072C90.9934 7.38203 91.1501 7.23313 91.3383 7.23313Z" fill="#F1E8D6"/>
+        <path d="M106.639 13.6286H98.1265C98.3852 15.3335 99.5453 16.3386 101.238 16.3386C102.516 16.3386 103.457 15.81 103.841 14.8794C103.904 14.7305 104.076 14.6486 104.241 14.6932L106.365 15.2367C106.561 15.2889 106.671 15.4824 106.6 15.6611C105.832 17.5894 103.833 18.7137 101.191 18.7137C97.2486 18.7137 95.1478 15.8249 95.1478 12.884C95.1478 9.94317 97.084 7.05441 101.027 7.05441C105.04 7.05441 107 9.87616 107 12.5043C107 12.7724 106.992 13.0776 106.976 13.3233C106.969 13.4945 106.82 13.6286 106.639 13.6286ZM103.817 11.5662C103.676 10.2186 102.751 9.21354 101.035 9.21354C99.5689 9.21354 98.5341 10.04 98.2049 11.5662H103.817Z" fill="#F1E8D6"/>
+      </svg>
+    </div>
+    <div class="eyebrow">Market Intelligence</div>
+    <h1>U.S. Cannabis Market Share Analysis</h1>
+    <div class="header-line"></div>
+    <div class="header-sub">Blended rooftop &amp; GMV share by state — three-factor weighted methodology</div>
+  </div>
+  <div class="header-meta">
+    <div class="date">Reference date: March 11, 2026</div>
+    <div class="date" style="margin-top:3px">Prepared by dutchie</div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:8px;justify-content:flex-end">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1.2px;color:rgba(241,232,214,0.4);text-transform:uppercase">States</div>
+      <div style="font-size:22px;font-weight:600;color:var(--sand)" id="state-count-val">43</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY BAND -->
+<div class="summary-band" style="padding:0">
+  <div style="width:100%;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(241,232,214,0.08)">
+    <div style="padding:20px 40px 20px 48px;border-right:1px solid rgba(241,232,214,0.1)">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;color:rgba(241,232,214,0.35);text-transform:uppercase;margin-bottom:14px">Rooftops</div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px">
+        <div style="font-size:30px;font-weight:600;color:var(--sand);letter-spacing:-1px;line-height:1" id="total-rt">—</div>
+        <div style="font-size:13px;color:rgba(241,232,214,0.35)">of</div>
+        <div style="font-size:22px;font-weight:600;color:rgba(241,232,214,0.45);letter-spacing:-0.5px;line-height:1" id="total-mkt-rt">—</div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+          <div style="font-size:10px;color:rgba(241,232,214,0.35);text-transform:uppercase;letter-spacing:0.8px">share</div>
+          <div style="font-size:26px;font-weight:600;color:#6ABA48;letter-spacing:-0.5px" id="wrt-val">—</div>
+        </div>
+      </div>
+      <div style="height:4px;background:rgba(241,232,214,0.1);border-radius:2px;overflow:hidden">
+        <div id="rt-bar" style="height:4px;background:#6ABA48;border-radius:2px;width:0%;transition:width 0.6s ease"></div>
+      </div>
+    </div>
+    <div style="padding:20px 48px 20px 40px">
+      <div style="font-size:9px;font-weight:600;letter-spacing:1.5px;color:rgba(241,232,214,0.35);text-transform:uppercase;margin-bottom:14px">GMV — annualized</div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px">
+        <div style="font-size:30px;font-weight:600;color:var(--sand);letter-spacing:-1px;line-height:1">$<span id="total-gmv">—</span>M</div>
+        <div style="font-size:13px;color:rgba(241,232,214,0.35)">of</div>
+        <div style="font-size:22px;font-weight:600;color:rgba(241,232,214,0.45);letter-spacing:-0.5px;line-height:1" id="total-mkt-gmv">—</div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+          <div style="font-size:10px;color:rgba(241,232,214,0.35);text-transform:uppercase;letter-spacing:0.8px">share</div>
+          <div style="font-size:26px;font-weight:600;color:#6ABA48;letter-spacing:-0.5px" id="wgmv-val">—</div>
+        </div>
+      </div>
+      <div style="height:4px;background:rgba(241,232,214,0.1);border-radius:2px;overflow:hidden">
+        <div id="gmv-bar" style="height:4px;background:#6ABA48;border-radius:2px;width:0%;transition:width 0.6s ease"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="legend">
+    <span class="legend-title">Market phase:</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#185fa5"></span>Launch</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#3B6D11"></span>Growth / early growth</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#BA7517"></span>Maturing</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#888780"></span>Stable / medical</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#A32D2D"></span>Declining</span>
+    <span style="margin-left:12px;border-left:1px solid rgba(4,32,23,0.15);padding-left:12px"><span class="legend-title">CI range</span> shown below each share as low–high % bounds</span><span style="margin-left:8px;border-left:1px solid rgba(4,32,23,0.15);padding-left:8px;display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+    <span style="font-weight:600;color:var(--dark-green)">Sources:</span>
+    <span class="sb sb-OFF">Off.</span><span style="font-size:10px;color:rgba(4,32,23,0.5)">Official state</span>
+    <span class="sb sb-CRB">CRB</span><span style="font-size:10px;color:rgba(4,32,23,0.5)">CRB Monitor</span>
+    <span class="sb sb-EM">Emerald</span><span style="font-size:10px;color:rgba(4,32,23,0.5)">Emerald Intel</span>
+    <span class="sb sb-MJB">MJB</span><span style="font-size:10px;color:rgba(4,32,23,0.5)">MJ BIZ Factbook</span>
+    <span class="sb sb-HS">HS</span><span style="font-size:10px;color:rgba(4,32,23,0.5)">Headset Feb 2026</span>
+    <span class="sb sb-OVR">Override</span><span style="font-size:10px;color:rgba(4,32,23,0.5)">Hard override</span>
+  </span>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Filter by state…">
+    <select id="phase-filter">
+      <option value="">All phases</option>
+      <option value="launch">Launch</option>
+      <option value="growth">Growth / early growth</option>
+      <option value="maturing">Maturing</option>
+      <option value="stable">Stable / medical</option>
+      <option value="declining">Declining</option>
+    </select>
+    <select id="conf-filter">
+      <option value="">All confidence levels</option>
+      <option value="HIGH">High confidence</option>
+      <option value="MEDIUM">Medium confidence</option>
+      <option value="LOW">Low confidence</option>
+    </select>
+    <span class="count-lbl" id="count-lbl"></span>
+  </div>
+
+  <div class="tbl-scroll">
+  <div class="tbl-wrap">
+  <table id="main-tbl">
+    <thead>
+      <tr>
+        <th data-col="state">State</th>
+        <th data-col="phase">Phase</th>
+        <th data-col="drt" style="text-align:right">Dutchie RT</th>
+        <th data-col="brt" style="text-align:right">Market RT</th>
+        <th data-col="rt_share">Rooftop share</th>
+        <th data-col="dgmv" style="text-align:right">Dutchie GMV ($M)</th>
+        <th data-col="bgmv" style="text-align:right">Market GMV ($M)</th>
+        <th data-col="gmv_share">GMV share</th>
+        <th data-col="conf">Confidence</th>
+        <th data-col="sources">Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tbl-body"></tbody>
+  </table>
+  </div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="methodology">
+    <div class="meth-eyebrow">Methodology</div>
+    <div class="meth-title">How these numbers were derived</div>
+    <div class="meth-body">
+      <p>Every market denominator in this analysis is a <strong>blended estimate</strong> constructed from up to four independent data sources: official state agency publications, CRB Monitor's active retail license database (as of February 28, 2026), MJ BIZ Factbook 2025 projections, and Emerald Intelligence dispensary address counts (March 2026). Rather than selecting a single source per state, we apply a three-factor weighting model to each data point before blending. <strong>Factor one</strong> is a base source weight reflecting data quality — official state data receives 90, CRB Monitor 85 (reduced to 70 where its count exceeds official figures by more than 20%, indicating inclusion of non-operational licenses), MJ BIZ 75, and Emerald 70 (boosted to 85 in states where Emerald methodology has been independently validated). <strong>Factor two</strong> is a time-decay adjustment that reduces each source's effective weight by 5 points per month of distance from the March 11, 2026 reference date in stable markets, and 10 points per month in high-velocity states (New York, Ohio, Minnesota, New Jersey, Maryland, Arizona). Critically, CRB Monitor (Feb 28, 2026) and Emerald Intelligence (March 2026) are treated as essentially current — at +0.4 and 0.0 months from reference respectively — and carry near-full base weight with minimal decay. The sources requiring meaningful forward projection are official state revenue publications (2024 annuals centered June 2024 = +21.3 months; 2025 annuals centered June 2025 = +9.3 months) and MJ BIZ Factbook estimates (centered June 2025 = +9.3 months). <strong>Factor three</strong> is a velocity multiplier — each data point is projected to the March 11, 2026 reference date so all sources are compared on an apples-to-apples basis regardless of when they were published. Critically, this projection uses <strong>piecewise S-curve growth rates rather than flat monthly rates</strong>: for states with sufficient public data (New York, Ohio, Colorado, Michigan, Washington, California, Oregon, Minnesota, New Jersey, Maryland), we fit segmented rates across distinct market windows using actual published monthly sales figures, so that a flat +6%/month rate is not incorrectly compounded over 14 months when the true trajectory shows clear deceleration. For other states, a tapered rate is applied — the distant-period rate is scaled up to 1.4× the current rate, reflecting that older data points occurred during a faster-moving phase of the market cycle. The blended denominator is the weighted average of velocity-adjusted source values, with each source's time-decayed weight as its coefficient.</p>
+      <p>Two additional refinements were applied to improve structural accuracy. First, <strong>rooftop and GMV denominators are built from separate source pools</strong>: the rooftop denominator draws exclusively from license databases (CRB Monitor, Emerald Intelligence, official state licensee counts), while the GMV denominator draws exclusively from revenue publications (official state sales data, MJ BIZ Factbook projections). This separation eliminates cross-contamination between license counts and revenue figures — phenomena that move at fundamentally different speeds and diverge sharply in markets like Michigan (where store count still grows while revenue contracts) or Maine (where dual-license complexity inflates the store denominator without affecting sales). Second, a <strong>directional disagreement multiplier</strong> is applied after initial blending: in growth markets, sources reading higher than the inter-source mean receive a weight bonus (up to 1.25×) because leading indicators tend to be more current in expanding markets, while license databases in declining markets receive a penalty when they read above the mean (as inactive licenses persist after closures). In stable markets, official state data receives a modest 1.1× preference over third-party license counts. Confidence intervals reflect source count, coefficient of variation across velocity-adjusted values, market phase, and known structural anomalies. <strong>GMV shares above 100%</strong> are not errors — they reflect Dutchie's 30-day annualized snapshot capturing an atypical period relative to the state denominator, and are flagged explicitly. For 13 states where Headset publishes public market data (AZ, CA, CO, IL, MA, MD, MI, MO, NV, NY, OH, OR, WA), Headset's February 2026 annualized monthly sales figure is included as an additional GMV source at weight 80. Headset data is sourced from 3,500+ POS-connected retailers and is treated as current (February 28, 2026 ≈ +0.4 months from reference). This is particularly impactful for high-velocity or declining states where annual figures diverge from recent run rates — Ohio's blended GMV denominator resolves from $2.86B to $1.77B once the current Headset monthly is included, producing a more credible 79.8% GMV share. States with Headset data are marked <strong>HS</strong> in the Sources column. Where ground-truth official data is definitive and current, it overrides the blending model entirely: Alabama (3 licensed sites, no sales commenced as of March 2026) and Minnesota (OCM official counts as of March 2, 2026) use official figures directly. All GMV values are annualized millions of dollars. External citation should use only HIGH and MEDIUM confidence states.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <svg fill="none" height="14" viewBox="0 0 107 24" width="64" xmlns="http://www.w3.org/2000/svg" style="opacity:0.4">
+      <path d="M22.7416 16.8747C21.4717 17.5299 20.0921 18.0213 18.7673 18.3116C17.2545 18.6392 15.7024 18.7509 14.1582 18.6392C11.5636 18.4308 9.04733 17.2991 7.31497 15.4378C7.10333 15.2144 6.93087 14.9389 6.60165 14.8645C6.07645 14.7528 5.70804 15.0953 5.58262 15.5494C4.30491 20.0538 8.64755 24.3497 13.4057 23.9775C17.6856 23.7318 21.6363 21.3567 23.6822 17.7756C23.8076 17.5671 23.7998 17.3289 23.6744 17.1278C23.4863 16.8151 23.0708 16.696 22.7416 16.8747Z" fill="#F1E8D6"/>
+      <path d="M12.0339 1.2248C13.2646 1.94699 14.409 2.83298 15.334 3.77852C16.3922 4.85808 17.2702 6.0791 17.9443 7.40435C19.0496 9.64537 19.2691 12.2735 18.446 14.6337C18.3441 14.924 18.1795 15.1995 18.2814 15.5048C18.446 15.9887 18.932 16.1227 19.418 16.0036C24.1683 14.7975 25.9085 9.08698 23.1884 5.35691C20.8211 1.95444 16.6823 -0.100448 12.3945 0.00378545C12.1437 0.0112307 11.9242 0.130356 11.8066 0.331378C11.6106 0.636632 11.7125 1.04612 12.0339 1.2248Z" fill="#F1E8D6"/>
+      <path d="M13.1705 8.55086C12.2063 8.41685 11.2343 8.6402 10.4504 9.19115C10.0428 9.47407 9.70573 9.83144 9.4549 10.2484C8.72589 11.4471 8.81212 12.9435 9.68222 14.0529C10.2623 14.7974 11.1167 15.2888 12.0809 15.4228C13.045 15.5568 14.017 15.3335 14.8009 14.7825C15.2085 14.4996 15.5456 14.1422 15.7964 13.7253C16.5254 12.5266 16.4392 11.0301 15.5691 9.92078C14.9969 9.17626 14.1425 8.68487 13.1705 8.55086Z" fill="#F1E8D6"/>
+      <path d="M12.1436 5.88549C12.4572 5.82593 12.7942 5.81849 13.0215 5.58768C13.3821 5.20798 13.2645 4.73893 12.904 4.40389C9.43141 1.09821 3.34856 2.52769 1.31049 6.63002C-0.602154 10.2782 -0.414021 14.7081 1.82785 18.185C1.96111 18.3935 2.17276 18.5052 2.42359 18.5052C2.79985 18.5052 3.1134 18.2222 3.1134 17.8649C3.1526 16.495 3.38776 15.1101 3.78753 13.8742C4.24218 12.4671 4.91631 11.1344 5.79424 9.91336C7.29144 7.88081 9.58035 6.38432 12.1436 5.88549Z" fill="#F1E8D6"/>
+      <path d="M31.3719 12.8847C31.3719 9.43011 33.4727 7.05507 36.9923 7.05507C38.4817 7.05507 39.7515 7.6358 40.4413 8.49201V2.98998C40.4413 2.81129 40.5903 2.66983 40.7784 2.66983H43.0673C43.2555 2.66983 43.4044 2.81129 43.4044 2.98998V18.2155C43.4044 18.3942 43.2555 18.5356 43.0673 18.5356H40.7784C40.5903 18.5356 40.4413 18.3942 40.4413 18.2155V17.2402C39.8534 18.1336 38.5287 18.7218 37.0393 18.7218C33.4727 18.7143 31.3719 16.3393 31.3719 12.8847ZM40.6216 12.8847C40.6216 10.8447 39.3674 9.49711 37.4548 9.49711C35.5657 9.49711 34.3115 10.8447 34.3115 12.8847C34.3115 14.9247 35.5657 16.2723 37.4548 16.2723C39.3674 16.2723 40.6216 14.9247 40.6216 12.8847Z" fill="#F1E8D6"/>
+      <path d="M55.7661 18.535H53.4771C53.289 18.535 53.1401 18.3936 53.1401 18.2149V16.8375C52.3876 17.9394 51.0393 18.7212 49.3618 18.7212C46.7907 18.7212 45.0192 17.1055 45.0192 14.6412V7.56819C45.0192 7.38951 45.1681 7.24805 45.3562 7.24805H47.6451C47.8333 7.24805 47.9822 7.38951 47.9822 7.56819V13.9934C47.9822 15.2145 49.0248 16.2345 50.3103 16.2121C52.1132 16.1823 53.1322 14.7082 53.1322 12.1991V7.56819C53.1322 7.38951 53.2812 7.24805 53.4693 7.24805H55.7582C55.9463 7.24805 56.0953 7.38951 56.0953 7.56819V18.2223C56.1031 18.3936 55.9542 18.535 55.7661 18.535Z" fill="#F1E8D6"/>
+      <path d="M63.3069 18.7141C60.9004 18.7141 59.1053 17.4782 59.1053 14.8351V9.61602H57.4435C57.2554 9.61602 57.1064 9.47456 57.1064 9.29588V7.56858C57.1064 7.3899 57.2554 7.24844 57.4435 7.24844H59.1053V4.25545C59.1053 4.07676 59.2543 3.9353 59.4424 3.9353H61.7313C61.9194 3.9353 62.0683 4.07676 62.0683 4.25545V7.24844H64.7257C64.9138 7.24844 65.0627 7.3899 65.0627 7.56858V9.29588C65.0627 9.47456 64.9138 9.61602 64.7257 9.61602H62.0683V14.5745C62.0683 15.6541 62.6798 16.2348 63.6047 16.2348C63.9183 16.2348 64.271 16.2051 64.6003 16.1083C64.8041 16.0487 65.0157 16.1827 65.0314 16.3837L65.1882 18.1706C65.2038 18.3269 65.1019 18.4684 64.9452 18.5056C64.4356 18.6471 63.8869 18.7141 63.3069 18.7141Z" fill="#F1E8D6"/>
+      <path d="M65.5723 12.884C65.5723 9.42945 68.0493 7.05441 71.616 7.05441C74.5241 7.05441 76.6092 8.42434 77.1423 10.6281C77.1815 10.8068 77.0639 10.9855 76.8758 11.0153L74.626 11.4322C74.4536 11.462 74.289 11.3652 74.2419 11.2014C73.9284 10.174 72.9877 9.49645 71.7179 9.49645C69.8758 9.49645 68.6764 10.8217 68.6764 12.884C68.6764 14.9464 69.8836 16.2716 71.7179 16.2716C72.9956 16.2716 73.8814 15.6686 74.2341 14.6262C74.289 14.4699 74.4536 14.3656 74.626 14.4029L76.8758 14.8347C77.0639 14.8719 77.1893 15.0506 77.1423 15.2293C76.5622 17.4107 74.4771 18.7137 71.6238 18.7137C68.0493 18.7137 65.5723 16.3386 65.5723 12.884Z" fill="#F1E8D6"/>
+      <path d="M78.71 2.6618H80.9989C81.187 2.6618 81.3359 2.80326 81.3359 2.98195V8.98281C82.112 7.7469 83.4602 7.0545 85.1142 7.0545C87.7794 7.0545 89.551 8.67011 89.551 11.1345V18.2075C89.551 18.3861 89.402 18.5276 89.2139 18.5276H86.925C86.7368 18.5276 86.5879 18.3861 86.5879 18.2075V11.8269C86.5879 10.5984 85.5532 9.57099 84.2598 9.56354C82.402 9.54865 81.3516 11.0526 81.3516 13.6212V18.2075C81.3516 18.3861 81.2027 18.5276 81.0146 18.5276H78.7256C78.5375 18.5276 78.3886 18.3861 78.3886 18.2075V2.9894C78.3651 2.81071 78.5218 2.6618 78.71 2.6618Z" fill="#F1E8D6"/>
+      <path d="M90.6406 4.01678C90.6406 3.05635 91.4166 2.28949 92.4827 2.28949C93.5723 2.28949 94.3718 3.0489 94.3718 4.01678C94.3718 4.99956 93.5723 5.76642 92.4827 5.76642C91.4245 5.76642 90.6406 5.007 90.6406 4.01678ZM91.3383 7.23313H93.6272C93.8153 7.23313 93.9642 7.37459 93.9642 7.55327V18.2074C93.9642 18.3861 93.8153 18.5276 93.6272 18.5276H91.3383C91.1501 18.5276 91.0012 18.3861 91.0012 18.2074V7.56072C90.9934 7.38203 91.1501 7.23313 91.3383 7.23313Z" fill="#F1E8D6"/>
+      <path d="M106.639 13.6286H98.1265C98.3852 15.3335 99.5453 16.3386 101.238 16.3386C102.516 16.3386 103.457 15.81 103.841 14.8794C103.904 14.7305 104.076 14.6486 104.241 14.6932L106.365 15.2367C106.561 15.2889 106.671 15.4824 106.6 15.6611C105.832 17.5894 103.833 18.7137 101.191 18.7137C97.2486 18.7137 95.1478 15.8249 95.1478 12.884C95.1478 9.94317 97.084 7.05441 101.027 7.05441C105.04 7.05441 107 9.87616 107 12.5043C107 12.7724 106.992 13.0776 106.976 13.3233C106.969 13.4945 106.82 13.6286 106.639 13.6286ZM103.817 11.5662C103.676 10.2186 102.751 9.21354 101.035 9.21354C99.5689 9.21354 98.5341 10.04 98.2049 11.5662H103.817Z" fill="#F1E8D6"/>
+    </svg>
+    <span class="footer-note">Confidential — for internal use. Reference date: March 11, 2026.</span>
+  </div>
+</div>
+
+</div><!-- end #main-content -->
+
+<script>
+// ===== PASSWORD LOCK =====
+(function(){
+  const input=document.getElementById('lock-password');
+  const wrap=document.getElementById('lock-input-wrap');
+  const lockScreen=document.getElementById('lock-screen');
+  const mainContent=document.getElementById('main-content');
+  function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h+s.charCodeAt(i))|0;}return h;}
+  const TARGET=hashStr('bryanspace');
+  function tryUnlock(){
+    if(hashStr(input.value)===TARGET){sessionStorage.setItem('ms_auth','1');unlock();}
+    else{wrap.classList.add('error');input.value='';setTimeout(()=>wrap.classList.remove('error'),600);}
+  }
+  function unlock(){lockScreen.classList.add('unlocked');mainContent.classList.add('visible');}
+  if(sessionStorage.getItem('ms_auth')==='1')unlock();
+  input.addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
+})();
+
+// ===== MARKET SHARE DATA & RENDERING =====
+const rows=[
+  {state:"AK",phase:"mature",drt:101,brt:208.2,rt_share:48.5,ci_rt:2.1,dgmv:130,bgmv:173.6,gmv_share:74.9,ci_gmv:22.5,conf:"HIGH",n:3,headset:0,flags:[]},
+  {state:"AL",phase:"launch",drt:2,brt:3.0,rt_share:66.7,ci_rt:20.0,dgmv:0,bgmv:null,gmv_share:null,ci_gmv:null,conf:"LOW",n:1,headset:0,flags:["Hard override: 3 licensed sites, no sales commenced"]},
+  {state:"AR",phase:"stable",drt:27,brt:37.0,rt_share:73.0,ci_rt:2.2,dgmv:208,bgmv:298.2,gmv_share:69.7,ci_gmv:18.4,conf:"HIGH",n:3,headset:0,flags:[]},
+  {state:"AZ",phase:"declining",drt:156,brt:272.3,rt_share:57.3,ci_rt:12.9,dgmv:1381,bgmv:1148.3,gmv_share:120.3,ci_gmv:18.5,conf:"HIGH",n:2,headset:1,flags:["GMV 120%: 30-day annualization artifact"]},
+  {state:"CA",phase:"declining",drt:244,brt:1732.2,rt_share:14.1,ci_rt:1.0,dgmv:851,bgmv:3712.8,gmv_share:22.9,ci_gmv:3.3,conf:"HIGH",n:2,headset:1,flags:[]},
+  {state:"CO",phase:"declining",drt:248,brt:765.9,rt_share:32.4,ci_rt:5.3,dgmv:543,bgmv:1205.4,gmv_share:45.0,ci_gmv:2.1,conf:"HIGH",n:3,headset:1,flags:[]},
+  {state:"CT",phase:"mature",drt:59,brt:70.0,rt_share:84.3,ci_rt:2.5,dgmv:301,bgmv:343.2,gmv_share:87.7,ci_gmv:23.1,conf:"HIGH",n:3,headset:0,flags:[]},
+  {state:"DC",phase:"stable",drt:59,brt:73.1,rt_share:80.7,ci_rt:17.8,dgmv:65,bgmv:52.0,gmv_share:125.0,ci_gmv:37.5,conf:"LOW",n:2,headset:0,flags:["GMV 125%: 30-day annualization artifact"]},
+  {state:"DE",phase:"stable",drt:14,brt:14.5,rt_share:96.8,ci_rt:12.0,dgmv:84,bgmv:58.0,gmv_share:144.8,ci_gmv:43.4,conf:"LOW",n:2,headset:0,flags:["GMV 145%: 30-day annualization artifact"]},
+  {state:"FL",phase:"stable",drt:266,brt:780.8,rt_share:34.1,ci_rt:2.5,dgmv:462,bgmv:1899.9,gmv_share:24.3,ci_gmv:7.3,conf:"MEDIUM",n:2,headset:0,flags:["MTC vertical structure; RT definition mismatch"]},
+  {state:"GA",phase:"stable",drt:5,brt:78.3,rt_share:6.4,ci_rt:0.9,dgmv:2,bgmv:null,gmv_share:null,ci_gmv:null,conf:"LOW",n:2,headset:0,flags:[]},
+  {state:"HI",phase:"stable",drt:23,brt:15.5,rt_share:148.2,ci_rt:44.5,dgmv:48,bgmv:73.0,gmv_share:65.8,ci_gmv:19.7,conf:"LOW",n:2,headset:0,flags:["RT 148%: verify definition"]},
+  {state:"IA",phase:"stable",drt:5,brt:5.0,rt_share:100.0,ci_rt:3.0,dgmv:16,bgmv:16.0,gmv_share:100.0,ci_gmv:30.0,conf:"LOW",n:2,headset:0,flags:[]},
+  {state:"IL",phase:"maturing",drt:179,brt:306.1,rt_share:58.5,ci_rt:5.4,dgmv:1326,bgmv:1682.2,gmv_share:78.8,ci_gmv:15.3,conf:"HIGH",n:3,headset:1,flags:[]},
+  {state:"KY",phase:"launch",drt:12,brt:31.4,rt_share:38.2,ci_rt:11.5,dgmv:5,bgmv:50.0,gmv_share:10.0,ci_gmv:3.0,conf:"LOW",n:2,headset:0,flags:[]},
+  {state:"LA",phase:"stable",drt:27,brt:27.5,rt_share:98.2,ci_rt:4.4,dgmv:385,bgmv:152.6,gmv_share:252.3,ci_gmv:75.7,conf:"LOW",n:3,headset:0,flags:["GMV 252%: pharmacy model scope mismatch"]},
+  {state:"MA",phase:"mature",drt:371,brt:480.4,rt_share:77.2,ci_rt:8.8,dgmv:1801,bgmv:1617.6,gmv_share:111.3,ci_gmv:16.0,conf:"HIGH",n:3,headset:1,flags:["GMV 111%: 30-day annualization artifact"]},
+  {state:"MD",phase:"maturing",drt:107,brt:113.2,rt_share:94.5,ci_rt:2.8,dgmv:984,bgmv:1209.9,gmv_share:81.3,ci_gmv:3.9,conf:"HIGH",n:3,headset:1,flags:[]},
+  {state:"ME",phase:"maturing",drt:195,brt:266.5,rt_share:73.2,ci_rt:4.8,dgmv:252,bgmv:572.8,gmv_share:44.0,ci_gmv:13.2,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"MI",phase:"declining",drt:620,brt:857.5,rt_share:72.3,ci_rt:6.6,dgmv:3143,bgmv:2874.2,gmv_share:109.4,ci_gmv:18.9,conf:"HIGH",n:3,headset:1,flags:["GMV 109%: 30-day annualization artifact"]},
+  {state:"MN",phase:"launch",drt:80,brt:136.6,rt_share:58.6,ci_rt:17.6,dgmv:312,bgmv:214.0,gmv_share:145.8,ci_gmv:43.7,conf:"LOW",n:1,headset:0,flags:["GMV 146%: 30-day annualization artifact","OCM official: 127 retail sites, $214M annualized GMV (Feb 2026)"]},
+  {state:"MO",phase:"maturing",drt:203,brt:232.0,rt_share:87.5,ci_rt:5.0,dgmv:1709,bgmv:1565.9,gmv_share:109.1,ci_gmv:22.4,conf:"HIGH",n:2,headset:1,flags:["GMV 109%: 30-day annualization artifact"]},
+  {state:"MS",phase:"growth",drt:83,brt:198.1,rt_share:41.9,ci_rt:2.7,dgmv:97,bgmv:190.5,gmv_share:50.9,ci_gmv:15.3,conf:"MEDIUM",n:3,headset:0,flags:[]},
+  {state:"MT",phase:"maturing",drt:190,brt:501.8,rt_share:37.9,ci_rt:11.4,dgmv:191,bgmv:375.5,gmv_share:50.9,ci_gmv:15.3,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"ND",phase:"stable",drt:4,brt:8.0,rt_share:50.0,ci_rt:1.5,dgmv:0,bgmv:null,gmv_share:null,ci_gmv:null,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"NJ",phase:"growth",drt:213,brt:354.0,rt_share:60.2,ci_rt:6.9,dgmv:719,bgmv:1900.3,gmv_share:37.8,ci_gmv:11.4,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"NM",phase:"maturing",drt:182,brt:1156.8,rt_share:15.7,ci_rt:4.7,dgmv:290,bgmv:698.8,gmv_share:41.5,ci_gmv:12.4,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"NV",phase:"maturing",drt:90,brt:102.2,rt_share:88.1,ci_rt:6.7,dgmv:719,bgmv:718.0,gmv_share:100.1,ci_gmv:29.8,conf:"HIGH",n:3,headset:1,flags:["GMV 100%: Headset confirms near-complete market coverage"]},
+  {state:"NY",phase:"early_growth",drt:479,brt:958.5,rt_share:50.0,ci_rt:15.0,dgmv:1246,bgmv:2038.6,gmv_share:61.1,ci_gmv:4.1,conf:"HIGH",n:3,headset:1,flags:[]},
+  {state:"OH",phase:"early_growth",drt:205,brt:229.8,rt_share:89.2,ci_rt:21.7,dgmv:1411,bgmv:1769.0,gmv_share:79.8,ci_gmv:23.9,conf:"HIGH",n:2,headset:1,flags:[]},
+  {state:"OK",phase:"declining",drt:114,brt:1400.0,rt_share:8.1,ci_rt:0.4,dgmv:154,bgmv:1782.6,gmv_share:8.6,ci_gmv:2.6,conf:"MEDIUM",n:2,headset:0,flags:["~1,000 ghost licenses in denominator"]},
+  {state:"OR",phase:"mature",drt:412,brt:759.1,rt_share:54.3,ci_rt:1.6,dgmv:604,bgmv:883.9,gmv_share:68.3,ci_gmv:7.3,conf:"HIGH",n:3,headset:1,flags:[]},
+  {state:"PA",phase:"growth",drt:73,brt:193.4,rt_share:37.7,ci_rt:1.1,dgmv:396,bgmv:2265.3,gmv_share:17.5,ci_gmv:1.3,conf:"HIGH",n:3,headset:0,flags:[]},
+  {state:"PR",phase:"stable",drt:25,brt:227.0,rt_share:11.0,ci_rt:3.3,dgmv:30,bgmv:204.3,gmv_share:14.7,ci_gmv:4.4,conf:"LOW",n:1,headset:0,flags:[]},
+  {state:"RI",phase:"maturing",drt:7,brt:8.0,rt_share:87.4,ci_rt:2.6,dgmv:119,bgmv:162.1,gmv_share:73.4,ci_gmv:22.0,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"SD",phase:"stable",drt:47,brt:63.6,rt_share:73.9,ci_rt:2.2,dgmv:54,bgmv:67.4,gmv_share:80.1,ci_gmv:21.1,conf:"HIGH",n:3,headset:0,flags:[]},
+  {state:"TX",phase:"stable",drt:8,brt:14.7,rt_share:54.4,ci_rt:16.3,dgmv:6,bgmv:206.4,gmv_share:2.9,ci_gmv:0.9,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"UT",phase:"growth",drt:12,brt:17.5,rt_share:68.5,ci_rt:20.5,dgmv:74,bgmv:285.5,gmv_share:25.9,ci_gmv:7.8,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"VA",phase:"stable",drt:24,brt:30.5,rt_share:78.6,ci_rt:4.6,dgmv:183,bgmv:200.0,gmv_share:91.5,ci_gmv:27.4,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"VT",phase:"growth",drt:70,brt:111.2,rt_share:62.9,ci_rt:1.9,dgmv:117,bgmv:214.8,gmv_share:54.5,ci_gmv:16.3,conf:"MEDIUM",n:2,headset:0,flags:[]},
+  {state:"WA",phase:"declining",drt:169,brt:499.6,rt_share:33.8,ci_rt:1.7,dgmv:375,bgmv:1033.4,gmv_share:36.3,ci_gmv:3.9,conf:"HIGH",n:3,headset:1,flags:[]},
+  {state:"WV",phase:"stable",drt:45,brt:75.6,rt_share:59.5,ci_rt:1.8,dgmv:56,bgmv:64.3,gmv_share:87.0,ci_gmv:22.9,conf:"HIGH",n:3,headset:0,flags:[]},
+];
+
+const rtSrc={"AK":["CRB","EM","OFF"],"AL":["OVR"],"AR":["CRB","EM","OFF"],"AZ":["CRB","EM"],"CA":["CRB","EM"],"CO":["CRB","EM","OFF"],"CT":["CRB","EM","OFF"],"DC":["CRB","EM"],"DE":["CRB","EM"],"FL":["CRB","EM"],"GA":["CRB","EM"],"HI":["CRB","EM"],"IA":["CRB","EM","OFF"],"IL":["CRB","EM","OFF"],"KY":["CRB","EM"],"LA":["CRB","EM","OFF"],"MA":["CRB","EM","OFF"],"MD":["CRB","EM","OFF"],"ME":["CRB","EM"],"MI":["CRB","EM","OFF"],"MN":["OFF"],"MO":["CRB","EM"],"MS":["CRB","EM","OFF"],"MT":["CRB","EM"],"ND":["CRB","EM"],"NH":["CRB","EM"],"NJ":["CRB","EM"],"NM":["CRB","EM"],"NV":["CRB","EM","OFF"],"NY":["CRB","EM","OFF"],"OH":["CRB","EM"],"OK":["CRB","EM"],"OR":["CRB","EM","OFF"],"PA":["CRB","EM","OFF"],"PR":["EM"],"RI":["CRB","EM"],"SD":["CRB","EM","OFF"],"TX":["CRB","EM"],"UT":["CRB","EM"],"VA":["CRB","EM"],"VT":["CRB","EM"],"WA":["CRB","EM","OFF"],"WV":["CRB","EM","OFF"]};
+const gmvSrc={"AK":["MJB"],"AL":[],"AR":["MJB"],"AZ":["OFF","MJB","HS"],"CA":["OFF","MJB","HS"],"CO":["OFF","MJB","HS"],"CT":["MJB"],"DC":["MJB"],"DE":["MJB"],"FL":["MJB"],"GA":[],"HI":["MJB"],"IA":["MJB"],"IL":["OFF","MJB","HS"],"KY":["MJB"],"LA":["MJB"],"MA":["OFF","MJB","HS"],"MD":["OFF","MJB","HS"],"ME":["MJB"],"MI":["OFF","MJB","HS"],"MN":["OVR"],"MO":["OFF","MJB","HS"],"MS":["MJB"],"MT":["MJB"],"ND":[],"NH":["MJB"],"NJ":["MJB"],"NM":["MJB"],"NV":["OFF","MJB","HS"],"NY":["OFF","MJB","HS"],"OH":["OFF","MJB","HS"],"OK":["MJB"],"OR":["OFF","MJB","HS"],"PA":["OFF","MJB"],"PR":["MJB"],"RI":["MJB"],"SD":["MJB"],"TX":["MJB"],"UT":["MJB"],"VA":["MJB"],"VT":["MJB"],"WA":["OFF","MJB","HS"],"WV":["MJB"]};
+const srcLabel={"CRB":"CRB","EM":"Emerald","OFF":"Official","MJB":"MJ BIZ","HS":"Headset","OVR":"Override"};
+
+function badges(srcs){
+  if(!srcs||srcs.length===0) return '';
+  return '<div class="src-badges">'+srcs.map(s=>`<span class="sb sb-${s}" title="${srcLabel[s]||s}">${s==='OFF'?'Off.':s==='MJB'?'MJB':s}</span>`).join('')+'</div>';
+}
+
+const phaseColor={mature:"#888780",maturing:"#BA7517",early_growth:"#3B6D11",growth:"#3B6D11",launch:"#185fa5",declining:"#A32D2D",stable:"#888780"};
+const phaseLabel={mature:"Mature",maturing:"Maturing",early_growth:"Early growth",growth:"Growth",launch:"Launch",declining:"Declining",stable:"Stable/medical"};
+
+function shareColor(v){
+  if(v==null)return"rgba(4,32,23,0.3)";
+  if(v>100)return"#7a4a00";
+  if(v>=70)return"#2a6014";
+  if(v>=40)return"#7a5200";
+  return"rgba(4,32,23,0.5)";
+}
+function barColor(v){
+  if(v==null)return"rgba(4,32,23,0.1)";
+  if(v>=70)return"#6ABA48";
+  if(v>=40)return"#BA7517";
+  return"#A32D2D";
+}
+
+let sortCol="state",sortDir=1;
+
+function render(data){
+  const tbody=document.getElementById("tbl-body");
+  tbody.innerHTML="";
+  data.forEach(r=>{
+    const rt_lo=r.rt_share!=null?Math.max(0,r.rt_share-r.ci_rt).toFixed(1):null;
+    const rt_hi=r.rt_share!=null?(r.rt_share+r.ci_rt).toFixed(1):null;
+    const gmv_lo=r.gmv_share!=null?Math.max(0,r.gmv_share-r.ci_gmv).toFixed(1):null;
+    const gmv_hi=r.gmv_share!=null?(r.gmv_share+r.ci_gmv).toFixed(1):null;
+    const rtPct=r.rt_share?Math.min(r.rt_share,100):0;
+    const gmvPct=r.gmv_share?Math.min(r.gmv_share,100):0;
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+<td class="st">${r.state}</td>
+<td><div class="phase-cell"><span class="phase-dot" style="background:${phaseColor[r.phase]||"#888"}"></span><span class="phase-txt" style="color:${phaseColor[r.phase]||"#888"}">${phaseLabel[r.phase]||r.phase}</span></div></td>
+<td class="num">${r.drt.toLocaleString()}</td>
+<td class="num"><div>${r.brt?Math.round(r.brt).toLocaleString():"—"}</div>${badges(rtSrc[r.state]||[])}</td>
+<td class="share-cell"><div class="bar-row"><div class="bar-bg"><div class="bar-fg" style="width:${rtPct.toFixed(1)}%;background:${barColor(r.rt_share)};opacity:${r.rt_share>100?0.45:1}"></div></div><div><div class="share-val" style="color:${shareColor(r.rt_share)}">${r.rt_share!=null?r.rt_share.toFixed(1)+"%":"—"}</div>${rt_lo!=null?`<div class="ci-range">${rt_lo}–${rt_hi}%</div>`:""}</div></div></td>
+<td class="num">${r.dgmv.toLocaleString()}</td>
+<td class="num"><div>${r.bgmv?Math.round(r.bgmv).toLocaleString():"—"}</div>${badges(gmvSrc[r.state]||[])}</td>
+<td class="share-cell"><div class="bar-row"><div class="bar-bg"><div class="bar-fg" style="width:${gmvPct.toFixed(1)}%;background:${barColor(r.gmv_share)};opacity:${r.gmv_share>100?0.45:1}"></div></div><div><div class="share-val" style="color:${shareColor(r.gmv_share)}">${r.gmv_share!=null?r.gmv_share.toFixed(1)+"%":"—"}</div>${gmv_lo!=null?`<div class="ci-range">${gmv_lo}–${gmv_hi}%</div>`:""}</div></div></td>
+<td><span class="conf-badge conf-${r.conf[0]}">${r.conf}</span></td>
+<td>${r.flags.length?`<div class="flag-txt">${r.flags[0]}</div>`:'<span class="src-count" style="color:rgba(4,32,23,0.25)">—</span>'}</td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("count-lbl").textContent=`Showing ${data.length} of ${rows.length} states`;
+  updateSummary(data);
+}
+
+const totalDRT=rows.reduce((a,r)=>a+r.drt,0);
+const totalDGMV=rows.reduce((a,r)=>a+r.dgmv,0);
+const totalMRT=Math.round(rows.reduce((a,r)=>a+(r.brt||0),0));
+const totalMGMV=rows.reduce((a,r)=>a+(r.bgmv||0),0);
+document.getElementById("total-rt").textContent=totalDRT.toLocaleString();
+document.getElementById("total-gmv").textContent=totalDGMV.toLocaleString();
+document.getElementById("total-mkt-rt").textContent=totalMRT.toLocaleString();
+document.getElementById("total-mkt-gmv").textContent="$"+(totalMGMV/1000).toFixed(1)+"B";
+const vr0=rows.filter(r=>r.rt_share!=null&&r.rt_share<=110);
+const wrt0=vr0.reduce((a,r)=>a+r.drt,0)/(vr0.reduce((a,r)=>a+(r.brt||0),0)||1)*100;
+document.getElementById("wrt-val").textContent=isNaN(wrt0)?"—":wrt0.toFixed(1)+"%";
+const vg0=rows.filter(r=>r.gmv_share!=null&&r.gmv_share<=110);
+const wgmv0=vg0.reduce((a,r)=>a+r.dgmv,0)/(vg0.reduce((a,r)=>a+(r.bgmv||0),0)||1)*100;
+document.getElementById("wgmv-val").textContent=isNaN(wgmv0)?"—":wgmv0.toFixed(1)+"%";
+setTimeout(()=>{
+  if(!isNaN(wrt0))document.getElementById("rt-bar").style.width=Math.min(wrt0,100).toFixed(1)+"%";
+  if(!isNaN(wgmv0))document.getElementById("gmv-bar").style.width=Math.min(wgmv0,100).toFixed(1)+"%";
+},100);
+
+function updateSummary(data){
+  const vr=data.filter(r=>r.rt_share!=null&&r.rt_share<=110);
+  const vg=data.filter(r=>r.gmv_share!=null&&r.gmv_share<=110);
+  const wrt=vr.reduce((a,r)=>a+r.drt,0)/(vr.reduce((a,r)=>a+(r.brt||0),0)||1)*100;
+  const wgmv=vg.reduce((a,r)=>a+r.dgmv,0)/(vg.reduce((a,r)=>a+(r.bgmv||0),0)||1)*100;
+  document.getElementById("wrt-val").textContent=isNaN(wrt)?"—":wrt.toFixed(1)+"%";
+  document.getElementById("wgmv-val").textContent=isNaN(wgmv)?"—":wgmv.toFixed(1)+"%";
+  document.getElementById("state-count-val").textContent=data.length;
+  if(!isNaN(wrt))document.getElementById("rt-bar").style.width=Math.min(wrt,100).toFixed(1)+"%";
+  if(!isNaN(wgmv))document.getElementById("gmv-bar").style.width=Math.min(wgmv,100).toFixed(1)+"%";
+}
+
+function getVal(r,col){
+  return({state:r.state,phase:r.phase,drt:r.drt,brt:r.brt||0,rt_share:r.rt_share||0,dgmv:r.dgmv,bgmv:r.bgmv||0,gmv_share:r.gmv_share||0,conf:r.conf,sources:r.n})[col]??0;
+}
+
+function filtered(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const ph=document.getElementById("phase-filter").value;
+  const cf=document.getElementById("conf-filter").value;
+  return rows.filter(r=>{
+    if(q&&!r.state.toLowerCase().includes(q))return false;
+    if(ph){
+      const pg=ph==="growth"?(r.phase==="growth"||r.phase==="early_growth"):
+               ph==="stable"?(r.phase==="stable"||r.phase==="mature"):
+               r.phase===ph;
+      if(!pg)return false;
+    }
+    if(cf&&r.conf!==cf)return false;
+    return true;
+  }).sort((a,b)=>{
+    const av=getVal(a,sortCol),bv=getVal(b,sortCol);
+    return typeof av==="string"?av.localeCompare(bv)*sortDir:(av-bv)*sortDir;
+  });
+}
+
+document.querySelectorAll("th[data-col]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const col=th.getAttribute("data-col");
+    if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=col==="state"?1:-1;}
+    document.querySelectorAll("th").forEach(t=>t.classList.remove("sort-asc","sort-desc"));
+    th.classList.add(sortDir===1?"sort-asc":"sort-desc");
+    render(filtered());
+  });
+});
+
+["search","phase-filter","conf-filter"].forEach(id=>{
+  document.getElementById(id).addEventListener("input",()=>render(filtered()));
+});
+
+render(filtered());
+</script>
+</body>
+</html>
